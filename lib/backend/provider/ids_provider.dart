@@ -1,7 +1,7 @@
 import 'package:geekbooks/backend/functions/math/math.dart';
 
 class IdProvider {
-  Future<List<String>> idAsList(source) async {
+  List<String> idAsList(source) {
     List<String> idList = [];
     final idsExp = XMath.idsExp;
     var ids = idsExp.allMatches(source);
@@ -11,7 +11,7 @@ class IdProvider {
     return idList;
   }
 
-  static Future<String> idAsString(source) async {
+  static String idAsString(source) {
     String idString = "";
     String returnString = "";
     final idsExp = XMath.idsExp;

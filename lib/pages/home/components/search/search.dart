@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geekbooks/backend/calls/api_calls.dart';
+import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/page/page.dart';
+import 'package:geekbooks/pages/results/result.dart';
 import 'package:geekbooks/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 
@@ -77,15 +79,17 @@ class _SearchbarState extends State<Searchbar> {
 
   searchQuery(String query, ThemeProvider theme, SizingInformation info) async {
     widget.focus.unfocus();
-    if (query != "") {
+    String string =
+        query.removeAllWhitespace.toString().replaceAll(Str.space, Str.none);
+    if (string.length > 0) {
       Get.dialog(
         Dialog(
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          child: FutureBuilder<PagePack>(
+          child: FutureBuilder<PagePack?>(
             future: ApiCalls().getPagePack(query),
-            builder: (context, AsyncSnapshot<PagePack> snapshot) {
+            builder: (context, AsyncSnapshot<PagePack?> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {
                   PagePack pack = snapshot.data!;
@@ -100,7 +104,7 @@ class _SearchbarState extends State<Searchbar> {
                         KLeafButton(
                           onPressed: () {
                             if (Get.isDialogOpen!) Get.back();
-                            // Get.to(() => SearchResults(pack: pack));
+                            Get.to(() => SearchResults(pack));
                           },
                           height: R.w(info, 15),
                           width: R.w(info, 35),

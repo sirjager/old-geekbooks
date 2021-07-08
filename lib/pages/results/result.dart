@@ -8,6 +8,7 @@ import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/core/dialog/dialogs.dart';
 
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/download/book/book.dart';
 
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/page/pagination.dart';
@@ -18,9 +19,8 @@ import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
 
 class SearchResults extends StatefulWidget {
-  const SearchResults({Key? key, required this.pack}) : super(key: key);
+  const SearchResults(this.pack, {Key? key}) : super(key: key);
   final PagePack pack;
-
   @override
   _SearchResultsState createState() => _SearchResultsState();
 }
@@ -76,8 +76,10 @@ class _SearchResultsState extends State<SearchResults> {
             if (Get.isDialogOpen!) {
               Get.back();
             }
-            pageination = makePageNavigator(pac.info);
-            newPack = pac;
+            if (pac != null) {
+              pageination = makePageNavigator(pac.info);
+              newPack = pac;
+            }
           });
         }
       }
@@ -278,7 +280,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                                 width: R.w(
                                                                     info, 36),
                                                                 imageURL: book
-                                                                    .coverUrl,
+                                                                    .coverURL,
                                                               ),
                                                             ),
                                                           ],
@@ -549,8 +551,8 @@ class _SearchResultsState extends State<SearchResults> {
     );
   }
 
-  Widget buildRowCard(SizingInformation info, Result book, ThemeProvider theme,
-      List<Result> books) {
+  Widget buildRowCard(SizingInformation info, Book book, ThemeProvider theme,
+      List<Book> books) {
     return Container(
       decoration: theme.isDarkMode
           ? BoxDecoration(
@@ -581,7 +583,7 @@ class _SearchResultsState extends State<SearchResults> {
                   radius: 10,
                   height: R.w(info, 30),
                   width: R.w(info, 20),
-                  imageURL: book.coverUrl,
+                  imageURL: book.coverURL,
                 ),
               ),
             ),

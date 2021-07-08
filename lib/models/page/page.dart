@@ -1,4 +1,4 @@
-import 'package:geekbooks/backend/export/backend_export.dart';
+import 'package:geekbooks/models/download/book/book.dart';
 import 'package:geekbooks/models/sort/sort.dart';
 
 class PageInfo {
@@ -32,6 +32,6 @@ class PagePack {
 
   final String query;
   final Sort? sort;
-  final List<Result> books;
+  final List<Book> books;
   final PageInfo info;
 }
