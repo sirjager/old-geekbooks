@@ -5,3 +5,5 @@ export 'package:geekbooks/backend/provider/book_provider.dart';
 export 'package:geekbooks/backend/provider/ids_provider.dart';
 export 'package:geekbooks/backend/strings/backend_strings.dart';
 export 'package:geekbooks/models/result/result.dart';
+
+export 'package:geekbooks/models/page/pack.dart';

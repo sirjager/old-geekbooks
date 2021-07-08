@@ -1,11 +1,13 @@
 import 'package:geekbooks/backend/base/base_client.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
+
 import 'package:geekbooks/backend/err/error_handler.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/backend/provider/page_provider.dart';
 import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
 import 'package:geekbooks/models/download/book/book.dart';
+
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/sort/sort.dart';
 import 'package:string_validator/string_validator.dart';
@@ -13,6 +15,7 @@ import 'package:string_validator/string_validator.dart';
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
   Future<PagePack?> getPagePack(String query, {String pageNo = "1"}) async {
+    PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
     PageInfo _pageInfo = PageInfo();
@@ -25,16 +28,21 @@ class ApiCalls with ErrorHandler {
       if (idAsString.length > 0) {
         final _jsonURL = _makeJsonURL(idAsString);
         _books = await _getSearchResults(_jsonURL, query);
-        _sort =  SortProvider().sortAsObject(_source);
-        _pageInfo =  PageProvider().pageAsObject(_source);
+        _sort = SortProvider().sortAsObject(_source);
+        _pageInfo = PageProvider().pageAsObject(_source);
       }
     }
-    return new PagePack(
+
+    _pagePack = new PagePack(
       query: query,
       books: _books,
       sort: _sort,
       info: _pageInfo,
     );
+
+    if (_books.length > 0) {}
+
+    return _pagePack;
   }
 
   //!==================================  [[ 1 ]]

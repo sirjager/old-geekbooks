@@ -6,7 +6,7 @@ class SecureStorage {
   Future<void> saveData(String key, value) async =>
       await _secXstorage.write(key: key, value: value);
 
-  Future<String?> readStorage(String key) async {
+  Future<String?> readData(String key) async {
     var _readData = await _secXstorage.read(key: key);
     return _readData;
   }
