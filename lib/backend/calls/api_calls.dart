@@ -1,46 +1,59 @@
 import 'package:geekbooks/backend/base/base_client.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
-
+import 'package:geekbooks/backend/crypt/encpack.dart';
+import 'package:geekbooks/backend/database/hive.dart';
 import 'package:geekbooks/backend/err/error_handler.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/backend/provider/page_provider.dart';
 import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
+import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/models/download/book/book.dart';
-
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/sort/sort.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:string_validator/string_validator.dart';
 
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
   Future<PagePack?> getPagePack(String query, {String pageNo = "1"}) async {
+    Box<EncPack> _box = await HiveStorage.openBox("pagx");
     PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
+
     PageInfo _pageInfo = PageInfo();
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
+    EncPack? _encPack = await HiveStorage.getPack(_box, _valid);
+    if (_encPack != null) {
+      log.i("Found $_valid Returning Saved Data");
+      return _encPack.pack;
+    }
     final _source = await _getSource(_url, pageNo, query);
-
     if (_source != null) {
       final idAsString = IdProvider.idAsString(_source);
       if (idAsString.length > 0) {
         final _jsonURL = _makeJsonURL(idAsString);
-        _books = await _getSearchResults(_jsonURL, query);
-        _sort = SortProvider().sortAsObject(_source);
-        _pageInfo = PageProvider().pageAsObject(_source);
+        final _json = await _getJson(_jsonURL, query);
+        if (_json != null) {
+          _books = await _getSearchResults(_json);
+          _sort = SortProvider().sortAsObject(_source);
+          _pageInfo = PageProvider().pageAsObject(_source);
+          _pagePack = new PagePack(
+            query: query,
+            books: _books,
+            sort: _sort,
+            info: _pageInfo,
+          );
+          if (_books.length > 0) {
+            EncPack _enc = EncPack(query: query, pack: _pagePack);
+            await HiveStorage.savePack(_box, _valid, _enc);
+            log.i("Saved $query To Hive Storage");
+          }
+        }
       }
     }
-
-    _pagePack = new PagePack(
-      query: query,
-      books: _books,
-      sort: _sort,
-      info: _pageInfo,
-    );
-
-    if (_books.length > 0) {}
 
     return _pagePack;
   }
@@ -50,15 +63,13 @@ class ApiCalls with ErrorHandler {
     //!====> This Provide [[ Source ]] with {{ defaults }} for provided {{ query }}
     final bool _isURL = isURL(_uri);
     if (_isURL) {
-      return await BaseClient().makeRequest(_uri, msg);
+      return await BaseClient().makeRequest(_uri, msg).catchError(handleError);
     } else
       return null;
   }
 
   //!==================================  [[ 3 ]]
-  Future<List<Book>> _getSearchResults(_jsonURL, String msg) async {
-    final json =
-        await BaseClient().makeRequest(_jsonURL, "☁️json_results : $msg");
+  Future<List<Book>> _getSearchResults(json) async {
     if (json == null) return [];
     List<Book> books = await BookProvider().build(json);
     return books;
@@ -69,7 +80,9 @@ class ApiCalls with ErrorHandler {
     final String url =
         ApiLenks.jsonUrl + Str.ids + bid + Str.fields + Str.normalSet;
     print(url);
-    var res = await BaseClient().makeRequest(url, 'BOOK ID : $bid');
+    var res = await BaseClient()
+        .makeRequest(url, 'BOOK ID : $bid')
+        .catchError(handleError);
     if (res == null) return null;
     List<Book> books = await BookProvider().build(res);
     return books.first;
@@ -91,4 +104,10 @@ class ApiCalls with ErrorHandler {
 
   String _makeJsonURL(String ids) =>
       ApiLenks.jsonUrl + Str.ids + ids + Str.fields + Str.normalSet;
+
+  Future<dynamic> _getJson(_jsonURL, String msg) async {
+    return await BaseClient()
+        .makeRequest(_jsonURL, "☁️json_results : $msg")
+        .catchError(handleError);
+  }
 }
