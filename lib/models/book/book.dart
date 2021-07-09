@@ -1,21 +1,6 @@
 import 'package:geekbooks/models/lenk/lenk.dart';
 
 class Book {
-  final String? id;
-  final String? md5;
-  final String? title;
-  final String? author;
-  final String? series;
-  final String? publisher;
-  final String? year;
-  final String? language;
-  final String? pages;
-  final String? exten;
-  final String? torrent;
-  final String? coverURL;
-  final String? desc;
-  final List<String> tags;
-  final List<Lenk>? downloads;
   Book({
     required this.id,
     required this.md5,
@@ -31,6 +16,20 @@ class Book {
     required this.coverURL,
     required this.desc,
     required this.tags,
-    required this.downloads,
   });
+
+  final String? id;
+  final String? md5;
+  final String? title;
+  final String? author;
+  final String? series;
+  final String? publisher;
+  final String? year;
+  final String? language;
+  final String? pages;
+  final String? exten;
+  final String? torrent;
+  final String? coverURL;
+  final String? desc;
+  final List<String> tags;
 }

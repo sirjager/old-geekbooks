@@ -4,11 +4,14 @@ import 'package:geekbooks/backend/crypt/encpack.dart';
 import 'package:geekbooks/backend/database/hive.dart';
 import 'package:geekbooks/backend/err/error_handler.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
+import 'package:geekbooks/backend/provider/down_provider.dart';
 import 'package:geekbooks/backend/provider/page_provider.dart';
 import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
 import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/lenk/lenk.dart';
+
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/sort/sort.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -29,7 +32,7 @@ class ApiCalls with ErrorHandler {
       log.i("Found $_valid Returning Saved Data");
       return _encPack.pack;
     }
-    final _source = await getSource(_url, query);
+    final _source = await _getSource(_url, query);
     if (_source != null) {
       final idAsString = IdProvider.idAsString(_source);
       if (idAsString.length > 0) {
@@ -58,7 +61,7 @@ class ApiCalls with ErrorHandler {
   }
 
   //!==================================  [[ 1 ]]
-  Future<dynamic> getSource(String _uri, String msg) async {
+  Future<dynamic> _getSource(String _uri, String msg) async {
     //!====> This Provide [[ Source ]] with {{ defaults }} for provided {{ query }}
     final bool _isURL = isURL(_uri);
     if (_isURL) {
@@ -87,10 +90,20 @@ class ApiCalls with ErrorHandler {
     return books.first;
   }
 
+  Future<List<Lenk>?> getLenx(String md5, String msg) async {
+    //!==> This will return  [[ Downloads ]] as Download Object for provided md5
+    final _url = _makeGraberURL(md5);
+    final _downSource = await _getSource(_url, msg);
+    if (_downSource == null) return null;
+    return Grabber.getLenks(_downSource);
+  }
+
   String _makeValid(String query) => query.replaceAll(Str.space, Str.none);
 
   String _makeURL(String valid, {String pageNo = "1"}) =>
       ApiLenks.searchUrl + valid + Str.page + pageNo;
+
+  String _makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;
 
   String _makeJsonURL(String ids) =>
       ApiLenks.jsonUrl + Str.ids + ids + Str.fields + Str.normalSet;
