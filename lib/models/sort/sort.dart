@@ -2,8 +2,8 @@ import 'package:hive/hive.dart';
 
 part 'sort.g.dart';
 
-@HiveType(typeId: 4)
-class Sort {
+@HiveType(typeId: 3)
+class Sort extends HiveObject {
   Sort({
     required this.sortById,
     required this.sortByAuthor,
