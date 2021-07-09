@@ -38,24 +38,29 @@ class ApiCalls with ErrorHandler {
     if (_source != null) {
       final idAsString = IdProvider.idAsString(_source);
       if (idAsString.length > 0) {
-        final _jsonURL = _makeJsonURL(idAsString);
-        final _json = await _getJson(_jsonURL, query);
-        if (_json != null) {
-          _books = await _getSearchResults(_json);
-          _sort = SortProvider().sortAsObject(_source);
-          _pageInfo = PageProvider().pageAsObject(_source);
-          _pagePack = new PagePack(
-            query: query,
-            books: _books,
-            sort: _sort,
-            info: _pageInfo,
-          );
-          if (_books.length > 0) {
-            // EncPack _enc = EncPack(query: query, pack: _pagePack);
-            // await _box.put(_valid, _enc);
-            log.i("Saved $query To Hive Storage");
+        final _idList = _idAsList(idAsString);
+        final List<Book> _booksFromHive = await HiveCalls.getHiveBooks(_idList);
+        if (_booksFromHive.length > 0) {
+          //! Fetching Books from Local Database
+          _books = _booksFromHive;
+        } else {
+          //! Fetching Books from internet
+          final _jsonURL = _makeJsonURL(idAsString);
+          final _json = await _getJson(_jsonURL, query);
+          if (_json != null) {
+            _books = await _getSearchResults(_json);
           }
         }
+
+        _sort = SortProvider().sortAsObject(_source);
+        _pageInfo = PageProvider().pageAsObject(_source);
+
+        _pagePack = new PagePack(
+          query: query,
+          books: _books,
+          sort: _sort,
+          info: _pageInfo,
+        );
       }
     }
 
@@ -117,4 +122,7 @@ class ApiCalls with ErrorHandler {
         .makeRequest(_jsonURL, "☁️json_results : $msg")
         .catchError(handleError);
   }
+
+  List<String> _idAsList(String idAsString) =>
+      idAsString.split(Str.coma).toList();
 }
