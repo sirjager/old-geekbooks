@@ -1,35 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'request.dart';
+part of 'downlenk.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class KRequestAdapter extends TypeAdapter<KRequest> {
+class DownLenksAdapter extends TypeAdapter<DownLenks> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  KRequest read(BinaryReader reader) {
+  DownLenks read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return KRequest(
-      url: fields[0] as String,
-      response: fields[1] as dynamic,
+    return DownLenks(
+      id: fields[0] as String,
+      md5: fields[1] as String,
+      get: fields[2] as String,
+      cfa: fields[3] as String,
+      ips: fields[4] as String,
+      inf: fields[5] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, KRequest obj) {
+  void write(BinaryWriter writer, DownLenks obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.url)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.response);
+      ..write(obj.md5)
+      ..writeByte(2)
+      ..write(obj.get)
+      ..writeByte(3)
+      ..write(obj.cfa)
+      ..writeByte(4)
+      ..write(obj.ips)
+      ..writeByte(5)
+      ..write(obj.inf);
   }
 
   @override
@@ -38,7 +50,7 @@ class KRequestAdapter extends TypeAdapter<KRequest> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KRequestAdapter &&
+      other is DownLenksAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
