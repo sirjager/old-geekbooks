@@ -33,6 +33,11 @@ class ApiCalls with ErrorHandler {
       _source = _hiveSource;
     } else {
       _source = await _getSource(_url, query);
+      if (_source != null && _source.toString().length > 100) {
+        final Box<PageSource> _box = await HiveSauce.openBox("source");
+        await HiveSauce.putData(_box, _valid, _source);
+        log.w("Saved New Source For $_valid");
+      }
     }
 
     if (_source != null) {
@@ -49,12 +54,15 @@ class ApiCalls with ErrorHandler {
           final _json = await _getJson(_jsonURL, query);
           if (_json != null) {
             _books = await _getSearchResults(_json);
+            final Box<Book> _box = await HiveBooks.openBox("books");
+            for (Book bok in _books) {
+              await _box.put(bok.id, bok);
+              print("saved ${bok.title} Offline !");
+            }
           }
         }
-
         _sort = SortProvider().sortAsObject(_source);
         _pageInfo = PageProvider().pageAsObject(_source);
-
         _pagePack = new PagePack(
           query: query,
           books: _books,
