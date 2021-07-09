@@ -1,7 +1,5 @@
 import 'package:geekbooks/backend/base/base_client.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
-import 'package:geekbooks/backend/crypt/encpack.dart';
-import 'package:geekbooks/backend/database/hive.dart';
 import 'package:geekbooks/backend/err/error_handler.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/backend/provider/down_provider.dart';
@@ -10,6 +8,7 @@ import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
 import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/download/downlenk.dart';
 import 'package:geekbooks/models/lenk/lenk.dart';
 
 import 'package:geekbooks/models/page/page.dart';
@@ -27,11 +26,11 @@ class ApiCalls with ErrorHandler {
     PageInfo _pageInfo = PageInfo();
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
-    EncPack? _encPack = _box.get(_valid);
-    if (_encPack != null) {
-      log.i("Found $_valid Returning Saved Data");
-      return _encPack.pack;
-    }
+    // EncPack? _encPack = _box.get(_valid);
+    // if (_encPack != null) {
+    //   log.i("Found $_valid Returning Saved Data");
+    //   // return _encPack.pack;
+    // }
     final _source = await _getSource(_url, query);
     if (_source != null) {
       final idAsString = IdProvider.idAsString(_source);
@@ -49,8 +48,8 @@ class ApiCalls with ErrorHandler {
             info: _pageInfo,
           );
           if (_books.length > 0) {
-            EncPack _enc = EncPack(query: query, pack: _pagePack);
-            await _box.put(_valid, _enc);
+            // EncPack _enc = EncPack(query: query, pack: _pagePack);
+            // await _box.put(_valid, _enc);
             log.i("Saved $query To Hive Storage");
           }
         }
@@ -90,12 +89,14 @@ class ApiCalls with ErrorHandler {
     return books.first;
   }
 
-  Future<List<Lenk>?> getLenx(String md5, String msg) async {
+  Future<DownLenks?> getDownLenx(String md5, String id, String msg) async {
     //!==> This will return  [[ Downloads ]] as Download Object for provided md5
     final _url = _makeGraberURL(md5);
     final _downSource = await _getSource(_url, msg);
     if (_downSource == null) return null;
-    return Grabber.getLenks(_downSource);
+    var _lenk = Grabber.getLenks(_downSource);
+    final DownLenks _downLenx = DownLenks.generate(id, md5, _lenk);
+    return _downLenx;
   }
 
   String _makeValid(String query) => query.replaceAll(Str.space, Str.none);

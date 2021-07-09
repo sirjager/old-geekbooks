@@ -2,7 +2,7 @@ import 'package:geekbooks/backend/regex/regex.dart';
 import 'package:geekbooks/models/lenk/lenk.dart';
 
 class Grabber {
-  static List<Lenk>? getLenks(_downSource) {
+  static List<Lenk> getLenks(_downSource) {
     final downReg = RegX.downloads;
     List<Lenk> _lenx = [];
     final _all = downReg.allMatches(_downSource).toList();
@@ -13,7 +13,7 @@ class Grabber {
         _lenx.add(Lenk(_ti, _le));
       }
     }
-    if (_lenx.length < 1) return null;
+    if (_lenx.length < 1) return [];
     return _lenx;
   }
 }

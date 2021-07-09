@@ -1,3 +1,8 @@
+import 'package:hive/hive.dart';
+
+part 'sort.g.dart';
+
+@HiveType(typeId: 0)
 class Sort {
   Sort({
     required this.sortById,
@@ -11,13 +16,22 @@ class Sort {
     required this.sortByExtension,
   });
 
+  @HiveField(0)
   final String? sortById;
+  @HiveField(1)
   final String? sortByAuthor;
+  @HiveField(2)
   final String? sortByTitle;
+  @HiveField(3)
   final String? sortByPublisher;
+  @HiveField(4)
   final String? sortByYear;
+  @HiveField(5)
   final String? sortByPages;
+  @HiveField(6)
   final String? sortByLanguage;
+  @HiveField(7)
   final String? sortBySize;
+  @HiveField(8)
   final String? sortByExtension;
 }
