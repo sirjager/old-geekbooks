@@ -8,7 +8,7 @@ import 'package:geekbooks/backend/provider/page_provider.dart';
 import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
 import 'package:geekbooks/core/log/log.dart';
-import 'package:geekbooks/models/download/book/book.dart';
+import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/sort/sort.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -29,7 +29,7 @@ class ApiCalls with ErrorHandler {
       log.i("Found $_valid Returning Saved Data");
       return _encPack.pack;
     }
-    final _source = await _getSource(_url, pageNo, query);
+    final _source = await getSource(_url, query);
     if (_source != null) {
       final idAsString = IdProvider.idAsString(_source);
       if (idAsString.length > 0) {
@@ -58,7 +58,7 @@ class ApiCalls with ErrorHandler {
   }
 
   //!==================================  [[ 1 ]]
-  Future<dynamic> _getSource(String _uri, String pageNo, String msg) async {
+  Future<dynamic> getSource(String _uri, String msg) async {
     //!====> This Provide [[ Source ]] with {{ defaults }} for provided {{ query }}
     final bool _isURL = isURL(_uri);
     if (_isURL) {
@@ -86,15 +86,6 @@ class ApiCalls with ErrorHandler {
     List<Book> books = await BookProvider().build(res);
     return books.first;
   }
-
-  // Future<dynamic> downloadBook(String md5) async {
-  //   //!==> This will return  [[ Downloads ]] as Download Object for provided md5
-  //   final String url = ApiLenks.downloadWithMd5 + md5;
-  //   var res = await BaseClient().makeRequest(url, 'Download : $md5');
-  //   if (res == null) return null;
-  //   Downloads downloads = await Grabber().getLenks(res);
-  //   return downloads;
-  // }
 
   String _makeValid(String query) => query.replaceAll(Str.space, Str.none);
 

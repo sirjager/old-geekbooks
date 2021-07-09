@@ -1,4 +1,4 @@
-import 'package:geekbooks/models/download/download.dart';
+import 'package:geekbooks/models/lenk/lenk.dart';
 
 class Book {
   final String? id;
@@ -15,7 +15,7 @@ class Book {
   final String? coverURL;
   final String? desc;
   final List<String> tags;
-  final Downloads? downloads;
+  final List<Lenk>? downloads;
   Book({
     required this.id,
     required this.md5,

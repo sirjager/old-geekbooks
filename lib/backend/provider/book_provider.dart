@@ -1,8 +1,11 @@
+import 'package:geekbooks/backend/calls/api_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
 import 'package:geekbooks/backend/functions/math/math.dart';
 import 'package:geekbooks/backend/functions/translate/translator.dart';
+import 'package:geekbooks/backend/provider/down_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
-import 'package:geekbooks/models/download/book/book.dart';
+import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/lenk/lenk.dart';
 import 'package:geekbooks/models/stock/stock.dart';
 
 class BookProvider {
@@ -39,7 +42,7 @@ class VerifyStock {
     var _cover = await checkImageUrl(stock.coverURL, _md5);
     var _desc = await checkTranslation(stock.desc, len: 8);
     var _tags = await checkTags(stock.tags, len: 4);
-    // var _downloads = await downloadBook(_md5!);
+    var _downloads = await _downLenX(_md5, _title);
 
     var _book = new Book(
       id: _id,
@@ -56,7 +59,7 @@ class VerifyStock {
       coverURL: _cover,
       desc: _desc,
       tags: _tags,
-      downloads: null,
+      downloads: _downloads,
     );
     return _book;
   }
@@ -147,12 +150,16 @@ class VerifyStock {
     return returnValue;
   }
 
-  // Future<Downloads?> downloadBook(String md5) async {
-  //   final url = ApiLenks.downloadWithMd5 + md5;
-  //   final res = await BaseClient().makeRequest(url, md5);
-  //   Downloads? downloads;
-  //   if (res != null && res != "") downloads = await Grabber().getLenks(res);
+  Future<List<Lenk>?> _downLenX(md5, title) async {
+    if (md5.toString().length > 3) {
+      final _url = _makeGraberURL(md5);
+      final _downSource = await ApiCalls().getSource(_url, title);
+      if (_downSource == null) return null;
+      final List<Lenk> _lex = Grabber.getLenks(_downSource);
+      if (_lex.length < 1) return null;
+      return _lex;
+    }
+  }
 
-  //   return downloads;
-  // }
+  String _makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;
 }

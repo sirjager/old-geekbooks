@@ -1,4 +1,4 @@
-import 'package:geekbooks/models/download/book/book.dart';
+import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/sort/sort.dart';
 
