@@ -2,7 +2,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorage {
   final _secXstorage = FlutterSecureStorage();
-
   Future<void> saveData(String key, value) async =>
       await _secXstorage.write(key: key, value: value);
 

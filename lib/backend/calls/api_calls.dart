@@ -20,14 +20,14 @@ import 'package:string_validator/string_validator.dart';
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
   Future<PagePack?> getPagePack(String query, {String pageNo = "1"}) async {
-    Box<EncPack> _box = await HiveStorage.openBox("pagx");
+    Box<EncPack> _box = await Hive.openBox<EncPack>("enxpax");
     PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
     PageInfo _pageInfo = PageInfo();
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
-    EncPack? _encPack = await HiveStorage.getPack(_box, _valid);
+    EncPack? _encPack = _box.get(_valid);
     if (_encPack != null) {
       log.i("Found $_valid Returning Saved Data");
       return _encPack.pack;
@@ -50,7 +50,7 @@ class ApiCalls with ErrorHandler {
           );
           if (_books.length > 0) {
             EncPack _enc = EncPack(query: query, pack: _pagePack);
-            await HiveStorage.savePack(_box, _valid, _enc);
+            await _box.put(_valid, _enc);
             log.i("Saved $query To Hive Storage");
           }
         }
