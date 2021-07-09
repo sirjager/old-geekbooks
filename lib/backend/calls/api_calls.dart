@@ -1,5 +1,7 @@
 import 'package:geekbooks/backend/base/base_client.dart';
+import 'package:geekbooks/backend/calls/hive_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
+import 'package:geekbooks/backend/database/hive.dart';
 import 'package:geekbooks/backend/err/error_handler.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/backend/provider/down_provider.dart';
@@ -10,7 +12,9 @@ import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/download/downlenk.dart';
 import 'package:geekbooks/models/page/page.dart';
+import 'package:geekbooks/models/page/pagesource.dart';
 import 'package:geekbooks/models/sort/sort.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:string_validator/string_validator.dart';
 
 class ApiCalls with ErrorHandler {
@@ -23,7 +27,14 @@ class ApiCalls with ErrorHandler {
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
 
-    final _source = await _getSource(_url, query);
+    final _hiveSource = await HiveCalls.getHiveSauce(_valid);
+    dynamic _source;
+    if (_hiveSource != null) {
+      _source = _hiveSource;
+    } else {
+      _source = await _getSource(_url, query);
+    }
+
     if (_source != null) {
       final idAsString = IdProvider.idAsString(_source);
       if (idAsString.length > 0) {

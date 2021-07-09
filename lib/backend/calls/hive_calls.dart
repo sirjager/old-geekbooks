@@ -1,23 +1,24 @@
 import 'package:geekbooks/backend/database/hive.dart';
+import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/page/pagesource.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveCalls {
-  static Future doesExist(String key) async {
-    final _pageBox = await HivePageInfo.openBox("pgbox");
-    final _pageInfo = await HivePageInfo.getData(_pageBox, key);
-    if (_pageInfo == null) return null;
-    //!========> Opening Boxes
-    final _sortBox = await HiveSorts.openBox("stbox");
-    final _booksBox = await HiveSorts.openBox("bkbox");
-
-    //!========> Getting Data From Boxes
-    final _sortLenks = await HiveSorts.getData(_sortBox, key);
+  static Future<PageSource?> getHiveSauce(String key) async {
+    final _pageSourceBox = await HiveSauce.openBox("source");
+    final _pageSource = HiveSauce.getData(_pageSourceBox, key);
+    return _pageSource;
   }
 
-  static Future _getBooks(Box<Book> _box) async {
-    
-    
-
+  static Future<List<Book>> getHiveBooks(String idAsString) async {
+    final Box<Book> _box = await HiveBooks.openBox("boox");
+    final idsList = idAsString.split(Str.coma).toList();
+    List<Book> _booksFromHive = [];
+    for (String id in idsList) {
+      Book? _book = await HiveBooks.getData(_box, id);
+      if (_book != null) _booksFromHive.add(_book);
+    }
+    return _booksFromHive;
   }
 }
