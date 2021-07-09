@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'book.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class Book extends HiveObject  {
   Book({
     required this.id,

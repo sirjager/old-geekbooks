@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'page.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class PageInfo extends HiveObject {
   PageInfo({
     this.totalFiles,

@@ -9,28 +9,20 @@ import 'package:geekbooks/backend/strings/backend_strings.dart';
 import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/download/downlenk.dart';
-import 'package:geekbooks/models/lenk/lenk.dart';
-
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/sort/sort.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:string_validator/string_validator.dart';
 
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
   Future<PagePack?> getPagePack(String query, {String pageNo = "1"}) async {
-    final _box = await Hive.openBox("enxpax");
     PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
     PageInfo _pageInfo = PageInfo();
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
-    // EncPack? _encPack = _box.get(_valid);
-    // if (_encPack != null) {
-    //   log.i("Found $_valid Returning Saved Data");
-    //   // return _encPack.pack;
-    // }
+
     final _source = await _getSource(_url, query);
     if (_source != null) {
       final idAsString = IdProvider.idAsString(_source);

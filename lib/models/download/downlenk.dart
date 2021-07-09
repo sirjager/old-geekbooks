@@ -2,7 +2,7 @@ import 'package:geekbooks/models/lenk/lenk.dart';
 import 'package:hive/hive.dart';
 part 'downlenk.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 3)
 class DownLenks extends HiveObject {
   DownLenks({
     required this.id,
