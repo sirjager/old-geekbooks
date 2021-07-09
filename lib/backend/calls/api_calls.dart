@@ -21,7 +21,6 @@ class ApiCalls with ErrorHandler {
     PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
-
     PageInfo _pageInfo = PageInfo();
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
