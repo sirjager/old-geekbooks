@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:geekbooks/backend/database/hive.dart';
 import 'package:geekbooks/backend/exception/exceptions.dart';
 import 'package:geekbooks/core/log/log.dart';
 import 'package:http/http.dart' as http;

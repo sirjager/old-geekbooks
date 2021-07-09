@@ -3,7 +3,6 @@ import 'package:geekbooks/backend/calls/api_calls.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/pages/results/result.dart';
 import 'package:geekbooks/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';

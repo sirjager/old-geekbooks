@@ -1,5 +1,3 @@
-import 'package:geekbooks/models/download/book/book.dart';
-import 'package:geekbooks/models/sort/sort.dart';
 
 class PageInfo {
   PageInfo({
