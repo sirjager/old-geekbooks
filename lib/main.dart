@@ -12,6 +12,8 @@ Future<void> main() async {
   Hive.registerAdapter(EncPackAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  if (!Hive.isAdapterRegistered(0)) print("Adapted Not Registered");
+
   runApp(ProviderScope(child: MyApp()));
 
   // runApp(

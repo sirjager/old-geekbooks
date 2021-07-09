@@ -20,7 +20,7 @@ import 'package:string_validator/string_validator.dart';
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
   Future<PagePack?> getPagePack(String query, {String pageNo = "1"}) async {
-    Box<EncPack> _box = await Hive.openBox<EncPack>("enxpax");
+    final _box = await Hive.openBox("enxpax");
     PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
