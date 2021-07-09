@@ -17,7 +17,6 @@ Future<void> main() async {
   Hive.registerAdapter(SortAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
   runApp(ProviderScope(child: MyApp()));
 
   // runApp(
