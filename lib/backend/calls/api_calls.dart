@@ -9,6 +9,7 @@ import 'package:geekbooks/backend/provider/down_provider.dart';
 import 'package:geekbooks/backend/provider/page_provider.dart';
 import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
+import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/download/downlenk.dart';
@@ -26,6 +27,7 @@ class ApiCalls with ErrorHandler {
     List<Book> _books = [];
     Sort? _sort;
     PageInfo _pageInfo = PageInfo();
+    log.i("\Opening Hive\n");
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
     final String _valid = _makeValid(query);
@@ -93,7 +95,8 @@ class ApiCalls with ErrorHandler {
         );
       }
     }
-
+    log.i("\nClosing Hive\n");
+    Hive.close();
     return _pagePack;
   }
 
