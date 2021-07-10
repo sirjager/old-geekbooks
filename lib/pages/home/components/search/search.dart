@@ -98,7 +98,7 @@ class _SearchbarState extends State<Searchbar> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Lottie.asset(MyAssets.check, height: R.h(info, 40)),
+                        Lottie.asset(MyAssets.check, height: R.h(info, 25)),
                         KLeafButton(
                           onPressed: () {
                             if (Get.isDialogOpen!) Get.back();
@@ -108,7 +108,7 @@ class _SearchbarState extends State<Searchbar> {
                           width: R.w(info, 35),
                           child: KText(
                             "continue",
-                            size: 10,
+                            size: R.f(info, 10),
                           ),
                           icon: Ionicons.arrow_forward_circle,
                         ),

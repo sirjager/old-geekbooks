@@ -1,4 +1,3 @@
-import 'package:encrypt/encrypt.dart';
 import 'package:geekbooks/backend/crypt/cryptor.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:hive/hive.dart';

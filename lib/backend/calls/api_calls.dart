@@ -9,7 +9,6 @@ import 'package:geekbooks/backend/provider/down_provider.dart';
 import 'package:geekbooks/backend/provider/page_provider.dart';
 import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
-import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/download/downlenk.dart';
