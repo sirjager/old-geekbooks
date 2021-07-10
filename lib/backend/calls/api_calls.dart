@@ -43,7 +43,7 @@ class ApiCalls with ErrorHandler {
         _decSauce.source != null) {
       // Instance of Pagesource should containt non null source and match the request
       _source = _decSauce.source;
-      log.e("Source Found For $_valid");
+      print("\Recovered Encrypted Sauce for $_valid ...\n");
     } else {
       //---> Source being fetched from Internet
       _source = await _getSource(_url, query);
