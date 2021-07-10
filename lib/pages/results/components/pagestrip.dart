@@ -41,24 +41,22 @@ class PageStrip extends StatelessWidget {
             thickness: 1,
             color: Theme.of(context).scaffoldBackgroundColor,
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                KText(
-                  "Page ",
-                  size: R.f(info, 9),
-                  weight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                KText(
-                  page.currentPage.toString(),
-                  size: R.f(info, 9),
-                  weight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              KText(
+                "Page ",
+                size: R.f(info, 9),
+                weight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              KText(
+                page.currentPage.toString(),
+                size: R.f(info, 9),
+                weight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ],
           ),
           VerticalDivider(
             thickness: 1,

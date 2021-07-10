@@ -127,7 +127,6 @@ class _SearchResultsState extends State<SearchResults> {
                         );
                       }
                     }, nextOnTap: () {
-                      print("Next Pressed");
                       if (pageination.hasNext!) {
                         update(
                           query,
