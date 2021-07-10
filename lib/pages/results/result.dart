@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:geekbooks/backend/calls/api_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
-import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
-import 'package:geekbooks/core/dialog/dialogs.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/page/pagination.dart';
@@ -14,8 +11,6 @@ import 'package:geekbooks/pages/results/components/header.dart';
 import 'package:geekbooks/pages/results/components/listpage.dart';
 import 'package:geekbooks/pages/results/components/pagestrip.dart';
 import 'package:geekbooks/pages/results/components/paginationstrip.dart';
-import 'package:geekbooks/pages/view/view.dart';
-import 'package:geekbooks/widgets/kImage/kimage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
 
