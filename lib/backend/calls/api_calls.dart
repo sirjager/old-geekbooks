@@ -52,7 +52,7 @@ class ApiCalls with ErrorHandler {
         //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
         final EncPageSource _encSauce =
             _encPageSource(PageSource(key: _url, source: _source));
-        await HiveSauce.putData(_encSauceBox, _valid, _encSauce);
+        await HiveSauce.putData(_encSauceBox, _url, _encSauce);
         print("\nSaving Encrypted Sauce ...\n");
       }
     }
