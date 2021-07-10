@@ -92,14 +92,13 @@ class _SearchbarState extends State<Searchbar> {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {
                   PagePack pack = snapshot.data!;
-                  print(pack.books.first.title);
                   return Container(
                     padding: const EdgeInsets.all(pad),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Lottie.asset(MyAssets.ballLoading, height: 350),
+                        Lottie.asset(MyAssets.check, height: R.h(info, 40)),
                         KLeafButton(
                           onPressed: () {
                             if (Get.isDialogOpen!) Get.back();

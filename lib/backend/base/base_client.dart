@@ -58,7 +58,7 @@ class BaseClient {
 
   void _print(msg, url, dynamic response, status) {
     log.wtf(
-      "REQUEST [[$msg]]\n🟣$url\nRESPOSE [[API CALL]]\\n🔵[[${response.statusCode}]]\n🍀 $status",
+      "\n📡 INTERNET METHOD\n❇️ MESSAGE : $msg\n🔗 URL : $url\n✨ RESPONSE CODE: $status\n",
     );
   }
 }

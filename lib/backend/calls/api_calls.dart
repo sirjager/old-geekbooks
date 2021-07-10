@@ -52,7 +52,7 @@ class ApiCalls with ErrorHandler {
         final EncPageSource _encSauce =
             _encPageSource(PageSource(key: _valid, source: _source));
         await HiveSauce.putData(_encSauceBox, _valid, _encSauce);
-        log.w("Saved Encrypted Sauce For : $_valid");
+        print("\nSaving Encrypted Sauce ...\n");
       }
     }
     //----> Origin of source is decided above
@@ -70,7 +70,7 @@ class ApiCalls with ErrorHandler {
           //! Fetching Books from Local Database
           List<EncBook> _encBooks = _booksFromHive;
           _books = _getDecryptedBooks(_encBooks);
-          log.w("Books Found");
+          print("\nRecovered Saved Encrypted Bukes ...\n");
         } else {
           //! Fetching Books from internet
           final _jsonURL = _makeJsonURL(idAsString);
@@ -78,6 +78,7 @@ class ApiCalls with ErrorHandler {
           if (_json != null) {
             _books = _getSearchResults(_json);
             final List<EncBook> _encBooks = _getEncryptedBooks(_books);
+            print("\nSaving Encrypted Bukes ...\n");
             for (int i = 0; i < _encBooks.length; i++) {
               await _encBooksBox.put(_books[i].id, _encBooks[i]);
             }
