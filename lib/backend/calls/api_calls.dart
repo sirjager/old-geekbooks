@@ -31,28 +31,30 @@ class ApiCalls with ErrorHandler {
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
     final String _valid = _makeValid(query);
-    final String _url = _makeURL(_valid);
+    final String _url = _makeURL(_valid, pageNo);
+    final String _uniqueKey = _valid + Str.eq + pageNo;
+    log.e("\n\nUNIQUE KEY : $_uniqueKey \n\n");
     /* Checking if Same Request if saved in local database or not.
         If Request is Found in database -----> Source is returned from Database
         IF Request is Not Found in database -----> Source is fetched from Internet */
-    final _encSource = await HiveCalls.getHiveSauce(_encSauceBox, _valid);
+    final _encSource = await HiveCalls.getHiveSauce(_encSauceBox, _uniqueKey);
     final PageSource? _decSauce = _decryptSauce(_encSource);
     dynamic _source;
 
     if (_decSauce != null &&
-        _decSauce.key == _valid &&
+        _decSauce.key == _uniqueKey &&
         _decSauce.source != null) {
       // Instance of Pagesource should containt non null source and match the request
       _source = _decSauce.source;
-      print("\Recovered Encrypted Sauce for $_valid ...\n");
+      print("\Recovered Encrypted Sauce for\n $_uniqueKey ...\n");
     } else {
       //---> Source being fetched from Internet
       _source = await _getSource(_url, query);
       if (_source != null && _source.toString().length > 50) {
         //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
         final EncPageSource _encSauce =
-            _encPageSource(PageSource(key: _valid, source: _source));
-        await HiveSauce.putData(_encSauceBox, _valid, _encSauce);
+            _encPageSource(PageSource(key: _uniqueKey, source: _source));
+        await HiveSauce.putData(_encSauceBox, _uniqueKey, _encSauce);
         print("\nSaving Encrypted Sauce ...\n");
       }
     }
@@ -141,7 +143,7 @@ class ApiCalls with ErrorHandler {
 
   String _makeValid(String query) => query.replaceAll(Str.space, Str.plus);
 
-  String _makeURL(String valid, {String pageNo = "1"}) =>
+  String _makeURL(String valid, String pageNo) =>
       ApiLenks.searchUrl + valid + Str.page + pageNo;
 
   String _makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;
