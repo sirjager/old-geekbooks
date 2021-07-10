@@ -1,4 +1,5 @@
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/widgets/titlebar/titlebar.dart';
 
 class View extends StatelessWidget {
   const View({Key? key, required this.books, required this.id})
@@ -8,6 +9,15 @@ class View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            Titlebar(""),
+          ],
+        ),
+      ),
+    );
   }
 }
