@@ -14,7 +14,8 @@ import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/download/downlenk.dart';
 import 'package:geekbooks/models/page/page.dart';
-import 'package:geekbooks/models/page/pagesource.dart';
+import 'package:geekbooks/models/sauce/encpagesource.dart';
+import 'package:geekbooks/models/sauce/pagesource.dart';
 import 'package:geekbooks/models/sort/sort.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:string_validator/string_validator.dart';
@@ -27,28 +28,29 @@ class ApiCalls with ErrorHandler {
     Sort? _sort;
     PageInfo _pageInfo = PageInfo();
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
+    final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
-
     /* Checking if Same Request if saved in local database or not.
         If Request is Found in database -----> Source is returned from Database
         IF Request is Not Found in database -----> Source is fetched from Internet */
     final _hiveSource = await HiveCalls.getHiveSauce(_valid);
+    final PageSource? _decSauce = _decryptSauce(_hiveSource);
     dynamic _source;
-    if (_hiveSource != null &&
-        _hiveSource.key == _valid &&
-        _hiveSource.source != null) {
+
+    if (_decSauce != null &&
+        _decSauce.key == _valid &&
+        _decSauce.source != null) {
       // Instance of Pagesource should containt non null source and match the request
-      _source = _hiveSource.source;
+      _source = _decSauce.source;
       log.e("Source Found For $_valid");
     } else {
       //---> Source being fetched from Internet
       _source = await _getSource(_url, query);
       if (_source != null && _source.toString().length > 50) {
-        final Box<PageSource> _box = await HiveSauce.openBox("source");
         //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
-        await HiveSauce.putData(
-            _box, _valid, PageSource(key: _valid, source: _source));
+        final EncPageSource _encSauce = _encPageSource(_source);
+        await HiveSauce.putData(_encSauceBox, _valid, _encSauce);
         log.w("Saved New Source For $_valid");
       }
     }
@@ -155,9 +157,9 @@ class ApiCalls with ErrorHandler {
 
   List<Book> _getDecryptedBooks(List<EncBook> _encBooks) {
     List<Book> _books = [];
+    print("\nDecrypting All Bukes ...\n");
     for (EncBook enc in _encBooks) {
-      
-      Book _dec = CryptionCalls.decrypt(enc);
+      Book _dec = CryptionCalls.decryptBok(enc);
       _books.add(_dec);
     }
     return _books;
@@ -165,10 +167,24 @@ class ApiCalls with ErrorHandler {
 
   List<EncBook> _getEncryptedBooks(List<Book> _books) {
     List<EncBook> _encBooks = [];
+    print("\nEncrypting All Bukes ...\n");
     for (Book bok in _books) {
-      EncBook _enc = CryptionCalls.encrypt(bok);
+      EncBook _enc = CryptionCalls.encryptBok(bok);
       _encBooks.add(_enc);
     }
     return _encBooks;
+  }
+
+  PageSource? _decryptSauce(EncPageSource? hiveSource) {
+    if (hiveSource != null) {
+      print("\nDecrypting PageSauce ...\n");
+      return CryptionCalls.decryptSauce(hiveSource);
+    }
+    return null;
+  }
+
+  EncPageSource _encPageSource(source) {
+    print("\nEncrypting PageSauce ...\n");
+    return CryptionCalls.encryptSauce(source);
   }
 }

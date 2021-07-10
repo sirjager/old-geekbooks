@@ -1,12 +1,12 @@
 import 'package:geekbooks/backend/database/hive.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/book/encbook.dart';
-import 'package:geekbooks/models/page/pagesource.dart';
+import 'package:geekbooks/models/sauce/encpagesource.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveCalls {
-  static Future<PageSource?> getHiveSauce(String key) async {
-    final _pageSourceBox = await HiveSauce.openBox("source");
+  static Future<EncPageSource?> getHiveSauce(String key) async {
+    final _pageSourceBox = await HiveSauce.openBox("encsource");
     final _pageSource = HiveSauce.getData(_pageSourceBox, key);
     return _pageSource;
   }
