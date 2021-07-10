@@ -1,16 +1,16 @@
 import 'package:encrypt/encrypt.dart';
+import 'package:geekbooks/keys/keys.dart';
 
 class Encrypt {
   //
   //!TODO********************************* < AES ALGORITHM > *********************************
   //
-  static final _aesIV = IV.fromLength(16);
-
+  static final _aesIV = IV.fromUtf8(XpKeYs.encIV);
   //!==========< AES ENCRYPT METHOD >==========!//
   static encryptAES(data, String _key) {
-    final _aesKEY = Key.fromUtf8(_key);
+    final _aesKEY = Key.fromBase64(_key);
     final encrypterAES = Encrypter(AES(_aesKEY, mode: AESMode.cbc));
-    return encrypterAES.encrypt(data, iv: _aesIV);
+    return encrypterAES.encrypt(data, iv: _aesIV).base64;
   }
 
   //!==========< DECRYPT METHOD >==========!//
@@ -23,7 +23,7 @@ class Encrypt {
   //!TODO=============================== <  FERNET ALGORITHM > ===============================
   //
 
-  static final _ferKEY = Key.fromUtf8("asdasdasdasdasd");
+  static final _ferKEY = Key.fromUtf8(XpKeYs.encKey);
   static final _fer = Fernet(_ferKEY);
   static final encrypterFER = Encrypter(_fer);
 
@@ -41,18 +41,18 @@ class Encrypt {
   //?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx < SALSA20 ALGORITHM > xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   //
 
-  static final _salKEY = Key.fromLength(32);
-  static final _salIV = IV.fromLength(8);
+  static final _salKEY = Key.fromUtf8(XpKeYs.encKey);
+  static final _salIV = IV.fromUtf8(XpKeYs.encIV);
   static final encrypterSAL = Encrypter(Salsa20(_salKEY));
 
   //!==========< SAL ENCRYPT METHOD >==========!//
   static encryptSAL(data) {
-    return encrypterSAL.encrypt(data, iv: _salIV);
+    return encrypterSAL.encrypt(data, iv: _salIV).base64;
   }
 
   //!==========< DECRYPT METHOD >==========!//
   static decryptSAL(data) {
-    return encrypterSAL.decrypt(data, iv: _salIV);
+    return encrypterSAL.decrypt(Encrypted.from64(data), iv: _salIV);
   }
 
   //

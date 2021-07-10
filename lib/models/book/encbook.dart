@@ -1,3 +1,4 @@
+import 'package:encrypt/encrypt.dart';
 import 'package:geekbooks/backend/crypt/cryptor.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/keys/keys.dart';
@@ -54,21 +55,20 @@ class EncBook extends HiveObject {
   final String tags;
 
   static EncBook buildEnc(Book data) {
-    final String _key = XpKeYs.encKey;
-    final _id = Encrypt.encryptAES(data.id ?? "", _key);
-    final _md5 = Encrypt.encryptAES(data.md5 ?? "", _key);
-    final _title = Encrypt.encryptAES(data.title ?? "", _key);
-    final _author = Encrypt.encryptAES(data.author ?? "", _key);
-    final _series = Encrypt.encryptAES(data.series ?? "", _key);
-    final _publisher = Encrypt.encryptAES(data.publisher ?? "", _key);
-    final _year = Encrypt.encryptAES(data.year ?? "", _key);
-    final _language = Encrypt.encryptAES(data.language ?? "", _key);
-    final _pages = Encrypt.encryptAES(data.pages ?? "", _key);
-    final _exten = Encrypt.encryptAES(data.exten ?? "", _key);
-    final _torrent = Encrypt.encryptAES(data.torrent ?? "", _key);
-    final _coverURL = Encrypt.encryptAES(data.coverURL ?? "", _key);
-    final _desc = Encrypt.encryptAES(data.desc ?? "", _key);
-    final _tags = Encrypt.encryptAES(data.tags ?? "", _key);
+    var _id = Encrypt.encryptSAL(data.id);
+    var _md5 = Encrypt.encryptSAL(data.md5);
+    var _title = Encrypt.encryptSAL(data.title);
+    var _author = Encrypt.encryptSAL(data.author);
+    var _series = Encrypt.encryptSAL(data.series);
+    var _publisher = Encrypt.encryptSAL(data.publisher);
+    var _year = Encrypt.encryptSAL(data.year);
+    var _language = Encrypt.encryptSAL(data.language);
+    var _pages = Encrypt.encryptSAL(data.pages);
+    var _exten = Encrypt.encryptSAL(data.exten);
+    var _torrent = Encrypt.encryptSAL(data.torrent);
+    var _coverURL = Encrypt.encryptSAL(data.coverURL);
+    var _desc = Encrypt.encryptSAL(data.desc);
+    var _tags = Encrypt.encryptSAL(data.tags);
 
     return EncBook(
       id: _id,
@@ -89,21 +89,20 @@ class EncBook extends HiveObject {
   }
 
   static Book buildBook(EncBook data) {
-    final String _key = XpKeYs.encKey;
-    final _id = Encrypt.decryptAES(data.id, _key);
-    final _md5 = Encrypt.decryptAES(data.md5, _key);
-    final _title = Encrypt.decryptAES(data.title, _key);
-    final _author = Encrypt.decryptAES(data.author, _key);
-    final _series = Encrypt.decryptAES(data.series, _key);
-    final _publisher = Encrypt.decryptAES(data.publisher, _key);
-    final _year = Encrypt.decryptAES(data.year, _key);
-    final _language = Encrypt.decryptAES(data.language, _key);
-    final _pages = Encrypt.decryptAES(data.pages, _key);
-    final _exten = Encrypt.decryptAES(data.exten, _key);
-    final _torrent = Encrypt.decryptAES(data.torrent, _key);
-    final _coverURL = Encrypt.decryptAES(data.coverURL, _key);
-    final _desc = Encrypt.decryptAES(data.desc, _key);
-    final _tags = Encrypt.decryptAES(data.tags, _key);
+    var _id = Encrypt.decryptSAL(data.id);
+    var _md5 = Encrypt.decryptSAL(data.md5);
+    var _title = Encrypt.decryptSAL(data.title);
+    var _author = Encrypt.decryptSAL(data.author);
+    var _series = Encrypt.decryptSAL(data.series);
+    var _publisher = Encrypt.decryptSAL(data.publisher);
+    var _year = Encrypt.decryptSAL(data.year);
+    var _language = Encrypt.decryptSAL(data.language);
+    var _pages = Encrypt.decryptSAL(data.pages);
+    var _exten = Encrypt.decryptSAL(data.exten);
+    var _torrent = Encrypt.decryptSAL(data.torrent);
+    var _coverURL = Encrypt.decryptSAL(data.coverURL);
+    var _desc = Encrypt.decryptSAL(data.desc);
+    var _tags = Encrypt.decryptSAL(data.tags);
 
     return Book(
       id: _id,

@@ -74,8 +74,7 @@ class ApiCalls with ErrorHandler {
           final _json = await _getJson(_jsonURL, query);
           if (_json != null) {
             _books = _getSearchResults(_json);
-            final _encBooks = _getEncryptedBooks(_books);
-
+            final List<EncBook> _encBooks = _getEncryptedBooks(_books);
             for (int i = 0; i < _encBooks.length; i++) {
               await _encBooksBox.put(_books[i].id, _encBooks[i]);
             }
@@ -157,6 +156,7 @@ class ApiCalls with ErrorHandler {
   List<Book> _getDecryptedBooks(List<EncBook> _encBooks) {
     List<Book> _books = [];
     for (EncBook enc in _encBooks) {
+      
       Book _dec = CryptionCalls.decrypt(enc);
       _books.add(_dec);
     }
