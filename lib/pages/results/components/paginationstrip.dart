@@ -21,8 +21,8 @@ class PaginationStrip extends ConsumerWidget {
   final SizingInformation info;
   final Pageination pageination;
   final Function prevOnTap;
-  final Function nextOnTap;
   final Function goOnTap;
+  final Function nextOnTap;
   final FocusNode _focus = FocusNode();
 
   @override

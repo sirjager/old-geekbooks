@@ -31,7 +31,7 @@ class ApiCalls with ErrorHandler {
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
     final String _valid = _makeValid(query);
-    final String _url = _makeURL(_valid);
+    final String _url = _makeURL(_valid, pageNo);
     /* Checking if Same Request if saved in local database or not.
         If Request is Found in database -----> Source is returned from Database
         IF Request is Not Found in database -----> Source is fetched from Internet */
@@ -141,7 +141,7 @@ class ApiCalls with ErrorHandler {
 
   String _makeValid(String query) => query.replaceAll(Str.space, Str.plus);
 
-  String _makeURL(String valid, {String pageNo = "1"}) =>
+  String _makeURL(String valid, String pageNo) =>
       ApiLenks.searchUrl + valid + Str.page + pageNo;
 
   String _makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;

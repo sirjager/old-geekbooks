@@ -44,7 +44,8 @@ class _SearchResultsState extends State<SearchResults> {
     super.dispose();
   }
 
-  void update(String query, String pageNo, SizingInformation info) async {
+  Future<void> update(
+      String query, String pageNo, SizingInformation info) async {
     if (query.length > 0) {
       bool isint = isInt(pageNo);
       if (isint) {
