@@ -1,4 +1,5 @@
 import 'package:geekbooks/backend/base/base_client.dart';
+import 'package:geekbooks/backend/calls/encryption.dart';
 import 'package:geekbooks/backend/calls/hive_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
 import 'package:geekbooks/backend/database/hive.dart';
@@ -10,6 +11,7 @@ import 'package:geekbooks/backend/provider/sort_provider.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
 import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/download/downlenk.dart';
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/page/pagesource.dart';
@@ -24,6 +26,7 @@ class ApiCalls with ErrorHandler {
     List<Book> _books = [];
     Sort? _sort;
     PageInfo _pageInfo = PageInfo();
+    final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
 
@@ -58,10 +61,12 @@ class ApiCalls with ErrorHandler {
         //------> All the IDS are EXTRACTED from the SOURCE --- as LIST of IDs
         final _idList = _idAsList(idAsString);
         //--- For Every ID
-        final List<Book> _booksFromHive = await HiveCalls.getHiveBooks(_idList);
+        final List<EncBook> _booksFromHive =
+            await HiveCalls.getHiveBooks(_encBooksBox, _idList);
         if (_booksFromHive.length == _idList.length) {
           //! Fetching Books from Local Database
-          _books = _booksFromHive;
+          List<EncBook> _encBooks = _booksFromHive;
+          _books = _getDecryptedBooks(_encBooks);
           log.w("Books Found");
         } else {
           //! Fetching Books from internet
@@ -69,8 +74,11 @@ class ApiCalls with ErrorHandler {
           final _json = await _getJson(_jsonURL, query);
           if (_json != null) {
             _books = _getSearchResults(_json);
-            final Box<Book> _box = await HiveBooks.openBox("books");
-            for (Book bok in _books) await _box.put(bok.id, bok);
+            final _encBooks = _getEncryptedBooks(_books);
+
+            for (int i = 0; i < _encBooks.length; i++) {
+              await _encBooksBox.put(_books[i].id, _encBooks[i]);
+            }
           }
         }
         _sort = SortProvider().sortAsObject(_source);
@@ -145,4 +153,22 @@ class ApiCalls with ErrorHandler {
 
   List<String> _idAsList(String idAsString) =>
       idAsString.split(Str.coma).toList();
+
+  List<Book> _getDecryptedBooks(List<EncBook> _encBooks) {
+    List<Book> _books = [];
+    for (EncBook enc in _encBooks) {
+      Book _dec = CryptionCalls.decrypt(enc);
+      _books.add(_dec);
+    }
+    return _books;
+  }
+
+  List<EncBook> _getEncryptedBooks(List<Book> _books) {
+    List<EncBook> _encBooks = [];
+    for (Book bok in _books) {
+      EncBook _enc = CryptionCalls.encrypt(bok);
+      _encBooks.add(_enc);
+    }
+    return _encBooks;
+  }
 }

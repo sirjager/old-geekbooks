@@ -7,15 +7,15 @@ class Encrypt {
   static final _aesIV = IV.fromLength(16);
 
   //!==========< AES ENCRYPT METHOD >==========!//
-  static encryptAES(data, String key) {
-    final _aesKEY = Key.fromUtf8(key);
+  static encryptAES(data, String _key) {
+    final _aesKEY = Key.fromUtf8(_key);
     final encrypterAES = Encrypter(AES(_aesKEY, mode: AESMode.cbc));
     return encrypterAES.encrypt(data, iv: _aesIV);
   }
 
   //!==========< DECRYPT METHOD >==========!//
-  static decryptAES(data, String key) {
-    final _aesKEY = Key.fromUtf8(key);
+  static decryptAES(data, String _key) {
+    final _aesKEY = Key.fromUtf8(_key);
     final decryptor = Encrypter(AES(_aesKEY, mode: AESMode.cbc));
     return decryptor.decrypt(Encrypted.fromBase64(data), iv: _aesIV);
   }

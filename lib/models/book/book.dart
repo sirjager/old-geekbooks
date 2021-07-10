@@ -32,7 +32,7 @@ class Book extends HiveObject {
   final String? torrent;
   final String? coverURL;
   final String? desc;
-  final List<String>? tags;
+  final String? tags;
 
   factory Book.build(var json) {
     return Book(
@@ -52,9 +52,7 @@ class Book extends HiveObject {
           : json["coverurl"].toString().contains(json["md5"])
               ? ApiLenks.coverBase + json["coverurl"]
               : ApiLenks.noImage,
-      tags: json["tags"] == null
-          ? null
-          : json["tags"].toString().split(",").toList(),
+      tags: json["tags"] == null ? null : json["tags"],
       desc: json["descr"] == null ? null : json["descr"],
     );
   }

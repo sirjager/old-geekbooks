@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/page/pagesource.dart';
 import 'package:geekbooks/provider/all_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,7 +11,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(PageSourceAdapter());
-  Hive.registerAdapter(BookAdapter());
+  Hive.registerAdapter(EncBookAdapter());
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(ProviderScope(child: MyApp()));
