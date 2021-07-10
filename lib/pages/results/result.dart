@@ -172,7 +172,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                           .greenAccent[200],
                                                       onTap: () => Get.to(
                                                         () => View(
-                                                            id: book.id!,
+                                                            id: book.id,
                                                             books: result),
                                                       ),
                                                       borderRadius:
@@ -569,7 +569,7 @@ class _SearchResultsState extends State<SearchResults> {
       margin: const EdgeInsets.all(pad),
       child: InkWell(
         onTap: () => Get.to(
-          () => View(id: book.id!, books: books),
+          () => View(id: book.id, books: books),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
