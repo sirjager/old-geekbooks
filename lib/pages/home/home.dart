@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/global/titlebar/titlebar.dart';
 
 class Homepage extends StatelessWidget {
   Homepage(this.info, {Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class Homepage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Topbar(info),
+          Titlebar(info),
           AppTitle(info),
           Searchbar(info, _node),
           SearchOptions(info),

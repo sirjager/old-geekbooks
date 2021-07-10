@@ -46,7 +46,6 @@ export 'package:geekbooks/pages/home/components/search/search_options.dart';
 
 export 'package:geekbooks/pages/home/components/apptitle/apptitle.dart';
 
-export 'package:geekbooks/pages/home/components/appbar/appbar.dart';
 export 'package:geekbooks/pages/home/components/search/search.dart';
 export 'package:geekbooks/screens/dashboard/components/navigation/navigation_layout.dart';
 

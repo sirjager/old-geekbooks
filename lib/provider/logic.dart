@@ -77,3 +77,18 @@ class PJumper extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class PGridView extends ChangeNotifier {
+  bool _isGridView = true;
+  bool get isGrid => _isGridView;
+
+  void toggleGrid({bool? chageView}) {
+    if (chageView == null) {
+      _isGridView = !isGrid;
+      notifyListeners();
+    } else {
+      _isGridView = chageView;
+      notifyListeners();
+    }
+  }
+}

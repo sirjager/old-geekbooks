@@ -9,3 +9,5 @@ final infoProvider =
 final searchOptionProvider =
     ChangeNotifierProvider((ref) => SearchOptionProvider());
 final jumperProvider = ChangeNotifierProvider((ref) => PJumper());
+
+final gridViewProvider = ChangeNotifierProvider((ref) => PGridView());
