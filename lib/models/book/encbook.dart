@@ -55,20 +55,20 @@ class EncBook extends HiveObject {
 
   static EncBook buildEnc(Book data) {
     final String _key = XpKeYs.encKey;
-    final _id = Encrypt.encryptAES(data.id, _key);
-    final _md5 = Encrypt.encryptAES(data.md5, _key);
-    final _title = Encrypt.encryptAES(data.title, _key);
-    final _author = Encrypt.encryptAES(data.author, _key);
-    final _series = Encrypt.encryptAES(data.series, _key);
-    final _publisher = Encrypt.encryptAES(data.publisher, _key);
-    final _year = Encrypt.encryptAES(data.year, _key);
-    final _language = Encrypt.encryptAES(data.language, _key);
-    final _pages = Encrypt.encryptAES(data.pages, _key);
-    final _exten = Encrypt.encryptAES(data.exten, _key);
-    final _torrent = Encrypt.encryptAES(data.torrent, _key);
-    final _coverURL = Encrypt.encryptAES(data.coverURL, _key);
-    final _desc = Encrypt.encryptAES(data.desc, _key);
-    final _tags = Encrypt.encryptAES(data.tags, _key);
+    final _id = Encrypt.encryptAES(data.id ?? "", _key);
+    final _md5 = Encrypt.encryptAES(data.md5 ?? "", _key);
+    final _title = Encrypt.encryptAES(data.title ?? "", _key);
+    final _author = Encrypt.encryptAES(data.author ?? "", _key);
+    final _series = Encrypt.encryptAES(data.series ?? "", _key);
+    final _publisher = Encrypt.encryptAES(data.publisher ?? "", _key);
+    final _year = Encrypt.encryptAES(data.year ?? "", _key);
+    final _language = Encrypt.encryptAES(data.language ?? "", _key);
+    final _pages = Encrypt.encryptAES(data.pages ?? "", _key);
+    final _exten = Encrypt.encryptAES(data.exten ?? "", _key);
+    final _torrent = Encrypt.encryptAES(data.torrent ?? "", _key);
+    final _coverURL = Encrypt.encryptAES(data.coverURL ?? "", _key);
+    final _desc = Encrypt.encryptAES(data.desc ?? "", _key);
+    final _tags = Encrypt.encryptAES(data.tags ?? "", _key);
 
     return EncBook(
       id: _id,
