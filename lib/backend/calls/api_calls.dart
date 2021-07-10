@@ -34,8 +34,8 @@ class ApiCalls with ErrorHandler {
     /* Checking if Same Request if saved in local database or not.
         If Request is Found in database -----> Source is returned from Database
         IF Request is Not Found in database -----> Source is fetched from Internet */
-    final _hiveSource = await HiveCalls.getHiveSauce(_valid);
-    final PageSource? _decSauce = _decryptSauce(_hiveSource);
+    final _encSource = await HiveCalls.getHiveSauce(_encSauceBox, _valid);
+    final PageSource? _decSauce = _decryptSauce(_encSource);
     dynamic _source;
 
     if (_decSauce != null &&
@@ -49,9 +49,10 @@ class ApiCalls with ErrorHandler {
       _source = await _getSource(_url, query);
       if (_source != null && _source.toString().length > 50) {
         //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
-        final EncPageSource _encSauce = _encPageSource(_source);
+        final EncPageSource _encSauce =
+            _encPageSource(PageSource(key: _valid, source: _source));
         await HiveSauce.putData(_encSauceBox, _valid, _encSauce);
-        log.w("Saved New Source For $_valid");
+        log.w("Saved Encrypted Sauce For : $_valid");
       }
     }
     //----> Origin of source is decided above
@@ -117,7 +118,6 @@ class ApiCalls with ErrorHandler {
     //!==> This will return  [[ Book ]] as Book Object for provided bookID
     final String url =
         ApiLenks.jsonUrl + Str.ids + bid + Str.fields + Str.normalSet;
-    print(url);
     var res = await BaseClient()
         .makeRequest(url, 'BOOK ID : $bid')
         .catchError(handleError);

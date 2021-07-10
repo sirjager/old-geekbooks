@@ -5,11 +5,9 @@ import 'package:geekbooks/models/sauce/encpagesource.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveCalls {
-  static Future<EncPageSource?> getHiveSauce(String key) async {
-    final _pageSourceBox = await HiveSauce.openBox("encsource");
-    final _pageSource = HiveSauce.getData(_pageSourceBox, key);
-    return _pageSource;
-  }
+  static Future<EncPageSource?> getHiveSauce(
+          Box<EncPageSource> _box, String key) async =>
+      await HiveSauce.getData(_box, key);
 
   static Future<List<EncBook>> getHiveBooks(
       Box<EncBook> _box, List<String> idAsList) async {
