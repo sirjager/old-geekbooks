@@ -8,5 +8,5 @@ class PageSource extends HiveObject {
   final String key;
   @HiveField(1)
   final source;
-  PageSource(this.key, this.source);
+  PageSource({required this.key, required this.source});
 }

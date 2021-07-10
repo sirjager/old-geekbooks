@@ -17,8 +17,8 @@ class PageSourceAdapter extends TypeAdapter<PageSource> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return PageSource(
-      fields[0] as String,
-      fields[1] as dynamic,
+      key: fields[0] as String,
+      source: fields[1] as dynamic,
     );
   }
 

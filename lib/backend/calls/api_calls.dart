@@ -29,13 +29,17 @@ class ApiCalls with ErrorHandler {
 
     final _hiveSource = await HiveCalls.getHiveSauce(_valid);
     dynamic _source;
-    if (_hiveSource != null) {
-      _source = _hiveSource;
+    if (_hiveSource != null &&
+        _hiveSource.key == _valid &&
+        _hiveSource.source != null) {
+      _source = _hiveSource.source;
+      log.e("Source Found For $_valid");
     } else {
       _source = await _getSource(_url, query);
-      if (_source != null && _source.toString().length > 100) {
+      if (_source != null && _source.toString().length > 50) {
         final Box<PageSource> _box = await HiveSauce.openBox("source");
-        await HiveSauce.putData(_box, _valid, _source);
+        await HiveSauce.putData(
+            _box, _valid, PageSource(key: _valid, source: _source));
         log.w("Saved New Source For $_valid");
       }
     }
@@ -48,6 +52,7 @@ class ApiCalls with ErrorHandler {
         if (_booksFromHive.length > 0) {
           //! Fetching Books from Local Database
           _books = _booksFromHive;
+          log.w("Books Found");
         } else {
           //! Fetching Books from internet
           final _jsonURL = _makeJsonURL(idAsString);
@@ -115,7 +120,7 @@ class ApiCalls with ErrorHandler {
     return _downLenx;
   }
 
-  String _makeValid(String query) => query.replaceAll(Str.space, Str.none);
+  String _makeValid(String query) => query.replaceAll(Str.space, Str.plus);
 
   String _makeURL(String valid, {String pageNo = "1"}) =>
       ApiLenks.searchUrl + valid + Str.page + pageNo;

@@ -15,7 +15,9 @@ class HiveCalls {
     List<Book> _booksFromHive = [];
     for (String id in idAsList) {
       Book? _book = await HiveBooks.getData(_box, id);
-      if (_book != null) _booksFromHive.add(_book);
+      if (_book != null) {
+        _booksFromHive.add(_book);
+      }
     }
     return _booksFromHive;
   }
