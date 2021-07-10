@@ -10,8 +10,8 @@ class UiDialog {
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         child: Container(
-          height: 100,
-          width: 100,
+          height: 250,
+          width: 250,
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(

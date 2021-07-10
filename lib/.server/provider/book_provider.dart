@@ -3,7 +3,7 @@ import 'package:geekbooks/backend/functions/math/math.dart';
 import 'package:geekbooks/backend/functions/translate/translator.dart';
 import 'package:geekbooks/backend/strings/backend_strings.dart';
 import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/models/stock/stock.dart';
+import 'package:geekbooks/models/book/book.dart';
 
 class BookProvider {
   VerifyStock v = VerifyStock();

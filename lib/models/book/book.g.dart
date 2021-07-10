@@ -30,7 +30,7 @@ class BookAdapter extends TypeAdapter<Book> {
       torrent: fields[10] as String?,
       coverURL: fields[11] as String?,
       desc: fields[12] as String?,
-      tags: (fields[13] as List).cast<String>(),
+      tags: (fields[13] as List?)?.cast<String>(),
     );
   }
 

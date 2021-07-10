@@ -27,29 +27,39 @@ class ApiCalls with ErrorHandler {
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid);
 
+    /* Checking if Same Request if saved in local database or not.
+        If Request is Found in database -----> Source is returned from Database
+        IF Request is Not Found in database -----> Source is fetched from Internet */
     final _hiveSource = await HiveCalls.getHiveSauce(_valid);
     dynamic _source;
     if (_hiveSource != null &&
         _hiveSource.key == _valid &&
         _hiveSource.source != null) {
+      // Instance of Pagesource should containt non null source and match the request
       _source = _hiveSource.source;
       log.e("Source Found For $_valid");
     } else {
+      //---> Source being fetched from Internet
       _source = await _getSource(_url, query);
       if (_source != null && _source.toString().length > 50) {
         final Box<PageSource> _box = await HiveSauce.openBox("source");
+        //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
         await HiveSauce.putData(
             _box, _valid, PageSource(key: _valid, source: _source));
         log.w("Saved New Source For $_valid");
       }
     }
-
-    if (_source != null) {
+    //----> Origin of source is decided above
+    //----> Source is checked here if its valid and should have more than 100 Characters
+    if (_source != null && _source.toString().length > 100) {
+      //------> All the IDS are EXTRACTED from the SOURCE --- as STRING
       final idAsString = IdProvider.idAsString(_source);
       if (idAsString.length > 0) {
+        //------> All the IDS are EXTRACTED from the SOURCE --- as LIST of IDs
         final _idList = _idAsList(idAsString);
+        //--- For Every ID
         final List<Book> _booksFromHive = await HiveCalls.getHiveBooks(_idList);
-        if (_booksFromHive.length > 0) {
+        if (_booksFromHive.length == _idList.length) {
           //! Fetching Books from Local Database
           _books = _booksFromHive;
           log.w("Books Found");

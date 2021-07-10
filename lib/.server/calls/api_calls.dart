@@ -93,7 +93,7 @@ class ApiCalls with ErrorHandler {
   //!==================================  [[ 3 ]]
   Future<List<Book>> _getSearchResults(json) async {
     if (json == null) return [];
-    List<Book> books = await BookProvider().build(json);
+    List<Book> books = await Book.build(json);
     return books;
   }
 
