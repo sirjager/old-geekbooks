@@ -11,7 +11,7 @@ class HiveCalls {
   }
 
   static Future<List<Book>> getHiveBooks(List<String> idAsList) async {
-    final Box<Book> _box = await HiveBooks.openBox("boox");
+    final Box<Book> _box = await HiveBooks.openBox("books");
     List<Book> _booksFromHive = [];
     for (String id in idAsList) {
       Book? _book = await HiveBooks.getData(_box, id);

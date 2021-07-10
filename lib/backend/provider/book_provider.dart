@@ -1,7 +1,7 @@
 import 'package:geekbooks/export/export.dart';
 
 class BookProvider {
-  Future<List<Book>> build(List<dynamic> dataList) async {
+  List<Book> build(List<dynamic> dataList) {
     List<Book> bookList = [];
     for (var json in dataList) {
       Book _book = Book.build(json);

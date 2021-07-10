@@ -96,7 +96,6 @@ class _SearchResultsState extends State<SearchResults> {
         return Consumer(
           builder: (context, watch, child) {
             final _theme = watch(themeProvider);
-
             return Scaffold(
               body: Column(
                 children: [

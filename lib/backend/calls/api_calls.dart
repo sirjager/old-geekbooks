@@ -68,12 +68,9 @@ class ApiCalls with ErrorHandler {
           final _jsonURL = _makeJsonURL(idAsString);
           final _json = await _getJson(_jsonURL, query);
           if (_json != null) {
-            _books = await _getSearchResults(_json);
+            _books = _getSearchResults(_json);
             final Box<Book> _box = await HiveBooks.openBox("books");
-            for (Book bok in _books) {
-              await _box.put(bok.id, bok);
-              print("saved ${bok.title} Offline !");
-            }
+            for (Book bok in _books) await _box.put(bok.id, bok);
           }
         }
         _sort = SortProvider().sortAsObject(_source);
@@ -101,9 +98,9 @@ class ApiCalls with ErrorHandler {
   }
 
   //!==================================  [[ 3 ]]
-  Future<List<Book>> _getSearchResults(json) async {
+  List<Book> _getSearchResults(json) {
     if (json == null) return [];
-    List<Book> books = await BookProvider().build(json);
+    List<Book> books = BookProvider().build(json);
     return books;
   }
 
@@ -116,7 +113,7 @@ class ApiCalls with ErrorHandler {
         .makeRequest(url, 'BOOK ID : $bid')
         .catchError(handleError);
     if (res == null) return null;
-    List<Book> books = await BookProvider().build(res);
+    List<Book> books = BookProvider().build(res);
     return books.first;
   }
 

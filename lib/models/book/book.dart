@@ -67,7 +67,7 @@ class Book extends HiveObject {
           ? null
           : json["coverurl"].toString().contains(json["md5"])
               ? ApiLenks.coverBase + json["coverurl"]
-              : null,
+              : ApiLenks.noImage,
       tags: json["tags"] == null
           ? null
           : json["tags"].toString().split(",").toList(),
