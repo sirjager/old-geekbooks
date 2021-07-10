@@ -35,7 +35,7 @@ class ApiCalls with ErrorHandler {
     /* Checking if Same Request if saved in local database or not.
         If Request is Found in database -----> Source is returned from Database
         IF Request is Not Found in database -----> Source is fetched from Internet */
-    final _encSource = await HiveCalls.getHiveSauce(_encSauceBox, _valid);
+    final _encSource = await HiveCalls.getHiveSauce(_encSauceBox, _url);
     final PageSource? _decSauce = _decryptSauce(_encSource);
     dynamic _source;
 
@@ -44,14 +44,14 @@ class ApiCalls with ErrorHandler {
         _decSauce.source != null) {
       // Instance of Pagesource should containt non null source and match the request
       _source = _decSauce.source;
-      print("\Recovered Encrypted Sauce for $_valid ...\n");
+      print("\Recovered Encrypted Sauce for\n $_url ...\n");
     } else {
       //---> Source being fetched from Internet
       _source = await _getSource(_url, query);
       if (_source != null && _source.toString().length > 50) {
         //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
         final EncPageSource _encSauce =
-            _encPageSource(PageSource(key: _valid, source: _source));
+            _encPageSource(PageSource(key: _url, source: _source));
         await HiveSauce.putData(_encSauceBox, _valid, _encSauce);
         print("\nSaving Encrypted Sauce ...\n");
       }
