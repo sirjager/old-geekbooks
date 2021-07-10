@@ -27,7 +27,6 @@ class PaginationStrip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    var _jumper = watch(jumperProvider).pageNoController;
     var theme = watch(themeProvider);
     return Container(
       height: R.h(info, 10),
@@ -55,7 +54,9 @@ class PaginationStrip extends ConsumerWidget {
                       KClickable(
                         height: R.h(info, 5),
                         width: R.w(info, 16),
-                        onPressed: () {},
+                        onPressed: () {
+                           prevOnTap();
+                        },
                         child: Icon(
                           EvaIcons.arrowLeft,
                           color: Colors.black,
@@ -164,7 +165,9 @@ class PaginationStrip extends ConsumerWidget {
                         KClickable(
                           height: R.h(info, 4),
                           width: R.w(info, 10),
-                          onPressed: () {},
+                          onPressed: () {
+                             goOnTap();
+                          },
                           child: KText(
                             "go",
                             size: 11,
@@ -196,7 +199,9 @@ class PaginationStrip extends ConsumerWidget {
                       KClickable(
                         height: R.h(info, 5),
                         width: R.w(info, 16),
-                        onPressed: () {},
+                        onPressed: () {
+                           nextOnTap();
+                        },
                         child: Icon(
                           EvaIcons.arrowRight,
                           color: Colors.black,

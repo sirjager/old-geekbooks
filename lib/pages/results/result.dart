@@ -29,7 +29,6 @@ class SearchResults extends StatefulWidget {
 class _SearchResultsState extends State<SearchResults> {
   final TextEditingController _jumper = TextEditingController();
   final FocusNode _focus = FocusNode();
-  // bool isGridView = true;
   final ScrollController _scroll = ScrollController();
   late Pageination pageination;
   late PagePack newPack;
@@ -50,8 +49,8 @@ class _SearchResultsState extends State<SearchResults> {
     super.dispose();
   }
 
-  void update(query, pageNo, SizingInformation info) async {
-    if (query != null && query.toString().length > 0) {
+  void update(String query, String pageNo, SizingInformation info) async {
+    if (query.length > 0) {
       bool isint = isInt(pageNo);
       if (isint) {
         var i = int.parse(pageNo);
@@ -65,8 +64,7 @@ class _SearchResultsState extends State<SearchResults> {
             ),
             barrierDismissible: false,
           );
-          var pac =
-              await ApiCalls().getPagePack(query, pageNo: pageNo.toString());
+          var pac = await ApiCalls().getPagePack(query, pageNo: pageNo);
           setState(() {
             if (Get.isDialogOpen!) {
               Get.back();
@@ -84,7 +82,7 @@ class _SearchResultsState extends State<SearchResults> {
   @override
   Widget build(BuildContext context) {
     final query = newPack.query;
-    final result = newPack.books;
+    final books = newPack.books;
     final page = newPack.info;
 
     return ResponsiveBuilder(
@@ -102,7 +100,7 @@ class _SearchResultsState extends State<SearchResults> {
                     PageStrip(info, page: page),
                     Expanded(
                       child: Container(
-                        child: result.length > 0
+                        child: books.length > 0
                             ? RawScrollbar(
                                 thickness: pad * 0.75,
                                 thumbColor: Colors.black54,
@@ -114,8 +112,8 @@ class _SearchResultsState extends State<SearchResults> {
                                       horizontal: pad),
                                   child: view.isGrid
                                       ? GridPage(info,
-                                          books: result, scroll: _scroll)
-                                      : ListPage(info, books: result),
+                                          books: books, scroll: _scroll)
+                                      : ListPage(info, books: books),
                                 ),
                               )
                             : Center(
@@ -133,6 +131,7 @@ class _SearchResultsState extends State<SearchResults> {
                         );
                       }
                     }, nextOnTap: () {
+                      print("Next Pressed");
                       if (pageination.hasNext!) {
                         update(
                           query,
@@ -179,6 +178,7 @@ class _SearchResultsState extends State<SearchResults> {
       prevPageUrl =
           ApiLenks.genisUrl + info.sortSample! + prevPageNumber.toString();
     } else {}
+
     return Pageination(
       currentPageNumber: currentPageNumber,
       totalPageNumber: totalPages,
