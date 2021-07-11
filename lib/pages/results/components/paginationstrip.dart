@@ -55,7 +55,7 @@ class PaginationStrip extends ConsumerWidget {
                         height: R.h(info, 5),
                         width: R.w(info, 16),
                         onPressed: () {
-                           prevOnTap();
+                          prevOnTap();
                         },
                         child: Icon(
                           EvaIcons.arrowLeft,
@@ -166,7 +166,7 @@ class PaginationStrip extends ConsumerWidget {
                           height: R.h(info, 4),
                           width: R.w(info, 10),
                           onPressed: () {
-                             goOnTap();
+                            goOnTap();
                           },
                           child: KText(
                             "go",
@@ -200,7 +200,7 @@ class PaginationStrip extends ConsumerWidget {
                         height: R.h(info, 5),
                         width: R.w(info, 16),
                         onPressed: () {
-                           nextOnTap();
+                          nextOnTap();
                         },
                         child: Icon(
                           EvaIcons.arrowRight,

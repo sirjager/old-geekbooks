@@ -110,7 +110,7 @@ class _SearchbarState extends State<Searchbar> {
                         KLeafButton(
                           onPressed: () {
                             if (Get.isDialogOpen!) Get.back();
-                            Get.to(() => SearchResults());
+                            Get.to(() => SearchResults(pack: pack));
                           },
                           height: R.w(info, 15),
                           width: R.w(info, 35),

@@ -1,28 +1,88 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:geekbooks/ads/adprovider.dart';
+import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/backend/calls/api_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
+import 'package:geekbooks/core/dialog/dialogs.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/global/book/bookcard.dart';
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/page/pagination.dart';
-import 'package:geekbooks/pages/results/view/gridview/gridpage.dart';
 import 'package:geekbooks/pages/results/components/header.dart';
-import 'package:geekbooks/pages/results/view/listview/listpage.dart';
 import 'package:geekbooks/pages/results/components/pagestrip.dart';
-import 'package:geekbooks/pages/results/components/paginationstrip.dart';
+import 'package:geekbooks/pages/results/components/pagination/go.dart';
+import 'package:geekbooks/pages/results/components/pagination/next.dart';
+import 'package:geekbooks/pages/results/components/pagination/prev.dart';
+import 'package:geekbooks/pages/results/view/listview/listpage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
 
-class SearchResults extends ConsumerWidget {
+class SearchResults extends StatefulWidget {
+  const SearchResults({Key? key, required this.pack}) : super(key: key);
+  final PagePack pack;
+  @override
+  _SearchResultsState createState() => _SearchResultsState();
+}
+
+class _SearchResultsState extends State<SearchResults> {
   final TextEditingController _jumper = TextEditingController();
   final FocusNode _focus = FocusNode();
   final ScrollController _scroll = ScrollController();
 
+  late Pageination pageination;
+  late PagePack newPack;
+
+  late List listWithAds;
+
+  void initState() {
+    newPack = widget.pack;
+    pageination = makePageNavigator(widget.pack.info);
+    _focus.unfocus();
+    _jumper.clear();
+    super.initState();
+    listWithAds = List.from(newPack.books);
+  }
+
+  @override
+  void dispose() {
+    _jumper.dispose();
+    _focus.dispose();
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var adsState = context.read(adStateProvider);
+    adsState.initialization.then((value) {
+      insertAdsToList(adsState);
+    });
+  }
+
+  void insertAdsToList(AdState adState) {
+    var adsState = context.read(adStateProvider);
+    adsState.initialization.then((value) {
+      insertAdsToList(adsState);
+    });
+    setState(() {
+      for (var i = listWithAds.length - 1; i >= 1; i -= 4) {
+        listWithAds.insert(
+          i,
+          adState.createBannerAd(
+            size: AdSize(height: 200, width: 100),
+          )..load(),
+        );
+      }
+    });
+  }
+
   Future<void> update(BuildContext context, String query, String pageNo,
       SizingInformation info) async {
-    var pageination = context.read(pageinationProvider).pagination;
-
     if (query.length > 0) {
       bool isint = isInt(pageNo);
       if (isint) {
@@ -33,102 +93,253 @@ class SearchResults extends ConsumerWidget {
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24)),
-              child: Lottie.asset(MyAssets.pleasewait, height: R.h(info, 20)),
+              child: Lottie.asset(MyAssets.pleasewait, height: R.h(info, 35)),
             ),
             barrierDismissible: false,
           );
-          var pac = await ApiCalls().getPagePack(query, pageNo: pageNo);
-          while (Get.isDialogOpen != null && Get.isDialogOpen!) {
-            Get.back();
-          }
-          if (pac != null) {
-            pageination = makePageNavigator(pac.info);
-            context.read(pagePackProvider).latestPack(pac);
-            context.read(pageinationProvider).latestPagination(pageination);
-          }
+          var pac =
+              await ApiCalls().getPagePack(query, pageNo: pageNo.toString());
+
+          setState(() {
+            if (Get.isDialogOpen!) {
+              Get.back();
+            }
+            if (pac != null) {
+              pageination = makePageNavigator(pac.info);
+              newPack = pac;
+            }
+          });
         }
       }
     }
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context) {
+    final query = newPack.query;
+    final _books = listWithAds;
+    final pageInfo = newPack.info;
     return ResponsiveBuilder(
       builder: (context, info) {
-        return Consumer(
-          builder: (context, watch, child) {
-            var latest = watch(pagePackProvider).pack;
-            var pageination = watch(pageinationProvider).pagination;
-            var view = watch(gridViewProvider);
-            return Scaffold(
-              body: Container(
-                padding: EdgeInsets.only(top: R.statusbarHeight(info)),
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    PageHeader(info, title: latest.query),
-                    PageStrip(info, page: latest.info),
-                    Expanded(
-                      child: Container(
-                        child: latest.books.length > 0
-                            ? RawScrollbar(
-                                thickness: pad * 0.75,
-                                thumbColor: Colors.black54,
-                                radius: Radius.circular(20),
-                                controller: _scroll,
-                                child: Container(
+        return Scaffold(
+          body: Container(
+            padding: EdgeInsets.only(top: R.statusbarHeight(info)),
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                PageHeader(info, title: query),
+                PageStrip(info, page: pageInfo),
+                Expanded(
+                  child: Container(
+                    child: _books.length > 0
+                        ? RawScrollbar(
+                            thickness: pad * 0.75,
+                            thumbColor: Colors.black54,
+                            radius: Radius.circular(20),
+                            controller: _scroll,
+                            child: Consumer(
+                              builder: (context, watch, child) {
+                                var view = watch(gridViewProvider);
+                                watch(pagePackProvider);
+                                return Container(
                                   alignment: Alignment.center,
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: pad),
                                   child: view.isGrid
-                                      ? GridPage(
-                                          info,
-                                          query: latest.query,
-                                          books: latest.books,
-                                          scroll: _scroll,
+                                      ? StaggeredGridView.countBuilder(
+                                          physics: ClampingScrollPhysics(),
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 2,
+                                          crossAxisSpacing: 2,
+                                          itemCount: _books.length,
+                                          staggeredTileBuilder: (index) =>
+                                              StaggeredTile.count(1, 1.75),
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            var item = _books[index];
+                                            if (item is Book) {
+                                              Book book = item;
+                                              return BookCard(
+                                                info,
+                                                book: book,
+                                                books: newPack.books,
+                                              );
+                                            } else {
+                                              return Container(
+                                                child: AdWidget(
+                                                    ad: item as BannerAd),
+                                              );
+                                            }
+                                          },
                                         )
-                                      : ListPage(info, books: latest.books),
-                                ),
-                              )
-                            : Center(
-                                child: KText("no results found for this query"),
-                              ),
-                      ),
-                    ),
-                    PaginationStrip(info,
-                        page: latest.info,
-                        pageination: pageination, prevOnTap: () {
-                      if (pageination.hasPrev!) {
-                        update(
-                          context,
-                          latest.query,
-                          pageination.prevPageNumber.toString(),
-                          info,
-                        );
-                      }
-                    }, nextOnTap: () {
-                      if (pageination.hasNext!) {
-                        update(
-                          context,
-                          latest.query,
-                          pageination.nextPageNumber.toString(),
-                          info,
-                        );
-                      }
-                    }, goOnTap: () {
-                      _focus.unfocus();
-                      update(
-                        context,
-                        latest.query,
-                        _jumper.text,
-                        info,
-                      );
-                    }),
-                  ],
+                                      : ListPage(info, books: _books),
+                                );
+                              },
+                            ),
+                          )
+                        : Center(
+                            child: KText("no results found for this query"),
+                          ),
+                  ),
                 ),
-              ),
-            );
-          },
+                Container(
+                  height: R.h(info, 10),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(35)),
+                  ),
+                  margin: const EdgeInsets.only(bottom: pad),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PreviousButton(
+                        info,
+                        hasPrev: pageination.hasPrev!,
+                        onPressed: () {
+                          if (pageination.hasPrev!) {
+                            update(
+                              context,
+                              query,
+                              pageination.prevPageNumber.toString(),
+                              info,
+                            );
+                          }
+                        },
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: pad),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(pad),
+                              child: KText(
+                                "jump to page",
+                                size: 10,
+                                weight: FontWeight.bold,
+                              ),
+                            ),
+                            Consumer(
+                              builder: (context, watch, child) {
+                                var _jumper =
+                                    watch(jumperProvider).pageNoController;
+                                return Row(
+                                  children: [
+                                    Container(
+                                      width: R.w(info, 25),
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: pad),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              child: CupertinoTextField(
+                                                autofocus: false,
+                                                controller: _jumper,
+                                                style: TextStyle(
+                                                  fontSize: R.f(info, 14),
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
+                                                onChanged: (value) {
+                                                  bool isint = isInt(value);
+                                                  if (isint) {
+                                                    var i = int.parse(value);
+                                                    if (i < 1 ||
+                                                        i >
+                                                            pageination
+                                                                .totalPageNumber) {
+                                                      _jumper.clear();
+                                                      _focus.unfocus();
+                                                      Kui().toast(
+                                                        context,
+                                                        "enter value between 1 to ${pageination.totalPageNumber.toString()}",
+                                                        textColor: Colors.red,
+                                                        backgroundColor: Theme
+                                                                .of(context)
+                                                            .scaffoldBackgroundColor,
+                                                      );
+                                                    }
+                                                  } else {
+                                                    _jumper.clear();
+                                                    _focus.unfocus();
+                                                    Kui().toast(
+                                                      context,
+                                                      "enter a valid number",
+                                                      textColor: Colors.red,
+                                                      backgroundColor: Theme.of(
+                                                              context)
+                                                          .scaffoldBackgroundColor,
+                                                    );
+                                                  }
+                                                },
+                                                placeholder:
+                                                    pageInfo.currentPage,
+                                                textAlign: TextAlign.center,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                maxLength: 3,
+                                                maxLines: 1,
+                                                maxLengthEnforcement:
+                                                    MaxLengthEnforcement
+                                                        .enforced,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: pad),
+                                            child: KText(
+                                              "/ ${pageInfo.totalPages}",
+                                              size: 14,
+                                              weight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    GoButton(
+                                      info,
+                                      onPressed: () {
+                                        _focus.unfocus();
+                                        update(
+                                          context,
+                                          newPack.query,
+                                          _jumper.text,
+                                          info,
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      NextButton(
+                        info,
+                        hasNext: pageination.hasNext!,
+                        onPressed: () {
+                          if (pageination.hasNext!) {
+                            update(
+                              context,
+                              query,
+                              pageination.nextPageNumber.toString(),
+                              info,
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
