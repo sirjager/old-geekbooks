@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">247840151513-u0o5v7vssotut1cud6qhdabv6vag59tt.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://appstonight-0318-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+    <string name="gcm_defaultSenderId" translatable="false">247840151513</string>
+    <string name="google_api_key" translatable="false">AIzaSyDkpMdE1n6oCBY7X1yaCHSCcaKYdCrXqUM</string>
+    <string name="google_app_id" translatable="false">1:247840151513:android:821de4fff00ce68b21ebc8</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDkpMdE1n6oCBY7X1yaCHSCcaKYdCrXqUM</string>
+    <string name="google_storage_bucket" translatable="false">appstonight-0318.appspot.com</string>
+    <string name="project_id" translatable="false">appstonight-0318</string>
+</resources>

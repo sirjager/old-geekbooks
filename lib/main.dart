@@ -1,28 +1,30 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:geekbooks/ads/adsstate.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/sauce/encpagesource.dart';
 import 'package:geekbooks/provider/all_provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 import 'export/export.dart';
+import 'package:geekbooks/ads/adsprovider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   await Hive.initFlutter();
   Hive.registerAdapter(EncPageSourceAdapter());
   Hive.registerAdapter(EncBookAdapter());
-
+  final initAds = MobileAds.instance.initialize();
+  final adsState = AdsState(initAds: initAds);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(ProviderScope(child: MyApp()));
-
-  // runApp(
-  //   DevicePreview(
-  //     enabled: true,
-  //     builder: (context) => ProviderScope(child: MyApp()),
-  //   ),
-  // );
+  runApp(ProviderScope(
+    overrides: [adStateProvider.overrideWithValue(adsState)],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends ConsumerWidget {

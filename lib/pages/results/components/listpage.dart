@@ -5,7 +5,7 @@ import 'package:geekbooks/widgets/kImage/kimage.dart';
 
 class ListPage extends ConsumerWidget {
   const ListPage(this.info, {Key? key, required this.books}) : super(key: key);
-  final List<Book> books;
+  final List books;
   final SizingInformation info;
 
   @override
