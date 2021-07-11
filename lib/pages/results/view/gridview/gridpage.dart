@@ -31,33 +31,34 @@ class _GridPageState extends State<GridPage> {
   @override
   void initState() {
     super.initState();
-    listWithAds = List.from(widget.books);
+    listWithAds = widget.books;
+    // listWithAds = List.from(widget.books);
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final adsState = context.read(adStateProvider);
-    adsState.initialization.then((value) {
-      insertAdsToList(adsState);
-    });
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final adsState = context.read(adStateProvider);
+  //   adsState.initialization.then((value) {
+  //     insertAdsToList(adsState);
+  //   });
+  // }
 
-  void insertAdsToList(AdState adState) {
-    setState(() {
-      for (var i = listWithAds.length - 1; i >= 1; i -= 4) {
-        listWithAds.insert(
-          i,
-          adState.createBannerAd(
-            size: AdSize(
-              height: R.h(widget.info, 38).toInt(),
-              width: R.w(widget.info, 45).toInt(),
-            ),
-          )..load(),
-        );
-      }
-    });
-  }
+  // void insertAdsToList(AdState adState) {
+  //   setState(() {
+  //     for (var i = listWithAds.length - 1; i >= 1; i -= 4) {
+  //       listWithAds.insert(
+  //         i,
+  //         adState.createBannerAd(
+  //           size: AdSize(
+  //             height: R.h(widget.info, 38).toInt(),
+  //             width: R.w(widget.info, 45).toInt(),
+  //           ),
+  //         )..load(),
+  //       );
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +73,8 @@ class _GridPageState extends State<GridPage> {
         if (item is Book) {
           final Book book = item;
           return BookCard(widget.info, book: book);
-        } else {
-          return AdWidget(ad: item as BannerAd);
         }
+        return AdWidget(ad: item as BannerAd);
       },
     );
   }
