@@ -21,7 +21,7 @@ class AdState {
     return new BannerAd(
       request: AdRequest(nonPersonalizedAds: true),
       adUnitId: bannerAdUnitID,
-      size: size ?? AdSize.mediumRectangle,
+      size: size ?? AdSize.banner,
       listener: bannerAdListener,
     );
   }

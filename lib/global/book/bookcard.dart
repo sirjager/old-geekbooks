@@ -58,7 +58,7 @@ class BookCard extends StatelessWidget {
                           enableGoogleFonts: true,
                           height: 1.2,
                         ),
-                        SizedBox(height: pad * 2),
+                        SizedBox(height: pad),
                         KText(
                           book.author ?? "",
                           size: R.f(info, 7),

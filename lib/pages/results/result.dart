@@ -77,9 +77,9 @@ class _SearchResultsState extends State<SearchResults> {
 
   @override
   Widget build(BuildContext context) {
-    final query = newPack.query;
-    final books = newPack.books;
-    final page = newPack.info;
+    var query = newPack.query;
+    var books = newPack.books;
+    var page = newPack.info;
 
     return ResponsiveBuilder(
       builder: (context, info) {
@@ -157,11 +157,11 @@ class _SearchResultsState extends State<SearchResults> {
   }
 
   makePageNavigator(PageInfo info) {
-    final int totalPages = int.parse(info.totalPages!);
-    final int currentPageNumber = int.parse(info.currentPage!);
-    final String currentPageUrl = info.currentPageUrl!;
-    final bool hasNextPage = (currentPageNumber < totalPages) ? true : false;
-    final bool hasPrevPage = (currentPageNumber > 1) ? true : false;
+    int totalPages = int.parse(info.totalPages!);
+    int currentPageNumber = int.parse(info.currentPage!);
+    String currentPageUrl = info.currentPageUrl!;
+    bool hasNextPage = (currentPageNumber < totalPages) ? true : false;
+    bool hasPrevPage = (currentPageNumber > 1) ? true : false;
     int? nextPageNumber;
     String? nextPageUrl;
     int? prevPageNumber;

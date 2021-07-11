@@ -1,10 +1,9 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:geekbooks/ads/adprovider.dart';
+import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/global/book/bookcard.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-// GridPage(info,
-//                                           books: result, scroll: _scroll)
 
 class GridPage extends StatefulWidget {
   const GridPage(
@@ -28,35 +27,35 @@ class _GridPageState extends State<GridPage> {
 
   @override
   void initState() {
+    listWithAds = List.from(widget.books);
     super.initState();
-    listWithAds = widget.books;
-    // listWithAds = List.from(widget.books);
+    // listWithAds = widget.books;
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   final adsState = context.read(adStateProvider);
-  //   adsState.initialization.then((value) {
-  //     insertAdsToList(adsState);
-  //   });
-  // }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adsState = context.read(adStateProvider);
+    adsState.initialization.then((value) {
+      insertAdsToList(adsState);
+    });
+  }
 
-  // void insertAdsToList(AdState adState) {
-  //   setState(() {
-  //     for (var i = listWithAds.length - 1; i >= 1; i -= 4) {
-  //       listWithAds.insert(
-  //         i,
-  //         adState.createBannerAd(
-  //           size: AdSize(
-  //             height: R.h(widget.info, 38).toInt(),
-  //             width: R.w(widget.info, 45).toInt(),
-  //           ),
-  //         )..load(),
-  //       );
-  //     }
-  //   });
-  // }
+  void insertAdsToList(AdState adState) {
+    setState(() {
+      for (var i = listWithAds.length - 1; i >= 1; i -= 4) {
+        listWithAds.insert(
+          i,
+          adState.createBannerAd(
+            size: AdSize(
+              height: R.h(widget.info, 38).toInt(),
+              width: R.w(widget.info, 45).toInt(),
+            ),
+          )..load(),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +70,9 @@ class _GridPageState extends State<GridPage> {
         if (item is Book) {
           final Book book = item;
           return BookCard(widget.info, book: book, books: widget.books);
+        } else {
+          return AdWidget(ad: item as BannerAd);
         }
-        return AdWidget(ad: item as BannerAd);
       },
     );
   }
