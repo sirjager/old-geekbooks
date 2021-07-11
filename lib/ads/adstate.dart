@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:geekbooks/ads/ads_man.dart';
+import 'package:geekbooks/ads/ad_ids.dart';
 import 'package:geekbooks/core/log/log.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -9,16 +9,19 @@ class AdState {
   AdState({required this.initialization});
 
   String get bannerAdUnitID =>
-      Platform.isAndroid ? AdMan.bannerAndroid : bannerAdUnitID;
+      Platform.isAndroid ? AdId.bannerAndroid : bannerAdUnitID;
 
-  BannerAd createBannerAd() {
+  String get imageAd => AdId.imageBanner;
+  String get videoAd => AdId.videoBanner;
+  String get cardNativeAd => AdId.cardNativeBanner;
+  String get loadingAd => AdId.loadInter;
+  String get navbarAd => AdId.navNativeBanner;
+
+  BannerAd createBannerAd({AdSize? size}) {
     return new BannerAd(
-      request: AdRequest(
-        keywords: <String>['foo', 'bar'],
-        contentUrl: 'http://foo.com/bar.html',
-      ),
+      request: AdRequest(nonPersonalizedAds: true),
       adUnitId: bannerAdUnitID,
-      size: AdSize.mediumRectangle,
+      size: size ?? AdSize.mediumRectangle,
       listener: bannerAdListener,
     );
   }
@@ -28,7 +31,7 @@ class AdState {
   BannerAdListener _adListener = BannerAdListener(
     onAdLoaded: (Ad _ad) => log.i("\nAD LOADED\n"),
     onAdClosed: (Ad _ad) => log.i("\nAD CLOSED\n"),
-    onAdImpression: (Ad _ad) => log.i("\nAD IMPRESSION\n"),
+    onAdImpression: (Ad _ad) => log.i("\nAD APPEARED\n"),
     onAdOpened: (Ad _ad) => log.i("\nAD OPENED\n"),
     onAdFailedToLoad: (_ad, e) {
       log.e("\nAD LOADED ERROR\n$e");

@@ -48,14 +48,11 @@ class _GridPageState extends State<GridPage> {
       for (var i = listWithAds.length - 1; i >= 1; i -= 4) {
         listWithAds.insert(
           i,
-          BannerAd(
-            request: AdRequest(nonPersonalizedAds: true),
+          adState.createBannerAd(
             size: AdSize(
               height: R.h(widget.info, 38).toInt(),
               width: R.w(widget.info, 45).toInt(),
             ),
-            adUnitId: adState.bannerAdUnitID,
-            listener: adState.bannerAdListener,
           )..load(),
         );
       }
