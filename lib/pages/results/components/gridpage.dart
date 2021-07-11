@@ -49,8 +49,7 @@ class _GridPageState extends State<GridPage> {
         listWithAds.insert(
           i,
           BannerAd(
-            request:
-                AdRequest(keywords: [widget.query], nonPersonalizedAds: false),
+            request: AdRequest(nonPersonalizedAds: true),
             size: AdSize(
               height: R.h(widget.info, 38).toInt(),
               width: R.w(widget.info, 45).toInt(),
