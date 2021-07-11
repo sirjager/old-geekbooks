@@ -107,8 +107,12 @@ class _SearchResultsState extends State<SearchResults> {
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: pad),
                                   child: view.isGrid
-                                      ? GridPage(info,
-                                          books: books, scroll: _scroll)
+                                      ? GridPage(
+                                          info,
+                                          query: query,
+                                          books: books,
+                                          scroll: _scroll,
+                                        )
                                       : ListPage(info, books: books),
                                 ),
                               )
