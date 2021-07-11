@@ -70,6 +70,7 @@ class _SearchResultsState extends State<SearchResults> {
               newPack = pac;
             }
           });
+          setState(() {});
         }
       }
     }
