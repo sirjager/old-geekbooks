@@ -92,7 +92,7 @@ class _SearchResultsState extends State<SearchResults> {
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    PageHeader(info, query: query),
+                    PageHeader(info, title: query),
                     PageStrip(info, page: page),
                     Expanded(
                       child: Container(

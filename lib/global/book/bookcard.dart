@@ -1,7 +1,6 @@
 import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/pages/view/view.dart';
 import 'package:geekbooks/widgets/kImage/kimage.dart';
 
 class BookCard extends StatelessWidget {
@@ -9,10 +8,10 @@ class BookCard extends StatelessWidget {
     this.info, {
     Key? key,
     required this.book,
-    // required this.books,
+    required this.books,
   }) : super(key: key);
   final Book book;
-  // final List books;
+  final List books;
   final SizingInformation info;
 
   @override
@@ -24,7 +23,7 @@ class BookCard extends StatelessWidget {
         splashColor: Colors.greenAccent[200],
         highlightColor: Colors.greenAccent[200],
         borderRadius: BorderRadius.circular(15),
-        // onTap: () => Get.to(() => View(id: book.id!, books: books)),
+        onTap: () => Get.to(() => BookView(book: book, books: books)),
         child: Container(
           child: Stack(
             children: [
@@ -50,7 +49,7 @@ class BookCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         KText(
-                          book.title ?? "",
+                          book.title,
                           size: R.f(info, 8),
                           maxLines: 3,
                           color: theme.isDarkMode ? Colors.white : Colors.black,

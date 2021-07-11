@@ -1,6 +1,7 @@
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/pages/view/view.dart';
+
+
 import 'package:geekbooks/widgets/kImage/kimage.dart';
 
 class ListPage extends ConsumerWidget {
@@ -35,7 +36,7 @@ class ListPage extends ConsumerWidget {
                   ],
                 ),
           child: InkWell(
-            onTap: () => Get.to(() => View(id: book.id!, books: books)),
+            onTap: () => Get.to(() => BookView(book: book, books: books)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,7 +60,7 @@ class ListPage extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         KText(
-                          book.title ?? "",
+                          book.title,
                           size: 15,
                           maxLines: 4,
                           color: theme.isDarkMode ? Colors.white : Colors.blue,

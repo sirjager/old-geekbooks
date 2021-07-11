@@ -1,6 +1,4 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:geekbooks/ads/adprovider.dart';
-import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/global/book/bookcard.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -72,7 +70,7 @@ class _GridPageState extends State<GridPage> {
         final item = listWithAds[index];
         if (item is Book) {
           final Book book = item;
-          return BookCard(widget.info, book: book);
+          return BookCard(widget.info, book: book, books: widget.books);
         }
         return AdWidget(ad: item as BannerAd);
       },

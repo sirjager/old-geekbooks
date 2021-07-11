@@ -19,9 +19,9 @@ class Book extends HiveObject {
     required this.tags,
   });
 
-  final String? id;
+  final String id;
   final String? md5;
-  final String? title;
+  final String title;
   final String? author;
   final String? series;
   final String? publisher;

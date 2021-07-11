@@ -31,6 +31,7 @@ export 'package:geekbooks/pages/settings/settings.dart';
 
 // Screen
 export 'package:geekbooks/screens/dashboard/dashboard.dart';
+export 'package:geekbooks/pages/book/view.dart';
 
 //Model
 export 'package:geekbooks/models/book/book.dart';
