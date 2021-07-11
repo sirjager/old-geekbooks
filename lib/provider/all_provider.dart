@@ -11,3 +11,6 @@ final searchOptionProvider =
 final jumperProvider = ChangeNotifierProvider((ref) => PJumper());
 
 final gridViewProvider = ChangeNotifierProvider((ref) => PGridView());
+
+final pagePackProvider = ChangeNotifierProvider((ref) => PPagePack());
+final pageinationProvider = ChangeNotifierProvider((ref) => PPagination());

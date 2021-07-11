@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geekbooks/backend/calls/api_calls.dart';
+import 'package:geekbooks/backend/constants/api_strings.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/page/page.dart';
+import 'package:geekbooks/models/page/pagination.dart';
 import 'package:geekbooks/pages/results/result.dart';
 import 'package:geekbooks/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
@@ -92,6 +95,11 @@ class _SearchbarState extends State<Searchbar> {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {
                   PagePack pack = snapshot.data!;
+                  context.read(pagePackProvider).latestPack(pack);
+                  Pageination pagination = makePageNavigator(pack.info);
+                  context
+                      .read(pageinationProvider)
+                      .latestPagination(pagination);
                   return Container(
                     padding: const EdgeInsets.all(pad),
                     child: Column(
@@ -102,7 +110,7 @@ class _SearchbarState extends State<Searchbar> {
                         KLeafButton(
                           onPressed: () {
                             if (Get.isDialogOpen!) Get.back();
-                            Get.to(() => SearchResults(pack));
+                            Get.to(() => SearchResults());
                           },
                           height: R.w(info, 15),
                           width: R.w(info, 35),
@@ -132,5 +140,40 @@ class _SearchbarState extends State<Searchbar> {
         barrierDismissible: false,
       );
     }
+  }
+
+  Pageination makePageNavigator(PageInfo info) {
+    int totalPages = int.parse(info.totalPages!);
+    int currentPageNumber = int.parse(info.currentPage!);
+    String currentPageUrl = info.currentPageUrl!;
+    bool hasNextPage = (currentPageNumber < totalPages) ? true : false;
+    bool hasPrevPage = (currentPageNumber > 1) ? true : false;
+    int? nextPageNumber;
+    String? nextPageUrl;
+    int? prevPageNumber;
+    String? prevPageUrl;
+    if (hasNextPage) {
+      nextPageNumber = currentPageNumber + 1;
+      nextPageUrl =
+          ApiLenks.genisUrl + info.sortSample! + nextPageNumber.toString();
+    } else {}
+    if (hasPrevPage) {
+      prevPageNumber =
+          currentPageNumber > 0 ? currentPageNumber - 1 : currentPageNumber;
+      prevPageUrl =
+          ApiLenks.genisUrl + info.sortSample! + prevPageNumber.toString();
+    } else {}
+
+    return Pageination(
+      currentPageNumber: currentPageNumber,
+      totalPageNumber: totalPages,
+      currentPageUrl: currentPageUrl,
+      hasNext: hasNextPage,
+      hasPrev: hasPrevPage,
+      nextPageNumber: nextPageNumber,
+      prevPageNumber: prevPageNumber,
+      nextPageURL: nextPageUrl,
+      prevPageUrl: prevPageUrl,
+    );
   }
 }

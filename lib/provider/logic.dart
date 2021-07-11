@@ -1,4 +1,6 @@
+import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/models/page/pagination.dart';
 import 'package:geekbooks/widgets/chip/chip.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -90,5 +92,21 @@ class PGridView extends ChangeNotifier {
       _isGridView = chageView;
       notifyListeners();
     }
+  }
+}
+
+class PPagePack extends ChangeNotifier {
+  late PagePack pack;
+  void latestPack(PagePack latest) {
+    pack = latest;
+    notifyListeners();
+  }
+}
+
+class PPagination extends ChangeNotifier {
+  late Pageination pagination;
+  void latestPagination(Pageination latest) {
+    pagination = latest;
+    notifyListeners();
   }
 }

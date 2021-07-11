@@ -27,9 +27,9 @@ class _GridPageState extends State<GridPage> {
 
   @override
   void initState() {
-    listWithAds = List.from(widget.books);
+    listWithAds = widget.books;
+    // listWithAds = List.from(widget.books);
     super.initState();
-    // listWithAds = widget.books;
   }
 
   @override
@@ -60,6 +60,7 @@ class _GridPageState extends State<GridPage> {
   @override
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
+      physics: ClampingScrollPhysics(),
       crossAxisCount: 2,
       mainAxisSpacing: 2,
       crossAxisSpacing: 2,
@@ -69,7 +70,8 @@ class _GridPageState extends State<GridPage> {
         final item = listWithAds[index];
         if (item is Book) {
           final Book book = item;
-          return BookCard(widget.info, book: book, books: widget.books);
+          return Container(
+              child: BookCard(widget.info, book: book, books: widget.books));
         } else {
           return AdWidget(ad: item as BannerAd);
         }

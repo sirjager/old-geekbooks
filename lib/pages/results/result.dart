@@ -14,38 +14,15 @@ import 'package:geekbooks/pages/results/components/paginationstrip.dart';
 import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
 
-class SearchResults extends StatefulWidget {
-  const SearchResults(this.pack, {Key? key}) : super(key: key);
-  final PagePack pack;
-  @override
-  _SearchResultsState createState() => _SearchResultsState();
-}
-
-class _SearchResultsState extends State<SearchResults> {
+class SearchResults extends ConsumerWidget {
   final TextEditingController _jumper = TextEditingController();
   final FocusNode _focus = FocusNode();
   final ScrollController _scroll = ScrollController();
-  late Pageination pageination;
-  late PagePack newPack;
-  @override
-  void initState() {
-    newPack = widget.pack;
-    pageination = makePageNavigator(widget.pack.info);
-    _focus.unfocus();
-    _jumper.clear();
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    _jumper.dispose();
-    _focus.dispose();
-    _scroll.dispose();
-    super.dispose();
-  }
+  Future<void> update(BuildContext context, String query, String pageNo,
+      SizingInformation info) async {
+    var pageination = context.read(pageinationProvider).pagination;
 
-  Future<void> update(
-      String query, String pageNo, SizingInformation info) async {
     if (query.length > 0) {
       bool isint = isInt(pageNo);
       if (isint) {
@@ -61,31 +38,27 @@ class _SearchResultsState extends State<SearchResults> {
             barrierDismissible: false,
           );
           var pac = await ApiCalls().getPagePack(query, pageNo: pageNo);
-          setState(() {
-            if (Get.isDialogOpen!) {
-              Get.back();
-            }
-            if (pac != null) {
-              pageination = makePageNavigator(pac.info);
-              newPack = pac;
-            }
-          });
-          setState(() {});
+          while (Get.isDialogOpen != null && Get.isDialogOpen!) {
+            Get.back();
+          }
+          if (pac != null) {
+            pageination = makePageNavigator(pac.info);
+            context.read(pagePackProvider).latestPack(pac);
+            context.read(pageinationProvider).latestPagination(pageination);
+          }
         }
       }
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    var query = newPack.query;
-    var books = newPack.books;
-    var page = newPack.info;
-
+  Widget build(BuildContext context, ScopedReader watch) {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Consumer(
           builder: (context, watch, child) {
+            var latest = watch(pagePackProvider).pack;
+            var pageination = watch(pageinationProvider).pagination;
             var view = watch(gridViewProvider);
             return Scaffold(
               body: Container(
@@ -93,11 +66,11 @@ class _SearchResultsState extends State<SearchResults> {
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    PageHeader(info, title: query),
-                    PageStrip(info, page: page),
+                    PageHeader(info, title: latest.query),
+                    PageStrip(info, page: latest.info),
                     Expanded(
                       child: Container(
-                        child: books.length > 0
+                        child: latest.books.length > 0
                             ? RawScrollbar(
                                 thickness: pad * 0.75,
                                 thumbColor: Colors.black54,
@@ -110,11 +83,11 @@ class _SearchResultsState extends State<SearchResults> {
                                   child: view.isGrid
                                       ? GridPage(
                                           info,
-                                          query: query,
-                                          books: books,
+                                          query: latest.query,
+                                          books: latest.books,
                                           scroll: _scroll,
                                         )
-                                      : ListPage(info, books: books),
+                                      : ListPage(info, books: latest.books),
                                 ),
                               )
                             : Center(
@@ -122,11 +95,13 @@ class _SearchResultsState extends State<SearchResults> {
                               ),
                       ),
                     ),
-                    PaginationStrip(info, page: page, pageination: pageination,
-                        prevOnTap: () {
+                    PaginationStrip(info,
+                        page: latest.info,
+                        pageination: pageination, prevOnTap: () {
                       if (pageination.hasPrev!) {
                         update(
-                          query,
+                          context,
+                          latest.query,
                           pageination.prevPageNumber.toString(),
                           info,
                         );
@@ -134,7 +109,8 @@ class _SearchResultsState extends State<SearchResults> {
                     }, nextOnTap: () {
                       if (pageination.hasNext!) {
                         update(
-                          query,
+                          context,
+                          latest.query,
                           pageination.nextPageNumber.toString(),
                           info,
                         );
@@ -142,7 +118,8 @@ class _SearchResultsState extends State<SearchResults> {
                     }, goOnTap: () {
                       _focus.unfocus();
                       update(
-                        query,
+                        context,
+                        latest.query,
                         _jumper.text,
                         info,
                       );

@@ -19,10 +19,7 @@ class BookCard extends StatelessWidget {
     final BorderRadius radius = BorderRadius.circular(24);
     return Container(
       margin: EdgeInsets.all(R.w(info, 2)),
-      child: InkWell(
-        splashColor: Colors.greenAccent[200],
-        highlightColor: Colors.greenAccent[200],
-        borderRadius: BorderRadius.circular(15),
+      child: GestureDetector(
         onTap: () => Get.to(() => BookView(book: book, books: books)),
         child: Container(
           child: Stack(
@@ -39,7 +36,7 @@ class BookCard extends StatelessWidget {
                         : BoxDecoration(
                             color: randomLightColor(), borderRadius: radius),
                     padding: EdgeInsets.only(
-                      top: R.w(info, 32),
+                      top: R.h(info, 15),
                       left: pad,
                       right: pad,
                       bottom: pad,
@@ -51,7 +48,7 @@ class BookCard extends StatelessWidget {
                         KText(
                           book.title,
                           size: R.f(info, 8),
-                          maxLines: 3,
+                          maxLines: 2,
                           color: theme.isDarkMode ? Colors.white : Colors.black,
                           weight: FontWeight.bold,
                           overflow: TextOverflow.ellipsis,
