@@ -137,70 +137,67 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
         tag: book.id + "result",
         child: Opacity(
           opacity: disappear(shrinkOffset),
-          child: Hero(
-            tag: book.id + "bookrow",
-            child: KBlur(
-              blur: 7.5,
-              under: KImage(
-                height: double.infinity,
-                width: double.infinity,
-                imageURL: book.coverURL,
-                borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(R.w(info, 11))),
-              ),
-              child: Opacity(
-                opacity: disappear(shrinkOffset),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: pad),
-                        ),
-                        child: KImage(
-                          fit: BoxFit.fill,
-                          height: R.w(info, 44),
-                          width: R.w(info, 31),
-                          imageURL: book.coverURL!,
-                        ),
+          child: KBlur(
+            blur: 7.5,
+            under: KImage(
+              height: double.infinity,
+              width: double.infinity,
+              imageURL: book.coverURL,
+              borderRadius:
+                  BorderRadius.vertical(bottom: Radius.circular(R.w(info, 11))),
+            ),
+            child: Opacity(
+              opacity: disappear(shrinkOffset),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: pad),
                       ),
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        margin: EdgeInsets.only(top: R.h(info, 3)),
-                        padding: EdgeInsets.symmetric(horizontal: pad * 2),
-                        child: Column(
-                          children: [
-                            book.title != "" && book.title != " "
-                                ? KText(
-                                    book.title,
-                                    size: R.f(info, 13),
-                                    maxLines: 1,
-                                    color: Colors.white,
-                                    weight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                : Container(),
-                            const SizedBox(height: pad),
-                            book.author != null &&
-                                    book.author != "" &&
-                                    book.author != " "
-                                ? KText(
-                                    book.author!,
-                                    size: R.f(info, 10),
-                                    maxLines: 1,
-                                    color: Colors.white,
-                                    weight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                : Container(),
-                          ],
-                        ),
+                      child: KImage(
+                        fit: BoxFit.fill,
+                        height: R.w(info, 44),
+                        width: R.w(info, 31),
+                        imageURL: book.coverURL!,
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      margin: EdgeInsets.only(top: R.h(info, 3)),
+                      padding: EdgeInsets.symmetric(horizontal: pad * 2),
+                      child: Column(
+                        children: [
+                          book.title != "" && book.title != " "
+                              ? KText(
+                                  book.title,
+                                  size: R.f(info, 13),
+                                  maxLines: 1,
+                                  color: Colors.white,
+                                  weight: FontWeight.bold,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              : Container(),
+                          const SizedBox(height: pad),
+                          book.author != null &&
+                                  book.author != "" &&
+                                  book.author != " "
+                              ? KText(
+                                  book.author!,
+                                  size: R.f(info, 10),
+                                  maxLines: 1,
+                                  color: Colors.white,
+                                  weight: FontWeight.bold,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -42,12 +42,9 @@ class BookRow extends StatelessWidget {
                             ),
                           ),
                           width: R.w(info, 37),
-                          child: Hero(
-                            tag: book.id + "bookrow",
-                            child: KImage(
-                              fit: BoxFit.fill,
-                              imageURL: book.coverURL,
-                            ),
+                          child: KImage(
+                            fit: BoxFit.fill,
+                            imageURL: book.coverURL,
                           ),
                         );
                       },
