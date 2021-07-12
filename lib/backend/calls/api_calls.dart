@@ -3,6 +3,7 @@ import 'package:geekbooks/backend/calls/encryption.dart';
 import 'package:geekbooks/backend/calls/hive_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
 import 'package:geekbooks/backend/database/hive.dart';
+import 'package:geekbooks/backend/dialog/dialog.dart';
 import 'package:geekbooks/backend/err/error_handler.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/backend/provider/down_provider.dart';
@@ -22,7 +23,7 @@ import 'package:string_validator/string_validator.dart';
 
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
-  Future<PagePack?> getPagePack(String query,
+  Future<PagePack?> getPagePack(String query, SizingInformation info,
       {String pageNo = "1", String col = 'def'}) async {
     PagePack? _pagePack;
     List<Book> _books = [];
@@ -33,9 +34,12 @@ class ApiCalls with ErrorHandler {
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid, pageNo, col);
+    final String _uniqueKey = _makeUniqueKey(_valid, col, pageNo);
 
-    final String _uniqueKey = _valid + Str.eq + pageNo;
     log.e("\n\nUNIQUE KEY : $_uniqueKey \n\n");
+
+    log.wtf("\n\URL : $_url \n\n");
+
     /* Checking if Same Request if saved in local database or not.
         If Request is Found in database -----> Source is returned from Database
         IF Request is Not Found in database -----> Source is fetched from Internet */
@@ -52,20 +56,13 @@ class ApiCalls with ErrorHandler {
     } else {
       //---> Source being fetched from Internet
       _source = await _getSource(_url, query);
-      if (_source != null && _source.toString().length > 50) {
-        //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
-        final EncPageSource _encSauce =
-            _encPageSource(PageSource(key: _uniqueKey, source: _source));
-        await HiveSauce.putData(_encSauceBox, _uniqueKey, _encSauce);
-        print("\nSaving Encrypted Sauce ...\n");
-      }
     }
     //----> Origin of source is decided above
     //----> Source is checked here if its valid and should have more than 100 Characters
     if (_source != null && _source.toString().length > 100) {
       //------> All the IDS are EXTRACTED from the SOURCE --- as STRING
       final idAsString = IdProvider.idAsString(_source);
-      if (idAsString.length > 0) {
+      if (idAsString != null && idAsString.length > 0) {
         //------> All the IDS are EXTRACTED from the SOURCE --- as LIST of IDs
         final _idList = _idAsList(idAsString);
         //--- For Every ID
@@ -89,6 +86,12 @@ class ApiCalls with ErrorHandler {
             }
           }
         }
+        //--> After Source is fetched from internet then source is saved in local Database with Request as a Key
+        final EncPageSource _encSauce =
+            _encPageSource(PageSource(key: _uniqueKey, source: _source));
+        await HiveSauce.putData(_encSauceBox, _uniqueKey, _encSauce);
+        print("\nSaving Encrypted Sauce ...\n");
+
         _sort = SortProvider().sortAsObject(_source);
         _pageInfo = PageProvider().pageAsObject(_source);
         _pagePack = new PagePack(
@@ -97,11 +100,23 @@ class ApiCalls with ErrorHandler {
           sort: _sort,
           info: _pageInfo,
         );
+        log.i("\nClosing Hive\n");
+        Hive.close();
+        return _pagePack;
+      } else {
+        while (Get.isDialogOpen != null && Get.isDialogOpen!) {
+          Get.back();
+        }
+        log.i("\nClosing Hive\n");
+        Hive.close();
+        UiDialog.showNoResultsDialog(info);
+        return null;
       }
+    } else {
+      log.i("\nClosing Hive\n");
+      Hive.close();
+      return null;
     }
-    log.i("\nClosing Hive\n");
-    Hive.close();
-    return _pagePack;
   }
 
   //!==================================  [[ 1 ]]
@@ -195,9 +210,14 @@ class ApiCalls with ErrorHandler {
     return CryptionCalls.encryptSauce(source);
   }
 
-  void getSearchMode(){
-
-// var provider.of
-    
-  }
+  String _makeUniqueKey(String valid, String col, String pag) =>
+      valid +
+      Str.plus +
+      Str.col +
+      Str.eq +
+      col +
+      Str.plus +
+      Str.pag +
+      Str.eq +
+      pag;
 }

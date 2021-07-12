@@ -68,8 +68,8 @@ class _SearchResultsState extends State<SearchResults> {
             ),
             barrierDismissible: false,
           );
-          var pac =
-              await ApiCalls().getPagePack(query, pageNo: pageNo.toString());
+          var pac = await ApiCalls()
+              .getPagePack(query, info, pageNo: pageNo.toString());
 
           setState(() {
             if (Get.isDialogOpen!) {
@@ -111,7 +111,6 @@ class _SearchResultsState extends State<SearchResults> {
                             child: Consumer(
                               builder: (context, watch, child) {
                                 var view = watch(gridViewProvider);
-                                watch(pagePackProvider);
                                 return Container(
                                   alignment: Alignment.center,
                                   margin: const EdgeInsets.symmetric(

@@ -13,6 +13,7 @@ class Str {
   static final String to = "to";
   static final String space = " ";
   static final String none = "";
+
   static final String underscore = "_";
   static final String plus = "+";
   static final String leftArrow = "<";
@@ -31,4 +32,7 @@ class Str {
   static final String sortURL1 = " // url страниц";
 
   static final String showingResultsFrom = "showing results from";
+
+  static final String pag = "pag";
+  static final String col = "col";
 }

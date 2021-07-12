@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geekbooks/backend/calls/api_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
+import 'package:geekbooks/backend/dialog/dialog.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
+import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/page/pagination.dart';
@@ -91,7 +93,7 @@ class _SearchbarState extends State<Searchbar> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
           child: FutureBuilder<PagePack?>(
-            future: ApiCalls().getPagePack(query, col: col),
+            future: ApiCalls().getPagePack(query, info, col: col),
             builder: (context, AsyncSnapshot<PagePack?> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {
@@ -125,8 +127,13 @@ class _SearchbarState extends State<Searchbar> {
                       ],
                     ),
                   );
+                } else {
+                  log.e("\n\n Page Return Null \n\n");
+                  while (Get.isDialogOpen != null && Get.isDialogOpen!) {
+                    Get.back();
+                  }
+                  UiDialog.showNoResultsDialog(info);
                 }
-                print("page return Null");
               }
               return Container(
                 height: R.w(info, 50),
