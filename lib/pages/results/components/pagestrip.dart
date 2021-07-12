@@ -1,3 +1,4 @@
+import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/page/page.dart';
 
@@ -12,7 +13,7 @@ class PageStrip extends StatelessWidget {
       height: R.h(info, 3),
       padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
       alignment: Alignment.center,
-      color: Colors.greenAccent[100],
+      color: randomLightColor(),
       child: Row(
         children: [
           Expanded(
