@@ -1,5 +1,6 @@
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:geekbooks/utils/striphtml.dart';
 import 'package:readmore/readmore.dart';
 
 class DescriptionBox extends ConsumerWidget {
@@ -18,18 +19,21 @@ class DescriptionBox extends ConsumerWidget {
         children: [
           KText(
             "Description",
-            size: 25,
-            color: _theme.isDarkMode ? Colors.white70 : Colors.red,
-            weight: FontWeight.w900,
+            size: R.f(info, 17),
+            font: "Poppins",
+            color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
+            weight: FontWeight.w500,
           ),
+          SizedBox(height: R.h(info, 1)),
           ReadMoreText(
-            desc,
-            trimLength: 370,
+            XUtils.stripHtml(desc),
+            trimLength: 200,
             trimMode: TrimMode.Length,
             style: TextStyle(
-              color: Colors.red,
+              fontFamily: "Poppins",
+              color: XColors.grayText,
+              fontWeight: FontWeight.w400,
               fontSize: R.f(info, 11),
-              fontWeight: FontWeight.w500,
             ),
           ),
         ],
