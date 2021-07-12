@@ -127,20 +127,12 @@ class _SearchResultsState extends State<SearchResults> {
                                               StaggeredTile.count(1, 1.75),
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            var item = _books[index];
-                                            if (item is Book) {
-                                              Book book = item;
-                                              return BookCard(
-                                                info,
-                                                book: book,
-                                                books: newPack.books,
-                                              );
-                                            } else {
-                                              return Container(
-                                                child: AdWidget(
-                                                    ad: item as BannerAd),
-                                              );
-                                            }
+                                            var book = _books[index];
+                                            return BookCard(
+                                              info,
+                                              book: book,
+                                              books: newPack.books,
+                                            );
                                           },
                                         )
                                       : ListPage(info, books: _books),
