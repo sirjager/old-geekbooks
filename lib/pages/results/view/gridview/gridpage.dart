@@ -135,7 +135,7 @@ class _GridPageState extends State<GridPage> {
                       Container(
                         alignment: Alignment.topCenter,
                         child: KImage(
-                          radius: pad * 2,
+                          borderRadius: BorderRadius.circular(20),
                           height: R.h(widget.info, 26),
                           width: R.w(widget.info, 36),
                           imageURL: book.coverURL,
