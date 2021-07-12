@@ -9,6 +9,7 @@ import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/global/book/bookcard.dart';
 import 'package:geekbooks/models/page/page.dart';
 import 'package:geekbooks/models/page/pagination.dart';
+import 'package:geekbooks/pages/results/components/featurestrip.dart';
 import 'package:geekbooks/pages/results/components/header.dart';
 import 'package:geekbooks/pages/results/components/pagestrip.dart';
 import 'package:geekbooks/pages/results/components/pagination/go.dart';
@@ -97,7 +98,7 @@ class _SearchResultsState extends State<SearchResults> {
               children: [
                 PageHeader(info, title: query),
                 PageStrip(info, page: pageInfo),
-                FeatureS(info, page: pageInfo),
+                FeatureStrip(info),
                 Expanded(
                   child: Container(
                     child: _books.length > 0
