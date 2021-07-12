@@ -1,3 +1,4 @@
+import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/export/export.dart';
 
 class GoButton extends StatelessWidget {
@@ -18,10 +19,13 @@ class GoButton extends StatelessWidget {
       onPressed: () => onPressed(),
       child: KText(
         "go",
-        size: 11,
+        size: R.f(info, 12),
         weight: FontWeight.bold,
       ),
-      topDeco: G.redGradBannerDeco,
+      topDeco: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient:
+              LinearGradient(colors: [randomLightColor(), randomLightColor()])),
       bottomDeco: G.blackGradButtonDeco,
     );
   }

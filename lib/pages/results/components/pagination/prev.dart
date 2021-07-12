@@ -1,3 +1,4 @@
+import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
 
@@ -16,26 +17,29 @@ class PreviousButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return hasPrev
         ? Container(
-            margin: const EdgeInsets.symmetric(horizontal: pad),
+            margin: EdgeInsets.only(left: R.w(info, 7)),
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(pad),
                   child: KText(
                     "previous",
-                    size: 10,
+                    size: R.f(info, 9),
                     weight: FontWeight.bold,
                   ),
                 ),
                 KClickable(
                   height: R.h(info, 5),
-                  width: R.w(info, 16),
+                  width: R.w(info, 13),
                   onPressed: () => onPressed(),
                   child: Icon(
                     EvaIcons.arrowLeft,
                     color: Colors.black,
                   ),
-                  topDeco: G.green2GradBannerDeco,
+                  topDeco: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      gradient: LinearGradient(
+                          colors: [randomLightColor(), randomLightColor()])),
                   bottomDeco: G.blackGradButtonDeco,
                 ),
               ],

@@ -170,14 +170,14 @@ class _SearchResultsState extends State<SearchResults> {
                         },
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(horizontal: pad),
+                        margin: EdgeInsets.symmetric(horizontal: R.w(info, 4)),
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(pad),
                               child: KText(
                                 "jump to page",
-                                size: 10,
+                                size: R.f(info, 9),
                                 weight: FontWeight.bold,
                               ),
                             ),
