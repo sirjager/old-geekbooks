@@ -58,9 +58,7 @@ class KImage extends StatelessWidget {
             fit: fit,
             colorFilter:
                 ColorFilter.mode(filterColor, blendMode ?? BlendMode.color),
-            image: AssetImage(
-              "",
-            ),
+            image: AssetImage("assets/images/png/noimage.png"),
           ),
         ),
       ),

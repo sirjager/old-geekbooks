@@ -33,6 +33,7 @@ class ApiCalls with ErrorHandler {
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid, pageNo, col);
+
     final String _uniqueKey = _valid + Str.eq + pageNo;
     log.e("\n\nUNIQUE KEY : $_uniqueKey \n\n");
     /* Checking if Same Request if saved in local database or not.
@@ -145,7 +146,7 @@ class ApiCalls with ErrorHandler {
   String _makeValid(String query) => query.replaceAll(Str.space, Str.plus);
 
   String _makeURL(String valid, String pageNo, String col) =>
-      ApiLenks.searchUrl + valid + Str.page + pageNo + Str.column + col;
+      ApiLenks.searchUrl + valid + Str.column + col + Str.page + pageNo;
 
   String _makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;
 

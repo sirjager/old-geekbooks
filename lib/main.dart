@@ -23,12 +23,12 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(ProviderScope(
     overrides: [adStateProvider.overrideWithValue(adState)],
-    // child: MyApp(),
+    child: MyApp(),
 
-    child: DevicePreview(
-      enabled: true,
-      builder: (context) => MyApp(),
-    ),
+    // child: DevicePreview(
+    //   enabled: true,
+    //   builder: (context) => MyApp(),
+    // ),
   ));
 }
 
