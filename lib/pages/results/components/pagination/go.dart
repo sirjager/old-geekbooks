@@ -1,7 +1,7 @@
 import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/export/export.dart';
 
-class GoButton extends StatelessWidget {
+class GoButton extends ConsumerWidget {
   const GoButton(
     this.info, {
     Key? key,
@@ -12,7 +12,8 @@ class GoButton extends StatelessWidget {
 
   final VoidCallback onPressed;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    var isDarkMode = watch(themeProvider).isDarkMode;
     return KClickable(
       height: R.h(info, 4),
       width: R.w(info, 10),
@@ -21,12 +22,25 @@ class GoButton extends StatelessWidget {
         "go",
         size: R.f(info, 12),
         weight: FontWeight.bold,
+        color: isDarkMode ? XColors.grayColor : XColors.darkColor,
       ),
-      topDeco: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient:
-              LinearGradient(colors: [randomLightColor(), randomLightColor()])),
-      bottomDeco: G.blackGradButtonDeco,
+      topDeco: isDarkMode
+          ? BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient: G.blackGradButtonDeco.gradient,
+            )
+          : BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient: LinearGradient(
+                  colors: [randomLightColor(), randomLightColor()]),
+            ),
+      bottomDeco: isDarkMode
+          ? BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient:
+                  LinearGradient(colors: [Colors.black, randomLightColor()]),
+            )
+          : G.blackGradButtonDeco,
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
 
-class NextButton extends StatelessWidget {
+class NextButton extends ConsumerWidget {
   const NextButton(
     this.info, {
     Key? key,
@@ -14,7 +14,8 @@ class NextButton extends StatelessWidget {
   final bool hasNext;
   final VoidCallback onPressed;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    var isDarkMode = watch(themeProvider).isDarkMode;
     return hasNext
         ? Container(
             margin: EdgeInsets.only(right: R.w(info, 7)),
@@ -26,6 +27,7 @@ class NextButton extends StatelessWidget {
                     "next",
                     size: R.f(info, 9),
                     weight: FontWeight.bold,
+                    color: isDarkMode ? XColors.grayColor : XColors.darkColor,
                   ),
                 ),
                 KClickable(
@@ -36,11 +38,23 @@ class NextButton extends StatelessWidget {
                     EvaIcons.arrowRight,
                     color: Colors.black,
                   ),
-                  topDeco: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      gradient: LinearGradient(
-                          colors: [randomLightColor(), randomLightColor()])),
-                  bottomDeco: G.blackGradButtonDeco,
+                  topDeco: isDarkMode
+                      ? BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          gradient: G.blackGradButtonDeco.gradient,
+                        )
+                      : BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          gradient: LinearGradient(
+                              colors: [randomLightColor(), randomLightColor()]),
+                        ),
+                  bottomDeco: isDarkMode
+                      ? BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          gradient: LinearGradient(
+                              colors: [Colors.black, randomLightColor()]),
+                        )
+                      : G.blackGradButtonDeco,
                 ),
               ],
             ),

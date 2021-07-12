@@ -1,7 +1,7 @@
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/global/titlebar/titlebar.dart';
 
-class PageHeader extends StatelessWidget {
+class PageHeader extends ConsumerWidget {
   const PageHeader(this.info,
       {Key? key, required this.title, this.disableAction = false})
       : super(key: key);
@@ -10,27 +10,26 @@ class PageHeader extends StatelessWidget {
   final bool disableAction;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    var view = watch(gridViewProvider);
+    var isDarkMode = watch(themeProvider).isDarkMode;
     return Titlebar(
       info,
       title: title,
       disableAction: disableAction,
       leading: IconButton(
-          splashColor: Colors.transparent,
-          onPressed: () => Get.back(),
-          icon: Icon(EvaIcons.arrowIosBack)),
+        splashColor: Colors.transparent,
+        onPressed: () => Get.back(),
+        icon: Icon(EvaIcons.arrowIosBack),
+        color: isDarkMode ? XColors.grayText : XColors.darkColor1,
+      ),
       action: disableAction
           ? null
-          : Consumer(
-              builder: (context, watch, child) {
-                var view = watch(gridViewProvider);
-                return IconButton(
-                  onPressed: () => view.toggleGrid(),
-                  splashColor: Colors.transparent,
-                  icon:
-                      Icon(view.isGrid ? EvaIcons.gridOutline : EvaIcons.list),
-                );
-              },
+          : IconButton(
+              onPressed: () => view.toggleGrid(),
+              splashColor: Colors.transparent,
+              icon: Icon(view.isGrid ? EvaIcons.gridOutline : EvaIcons.list),
+              color: isDarkMode ? XColors.grayText : XColors.darkColor1,
             ),
     );
   }

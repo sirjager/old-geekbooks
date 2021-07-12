@@ -1,6 +1,6 @@
 import 'package:geekbooks/export/export.dart';
 
-class Titlebar extends StatelessWidget {
+class Titlebar extends ConsumerWidget {
   const Titlebar(
     this.info, {
     Key? key,
@@ -21,7 +21,8 @@ class Titlebar extends StatelessWidget {
   final EdgeInsets? margin;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    var isDarkMode = watch(themeProvider).isDarkMode;
     return Container(
       padding: margin ??
           EdgeInsets.symmetric(
@@ -58,6 +59,9 @@ class Titlebar extends StatelessWidget {
                               scaf.scaffoldKey.currentState!.openDrawer(),
                           iconSize: R.w(info, 6),
                           icon: Icon(EvaIcons.barChartOutline),
+                          color: isDarkMode
+                              ? XColors.grayText
+                              : XColors.darkColor1,
                         );
                       },
                     ),
@@ -66,7 +70,13 @@ class Titlebar extends StatelessWidget {
           SizedBox(width: R.w(info, 5)),
           Expanded(
             child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal, child: KText(title)),
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: KText(
+                title,
+                color: isDarkMode ? XColors.grayText : XColors.darkColor1,
+              ),
+            ),
           ),
           action != null
               ? Container(
@@ -91,7 +101,9 @@ class Titlebar extends StatelessWidget {
                             onPressed: () {},
                             iconSize: R.w(info, 6),
                             icon: Icon(EvaIcons.bellOutline),
-                            color: XColors.grayColor,
+                            color: isDarkMode
+                                ? XColors.grayText
+                                : XColors.darkColor1,
                           ),
                           Positioned(
                             top: 0,

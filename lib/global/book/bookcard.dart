@@ -50,7 +50,9 @@ class BookCard extends ConsumerWidget {
                           book.title,
                           size: R.f(info, 8),
                           maxLines: 2,
-                          color: theme.isDarkMode ? Colors.white : Colors.black,
+                          color: theme.isDarkMode
+                              ? Colors.black
+                              : XColors.darkColor,
                           weight: FontWeight.bold,
                           overflow: TextOverflow.ellipsis,
                           enableGoogleFonts: true,
@@ -61,7 +63,9 @@ class BookCard extends ConsumerWidget {
                           book.author ?? "",
                           size: R.f(info, 7),
                           maxLines: 2,
-                          color: theme.isDarkMode ? Colors.white : Colors.black,
+                          color: theme.isDarkMode
+                              ? Colors.black
+                              : XColors.darkColor,
                           weight: FontWeight.bold,
                           enableGoogleFonts: true,
                           overflow: TextOverflow.ellipsis,
@@ -79,8 +83,9 @@ class BookCard extends ConsumerWidget {
                   height: R.h(info, 26),
                   width: R.w(info, 36),
                   imageURL: book.coverURL,
-                  filterColor: blackNWhite ? Colors.black : Colors.transparent,
-                  blendMode: blackNWhite ? BlendMode.color : null,
+                  filterColor:
+                      blackNWhite ? Colors.black87 : Colors.transparent,
+                  blendMode: blackNWhite ? BlendMode.multiply : null,
                 ),
               ),
             ],

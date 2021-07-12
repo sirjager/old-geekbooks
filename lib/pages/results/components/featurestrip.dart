@@ -10,21 +10,23 @@ class FeatureStrip extends ConsumerWidget {
     var isDarkMode = watch(themeProvider).isDarkMode;
     var blackwhite = watch(blackNWhiteProvider);
     return Container(
-      height: R.h(info, 5),
-      margin: EdgeInsets.symmetric(vertical: R.h(info, 1)),
+      height: R.h(info, 3),
+      margin: EdgeInsets.only(top: R.h(info, 0.2), bottom: R.h(info, 0.5)),
       padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
       alignment: Alignment.center,
       color: isDarkMode ? XColors.darkColor2 : randomLightColor(),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           KText(
-            "black and white images",
+            "Make cover images darker",
             font: "Poppins",
             size: R.f(info, 10),
+            weight: FontWeight.bold,
+            color: Colors.black,
           ),
           SizedBox(width: R.w(info, 10)),
-          Switch(
+          Switch.adaptive(
             onChanged: (bool value) => blackwhite.setBlackNWhite(value),
             value: blackwhite.blackNWhite,
           ),

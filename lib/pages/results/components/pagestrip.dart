@@ -10,97 +10,92 @@ class PageStrip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     var isDarkMode = watch(themeProvider).isDarkMode;
-    var blackwhite = watch(blackNWhiteProvider);
+
     return Container(
-      height: R.h(info, 5),
+      height: R.h(info, 2),
       padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
       alignment: Alignment.center,
       color: isDarkMode ? XColors.darkColor2 : randomLightColor(),
-      child: Column(
+      child: Row(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      KText(
-                        page.totalFiles.toString(),
-                        size: R.f(info, 9),
-                        weight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                      KText(
-                        "Results Found",
-                        size: R.f(info, 9),
-                        weight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              VerticalDivider(
-                thickness: 1,
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-              Row(
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   KText(
-                    "Page ",
+                    page.totalFiles.toString(),
                     size: R.f(info, 9),
                     weight: FontWeight.bold,
                     color: Colors.black,
                   ),
                   KText(
-                    page.currentPage.toString(),
+                    "Results Found",
                     size: R.f(info, 9),
                     weight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ],
               ),
-              VerticalDivider(
-                thickness: 1,
-                color: Theme.of(context).scaffoldBackgroundColor,
+            ),
+          ),
+          VerticalDivider(
+            thickness: 1,
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              KText(
+                "Page ",
+                size: R.f(info, 9),
+                weight: FontWeight.bold,
+                color: Colors.black,
               ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    KText(
-                      "Showing from ",
-                      size: R.f(info, 9),
-                      weight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                    KText(
-                      page.showingResultsFrom.toString(),
-                      size: R.f(info, 9),
-                      weight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                    KText(
-                      "-",
-                      size: R.f(info, 9),
-                      weight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                    KText(
-                      page.showingResultsTo.toString(),
-                      size: R.f(info, 9),
-                      weight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
+              KText(
+                page.currentPage.toString(),
+                size: R.f(info, 9),
+                weight: FontWeight.bold,
+                color: Colors.black,
               ),
             ],
           ),
-          
+          VerticalDivider(
+            thickness: 1,
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                KText(
+                  "Showing from ",
+                  size: R.f(info, 9),
+                  weight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                KText(
+                  page.showingResultsFrom.toString(),
+                  size: R.f(info, 9),
+                  weight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                KText(
+                  "-",
+                  size: R.f(info, 9),
+                  weight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                KText(
+                  page.showingResultsTo.toString(),
+                  size: R.f(info, 9),
+                  weight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
