@@ -20,6 +20,7 @@ class Str {
   static final String fields = "&fields=";
   static final String limit1 = "&limit1=";
   static final String limit2 = "&limit2=";
+  static final String column = "&column=";
   static final String mode = "&mode=";
   static final String timefirst = "&timefirst=";
   static final String page = "&page=";

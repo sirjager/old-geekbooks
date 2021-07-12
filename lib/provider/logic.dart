@@ -45,7 +45,8 @@ class NavigationProvider extends ChangeNotifier {
 }
 
 class SearchOptionProvider extends ChangeNotifier {
-  KItem _selectedOption = KItem(index: 0, title: "Simple", active: true);
+  KItem _selectedOption =
+      KItem(index: 0, title: "Simple", active: true, value: "def");
   KItem get selected => _selectedOption;
   void setSelection(KItem changeTo) {
     _selectedOption = changeTo;

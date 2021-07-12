@@ -84,13 +84,14 @@ class _SearchbarState extends State<Searchbar> {
     String string =
         query.removeAllWhitespace.toString().replaceAll(Str.space, Str.none);
     if (string.length > 0) {
+      String col = context.read(searchOptionProvider).selected.value;
       Get.dialog(
         Dialog(
           clipBehavior: Clip.antiAlias,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
           child: FutureBuilder<PagePack?>(
-            future: ApiCalls().getPagePack(query),
+            future: ApiCalls().getPagePack(query, col: col),
             builder: (context, AsyncSnapshot<PagePack?> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {

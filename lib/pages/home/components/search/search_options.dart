@@ -6,13 +6,13 @@ class SearchOptions extends ConsumerWidget {
   final SizingInformation info;
 
   final List<KItem> filters = [
-    KItem(index: 0, title: "Default", active: false),
-    KItem(index: 1, title: "Title", active: false),
-    KItem(index: 2, title: "Author", active: false),
-    KItem(index: 3, title: "Series", active: false),
-    KItem(index: 4, title: "Year", active: false),
-    KItem(index: 5, title: "Publisher", active: false),
-    KItem(index: 6, title: "Language", active: false),
+    KItem(index: 0, title: "Default", active: false, value: "def"),
+    KItem(index: 1, title: "Title", active: false, value: "title"),
+    KItem(index: 2, title: "Author", active: false, value: "author"),
+    KItem(index: 3, title: "Series", active: false, value: "series"),
+    KItem(index: 4, title: "Year", active: false, value: "year"),
+    KItem(index: 5, title: "Publisher", active: false, value: "publisher"),
+    KItem(index: 6, title: "Language", active: false, value: "language"),
   ];
 
   @override

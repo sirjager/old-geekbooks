@@ -22,7 +22,14 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(ProviderScope(
-      overrides: [adStateProvider.overrideWithValue(adState)], child: MyApp()));
+    overrides: [adStateProvider.overrideWithValue(adState)],
+    // child: MyApp(),
+
+    child: DevicePreview(
+      enabled: true,
+      builder: (context) => MyApp(),
+    ),
+  ));
 }
 
 class MyApp extends ConsumerWidget {

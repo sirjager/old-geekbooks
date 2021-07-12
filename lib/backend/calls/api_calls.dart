@@ -22,7 +22,8 @@ import 'package:string_validator/string_validator.dart';
 
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
-  Future<PagePack?> getPagePack(String query, {String pageNo = "1"}) async {
+  Future<PagePack?> getPagePack(String query,
+      {String pageNo = "1", String col = 'def'}) async {
     PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
@@ -31,7 +32,7 @@ class ApiCalls with ErrorHandler {
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
     final String _valid = _makeValid(query);
-    final String _url = _makeURL(_valid, pageNo);
+    final String _url = _makeURL(_valid, pageNo, col);
     final String _uniqueKey = _valid + Str.eq + pageNo;
     log.e("\n\nUNIQUE KEY : $_uniqueKey \n\n");
     /* Checking if Same Request if saved in local database or not.
@@ -143,8 +144,8 @@ class ApiCalls with ErrorHandler {
 
   String _makeValid(String query) => query.replaceAll(Str.space, Str.plus);
 
-  String _makeURL(String valid, String pageNo) =>
-      ApiLenks.searchUrl + valid + Str.page + pageNo;
+  String _makeURL(String valid, String pageNo, String col) =>
+      ApiLenks.searchUrl + valid + Str.page + pageNo + Str.column + col;
 
   String _makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;
 
