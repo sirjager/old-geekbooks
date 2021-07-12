@@ -37,7 +37,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
         ),
         buildAppBar(shrinkOffset, _book, context),
         Positioned(
-          top: R.h(info, 5),
+          top: R.h(info, 3),
           left: R.w(info, 4),
           right: R.w(info, 4),
           child: Row(
@@ -89,15 +89,13 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
   Widget buildAppBar(double shrinkOffset, Book book, BuildContext context) =>
       Opacity(
         opacity: appear(shrinkOffset),
-        // opacity: 0.10,
         child: Container(
-          padding: EdgeInsets.only(top: R.statusbarHeight(info)),
-          height: R.appbarHeight,
+          height: minExtent,
+          padding: EdgeInsets.only(top: R.h(info, 2)),
           color: Theme.of(context).scaffoldBackgroundColor,
           alignment: Alignment.center,
           child: Container(
             padding: EdgeInsets.symmetric(
-              vertical: R.h(info, 3),
               horizontal: R.w(info, 17),
             ),
             child: SingleChildScrollView(
@@ -237,7 +235,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
             size: R.f(info, 8),
             maxLines: 1,
             letterSpacing: 0.5,
-            color: theme.isDarkMode ? Colors.white70 : Colors.red,
+            color: theme.isDarkMode ? Colors.white70 : Colors.black87,
             enableGoogleFonts: true,
           ),
           const SizedBox(height: pad * 0.95),
@@ -255,7 +253,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => expandedHeight;
 
   @override
-  double get minExtent => kToolbarHeight + R.h(info, 6);
+  double get minExtent => R.h(info, 7) + R.h(info, 3);
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
