@@ -36,15 +36,12 @@ class _SearchResultsState extends State<SearchResults> {
   late Pageination pageination;
   late PagePack newPack;
 
-  late List listWithAds;
-
   void initState() {
     newPack = widget.pack;
     pageination = makePageNavigator(widget.pack.info);
     _focus.unfocus();
     _jumper.clear();
     super.initState();
-    listWithAds = List.from(newPack.books);
   }
 
   @override
@@ -53,32 +50,6 @@ class _SearchResultsState extends State<SearchResults> {
     _focus.dispose();
     _scroll.dispose();
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var adsState = context.read(adStateProvider);
-    adsState.initialization.then((value) {
-      insertAdsToList(adsState);
-    });
-  }
-
-  void insertAdsToList(AdState adState) {
-    var adsState = context.read(adStateProvider);
-    adsState.initialization.then((value) {
-      insertAdsToList(adsState);
-    });
-    setState(() {
-      for (var i = listWithAds.length - 1; i >= 1; i -= 4) {
-        listWithAds.insert(
-          i,
-          adState.createBannerAd(
-            size: AdSize(height: 200, width: 100),
-          )..load(),
-        );
-      }
-    });
   }
 
   Future<void> update(BuildContext context, String query, String pageNo,
@@ -117,7 +88,7 @@ class _SearchResultsState extends State<SearchResults> {
   @override
   Widget build(BuildContext context) {
     final query = newPack.query;
-    final _books = listWithAds;
+    final _books = newPack.books;
     final pageInfo = newPack.info;
     return ResponsiveBuilder(
       builder: (context, info) {
