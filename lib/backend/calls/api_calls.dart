@@ -109,7 +109,13 @@ class ApiCalls with ErrorHandler {
         }
         log.i("\nClosing Hive\n");
         Hive.close();
-        UiDialog.showNoResultsDialog(info);
+        UiDialog.showDialog(
+          info,
+          title: "Search Complete",
+          lottie: MyAssets.notfound1,
+          actionTitle: "Okay",
+        );
+
         return null;
       }
     } else {

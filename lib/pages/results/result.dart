@@ -97,6 +97,7 @@ class _SearchResultsState extends State<SearchResults> {
               children: [
                 PageHeader(info, title: query),
                 PageStrip(info, page: pageInfo),
+                FeatureS(info, page: pageInfo),
                 Expanded(
                   child: Container(
                     child: _books.length > 0

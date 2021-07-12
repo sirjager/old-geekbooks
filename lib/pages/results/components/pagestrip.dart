@@ -2,18 +2,19 @@ import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/models/page/page.dart';
 
-class PageStrip extends StatelessWidget {
+class PageStrip extends ConsumerWidget {
   const PageStrip(this.info, {Key? key, required this.page}) : super(key: key);
   final PageInfo page;
   final SizingInformation info;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    var isDarkMode = watch(themeProvider).isDarkMode;
     return Container(
       height: R.h(info, 3),
       padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
       alignment: Alignment.center,
-      color: randomLightColor(),
+      color: isDarkMode ? XColors.darkColor2 : randomLightColor(),
       child: Row(
         children: [
           Expanded(

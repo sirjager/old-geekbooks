@@ -26,7 +26,7 @@ class DrawerProvider extends ChangeNotifier {
 
 class ThemeProvider extends ChangeNotifier {
   //!=========> FOR CHECKING AND CHANING SYSTEM THEMEMODE
-  ThemeMode _mode = ThemeMode.light;
+  ThemeMode _mode = ThemeMode.dark;
   bool get isDarkMode => _mode == ThemeMode.dark;
   void setMode(bool isDarkMode) {
     _mode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
@@ -108,6 +108,15 @@ class PPagination extends ChangeNotifier {
   late Pageination pagination;
   void latestPagination(Pageination latest) {
     pagination = latest;
+    notifyListeners();
+  }
+}
+
+class PBlackNWhite extends ChangeNotifier {
+  bool _blackNWhite = false;
+  bool get blackNWhite => _blackNWhite;
+  void setBlackNWhite(bool set) {
+    _blackNWhite = set;
     notifyListeners();
   }
 }

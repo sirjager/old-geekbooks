@@ -18,7 +18,7 @@ class SearchOptions extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     var searchOption = watch(searchOptionProvider);
-
+    var theme = watch(themeProvider);
     return Container(
       margin: EdgeInsets.symmetric(
           vertical: R.h(info, 2), horizontal: R.w(info, 2)),
@@ -38,15 +38,18 @@ class SearchOptions extends ConsumerWidget {
                   font: "MavenPro",
                   letterSpacing: 1,
                   size: R.f(info, 10),
-                  color: isSelected ? Color(0xff555555) : XColors.grayText,
-                  weight: isSelected ? FontWeight.w700 : FontWeight.w400,
+                  color: isSelected ? XColors.darkText : XColors.grayText,
+                  weight: isSelected ? FontWeight.w700 : FontWeight.w500,
                 ),
                 topDeco: BoxDecoration(
-                  color: Color(0xffF8F8FA),
+                  color: theme.isDarkMode
+                      ? XColors.darkColor1
+                      : XColors.lightColor1,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 bottomDeco: BoxDecoration(
-                  color: Colors.black12,
+                  color:
+                      theme.isDarkMode ? XColors.darkColor2 : XColors.grayText,
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
@@ -57,16 +60,13 @@ class SearchOptions extends ConsumerWidget {
     );
   }
 
-  Future<bool> updateFilter(
-      int index, SearchOptionProvider searchOption) async {
+  bool updateFilter(int index, SearchOptionProvider searchOption) {
     var _filterList = filters;
     for (KItem item in _filterList) {
       if (index == item.index) {
         searchOption.setSelection(item);
-        print(item.title);
       }
     }
-
     return true;
   }
 }

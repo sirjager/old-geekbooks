@@ -3,7 +3,7 @@ import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/widgets/kImage/kimage.dart';
 
-class BookCard extends StatelessWidget {
+class BookCard extends ConsumerWidget {
   const BookCard(
     this.info, {
     Key? key,
@@ -15,7 +15,8 @@ class BookCard extends StatelessWidget {
   final SizingInformation info;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    bool blackNWhite = watch(blackNWhiteProvider).blackNWhite;
     final BorderRadius radius = BorderRadius.circular(24);
     return Container(
       margin: EdgeInsets.all(R.w(info, 2)),
@@ -78,6 +79,8 @@ class BookCard extends StatelessWidget {
                   height: R.h(info, 26),
                   width: R.w(info, 36),
                   imageURL: book.coverURL,
+                  filterColor: blackNWhite ? Colors.black : Colors.transparent,
+                  blendMode: blackNWhite ? BlendMode.color : null,
                 ),
               ),
             ],

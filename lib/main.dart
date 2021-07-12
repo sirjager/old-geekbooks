@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:geekbooks/ads/adprovider.dart';
 import 'package:geekbooks/ads/adstate.dart';
+import 'package:geekbooks/core/theme/themeData.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/sauce/encpagesource.dart';
 import 'package:geekbooks/provider/all_provider.dart';
@@ -36,20 +37,17 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     // ignore: unused_local_variable
+    // bool isDarkMode = watch(themeProvider).isDarkMode;
     bool isDarkMode = watch(themeProvider).isDarkMode;
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-    );
+        isDarkMode ? AppTheme.systemUiDark : AppTheme.systemUiLight);
     return GetMaterialApp(
-      builder: DevicePreview.appBuilder,
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       locale: DevicePreview.locale(context),
-      theme: ThemeData(primarySwatch: Colors.blue),
+      builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
+      darkTheme: AppTheme.themeDark,
+      theme: AppTheme.themeLight,
       title: 'GeekBooks',
       home: Dashboard(),
     );

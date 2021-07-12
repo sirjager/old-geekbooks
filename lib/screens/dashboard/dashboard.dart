@@ -14,7 +14,6 @@ class Dashboard extends ConsumerWidget {
         return Scaffold(
           key: scaf.scaffoldKey,
           drawer: KDrawer(info),
-          backgroundColor: Colors.white,
           body: ScreenLayout(
             mobile: DashboardMobile(info),
             tablet: DashboardTablet(info),

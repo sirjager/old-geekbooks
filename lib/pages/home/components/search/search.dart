@@ -87,65 +87,79 @@ class _SearchbarState extends State<Searchbar> {
         query.removeAllWhitespace.toString().replaceAll(Str.space, Str.none);
     if (string.length > 0) {
       String col = context.read(searchOptionProvider).selected.value;
-      Get.dialog(
-        Dialog(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          child: FutureBuilder<PagePack?>(
-            future: ApiCalls().getPagePack(query, info, col: col),
-            builder: (context, AsyncSnapshot<PagePack?> snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data != null) {
-                  PagePack pack = snapshot.data!;
-                  context.read(pagePackProvider).latestPack(pack);
-                  Pageination pagination = makePageNavigator(pack.info);
-                  context
-                      .read(pageinationProvider)
-                      .latestPagination(pagination);
-                  return Container(
-                    padding: const EdgeInsets.all(pad),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Lottie.asset(MyAssets.check, height: R.h(info, 25)),
-                        KLeafButton(
-                          onPressed: () {
-                            if (Get.isDialogOpen!) Get.back();
-                            Get.to(() => SearchResults(pack: pack));
-                          },
-                          height: R.w(info, 15),
-                          width: R.w(info, 35),
-                          child: KText(
-                            "continue",
-                            size: R.f(info, 10),
-                          ),
-                          icon: Ionicons.arrow_forward_circle,
+      UiDialog.showDialog(
+        info,
+        title: "",
+        lottie: MyAssets.check,
+        actionTitle: "",
+        child: FutureBuilder<PagePack?>(
+          future: ApiCalls().getPagePack(query, info, col: col),
+          builder: (context, AsyncSnapshot<PagePack?> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data != null) {
+                PagePack pack = snapshot.data!;
+
+                return Container(
+                  padding: const EdgeInsets.all(pad),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset(MyAssets.check, height: R.h(info, 25)),
+                      KLeafButton(
+                        onPressed: () {
+                          if (Get.isDialogOpen!) Get.back();
+                          Get.to(() => SearchResults(pack: pack));
+                        },
+                        color1: theme.isDarkMode
+                            ? XColors.darkColor
+                            : Colors.greenAccent[100]!,
+                        color2: theme.isDarkMode
+                            ? XColors.darkColor2
+                            : Colors.greenAccent[200]!,
+                        height: R.w(info, 15),
+                        width: R.w(info, 35),
+                        child: KText(
+                          "continue",
+                          font: "Poppins",
+                          size: R.f(info, 10),
+                          color: theme.isDarkMode
+                              ? XColors.darkText
+                              : XColors.darkColor2,
+                          weight: FontWeight.bold,
                         ),
-                        SizedBox(height: pad * 2),
-                      ],
-                    ),
-                  );
-                } else {
-                  log.e("\n\n Page Return Null \n\n");
-                  while (Get.isDialogOpen != null && Get.isDialogOpen!) {
-                    Get.back();
-                  }
-                  UiDialog.showNoResultsDialog(info);
+                        icon: Ionicons.arrow_forward_circle,
+                        iconColor: theme.isDarkMode
+                            ? XColors.darkText
+                            : XColors.darkColor2,
+                      ),
+                      SizedBox(height: pad * 2),
+                    ],
+                  ),
+                );
+              } else {
+                log.e("\n\n Page Return Null \n\n");
+                while (Get.isDialogOpen != null && Get.isDialogOpen!) {
+                  Get.back();
                 }
+                UiDialog.showDialog(
+                  info,
+                  isDarkMode: theme.isDarkMode,
+                  title: "Search Complete",
+                  lottie: MyAssets.notfound1,
+                  actionTitle: "Okay",
+                );
               }
-              return Container(
-                height: R.w(info, 50),
-                decoration: BoxDecoration(
-                  color: theme.isDarkMode ? Colors.black45 : Colors.white,
-                ),
-                child: Lottie.asset(MyAssets.pleasewait),
-              );
-            },
-          ),
+            }
+            return Container(
+              height: R.w(info, 50),
+              decoration: BoxDecoration(
+                color: theme.isDarkMode ? Colors.black45 : Colors.white,
+              ),
+              child: Lottie.asset(MyAssets.pleasewait),
+            );
+          },
         ),
-        barrierDismissible: false,
       );
     }
   }

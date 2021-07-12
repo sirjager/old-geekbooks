@@ -47,40 +47,57 @@ class UiDialog {
     );
   }
 
-  static void showNoResultsDialog(SizingInformation info,
-      {String title = "Search Complete", String desc = "No Results Found"}) {
+  static void showDialog(
+    SizingInformation info, {
+    bool isDarkMode = false,
+    required String title,
+    String desc = "",
+    required String lottie,
+    bool enableAction = false,
+    required String actionTitle,
+    Widget? child,
+  }) {
     Get.dialog(
       Dialog(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        child: Container(
-          height: R.h(info, 35),
-          width: R.w(info, 40),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset(MyAssets.notfound1, height: R.h(info, 15)),
-                KText(title, size: R.f(info, 20), weight: FontWeight.bold),
-                SizedBox(height: R.h(info, 2)),
-                KText(desc, size: R.f(info, 10), weight: FontWeight.bold),
-                SizedBox(height: R.h(info, 2)),
-                KClickable(
-                    height: R.h(info, 5),
-                    width: R.w(info, 18),
-                    topDeco: G.blueGradBannerDeco,
-                    bottomDeco: G.blackGradButtonDeco,
-                    onPressed: () {
-                      if (Get.isDialogOpen == true) Get.back();
-                    },
-                    child: KText("Okay",
-                        size: R.f(info, 11), weight: FontWeight.bold)),
-              ],
+        child: child ??
+            Container(
+              height: R.h(info, 35),
+              width: R.w(info, 40),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset(lottie, height: R.h(info, 15)),
+                      KText(title,
+                          size: R.f(info, 20), weight: FontWeight.bold),
+                      SizedBox(height: R.h(info, 2)),
+                      KText(desc, size: R.f(info, 10), weight: FontWeight.bold),
+                      SizedBox(height: R.h(info, 2)),
+                      KClickable(
+                        height: R.h(info, 5),
+                        width: R.w(info, 18),
+                        topDeco: G.blueGradBannerDeco,
+                        bottomDeco: G.blackGradButtonDeco,
+                        onPressed: () {
+                          if (Get.isDialogOpen == true) Get.back();
+                        },
+                        child: KText(
+                          actionTitle,
+                          size: R.f(info, 11),
+                          weight: FontWeight.bold,
+                          color: isDarkMode ? Colors.black87 : Colors.black87,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
       ),
       barrierDismissible: false,
     );

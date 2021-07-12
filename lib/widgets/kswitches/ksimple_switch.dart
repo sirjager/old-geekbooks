@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SimpleSwitch extends StatefulWidget {
-  const SimpleSwitch({
+class KSimpleSwitch extends StatefulWidget {
+  const KSimpleSwitch({
     Key? key,
     required this.onTap,
     required this.toggle,
@@ -33,7 +33,7 @@ class SimpleSwitch extends StatefulWidget {
   }) : super(key: key);
 
   final bool toggle;
-  final Function onTap;
+  final Function? onTap;
   final IconData iconOn;
   final IconData iconOff;
   final double iconSize;
@@ -70,10 +70,10 @@ class SimpleSwitch extends StatefulWidget {
   final bool enableBackgroundImage;
 
   @override
-  _SimpleSwitchState createState() => _SimpleSwitchState();
+  _KSimpleSwitchState createState() => _KSimpleSwitchState();
 }
 
-class _SimpleSwitchState extends State<SimpleSwitch> {
+class _KSimpleSwitchState extends State<KSimpleSwitch> {
   @override
   Widget build(BuildContext context) {
     return InkWell(

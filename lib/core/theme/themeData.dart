@@ -7,7 +7,7 @@ class AppTheme {
   //**********************For Light Themes***************************
   static const Color themeColorLight = Colors.green;
 
-  static const Color backgroundColorLight = Color(0xffE3E6EC);
+  static const Color backgroundColorLight = Colors.white;
   static const Color accentColorLight = Color(0xffA239EA);
   static const Color buttonColorLight = Color(0xFFCCD0F6);
   static const Color headlineColorLight = Colors.black;
