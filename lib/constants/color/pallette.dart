@@ -8,6 +8,7 @@ class XColors {
 
   static Color get darkText => Color(0xff555555);
 
+  static Color get deepDark => Color(0xff121313);
   static Color get darkColor => Color(0xff212020);
   static Color get darkColor1 => Color(0xff2E2E2F);
   static Color get darkColor2 => Color(0xff3E3F3E);

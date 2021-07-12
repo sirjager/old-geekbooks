@@ -174,10 +174,19 @@ class _SearchResultsState extends State<SearchResults> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(pad),
-                              child: KText(
-                                "jump to page",
-                                size: R.f(info, 9),
-                                weight: FontWeight.bold,
+                              child: Consumer(
+                                builder: (context, watch, child) {
+                                  var isDarkMode =
+                                      watch(themeProvider).isDarkMode;
+                                  return KText(
+                                    "jump to page",
+                                    size: R.f(info, 9),
+                                    weight: FontWeight.bold,
+                                    color: isDarkMode
+                                        ? XColors.grayColor
+                                        : XColors.darkColor,
+                                  );
+                                },
                               ),
                             ),
                             Consumer(
@@ -194,59 +203,82 @@ class _SearchResultsState extends State<SearchResults> {
                                         children: [
                                           Expanded(
                                             child: Container(
-                                              child: CupertinoTextField(
-                                                autofocus: false,
-                                                controller: _jumper,
-                                                style: TextStyle(
-                                                  fontSize: R.f(info, 14),
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                ),
-                                                onChanged: (value) {
-                                                  bool isint = isInt(value);
-                                                  if (isint) {
-                                                    var i = int.parse(value);
-                                                    if (i < 1 ||
-                                                        i >
-                                                            pageination
-                                                                .totalPageNumber) {
-                                                      _jumper.clear();
-                                                      _focus.unfocus();
-                                                      Kui().toast(
-                                                        context,
-                                                        "enter value between 1 to ${pageination.totalPageNumber.toString()}",
-                                                        textColor: Colors.red,
-                                                        backgroundColor: Theme
-                                                                .of(context)
-                                                            .scaffoldBackgroundColor,
-                                                      );
-                                                    }
-                                                  } else {
-                                                    _jumper.clear();
-                                                    _focus.unfocus();
-                                                    Kui().toast(
-                                                      context,
-                                                      "enter a valid number",
-                                                      textColor: Colors.red,
-                                                      backgroundColor: Theme.of(
-                                                              context)
-                                                          .scaffoldBackgroundColor,
-                                                    );
-                                                  }
+                                              child: Consumer(
+                                                builder:
+                                                    (context, watch, child) {
+                                                  var isDarkMode =
+                                                      watch(themeProvider)
+                                                          .isDarkMode;
+                                                  return CupertinoTextField(
+                                                    decoration: isDarkMode
+                                                        ? BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            color: XColors
+                                                                .deepDark)
+                                                        : null,
+                                                    autofocus: false,
+                                                    controller: _jumper,
+                                                    style: TextStyle(
+                                                      fontSize: R.f(info, 14),
+                                                      color: isDarkMode
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                    onChanged: (value) {
+                                                      bool isint = isInt(value);
+                                                      if (isint) {
+                                                        var i =
+                                                            int.parse(value);
+                                                        if (i < 1 ||
+                                                            i >
+                                                                pageination
+                                                                    .totalPageNumber) {
+                                                          _jumper.clear();
+                                                          _focus.unfocus();
+                                                          Kui().toast(
+                                                            context,
+                                                            "enter value between 1 to ${pageination.totalPageNumber.toString()}",
+                                                            textColor:
+                                                                Colors.red,
+                                                            backgroundColor: Theme
+                                                                    .of(context)
+                                                                .scaffoldBackgroundColor,
+                                                          );
+                                                        }
+                                                      } else {
+                                                        _jumper.clear();
+                                                        _focus.unfocus();
+                                                        Kui().toast(
+                                                          context,
+                                                          "enter a valid number",
+                                                          textColor: Colors.red,
+                                                          backgroundColor: Theme
+                                                                  .of(context)
+                                                              .scaffoldBackgroundColor,
+                                                        );
+                                                      }
+                                                    },
+                                                    placeholder:
+                                                        pageInfo.currentPage,
+                                                    placeholderStyle: TextStyle(
+                                                      fontSize: R.f(info, 14),
+                                                      color: isDarkMode
+                                                          ? XColors.grayColor
+                                                          : Colors.black,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    maxLength: 3,
+                                                    maxLines: 1,
+                                                    maxLengthEnforcement:
+                                                        MaxLengthEnforcement
+                                                            .enforced,
+                                                  );
                                                 },
-                                                placeholder:
-                                                    pageInfo.currentPage,
-                                                textAlign: TextAlign.center,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                maxLength: 3,
-                                                maxLines: 1,
-                                                maxLengthEnforcement:
-                                                    MaxLengthEnforcement
-                                                        .enforced,
                                               ),
                                             ),
                                           ),
