@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:geekbooks/ads/adprovider.dart';
-import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/backend/calls/api_calls.dart';
 import 'package:geekbooks/backend/constants/api_strings.dart';
 import 'package:geekbooks/backend/export/backend_export.dart';
@@ -17,7 +15,6 @@ import 'package:geekbooks/pages/results/components/pagination/go.dart';
 import 'package:geekbooks/pages/results/components/pagination/next.dart';
 import 'package:geekbooks/pages/results/components/pagination/prev.dart';
 import 'package:geekbooks/pages/results/view/listview/listpage.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -145,7 +142,7 @@ class _SearchResultsState extends State<SearchResults> {
                   ),
                 ),
                 Container(
-                  height: R.h(info, 10),
+                  height: R.h(info, 11),
                   decoration: BoxDecoration(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius:

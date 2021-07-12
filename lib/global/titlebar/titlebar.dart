@@ -8,19 +8,27 @@ class Titlebar extends StatelessWidget {
     this.leading,
     this.action,
     this.disableAction = false,
+    this.decoration,
+    this.margin,
   }) : super(key: key);
 
   final SizingInformation info;
   final String title;
   final Widget? leading;
   final Widget? action;
+  final BoxDecoration? decoration;
   final bool disableAction;
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: R.w(info, 5), vertical: R.h(info, 1.2)),
+    return Container(
+      padding: margin ??
+          EdgeInsets.symmetric(
+            horizontal: R.w(info, 5),
+            vertical: R.h(info, 1.2),
+          ),
+      decoration: decoration ?? BoxDecoration(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -14,9 +14,10 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final double value = 5;
+    final double avg = (R.h(info, 1) + R.w(info, 1) / 100);
     final _book = book;
-    final size = 80;
-    final top = expandedHeight - shrinkOffset - size / 2;
+    final top = expandedHeight - shrinkOffset - avg * value;
 
     return Stack(
       fit: StackFit.expand,
@@ -28,13 +29,55 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
             final _theme = watch(themeProvider);
             return Positioned(
               top: top,
-              left: 20,
-              right: 20,
+              left: R.w(info, 3),
+              right: R.w(info, 3),
               child: buildFloating(shrinkOffset, _book, context, _theme),
             );
           },
         ),
         buildAppBar(shrinkOffset, _book, context),
+        Positioned(
+          top: R.h(info, 5),
+          left: R.w(info, 4),
+          right: R.w(info, 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: R.w(info, 11),
+                width: R.w(info, 11),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black12,
+                ),
+                child: IconButton(
+                  splashColor: Colors.transparent,
+                  onPressed: () => Get.back(),
+                  iconSize: R.w(info, 5),
+                  icon: Icon(EvaIcons.arrowIosBack),
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+              ),
+              Container(
+                height: R.w(info, 11),
+                width: R.w(info, 11),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black12,
+                ),
+                child: IconButton(
+                  splashColor: Colors.transparent,
+                  onPressed: () {},
+                  iconSize: R.w(info, 5),
+                  icon: Icon(EvaIcons.bellOutline),
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -46,47 +89,27 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
   Widget buildAppBar(double shrinkOffset, Book book, BuildContext context) =>
       Opacity(
         opacity: appear(shrinkOffset),
-        child: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          leading: InkWell(
-            onTap: () => Get.back(),
-            child: Container(
-              padding: const EdgeInsets.all(pad),
-              child: Icon(
-                EvaIcons.arrowBackOutline,
-                size: R.f(info, 25),
-                color: Colors.black,
-              ),
+        // opacity: 0.10,
+        child: Container(
+          padding: EdgeInsets.only(top: R.statusbarHeight(info)),
+          height: R.appbarHeight,
+          color: Theme.of(context).scaffoldBackgroundColor,
+          alignment: Alignment.center,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              vertical: R.h(info, 3),
+              horizontal: R.w(info, 17),
             ),
-          ),
-          title: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: pad * 2),
+            child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
               child: KText(
-                book.title,
-                size: R.f(info, 11),
+                book.title + "        ",
+                size: R.f(info, 13),
                 weight: FontWeight.bold,
-                enableGoogleFonts: true,
-                color: Colors.red,
               ),
             ),
           ),
-          centerTitle: true,
-          actions: [
-            InkWell(
-              onTap: () => Get.back(),
-              child: Container(
-                padding: const EdgeInsets.all(pad),
-                margin: const EdgeInsets.only(right: pad),
-                child: Icon(
-                  EvaIcons.bookmarkOutline,
-                  size: R.f(info, 25),
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ],
         ),
       );
 
@@ -108,26 +131,6 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(
-                        left: pad * 2, right: pad * 2, bottom: pad * 2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          EvaIcons.arrowIosBack,
-                          size: R.f(info, 25),
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                        Icon(
-                          EvaIcons.share,
-                          size: R.f(info, 25),
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: pad * 2),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: pad),
                     ),
@@ -140,14 +143,14 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
                   ),
                   Container(
                     alignment: Alignment.bottomCenter,
-                    margin: EdgeInsets.only(top: pad),
+                    margin: EdgeInsets.only(top: R.h(info, 3)),
                     padding: EdgeInsets.symmetric(horizontal: pad * 2),
                     child: Column(
                       children: [
                         book.title != "" && book.title != " "
                             ? KText(
                                 book.title,
-                                size: 15,
+                                size: R.f(info, 13),
                                 maxLines: 1,
                                 color: Colors.white,
                                 weight: FontWeight.bold,
@@ -160,8 +163,8 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
                                 book.author != "" &&
                                 book.author != " "
                             ? KText(
-                                "by " + book.author!,
-                                size: 12,
+                                book.author!,
+                                size: R.f(info, 10),
                                 maxLines: 1,
                                 color: Colors.white,
                                 weight: FontWeight.bold,
@@ -184,12 +187,12 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
       Opacity(
         opacity: disappear(shrinkOffset),
         child: Card(
-          elevation: 5,
+          elevation: 3,
           color: theme.isDarkMode ? Color(0xff202120) : Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
-            padding: const EdgeInsets.all(pad),
+            padding: EdgeInsets.all(R.h(info, 1.5)),
             child: Row(
               children: [
                 Expanded(
@@ -231,7 +234,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
         children: [
           KText(
             field,
-            size: 10,
+            size: R.f(info, 8),
             maxLines: 1,
             letterSpacing: 0.5,
             color: theme.isDarkMode ? Colors.white70 : Colors.red,
@@ -240,7 +243,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
           const SizedBox(height: pad * 0.95),
           KText(
             value,
-            size: 8,
+            size: R.f(info, 8),
             maxLines: 1,
             color: theme.isDarkMode ? Colors.white54 : Colors.black87,
             enableGoogleFonts: true,
@@ -252,7 +255,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => expandedHeight;
 
   @override
-  double get minExtent => kToolbarHeight + 30;
+  double get minExtent => kToolbarHeight + R.h(info, 6);
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;

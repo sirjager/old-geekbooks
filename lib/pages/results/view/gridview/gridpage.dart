@@ -1,6 +1,4 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:geekbooks/ads/adprovider.dart';
-import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';

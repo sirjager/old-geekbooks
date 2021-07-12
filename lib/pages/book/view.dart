@@ -20,11 +20,12 @@ class BookView extends StatelessWidget {
         builder: (context, info) {
           return Container(
             child: CustomScrollView(
+              physics: ClampingScrollPhysics(),
               slivers: [
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: BookViewHeader(info,
-                      book: book, expandedHeight: R.h(info, 50)),
+                      book: book, expandedHeight: R.h(info, 55)),
                 ),
                 buildDetailedContent(
                     book, books, context, context.read(themeProvider), info),
@@ -38,12 +39,12 @@ class BookView extends StatelessWidget {
 
   Widget buildDetailedContent(Book book, List books, BuildContext context,
       ThemeProvider theme, SizingInformation info) {
-    print(book.tags);
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: pad, vertical: pad * 5),
         child: Scrollbar(
           child: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
