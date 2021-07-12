@@ -4,6 +4,7 @@ import 'package:geekbooks/pages/book/components/bookrow.dart';
 import 'package:geekbooks/pages/book/components/column_box.dart';
 import 'package:geekbooks/pages/book/components/description_box.dart';
 import 'package:geekbooks/pages/book/components/header.dart';
+import 'package:geekbooks/pages/book/components/related.dart';
 import 'package:geekbooks/pages/book/components/row_box.dart';
 import 'package:geekbooks/widgets/kbuttons/kleaf_button.dart';
 
@@ -98,8 +99,9 @@ class BookView extends StatelessWidget {
                         ),
                       )
                     : Container(),
-                BookRow(info, result: books, notIncludeID: book.id),
-                SizedBox(height: R.h(info, 50)),
+                RelatedContent(info, books: books, notIncludeID: book.id),
+
+                // SizedBox(height: R.h(info, 50)),
               ],
             ),
           ),

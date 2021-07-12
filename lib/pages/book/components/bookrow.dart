@@ -4,9 +4,9 @@ import 'package:geekbooks/widgets/kImage/kimage.dart';
 
 class BookRow extends StatelessWidget {
   const BookRow(this.info,
-      {Key? key, required this.result, required this.notIncludeID})
+      {Key? key, required this.books, required this.notIncludeID})
       : super(key: key);
-  final List result;
+  final List books;
   final String notIncludeID;
   final SizingInformation info;
   @override
@@ -15,11 +15,12 @@ class BookRow extends StatelessWidget {
       height: R.h(info, 29),
       width: double.infinity,
       child: ListView.builder(
-        itemCount: result.length,
+        physics: ClampingScrollPhysics(),
+        itemCount: books.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          var b = result[index];
-          if (b.id != notIncludeID) {
+          var book = books[index];
+          if (book.id != notIncludeID) {
             return Padding(
               padding: const EdgeInsets.all(pad),
               child: Material(
@@ -27,19 +28,29 @@ class BookRow extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.red,
                   highlightColor: Colors.red,
-                  onTap: () => Get.to(() => BookView(book: b, books: result)),
+                  onTap: () => Get.to(BookView(book: book, books: books)),
                   child: Padding(
                     padding: const EdgeInsets.all(1),
-                    child: Container(
-                      margin: const EdgeInsets.all(pad / 2),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: pad,
-                          color: Colors.black,
-                        ),
-                      ),
-                      width: R.w(info, 37),
-                      child: KImage(fit: BoxFit.fill, imageURL: b.coverURL!),
+                    child: Consumer(
+                      builder: (context, watch, child) {
+                        return Container(
+                          margin: const EdgeInsets.all(pad / 2),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: pad,
+                              color: Colors.black,
+                            ),
+                          ),
+                          width: R.w(info, 37),
+                          child: Hero(
+                            tag: book.id + "bookrow",
+                            child: KImage(
+                              fit: BoxFit.fill,
+                              imageURL: book.coverURL,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),

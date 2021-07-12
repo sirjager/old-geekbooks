@@ -7,14 +7,14 @@ class FeatureStrip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    var isDarkMode = watch(themeProvider).isDarkMode;
+    var theme = watch(themeProvider);
     var blackwhite = watch(blackNWhiteProvider);
     return Container(
       height: R.h(info, 3),
       margin: EdgeInsets.only(top: R.h(info, 0.2), bottom: R.h(info, 0.5)),
       padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
       alignment: Alignment.center,
-      color: isDarkMode ? XColors.darkColor2 : randomLightColor(),
+      color: theme.isDarkMode ? XColors.darkColor2 : randomLightColor(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -27,8 +27,8 @@ class FeatureStrip extends ConsumerWidget {
           ),
           SizedBox(width: R.w(info, 10)),
           Switch.adaptive(
-            onChanged: (bool value) => blackwhite.setBlackNWhite(value),
-            value: blackwhite.blackNWhite,
+            onChanged: (bool value) => theme.setMode(value),
+            value: theme.isDarkMode,
           ),
         ],
       ),

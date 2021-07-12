@@ -1,7 +1,6 @@
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
 
-
 import 'package:geekbooks/widgets/kImage/kimage.dart';
 
 class ListPage extends ConsumerWidget {
@@ -44,7 +43,7 @@ class ListPage extends ConsumerWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     child: KImage(
-                      radius: 10,
+                      borderRadius: BorderRadius.circular(11),
                       height: R.w(info, 30),
                       width: R.w(info, 20),
                       imageURL: book.coverURL,

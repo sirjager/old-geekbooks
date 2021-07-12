@@ -20,7 +20,7 @@ class RowBox extends ConsumerWidget {
         children: [
           KText(
             field,
-            size: R.f(info, 17),
+            size: R.f(info, 15),
             font: "Poppins",
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
@@ -29,7 +29,7 @@ class RowBox extends ConsumerWidget {
           KText(
             value,
             font: "Poppins",
-            color: XColors.grayText,
+            color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
             size: R.f(info, 12),
             maxLines: 3,
             textAlign: TextAlign.right,

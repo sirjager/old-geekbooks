@@ -14,15 +14,15 @@ class ColumnBox extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final _theme = watch(themeProvider);
     return Container(
-      margin:
-          const EdgeInsets.only(top: pad * 2, left: pad * 2, right: pad * 2),
+      margin: EdgeInsets.only(
+          top: R.h(info, 3), left: R.w(info, 5), right: R.w(info, 5)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           KText(
             field,
-           size: R.f(info, 17),
+            size: R.f(info, 15),
             font: "Poppins",
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
@@ -31,7 +31,7 @@ class ColumnBox extends ConsumerWidget {
           KText(
             value,
             font: "Poppins",
-            color: XColors.grayText,
+            color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
             size: R.f(info, 12),
             maxLines: 3,
             textAlign: TextAlign.left,

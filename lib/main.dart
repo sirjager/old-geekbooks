@@ -36,8 +36,6 @@ Future<void> main() async {
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    // ignore: unused_local_variable
-    // bool isDarkMode = watch(themeProvider).isDarkMode;
     bool isDarkMode = watch(themeProvider).isDarkMode;
     SystemChrome.setSystemUIOverlayStyle(
         isDarkMode ? AppTheme.systemUiDark : AppTheme.systemUiLight);

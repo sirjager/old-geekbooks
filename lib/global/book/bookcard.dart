@@ -16,6 +16,7 @@ class BookCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    var theme = watch(themeProvider);
     bool blackNWhite = watch(blackNWhiteProvider).blackNWhite;
     final BorderRadius radius = BorderRadius.circular(24);
     return Container(
@@ -25,67 +26,62 @@ class BookCard extends ConsumerWidget {
         child: Container(
           child: Stack(
             children: [
-              Consumer(
-                builder: (context, watch, child) {
-                  var theme = watch(themeProvider);
-                  return Container(
-                    alignment: Alignment.bottomCenter,
-                    margin: EdgeInsets.only(top: R.h(info, 12)),
-                    decoration: theme.isDarkMode
-                        ? BoxDecoration(
-                            color: Colors.white12, borderRadius: radius)
-                        : BoxDecoration(
-                            color: randomLightColor(), borderRadius: radius),
-                    padding: EdgeInsets.only(
-                      top: R.h(info, 15),
-                      left: pad,
-                      right: pad,
-                      bottom: pad,
+              Container(
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.only(top: R.h(info, 12)),
+                decoration: theme.isDarkMode
+                    ? BoxDecoration(color: Colors.white12, borderRadius: radius)
+                    : BoxDecoration(
+                        color: randomLightColor(), borderRadius: radius),
+                padding: EdgeInsets.only(
+                  top: R.h(info, 15),
+                  left: pad,
+                  right: pad,
+                  bottom: pad,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    KText(
+                      book.title,
+                      size: R.f(info, 8),
+                      maxLines: 2,
+                      color:
+                          theme.isDarkMode ? Colors.black : XColors.darkColor,
+                      weight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                      enableGoogleFonts: true,
+                      height: 1.2,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        KText(
-                          book.title,
-                          size: R.f(info, 8),
-                          maxLines: 2,
-                          color: theme.isDarkMode
-                              ? Colors.black
-                              : XColors.darkColor,
-                          weight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis,
-                          enableGoogleFonts: true,
-                          height: 1.2,
-                        ),
-                        SizedBox(height: pad),
-                        KText(
-                          book.author ?? "",
-                          size: R.f(info, 7),
-                          maxLines: 2,
-                          color: theme.isDarkMode
-                              ? Colors.black
-                              : XColors.darkColor,
-                          weight: FontWeight.bold,
-                          enableGoogleFonts: true,
-                          overflow: TextOverflow.ellipsis,
-                          height: 1.2,
-                        ),
-                      ],
+                    SizedBox(height: pad),
+                    KText(
+                      book.author ?? "",
+                      size: R.f(info, 7),
+                      maxLines: 2,
+                      color:
+                          theme.isDarkMode ? Colors.black : XColors.darkColor,
+                      weight: FontWeight.bold,
+                      enableGoogleFonts: true,
+                      overflow: TextOverflow.ellipsis,
+                      height: 1.2,
                     ),
-                  );
-                },
+                  ],
+                ),
               ),
               Container(
                 alignment: Alignment.topCenter,
-                child: KImage(
-                  radius: pad * 2,
-                  height: R.h(info, 26),
-                  width: R.w(info, 36),
-                  imageURL: book.coverURL,
-                  filterColor:
-                      blackNWhite ? Colors.black87 : Colors.transparent,
-                  blendMode: blackNWhite ? BlendMode.multiply : null,
+                child: Hero(
+                  tag: book.id + "result",
+                  child: KImage(
+                    borderRadius: BorderRadius.circular(20),
+                    height: R.h(info, 26),
+                    width: R.w(info, 36),
+                    imageURL: book.coverURL,
+                    filterColor:
+                        blackNWhite ? Colors.black87 : Colors.transparent,
+                    blendMode: blackNWhite ? BlendMode.multiply : null,
+                  ),
                 ),
               ),
             ],

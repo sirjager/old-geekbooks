@@ -13,7 +13,7 @@ class KImage extends StatelessWidget {
     this.filterQuality = FilterQuality.medium,
     this.filterColor = Colors.transparent,
     this.repeat = ImageRepeat.noRepeat,
-    this.radius = 0.0,
+    this.borderRadius,
     this.border,
   }) : super(key: key);
   final String? imageURL;
@@ -25,7 +25,7 @@ class KImage extends StatelessWidget {
   final BlendMode? blendMode;
   final Color filterColor;
   final ImageRepeat repeat;
-  final double radius;
+  final BorderRadius? borderRadius;
   final BoxBorder? border;
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class KImage extends StatelessWidget {
       colorBlendMode: blendMode,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: borderRadius,
           border: border,
           image: DecorationImage(
             image: imageProvider,
@@ -53,7 +53,7 @@ class KImage extends StatelessWidget {
           Center(child: CircularProgressIndicator.adaptive()),
       errorWidget: (context, url, error) => Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: borderRadius,
           image: DecorationImage(
             fit: fit,
             colorFilter:
