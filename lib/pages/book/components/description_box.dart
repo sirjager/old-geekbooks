@@ -19,7 +19,7 @@ class DescriptionBox extends ConsumerWidget {
         children: [
           KText(
             "Description",
-             size: R.f(info, 15),
+            size: R.f(info, 15),
             font: "Poppins",
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
@@ -29,7 +29,9 @@ class DescriptionBox extends ConsumerWidget {
             XUtils.stripHtml(desc),
             trimLength: 200,
             trimMode: TrimMode.Length,
-            colorClickableText: Colors.lightGreenAccent[100],
+            colorClickableText: _theme.isDarkMode
+                ? Colors.lightGreenAccent[100]
+                : Colors.blueAccent[100],
             style: TextStyle(
               fontFamily: "Poppins",
               color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
