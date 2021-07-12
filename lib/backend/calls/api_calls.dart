@@ -194,4 +194,10 @@ class ApiCalls with ErrorHandler {
     print("\nEncrypting PageSauce ...\n");
     return CryptionCalls.encryptSauce(source);
   }
+
+  void getSearchMode(){
+
+// var provider.of
+    
+  }
 }
