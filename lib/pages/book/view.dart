@@ -1,6 +1,5 @@
 import 'package:geekbooks/constants/numers/nums.dart';
 import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/pages/book/components/bookrow.dart';
 import 'package:geekbooks/pages/book/components/column_box.dart';
 import 'package:geekbooks/pages/book/components/description_box.dart';
 import 'package:geekbooks/pages/book/components/header.dart';
