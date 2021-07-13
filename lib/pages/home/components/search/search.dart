@@ -49,8 +49,9 @@ class _SearchbarState extends State<Searchbar> {
             controller: _searchField,
             onSubmitted: (val) => searchQuery(val, theme, widget.info),
             decoration: BoxDecoration(
-                color: XColors.lightGray,
-                borderRadius: BorderRadius.circular(24)),
+              color: XColors.lightGray,
+              borderRadius: BorderRadius.circular(24),
+            ),
             padding: EdgeInsets.all(R.w(widget.info, 4)),
             style: TextStyle(
               fontFamily: "MavenPro",

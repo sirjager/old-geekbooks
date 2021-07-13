@@ -26,7 +26,7 @@ class DrawerProvider extends ChangeNotifier {
 
 class ThemeProvider extends ChangeNotifier {
   //!=========> FOR CHECKING AND CHANING SYSTEM THEMEMODE
-  ThemeMode _mode = ThemeMode.dark;
+  ThemeMode _mode = ThemeMode.light;
   bool get isDarkMode => _mode == ThemeMode.dark;
   void setMode(bool isDarkMode) {
     _mode = isDarkMode ? ThemeMode.dark : ThemeMode.light;

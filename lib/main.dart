@@ -5,6 +5,7 @@ import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/core/theme/themeData.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/sauce/encpagesource.dart';
+import 'package:geekbooks/packages/authentication/page/login.dart';
 import 'package:geekbooks/packages/authentication/page/signup.dart';
 import 'package:geekbooks/provider/all_provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -25,12 +26,12 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(ProviderScope(
     overrides: [adStateProvider.overrideWithValue(adState)],
-    child: MyApp(),
+    // child: MyApp(),
 
-    // child: DevicePreview(
-    //   enabled: true,
-    //   builder: (context) => MyApp(),
-    // ),
+    child: DevicePreview(
+      enabled: true,
+      builder: (context) => MyApp(),
+    ),
   ));
 }
 
@@ -48,7 +49,7 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.themeDark,
       theme: AppTheme.themeLight,
       title: 'GeekBooks',
-      home: SignupPage(),
+      home: LoginPage(),
     );
   }
 }
