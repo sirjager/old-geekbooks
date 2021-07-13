@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geekbooks/bundles/authentication/export/export.dart';
 
-
 import 'package:geekbooks/core/responsive/size/responsive_size.dart';
 import 'package:geekbooks/export/export.dart';
 
@@ -222,9 +221,8 @@ class LoginPage extends ConsumerWidget {
                     ),
                     SizedBox(height: 50.0),
                     KClickable(
-                      onPressed: () => context
-                          .read(authProvider)
-                          .signInWithEmailAndPassword(_email, _password),
+                      onPressed: () =>
+                          context.read(auth).signIn(_email, _password),
                       height: R.h(info, 8),
                       width: R.w(info, 25),
                       child: KText(

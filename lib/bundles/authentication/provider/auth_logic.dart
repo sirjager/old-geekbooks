@@ -31,17 +31,16 @@ class PasswordFieldController extends ChangeNotifier {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController get controller => _passwordController;
   //!private
-  bool _isstrong = false;
+
   bool _islocked = false;
 
   //* public
-  bool get isStrong => _isstrong;
+
   bool get isLocked => _islocked;
 
   void setPassword(String password, {bool lock = false}) {
     _islocked = lock;
-    _isstrong = XReg.strongPassword.hasMatch(password);
-    if (_isstrong) {
+    if (password.length > 7) {
       _passwordController.text = password;
     }
     notifyListeners();

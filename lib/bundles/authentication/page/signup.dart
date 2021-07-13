@@ -53,259 +53,227 @@ class SignupPage extends ConsumerWidget {
                       ),
                     ),
                     SizedBox(height: R.h(info, 10)),
-                    Container(
-                      height: R.h(info, 8),
-                      width: double.infinity,
-                      margin: EdgeInsets.only(
-                        top: R.h(info, 2),
-                        left: R.w(info, 2),
-                        right: R.w(info, 2),
-                      ),
-                      child: buildField(
-                        info,
-                        theme,
-                        Consumer(
-                          builder: (context, watch, child) {
-                            var _nameProvider = watch(nameFieldProvider);
-                            return CupertinoTextField(
-                              prefix: Container(
-                                margin: EdgeInsets.only(left: R.w(info, 3)),
-                                child: Icon(
-                                  Typicons.user_outline,
-                                  color: XColors.grayText1,
-                                ),
+                    buildField(
+                      info,
+                      theme,
+                      Consumer(
+                        builder: (context, watch, child) {
+                          var _nameProvider = watch(nameFieldProvider);
+                          return CupertinoTextField(
+                            prefix: Container(
+                              margin: EdgeInsets.only(left: R.w(info, 3)),
+                              child: Icon(
+                                Typicons.user_outline,
+                                color: XColors.grayText1,
                               ),
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: R.f(info, 13),
-                                fontWeight: FontWeight.w500,
-                                color: theme.isDarkMode
-                                    ? XColors.grayText1
-                                    : Colors.black.withOpacity(0.5),
-                              ),
-                              placeholder: 'name',
-                              padding: EdgeInsets.all(R.h(info, 2)),
-                              placeholderStyle: TextStyle(
-                                fontFamily: 'MavenPro',
-                                fontWeight: FontWeight.w700,
-                                fontSize: R.f(info, 13.0),
-                                color: theme.isDarkMode
-                                    ? Colors.black
-                                    : Colors.grey.withOpacity(0.5),
-                              ),
-                              onChanged: (value) =>
-                                  _nameProvider.setName(value),
-                              decoration: theme.isDarkMode
-                                  ? BoxDecoration()
-                                  : BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: theme.isDarkMode
-                                            ? [
-                                                XColors.darkColor,
-                                                XColors.darkColor1
-                                              ]
-                                            : [
-                                                XColors.lightColor1,
-                                                XColors.lightGray
-                                              ],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                      ),
-                                      borderRadius: BorderRadius.circular(24),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: theme.isDarkMode
-                                              ? XColors.darkColor1
-                                              : XColors.lightColor1,
-                                          offset: Offset(-3, -3),
-                                          blurRadius: theme.isDarkMode ? 2 : 0,
-                                        ),
-                                        BoxShadow(
-                                          color: theme.isDarkMode
-                                              ? Colors.black
-                                              : Colors.black12,
-                                          offset: Offset(3, 3),
-                                          blurRadius: 2,
-                                        ),
-                                      ],
+                            ),
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: R.f(info, 13),
+                              fontWeight: FontWeight.w500,
+                              color: theme.isDarkMode
+                                  ? XColors.grayText1
+                                  : Colors.black.withOpacity(0.5),
+                            ),
+                            placeholder: 'name',
+                            padding: EdgeInsets.all(R.h(info, 2)),
+                            placeholderStyle: TextStyle(
+                              fontFamily: 'MavenPro',
+                              fontWeight: FontWeight.w700,
+                              fontSize: R.f(info, 13.0),
+                              color: theme.isDarkMode
+                                  ? Colors.black
+                                  : Colors.grey.withOpacity(0.5),
+                            ),
+                            onChanged: (value) => _nameProvider.setName(value),
+                            decoration: theme.isDarkMode
+                                ? BoxDecoration()
+                                : BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: theme.isDarkMode
+                                          ? [
+                                              XColors.darkColor,
+                                              XColors.darkColor1
+                                            ]
+                                          : [
+                                              XColors.lightColor1,
+                                              XColors.lightGray
+                                            ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
                                     ),
-                            );
-                          },
-                        ),
+                                    borderRadius: BorderRadius.circular(24),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: theme.isDarkMode
+                                            ? XColors.darkColor1
+                                            : XColors.lightColor1,
+                                        offset: Offset(-3, -3),
+                                        blurRadius: theme.isDarkMode ? 2 : 0,
+                                      ),
+                                      BoxShadow(
+                                        color: theme.isDarkMode
+                                            ? Colors.black
+                                            : Colors.black12,
+                                        offset: Offset(3, 3),
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                          );
+                        },
                       ),
                     ),
-                    Container(
-                      height: R.h(info, 8),
-                      width: double.infinity,
-                      margin: EdgeInsets.only(
-                        top: R.h(info, 2),
-                        left: R.w(info, 2),
-                        right: R.w(info, 2),
-                      ),
-                      child: buildField(
-                        info,
-                        theme,
-                        Consumer(
-                          builder: (context, watch, child) {
-                            var _emailProvider = watch(emailFieldProvider);
-                            return CupertinoTextField(
-                              prefix: Container(
-                                margin: EdgeInsets.only(left: R.w(info, 3)),
-                                child: Icon(
-                                  Typicons.mail,
-                                  color: XColors.grayText1,
-                                ),
+                    buildField(
+                      info,
+                      theme,
+                      Consumer(
+                        builder: (context, watch, child) {
+                          var _emailProvider = watch(emailFieldProvider);
+                          return CupertinoTextField(
+                            prefix: Container(
+                              margin: EdgeInsets.only(left: R.w(info, 3)),
+                              child: Icon(
+                                Typicons.mail,
+                                color: XColors.grayText1,
                               ),
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: R.f(info, 13),
-                                fontWeight: FontWeight.w500,
-                                color: theme.isDarkMode
-                                    ? XColors.grayText1
-                                    : Colors.black.withOpacity(0.5),
-                              ),
-                              placeholder: 'email',
-                              padding: EdgeInsets.all(R.h(info, 2)),
-                              placeholderStyle: TextStyle(
-                                fontFamily: 'MavenPro',
-                                fontWeight: FontWeight.w700,
-                                fontSize: R.f(info, 13.0),
-                                color: theme.isDarkMode
-                                    ? Colors.black
-                                    : Colors.grey.withOpacity(0.5),
-                              ),
-                              onChanged: (value) =>
-                                  _emailProvider.setEmail(value),
-                              decoration: theme.isDarkMode
-                                  ? BoxDecoration()
-                                  : BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: theme.isDarkMode
-                                            ? [
-                                                XColors.darkColor,
-                                                XColors.darkColor1
-                                              ]
-                                            : [
-                                                XColors.lightColor1,
-                                                XColors.lightGray
-                                              ],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                      ),
-                                      borderRadius: BorderRadius.circular(24),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: theme.isDarkMode
-                                              ? XColors.darkColor1
-                                              : XColors.lightColor1,
-                                          offset: Offset(-3, -3),
-                                          blurRadius: theme.isDarkMode ? 2 : 0,
-                                        ),
-                                        BoxShadow(
-                                          color: theme.isDarkMode
-                                              ? Colors.black
-                                              : Colors.black12,
-                                          offset: Offset(3, 3),
-                                          blurRadius: 2,
-                                        ),
-                                      ],
+                            ),
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: R.f(info, 13),
+                              fontWeight: FontWeight.w500,
+                              color: theme.isDarkMode
+                                  ? XColors.grayText1
+                                  : Colors.black.withOpacity(0.5),
+                            ),
+                            placeholder: 'email',
+                            padding: EdgeInsets.all(R.h(info, 2)),
+                            placeholderStyle: TextStyle(
+                              fontFamily: 'MavenPro',
+                              fontWeight: FontWeight.w700,
+                              fontSize: R.f(info, 13.0),
+                              color: theme.isDarkMode
+                                  ? Colors.black
+                                  : Colors.grey.withOpacity(0.5),
+                            ),
+                            onChanged: (value) =>
+                                _emailProvider.setEmail(value),
+                            decoration: theme.isDarkMode
+                                ? BoxDecoration()
+                                : BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: theme.isDarkMode
+                                          ? [
+                                              XColors.darkColor,
+                                              XColors.darkColor1
+                                            ]
+                                          : [
+                                              XColors.lightColor1,
+                                              XColors.lightGray
+                                            ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
                                     ),
-                            );
-                          },
-                        ),
+                                    borderRadius: BorderRadius.circular(24),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: theme.isDarkMode
+                                            ? XColors.darkColor1
+                                            : XColors.lightColor1,
+                                        offset: Offset(-3, -3),
+                                        blurRadius: theme.isDarkMode ? 2 : 0,
+                                      ),
+                                      BoxShadow(
+                                        color: theme.isDarkMode
+                                            ? Colors.black
+                                            : Colors.black12,
+                                        offset: Offset(3, 3),
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                          );
+                        },
                       ),
                     ),
-                    Container(
-                      height: R.h(info, 8),
-                      width: double.infinity,
-                      margin: EdgeInsets.only(
-                        top: R.h(info, 2),
-                        left: R.w(info, 2),
-                        right: R.w(info, 2),
-                      ),
-                      child: buildField(
-                        info,
-                        theme,
-                        Consumer(
-                          builder: (context, watch, child) {
-                            var _passwordProvider =
-                                watch(passwordFieldProvider);
-                            return CupertinoTextField(
-                              prefix: Container(
-                                margin: EdgeInsets.only(left: R.w(info, 3)),
-                                child: Icon(
-                                  Typicons.key_outline,
-                                  color: XColors.grayText1,
-                                ),
+                    buildField(
+                      info,
+                      theme,
+                      Consumer(
+                        builder: (context, watch, child) {
+                          var _passwordProvider = watch(passwordFieldProvider);
+                          return CupertinoTextField(
+                            prefix: Container(
+                              margin: EdgeInsets.only(left: R.w(info, 3)),
+                              child: Icon(
+                                Typicons.key_outline,
+                                color: XColors.grayText1,
                               ),
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: R.f(info, 13),
-                                fontWeight: FontWeight.w500,
-                                color: theme.isDarkMode
-                                    ? XColors.grayText1
-                                    : Colors.black.withOpacity(0.5),
-                              ),
-                              placeholder: 'password',
-                              placeholderStyle: TextStyle(
-                                fontFamily: 'MavenPro',
-                                fontWeight: FontWeight.w700,
-                                fontSize: R.f(info, 13.0),
-                                color: theme.isDarkMode
-                                    ? Colors.black
-                                    : Colors.grey.withOpacity(0.5),
-                              ),
-                              padding: EdgeInsets.all(R.h(info, 2)),
-                              // obscureText: true,
-                              onChanged: (value) =>
-                                  _passwordProvider.setPassword(value),
-                              decoration: theme.isDarkMode
-                                  ? BoxDecoration()
-                                  : BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: theme.isDarkMode
-                                            ? [
-                                                XColors.darkColor,
-                                                XColors.darkColor1
-                                              ]
-                                            : [
-                                                XColors.lightColor1,
-                                                XColors.lightGray
-                                              ],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                      ),
-                                      borderRadius: BorderRadius.circular(24),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: theme.isDarkMode
-                                              ? XColors.darkColor1
-                                              : XColors.lightColor1,
-                                          offset: Offset(-3, -3),
-                                          blurRadius: theme.isDarkMode ? 2 : 0,
-                                        ),
-                                        BoxShadow(
-                                          color: theme.isDarkMode
-                                              ? Colors.black
-                                              : Colors.black12,
-                                          offset: Offset(3, 3),
-                                          blurRadius: 2,
-                                        ),
-                                      ],
+                            ),
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: R.f(info, 13),
+                              fontWeight: FontWeight.w500,
+                              color: theme.isDarkMode
+                                  ? XColors.grayText1
+                                  : Colors.black.withOpacity(0.5),
+                            ),
+                            placeholder: 'password',
+                            placeholderStyle: TextStyle(
+                              fontFamily: 'MavenPro',
+                              fontWeight: FontWeight.w700,
+                              fontSize: R.f(info, 13.0),
+                              color: theme.isDarkMode
+                                  ? Colors.black
+                                  : Colors.grey.withOpacity(0.5),
+                            ),
+                            padding: EdgeInsets.all(R.h(info, 2)),
+                            // obscureText: true,
+                            onChanged: (value) =>
+                                _passwordProvider.setPassword(value),
+                            decoration: theme.isDarkMode
+                                ? BoxDecoration()
+                                : BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: theme.isDarkMode
+                                          ? [
+                                              XColors.darkColor,
+                                              XColors.darkColor1
+                                            ]
+                                          : [
+                                              XColors.lightColor1,
+                                              XColors.lightGray
+                                            ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
                                     ),
-                            );
-                          },
-                        ),
+                                    borderRadius: BorderRadius.circular(24),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: theme.isDarkMode
+                                            ? XColors.darkColor1
+                                            : XColors.lightColor1,
+                                        offset: Offset(-3, -3),
+                                        blurRadius: theme.isDarkMode ? 2 : 0,
+                                      ),
+                                      BoxShadow(
+                                        color: theme.isDarkMode
+                                            ? Colors.black
+                                            : Colors.black12,
+                                        offset: Offset(3, 3),
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(height: 50.0),
                     KClickable(
-                      onPressed: () {
-                        context.read(authProvider).signUpWithEmailAndPassword(
-                              _email,
-                              _password,
-                            );
-                      },
+                      enabled: _password.length > 7 ? true : false,
+                      onPressed: () =>
+                          context.read(auth).signUp(_email, _password),
                       height: R.h(info, 8),
                       width: R.w(info, 25),
                       child: KText(
@@ -375,9 +343,10 @@ class SignupPage extends ConsumerWidget {
                             weight: FontWeight.w500,
                             textDecoration: TextDecoration.underline,
                           ),
-                        )
+                        ),
                       ],
                     ),
+                    SizedBox(height: R.h(info, 15)),
                   ],
                 ),
               ),
@@ -389,33 +358,42 @@ class SignupPage extends ConsumerWidget {
   }
 
   Widget buildField(SizingInformation info, ThemeProvider theme, Widget child) {
-    return KClickable(
-      onPressed: () {},
+    return Container(
       height: R.h(info, 8),
-      width: R.w(info, 80),
-      child: child,
-      topDeco: theme.isDarkMode
-          ? BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              gradient: LinearGradient(
-                colors: theme.isDarkMode
-                    ? [XColors.darkColor, XColors.darkColor1]
-                    : [XColors.lightColor1, XColors.lightGray],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+      width: double.infinity,
+      margin: EdgeInsets.only(
+        top: R.h(info, 2),
+        left: R.w(info, 2),
+        right: R.w(info, 2),
+      ),
+      child: KClickable(
+        onPressed: () {},
+        height: R.h(info, 8),
+        width: R.w(info, 80),
+        child: child,
+        topDeco: theme.isDarkMode
+            ? BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                gradient: LinearGradient(
+                  colors: theme.isDarkMode
+                      ? [XColors.darkColor, XColors.darkColor1]
+                      : [XColors.lightColor1, XColors.lightGray],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              )
+            : BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
               ),
-            )
-          : BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-            ),
-      bottomDeco: theme.isDarkMode
-          ? BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              gradient:
-                  LinearGradient(colors: [Colors.black, randomLightColor()]),
-            )
-          : BoxDecoration(),
-      enabled: false,
+        bottomDeco: theme.isDarkMode
+            ? BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                gradient:
+                    LinearGradient(colors: [Colors.black, randomLightColor()]),
+              )
+            : BoxDecoration(),
+        enabled: false,
+      ),
     );
   }
 }

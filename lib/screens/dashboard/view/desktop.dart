@@ -9,7 +9,8 @@ class DashboardDesktop extends ConsumerWidget {
     return Container(
       child: Column(
         children: [
-          Expanded(child: nav.current == 0 ? Homepage(info) : Settingspage()),
+          Expanded(
+              child: nav.current == 0 ? Homepage(info) : Settingspage(info)),
           NavigationLayout(info),
         ],
       ),

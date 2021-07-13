@@ -12,6 +12,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'bundles/authentication/page/login.dart';
+import 'bundles/authentication/services/authentication_wrapper.dart';
 import 'export/export.dart';
 
 Future<void> main() async {
@@ -49,7 +50,10 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.themeDark,
       theme: AppTheme.themeLight,
       title: 'GeekBooks',
-      home: LoginPage(),
+      home: AuthenticationWrapper(
+        home: Dashboard(),
+        login: LoginPage(),
+      ),
     );
   }
 }
