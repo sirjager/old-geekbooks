@@ -15,6 +15,8 @@ class LoginPage extends ConsumerWidget {
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (context, info) {
+          var _email = context.read(emailFieldProvider).email;
+          var _password = context.read(passwordFieldProvider).controller.text;
           return Container(
             margin: EdgeInsets.only(
               left: R.w(info, 5),
@@ -220,7 +222,9 @@ class LoginPage extends ConsumerWidget {
                     ),
                     SizedBox(height: 50.0),
                     KClickable(
-                      onPressed: () {},
+                      onPressed: () => context
+                          .read(authProvider)
+                          .signInWithEmailAndPassword(_email, _password),
                       height: R.h(info, 8),
                       width: R.w(info, 25),
                       child: KText(

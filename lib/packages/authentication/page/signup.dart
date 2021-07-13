@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/core/responsive/size/responsive_size.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/packages/authentication/page/login.dart';
 import 'package:geekbooks/packages/authentication/provider/auth_provider.dart';
 
 class SignupPage extends ConsumerWidget {
@@ -15,6 +14,8 @@ class SignupPage extends ConsumerWidget {
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (context, info) {
+          var _email = context.read(emailFieldProvider).email;
+          var _password = context.read(passwordFieldProvider).controller.text;
           return Container(
             margin: EdgeInsets.symmetric(
                 horizontal: R.w(info, 5), vertical: R.h(info, 5)),
@@ -299,11 +300,21 @@ class SignupPage extends ConsumerWidget {
                     ),
                     SizedBox(height: 50.0),
                     KClickable(
-                      onPressed: () {},
+                      onPressed: () =>
+                          context.read(authProvider).signUpWithEmailAndPassword(
+                                _email,
+                                _password,
+                              ),
                       enabled: false,
                       height: R.h(info, 8),
                       width: R.w(info, 25),
-                      child: KText("Signup"),
+                      child: KText(
+                        "Signup",
+                        weight: FontWeight.bold,
+                        color: theme.isDarkMode
+                            ? XColors.lightColor1
+                            : XColors.darkColor2,
+                      ),
                       topDeco: theme.isDarkMode
                           ? BoxDecoration(
                               borderRadius: BorderRadius.circular(24),

@@ -3,20 +3,24 @@ import 'package:geekbooks/utils/regex/reg.dart';
 import 'package:string_validator/string_validator.dart';
 
 class EmailFieldController extends ChangeNotifier {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController get controller => _emailController;
   //! private
+  String __email = "";
   bool _isvalid = false;
   bool _islocked = false;
+  TextEditingController _emailController = TextEditingController();
 
   //* public
+  String get email => __email;
   bool get isValid => _isvalid;
   bool get isLocked => _islocked;
+  TextEditingController get controller => _emailController;
+
   void setEmail(String email, {bool lock = false}) {
     _islocked = lock;
-    _emailController.text = email;
     _isvalid = isEmail(email);
     if (isValid) {
+      __email = email;
+      _emailController.text = email;
       print("Email is valid: $email");
     }
     notifyListeners();
@@ -37,7 +41,9 @@ class PasswordFieldController extends ChangeNotifier {
   void setPassword(String password, {bool lock = false}) {
     _islocked = lock;
     _isstrong = XReg.strongPassword.hasMatch(password);
-    _passwordController.text = password;
+    if (_isstrong) {
+      _passwordController.text = password;
+    }
     notifyListeners();
   }
 }
