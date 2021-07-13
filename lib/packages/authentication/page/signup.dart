@@ -354,7 +354,7 @@ class SignupPage extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         InkWell(
-                          onTap: () => Get.off(() => LoginPage()),
+                          onTap: () => Get.back(),
                           child: KText(
                             'Go back',
                             size: R.f(info, 12),
