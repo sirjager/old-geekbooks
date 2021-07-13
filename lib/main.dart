@@ -5,13 +5,13 @@ import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/core/theme/themeData.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/sauce/encpagesource.dart';
-import 'package:geekbooks/packages/authentication/page/login.dart';
-import 'package:geekbooks/packages/authentication/page/signup.dart';
+
 import 'package:geekbooks/provider/all_provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'bundles/authentication/page/login.dart';
 import 'export/export.dart';
 
 Future<void> main() async {

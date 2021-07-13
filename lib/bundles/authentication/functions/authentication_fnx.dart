@@ -1,9 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geekbooks/packages/authentication/constants/constants.dart';
-import 'package:geekbooks/packages/authentication/model/generate_person.dart';
-import 'package:geekbooks/packages/authentication/model/person_model.dart';
-import 'package:geekbooks/packages/authentication/model/settings_model.dart';
+import 'package:geekbooks/bundles/authentication/export/export.dart';
+
 
 class AuthenticationFunctions {
   Person _person = Person();

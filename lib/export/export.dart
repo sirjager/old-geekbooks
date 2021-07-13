@@ -13,6 +13,9 @@ export 'package:geekbooks/core/responsive/info/sizing_info.dart';
 export 'package:flutter_svg/svg.dart';
 export 'package:geekbooks/constants/assets/images.dart';
 
+//!Math
+export 'package:geekbooks/backend/functions/math/colors_genrator.dart';
+
 //! Kustom Widgets
 export 'package:geekbooks/widgets/ktext/ktext.dart';
 export 'package:geekbooks/widgets/kbuttons/kclickable_button.dart';

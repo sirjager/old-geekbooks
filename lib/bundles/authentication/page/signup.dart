@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:geekbooks/bundles/authentication/export/export.dart';
+import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
 import 'package:geekbooks/core/responsive/size/responsive_size.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/packages/authentication/page/signup.dart';
-import 'package:geekbooks/packages/authentication/provider/auth_provider.dart';
 
-class LoginPage extends ConsumerWidget {
+class SignupPage extends ConsumerWidget {
   final formKey = new GlobalKey<FormState>();
   final Color greenColor = Color(0xFF00AF19);
 
@@ -18,16 +17,14 @@ class LoginPage extends ConsumerWidget {
           var _email = context.read(emailFieldProvider).email;
           var _password = context.read(passwordFieldProvider).controller.text;
           return Container(
-            margin: EdgeInsets.only(
-              left: R.w(info, 5),
-              right: R.w(info, 5),
-              top: R.h(info, 5),
-            ),
+            margin: EdgeInsets.symmetric(
+                horizontal: R.w(info, 5), vertical: R.h(info, 5)),
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: R.w(info, 2)),
               child: SingleChildScrollView(
                 physics: ClampingScrollPhysics(),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
@@ -35,7 +32,7 @@ class LoginPage extends ConsumerWidget {
                       child: Row(
                         children: [
                           KText(
-                            "Login .",
+                            "Signup .",
                             size: R.f(info, 50.0),
                             font: "MavenPro",
                             weight: FontWeight.bold,
@@ -56,6 +53,87 @@ class LoginPage extends ConsumerWidget {
                       ),
                     ),
                     SizedBox(height: R.h(info, 10)),
+                    Container(
+                      height: R.h(info, 8),
+                      width: double.infinity,
+                      margin: EdgeInsets.only(
+                        top: R.h(info, 2),
+                        left: R.w(info, 2),
+                        right: R.w(info, 2),
+                      ),
+                      child: buildField(
+                        info,
+                        theme,
+                        Consumer(
+                          builder: (context, watch, child) {
+                            var _nameProvider = watch(nameFieldProvider);
+                            return CupertinoTextField(
+                              prefix: Container(
+                                margin: EdgeInsets.only(left: R.w(info, 3)),
+                                child: Icon(
+                                  Typicons.user_outline,
+                                  color: XColors.grayText1,
+                                ),
+                              ),
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: R.f(info, 13),
+                                fontWeight: FontWeight.w500,
+                                color: theme.isDarkMode
+                                    ? XColors.grayText1
+                                    : Colors.black.withOpacity(0.5),
+                              ),
+                              placeholder: 'name',
+                              padding: EdgeInsets.all(R.h(info, 2)),
+                              placeholderStyle: TextStyle(
+                                fontFamily: 'MavenPro',
+                                fontWeight: FontWeight.w700,
+                                fontSize: R.f(info, 13.0),
+                                color: theme.isDarkMode
+                                    ? Colors.black
+                                    : Colors.grey.withOpacity(0.5),
+                              ),
+                              onChanged: (value) =>
+                                  _nameProvider.setName(value),
+                              decoration: theme.isDarkMode
+                                  ? BoxDecoration()
+                                  : BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: theme.isDarkMode
+                                            ? [
+                                                XColors.darkColor,
+                                                XColors.darkColor1
+                                              ]
+                                            : [
+                                                XColors.lightColor1,
+                                                XColors.lightGray
+                                              ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                      borderRadius: BorderRadius.circular(24),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: theme.isDarkMode
+                                              ? XColors.darkColor1
+                                              : XColors.lightColor1,
+                                          offset: Offset(-3, -3),
+                                          blurRadius: theme.isDarkMode ? 2 : 0,
+                                        ),
+                                        BoxShadow(
+                                          color: theme.isDarkMode
+                                              ? Colors.black
+                                              : Colors.black12,
+                                          offset: Offset(3, 3),
+                                          blurRadius: 2,
+                                        ),
+                                      ],
+                                    ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                     Container(
                       height: R.h(info, 8),
                       width: double.infinity,
@@ -178,7 +256,7 @@ class LoginPage extends ConsumerWidget {
                                     : Colors.grey.withOpacity(0.5),
                               ),
                               padding: EdgeInsets.all(R.h(info, 2)),
-                              obscureText: true,
+                              // obscureText: true,
                               onChanged: (value) =>
                                   _passwordProvider.setPassword(value),
                               decoration: theme.isDarkMode
@@ -222,13 +300,16 @@ class LoginPage extends ConsumerWidget {
                     ),
                     SizedBox(height: 50.0),
                     KClickable(
-                      onPressed: () => context
-                          .read(authProvider)
-                          .signInWithEmailAndPassword(_email, _password),
+                      onPressed: () {
+                        context.read(authProvider).signUpWithEmailAndPassword(
+                              _email,
+                              _password,
+                            );
+                      },
                       height: R.h(info, 8),
                       width: R.w(info, 25),
                       child: KText(
-                        "Login",
+                        "Signup",
                         weight: FontWeight.bold,
                         color: theme.isDarkMode
                             ? XColors.lightColor1
@@ -284,9 +365,9 @@ class LoginPage extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         InkWell(
-                          onTap: () => Get.to(() => SignupPage()),
+                          onTap: () => Get.back(),
                           child: KText(
-                            'Signup',
+                            'Go back',
                             size: R.f(info, 12),
                             color: theme.isDarkMode
                                 ? XColors.lightColor1

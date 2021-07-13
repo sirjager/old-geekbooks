@@ -1,7 +1,6 @@
-import 'package:firebase/firebase.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/packages/authentication/provider/auth_logic.dart';
-import 'package:geekbooks/packages/authentication/services/authentication.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geekbooks/bundles/authentication/provider/auth_logic.dart';
+import 'package:geekbooks/bundles/authentication/services/authentication.dart';
 
 final emailFieldProvider =
     ChangeNotifierProvider((ref) => EmailFieldController());

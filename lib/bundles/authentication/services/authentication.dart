@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
-import 'package:geekbooks/packages/authentication/exception/exceptions.dart';
+import 'package:flutter/material.dart';
+import 'package:geekbooks/bundles/authentication/export/export.dart';
+import 'package:geekbooks/core/log/log.dart';
 
 class Authentication extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -20,12 +20,14 @@ class Authentication extends ChangeNotifier {
       User? _oOser = _credential.user;
       if (_oOser != null) {
         _eImail = _oOser.email;
+        log.e("\n\n$_status\n\n");
         return AuthResultStatus.successful;
       } else
         _eImail = null;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       _status = AuthExceptionHandler.handleException(e);
+      log.e("\n\n$_status\n\n");
       return _status;
     }
   }
@@ -37,12 +39,14 @@ class Authentication extends ChangeNotifier {
       User? _oOser = _credential.user;
       if (_oOser != null) {
         _eImail = _oOser.email;
+        log.e("\n\n$_status\n\n");
         return AuthResultStatus.successful;
       } else
         _eImail = null;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       _status = AuthExceptionHandler.handleException(e);
+      log.e("\n\n$_status\n\n");
       return _status;
     }
   }
