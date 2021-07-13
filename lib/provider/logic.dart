@@ -4,11 +4,11 @@ import 'package:geekbooks/models/page/pagination.dart';
 import 'package:geekbooks/widgets/chip/chip.dart';
 import 'package:string_validator/string_validator.dart';
 
-class SizingInformationProvider extends ChangeNotifier {
-  SizingInformation _info = SizingInformation();
-  SizingInformation get info => _info;
-  void updateSizingInfo(SizingInformation sizinginfo) {
-    _info = sizinginfo;
+class PSizingInfo extends ChangeNotifier {
+  SizingInformation _sizing = SizingInformation();
+  SizingInformation get info => _sizing;
+  void updateSizingInfo(SizingInformation __info) {
+    _sizing = __info;
     notifyListeners();
   }
 }

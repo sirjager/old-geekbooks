@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geekbooks/bundles/authentication/export/export.dart';
 
@@ -16,7 +15,7 @@ class AuthenticationWrapper extends ConsumerWidget {
     return _state.when(
       data: (user) => user == null ? login : home,
       loading: () => Scaffold(body: Center(child: CircularProgressIndicator())),
-      error: (v, e) => Scaffold(body: Center(child: Text("e"))),
+      error: (v, e) => Scaffold(body: Center(child: Text(e.toString()))),
     );
   }
 }
