@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
+import 'package:geeklibrary/packages/authentication/functions/firestore_operation.dart';
 import 'package:lottie/lottie.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -11,6 +13,7 @@ class VerificationPage extends StatefulWidget {
 
 class _VerificationPageState extends State<VerificationPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FireStoreOperations _fso = FireStoreOperations();
   late User user;
   late Timer timer;
 
@@ -36,16 +39,14 @@ class _VerificationPageState extends State<VerificationPage> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      await UserOption().checkUser(user);
-      final _person = await UserOption().getUserDetails(user.uid);
-      context.read(personProvider).register(_person);
-      final _myUser = await UserOption().getAccountDetails(user.uid);
-      context.read(myUserProvider).register(_myUser);
-      print("is Account Enabled = " + _myUser.isAccountEnabled.toString());
-      Get.off(() => VerificationCheck());
+      bool isNewUser = await _fso.userExist(user);
+      log("\nis New User = $isNewUser \n");
+      log("\nis New User = $isNewUser \n");
+      log("\nis New User = $isNewUser \n");
     }
   }
 
+  // Get.off(() => VerificationCheck());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,3 +105,9 @@ class _VerificationPageState extends State<VerificationPage> {
     );
   }
 }
+  // await UserOption().checkUser(user);
+      // final _person = await UserOption().getUserDetails(user.uid);
+      // context.read(personProvider).register(_person);
+      // final _myUser = await UserOption().getAccountDetails(user.uid);
+      // context.read(myUserProvider).register(_myUser);
+      // print("is Account Enabled = " + _myUser.isAccountEnabled.toString());
