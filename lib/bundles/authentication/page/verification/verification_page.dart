@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:geekbooks/bundles/authentication/page/verification/verification_checkup.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:lottie/lottie.dart';
 
@@ -35,7 +35,7 @@ class _VerificationPageState extends State<VerificationPage> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      Phoenix.rebirth(context);
+      Get.offAll(() => VerificationCheck());
     }
   }
 

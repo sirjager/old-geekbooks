@@ -22,11 +22,9 @@ class Settingspage extends StatelessWidget {
           SizedBox(height: R.h(info, 10)),
           KLeafButton(
             height: R.h(info, 10),
-            onPressed: () {
-              context
-                  .read(auth)
-                  .signOut()
-                  .then((value) => Phoenix.rebirth(context));
+            onPressed: () async {
+              await context.read(auth).signOut();
+              Phoenix.rebirth(context);
             },
             child: KText(
               'Go back',

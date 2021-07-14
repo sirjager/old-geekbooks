@@ -26,12 +26,14 @@ Future<void> main() async {
   Hive.registerAdapter(EncBookAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(Phoenix(
-    child: ProviderScope(
-      overrides: [adStateProvider.overrideWithValue(adState)],
-      child: MyApp(),
+  runApp(
+    Phoenix(
+      child: ProviderScope(
+        overrides: [adStateProvider.overrideWithValue(adState)],
+        child: MyApp(),
+      ),
     ),
-  ));
+  );
 }
 
 class MyApp extends ConsumerWidget {
