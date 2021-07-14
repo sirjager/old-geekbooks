@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:geekbooks/ads/adprovider.dart';
 import 'package:geekbooks/ads/adstate.dart';
 import 'package:geekbooks/bundles/authentication/page/verification/verification_checkup.dart';
@@ -25,14 +26,11 @@ Future<void> main() async {
   Hive.registerAdapter(EncBookAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(ProviderScope(
-    overrides: [adStateProvider.overrideWithValue(adState)],
-    child: MyApp(),
-
-    // child: DevicePreview(
-    //   enabled: true,
-    //   builder: (context) => MyApp(),
-    // ),
+  runApp(Phoenix(
+    child: ProviderScope(
+      overrides: [adStateProvider.overrideWithValue(adState)],
+      child: MyApp(),
+    ),
   ));
 }
 

@@ -1,3 +1,4 @@
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:geekbooks/bundles/authentication/export/export.dart';
 import 'package:geekbooks/export/export.dart';
 import 'package:geekbooks/widgets/kbuttons/kleaf_button.dart';
@@ -21,7 +22,12 @@ class Settingspage extends StatelessWidget {
           SizedBox(height: R.h(info, 10)),
           KLeafButton(
             height: R.h(info, 10),
-            onPressed: () => context.read(auth).signOut(),
+            onPressed: () {
+              context
+                  .read(auth)
+                  .signOut()
+                  .then((value) => Phoenix.rebirth(context));
+            },
             child: KText(
               'Go back',
               size: R.f(info, 12),
