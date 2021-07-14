@@ -54,6 +54,7 @@ class MyUser {
     this.uid,
     this.email,
     this.isVerified,
+    this.lastActive,
     this.isAnonymous,
     this.isAccountEnabled,
   });
@@ -63,10 +64,11 @@ class MyUser {
   final bool? isVerified;
   final bool? isAnonymous;
   final bool? isAccountEnabled;
-
+  final DateTime? lastActive;
   factory MyUser.build(User user) => MyUser(
         uid: user.uid,
         email: user.email,
+        lastActive: DateTime.now(),
         isVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,
         isAccountEnabled: true,
@@ -76,6 +78,7 @@ class MyUser {
         "uid": uid,
         "email": email.toString().toLowerCase(),
         "isVerified": isVerified,
+        'lastActive': lastActive,
         "isAnonymous": isAnonymous,
         "isAccountEnabled": isAccountEnabled,
       };

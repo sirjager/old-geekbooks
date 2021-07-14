@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:developer';
 
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/packages/authentication/functions/firestore_operation.dart';
@@ -13,17 +13,17 @@ class VerificationPage extends StatefulWidget {
 
 class _VerificationPageState extends State<VerificationPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FireStoreOperations _fso = FireStoreOperations();
+
   late User user;
   late Timer timer;
 
   @override
   void initState() {
     user = _auth.currentUser!;
-    user.sendEmailVerification();
-    timer = Timer.periodic(Duration(seconds: 5), (timer) {
-      checkEmailVerified();
-    });
+    // user.sendEmailVerification();
+    // timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    checkEmailVerified();
+    // });
 
     super.initState();
   }
@@ -36,14 +36,13 @@ class _VerificationPageState extends State<VerificationPage> {
 
   Future<void> checkEmailVerified() async {
     user = _auth.currentUser!;
-    await user.reload();
-    if (user.emailVerified) {
-      timer.cancel();
-      bool isNewUser = await _fso.userExist(user);
-      log("\nis New User = $isNewUser \n");
-      log("\nis New User = $isNewUser \n");
-      log("\nis New User = $isNewUser \n");
-    }
+    // await user.reload();
+    // if (user.emailVerified) {
+    // timer.cancel();
+    bool isNewUser = await FireStoreOperations.userExist(user);
+    log.w("\nis New User = $isNewUser \n");
+
+    // }
   }
 
   // Get.off(() => VerificationCheck());

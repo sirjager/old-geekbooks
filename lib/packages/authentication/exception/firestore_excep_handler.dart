@@ -6,91 +6,91 @@ class FirestoreExceptionHandler {
     var status;
     switch (e.code) {
       case "OK":
-        status = UserOptionStatus.ok;
+        status = FirestoreExceptionsStatus.ok;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return true;
       case "ABORTED":
-        status = UserOptionStatus.aborted;
+        status = FirestoreExceptionsStatus.aborted;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "ALREADY_EXISTS":
-        status = UserOptionStatus.alreadyExist;
+        status = FirestoreExceptionsStatus.alreadyExist;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "CANCELLED":
-        status = UserOptionStatus.cancelled;
+        status = FirestoreExceptionsStatus.cancelled;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "DATA_LOSS":
-        status = UserOptionStatus.dataLoss;
+        status = FirestoreExceptionsStatus.dataLoss;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "DEADLINE_EXCEEDED":
-        status = UserOptionStatus.deadlineExceeded;
+        status = FirestoreExceptionsStatus.deadlineExceeded;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "FAILED_PRECONDITION":
-        status = UserOptionStatus.faildedPreCondition;
+        status = FirestoreExceptionsStatus.faildedPreCondition;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "INTERNAL":
-        status = UserOptionStatus.internal;
+        status = FirestoreExceptionsStatus.internal;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "INVALID_ARGUMENT":
-        status = UserOptionStatus.invalidArgument;
+        status = FirestoreExceptionsStatus.invalidArgument;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "NOT_FOUND":
-        status = UserOptionStatus.notFound;
+        status = FirestoreExceptionsStatus.notFound;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "OUT_OF_RANGE":
-        status = UserOptionStatus.outOfRange;
+        status = FirestoreExceptionsStatus.outOfRange;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "PERMISSION_DENIED":
-        status = UserOptionStatus.permissionDenied;
+        status = FirestoreExceptionsStatus.permissionDenied;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "RESOURCE_EXHAUSTED":
-        status = UserOptionStatus.resourceExhausted;
+        status = FirestoreExceptionsStatus.resourceExhausted;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "UNAUTHENTICATED":
-        status = UserOptionStatus.unauthenticated;
+        status = FirestoreExceptionsStatus.unauthenticated;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "UNAVAILABLE":
-        status = UserOptionStatus.unavailable;
+        status = FirestoreExceptionsStatus.unavailable;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       case "UNIMPLEMENTED":
-        status = UserOptionStatus.unimplemented;
+        status = FirestoreExceptionsStatus.unimplemented;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
-        break;
+        FirestoreDialog.showDialog(status, msg);
+        return false;
       default:
-        status = UserOptionStatus.unknown;
+        status = FirestoreExceptionsStatus.unknown;
         var msg = generateExceptionMessage(e);
-        FirestoreDialog.showDialog(e.code, msg);
+        FirestoreDialog.showDialog(status, msg);
+        return false;
     }
-    return status;
   }
 
   ///
@@ -98,52 +98,52 @@ class FirestoreExceptionHandler {
   ///
   static String generateExceptionMessage(exceptionCode) {
     switch (exceptionCode) {
-      case UserOptionStatus.ok:
+      case FirestoreExceptionsStatus.ok:
         return "The operation completed successfully.";
 
-      case UserOptionStatus.aborted:
+      case FirestoreExceptionsStatus.aborted:
         return "The operation was aborted.";
 
-      case UserOptionStatus.alreadyExist:
+      case FirestoreExceptionsStatus.alreadyExist:
         return "Some document that we attempted to create already exists.";
 
-      case UserOptionStatus.cancelled:
+      case FirestoreExceptionsStatus.cancelled:
         return "The operation was cancelled.";
 
-      case UserOptionStatus.dataLoss:
+      case FirestoreExceptionsStatus.dataLoss:
         return "Unrecoverable data loss or corruption.";
 
-      case UserOptionStatus.deadlineExceeded:
+      case FirestoreExceptionsStatus.deadlineExceeded:
         return "Deadline expired before operation could complete.";
 
-      case UserOptionStatus.faildedPreCondition:
+      case FirestoreExceptionsStatus.faildedPreCondition:
         return "Operation was rejected because the system is not in a state required for the operation's execution.";
 
-      case UserOptionStatus.internal:
+      case FirestoreExceptionsStatus.internal:
         return "Internal errors. Some invariants expected by underlying system has been broken. If you see one of these errors, something is very broken.";
 
-      case UserOptionStatus.invalidArgument:
+      case FirestoreExceptionsStatus.invalidArgument:
         return "Client specified an invalid argument.";
 
-      case UserOptionStatus.notFound:
+      case FirestoreExceptionsStatus.notFound:
         return "Some requested document was not found.";
 
-      case UserOptionStatus.outOfRange:
+      case FirestoreExceptionsStatus.outOfRange:
         return "Operation was attempted past the valid range.";
 
-      case UserOptionStatus.permissionDenied:
+      case FirestoreExceptionsStatus.permissionDenied:
         return "The caller does not have permission to execute the specified operation.";
 
-      case UserOptionStatus.resourceExhausted:
+      case FirestoreExceptionsStatus.resourceExhausted:
         return "Some resource has been exhausted, perhaps a per-user quota, or perhaps the entire file system is out of space.";
 
-      case UserOptionStatus.unauthenticated:
+      case FirestoreExceptionsStatus.unauthenticated:
         return "The request does not have valid authentication credentials for the operation.";
 
-      case UserOptionStatus.unavailable:
+      case FirestoreExceptionsStatus.unavailable:
         return "The service is currently unavailable.";
 
-      case UserOptionStatus.unimplemented:
+      case FirestoreExceptionsStatus.unimplemented:
         return "Operation is not implemented or not supported/enabled.";
 
       default:
@@ -152,7 +152,7 @@ class FirestoreExceptionHandler {
   }
 }
 
-enum UserOptionStatus {
+enum FirestoreExceptionsStatus {
   ok,
   aborted,
   alreadyExist,
