@@ -1,5 +1,5 @@
 import 'package:encrypt/encrypt.dart';
-import 'package:geekbooks/keys/keys.dart';
+import 'package:geeklibrary/keys/keys.dart';
 
 class Encrypt {
   //

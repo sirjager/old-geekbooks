@@ -1,4 +1,4 @@
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class AppTitle extends StatelessWidget {
   final SizingInformation info;

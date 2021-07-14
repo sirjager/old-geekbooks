@@ -1,7 +1,7 @@
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
-import 'package:geekbooks/screens/dashboard/view/desktop.dart';
-import 'package:geekbooks/screens/dashboard/view/tablet.dart';
+import 'package:geeklibrary/screens/dashboard/view/desktop.dart';
+import 'package:geeklibrary/screens/dashboard/view/tablet.dart';
 
 class Dashboard extends ConsumerWidget {
   const Dashboard({Key? key}) : super(key: key);

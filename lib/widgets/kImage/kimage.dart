@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class KImage extends StatelessWidget {
   const KImage({

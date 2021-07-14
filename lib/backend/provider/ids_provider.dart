@@ -1,4 +1,4 @@
-import 'package:geekbooks/backend/functions/math/math.dart';
+import 'package:geeklibrary/backend/functions/math/math.dart';
 
 class IdProvider {
   List<String>? idAsList(source) {

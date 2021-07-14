@@ -1,7 +1,7 @@
-import 'package:geekbooks/models/sort/sort.dart';
+import 'package:geeklibrary/models/sort/sort.dart';
 
 class SortProvider {
-  Sort? sortAsObject(source)  {
+  Sort? sortAsObject(source) {
     final RegExp allSorts = new RegExp('Sort.results.by.*<\/a>');
     final sortList = allSorts.allMatches(source);
     List<TitleLink> allSortings = [];

@@ -1,4 +1,4 @@
-import 'package:geekbooks/bundles/authentication/export/export.dart';
+import 'package:geeklibrary/bundles/authentication/export/export.dart';
 
 class Generate {
   //! Pass user to generate Person Object

@@ -1,4 +1,4 @@
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class DashboardMobile extends ConsumerWidget {
   const DashboardMobile(this.info, {Key? key}) : super(key: key);
@@ -9,7 +9,8 @@ class DashboardMobile extends ConsumerWidget {
     return Container(
       child: Column(
         children: [
-          Expanded(child: nav.current == 0 ? Homepage(info) : Settingspage(info)),
+          Expanded(
+              child: nav.current == 0 ? Homepage(info) : Settingspage(info)),
           NavigationLayout(info),
         ],
       ),

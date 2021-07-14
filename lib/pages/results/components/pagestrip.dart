@@ -1,6 +1,6 @@
-import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/models/page/page.dart';
+import 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/models/page/page.dart';
 
 class PageStrip extends ConsumerWidget {
   const PageStrip(this.info, {Key? key, required this.page}) : super(key: key);

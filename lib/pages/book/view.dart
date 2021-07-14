@@ -1,11 +1,11 @@
-import 'package:geekbooks/constants/numers/nums.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/pages/book/components/column_box.dart';
-import 'package:geekbooks/pages/book/components/description_box.dart';
-import 'package:geekbooks/pages/book/components/header.dart';
-import 'package:geekbooks/pages/book/components/related.dart';
-import 'package:geekbooks/pages/book/components/row_box.dart';
-import 'package:geekbooks/widgets/kbuttons/kleaf_button.dart';
+import 'package:geeklibrary/constants/numers/nums.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/pages/book/components/column_box.dart';
+import 'package:geeklibrary/pages/book/components/description_box.dart';
+import 'package:geeklibrary/pages/book/components/header.dart';
+import 'package:geeklibrary/pages/book/components/related.dart';
+import 'package:geeklibrary/pages/book/components/row_box.dart';
+import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
 class BookView extends StatelessWidget {
   const BookView({Key? key, required this.books, required this.book})

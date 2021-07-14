@@ -1,5 +1,5 @@
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/widgets/chip/chip.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/widgets/chip/chip.dart';
 
 class SearchOptions extends ConsumerWidget {
   SearchOptions(this.info, {Key? key}) : super(key: key);

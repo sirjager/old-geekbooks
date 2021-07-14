@@ -1,4 +1,4 @@
-import 'package:geekbooks/ads/adstate.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/ads/adstate.dart';
+import 'package:geeklibrary/export/export.dart';
 
 final adStateProvider = ScopedProvider<AdState>(null);

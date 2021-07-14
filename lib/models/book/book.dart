@@ -1,4 +1,4 @@
-import 'package:geekbooks/backend/constants/api_strings.dart';
+import 'package:geeklibrary/backend/constants/api_strings.dart';
 import 'package:hive/hive.dart';
 
 class Book extends HiveObject {

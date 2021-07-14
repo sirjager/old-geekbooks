@@ -1,5 +1,5 @@
-import 'package:geekbooks/core/responsive/info/sizing_info.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/core/responsive/info/sizing_info.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class R {
   static double screenHeight(SizingInformation info) => info.screenSize!.height;

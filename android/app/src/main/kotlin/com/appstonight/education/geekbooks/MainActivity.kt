@@ -1,4 +1,4 @@
-package com.appstonight.education.geekbooks
+package com.appstonight.education.geeklibrary
 
 import io.flutter.embedding.android.FlutterActivity
 

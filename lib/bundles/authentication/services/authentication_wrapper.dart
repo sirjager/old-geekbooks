@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geekbooks/bundles/authentication/export/export.dart';
+import 'package:geeklibrary/bundles/authentication/export/export.dart';
 
 class AuthenticationWrapper extends ConsumerWidget {
   const AuthenticationWrapper(

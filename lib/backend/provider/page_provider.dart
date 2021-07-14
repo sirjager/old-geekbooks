@@ -1,10 +1,10 @@
-import 'package:geekbooks/backend/constants/api_strings.dart';
-import 'package:geekbooks/backend/export/backend_export.dart';
-import 'package:geekbooks/backend/regex/regex.dart';
-import 'package:geekbooks/models/page/page.dart';
+import 'package:geeklibrary/backend/constants/api_strings.dart';
+import 'package:geeklibrary/backend/export/backend_export.dart';
+import 'package:geeklibrary/backend/regex/regex.dart';
+import 'package:geeklibrary/models/page/page.dart';
 
 class PageProvider {
-  PageInfo pageAsObject(source)  {
+  PageInfo pageAsObject(source) {
     final totalNumberOfPages =
         RegX.totalPages.allMatches(source).first.group(1);
     final totalNumberOfPagesVisible =

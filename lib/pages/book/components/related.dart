@@ -1,5 +1,5 @@
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/pages/book/components/bookrow.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/pages/book/components/bookrow.dart';
 
 class RelatedContent extends StatelessWidget {
   const RelatedContent(

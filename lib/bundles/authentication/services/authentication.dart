@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:geekbooks/bundles/authentication/export/export.dart';
-import 'package:geekbooks/core/log/log.dart';
+import 'package:geeklibrary/bundles/authentication/export/export.dart';
+import 'package:geeklibrary/core/log/log.dart';
 
 class Authentication {
   final FirebaseAuth _auth;

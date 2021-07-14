@@ -1,4 +1,4 @@
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class Poster extends StatelessWidget {
   const Poster(this.info, {Key? key}) : super(key: key);
@@ -8,7 +8,6 @@ class Poster extends StatelessWidget {
     return Container(
       height: R.h(info, 45),
       width: double.infinity,
-      
     );
   }
 }

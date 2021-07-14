@@ -1,6 +1,6 @@
-import 'package:geekbooks/backend/database/hive.dart';
-import 'package:geekbooks/models/book/encbook.dart';
-import 'package:geekbooks/models/sauce/encpagesource.dart';
+import 'package:geeklibrary/backend/database/hive.dart';
+import 'package:geeklibrary/models/book/encbook.dart';
+import 'package:geeklibrary/models/sauce/encpagesource.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveCalls {

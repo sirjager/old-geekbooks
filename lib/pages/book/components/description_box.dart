@@ -1,5 +1,5 @@
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/utils/striphtml.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/utils/striphtml.dart';
 import 'package:readmore/readmore.dart';
 
 class DescriptionBox extends ConsumerWidget {

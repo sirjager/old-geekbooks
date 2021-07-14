@@ -1,4 +1,4 @@
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 final drawerProvider = ChangeNotifierProvider((ref) => DrawerProvider());
 final themeProvider = ChangeNotifierProvider((ref) => ThemeProvider());

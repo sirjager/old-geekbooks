@@ -1,4 +1,4 @@
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class XColors {
   static Color get grayColor => Color(0xffA4B5CB);

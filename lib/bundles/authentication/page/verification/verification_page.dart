@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geekbooks/bundles/authentication/page/verification/verification_checkup.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/bundles/authentication/page/verification/verification_checkup.dart';
+import 'package:geeklibrary/export/export.dart';
 import 'package:lottie/lottie.dart';
 
 class VerificationPage extends StatefulWidget {

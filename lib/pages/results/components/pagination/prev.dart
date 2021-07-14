@@ -1,6 +1,6 @@
-import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
-import 'package:geekbooks/constants/numers/nums.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
+import 'package:geeklibrary/constants/numers/nums.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class PreviousButton extends ConsumerWidget {
   const PreviousButton(

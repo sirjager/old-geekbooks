@@ -1,7 +1,7 @@
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:geekbooks/bundles/authentication/export/export.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/widgets/kbuttons/kleaf_button.dart';
+import 'package:geeklibrary/bundles/authentication/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
 class Settingspage extends StatelessWidget {
   final SizingInformation info;

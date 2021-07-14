@@ -1,7 +1,7 @@
-import 'package:geekbooks/bundles/authentication/export/export.dart';
-import 'package:geekbooks/bundles/authentication/page/verification/verification_page.dart';
-import 'package:geekbooks/core/log/log.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/bundles/authentication/export/export.dart';
+import 'package:geeklibrary/bundles/authentication/page/verification/verification_page.dart';
+import 'package:geeklibrary/core/log/log.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class VerificationCheck extends StatelessWidget {
   Future<bool> checkUser() async {

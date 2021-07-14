@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:247840151513:android:821de4fff00ce68b21ebc8",
         "android_client_info": {
-          "package_name": "com.appstonight.education.geekbooks"
+          "package_name": "com.appstonight.education.geeklibrary"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "247840151513-5qlatt68pr8mfoj6tcmavbmkg853s33c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.appstonight.education.geekbooks",
+            "package_name": "com.appstonight.education.geeklibrary",
             "certificate_hash": "8ffb181133ac9c59a1f03f2aa5258b561be83c44"
           }
         },

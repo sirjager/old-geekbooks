@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:geekbooks/bundles/authentication/export/export.dart';
+import 'package:geeklibrary/bundles/authentication/export/export.dart';
 
-import 'package:geekbooks/core/responsive/size/responsive_size.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/core/responsive/size/responsive_size.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class LoginPage extends ConsumerWidget {
   final formKey = new GlobalKey<FormState>();

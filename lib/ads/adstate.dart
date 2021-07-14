@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:geekbooks/ads/ad_ids.dart';
-import 'package:geekbooks/core/log/log.dart';
+import 'package:geeklibrary/ads/ad_ids.dart';
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdState {

@@ -1,7 +1,7 @@
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/models/book/encbook.dart';
-import 'package:geekbooks/models/sauce/encpagesource.dart';
-import 'package:geekbooks/models/sauce/pagesource.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/models/book/encbook.dart';
+import 'package:geeklibrary/models/sauce/encpagesource.dart';
+import 'package:geeklibrary/models/sauce/pagesource.dart';
 
 class CryptionCalls {
   static EncPageSource encryptSauce(PageSource sauce) =>

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:geekbooks/constants/numers/nums.dart';
-import 'package:geekbooks/core/dialog/dialogs.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/models/page/page.dart';
-import 'package:geekbooks/models/page/pagination.dart';
+import 'package:geeklibrary/constants/numers/nums.dart';
+import 'package:geeklibrary/core/dialog/dialogs.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/models/page/page.dart';
+import 'package:geeklibrary/models/page/pagination.dart';
 import 'package:string_validator/string_validator.dart';
 
 class PaginationStrip extends ConsumerWidget {

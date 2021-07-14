@@ -1,7 +1,7 @@
 library animated_button;
 
 import 'package:flutter/material.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 /// Using [ShadowDegree] with values [ShadowDegree.dark] or [ShadowDegree.light]
 /// to get a darker version of the used color.

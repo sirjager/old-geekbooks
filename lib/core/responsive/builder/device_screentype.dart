@@ -1,5 +1,5 @@
-import 'package:geekbooks/core/responsive/enum/device_screen_type.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/core/responsive/enum/device_screen_type.dart';
+import 'package:geeklibrary/export/export.dart';
 
 DeviceScreenType getDeviceType(MediaQueryData mediaQuery) {
   double deviceWidth = mediaQuery.size.shortestSide;

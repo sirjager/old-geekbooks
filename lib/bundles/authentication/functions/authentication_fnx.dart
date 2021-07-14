@@ -1,4 +1,4 @@
-// import 'package:geekbooks/bundles/authentication/export/export.dart';
+// import 'package:geeklibrary/bundles/authentication/export/export.dart';
 
 
 // class AuthenticationFunctions {
@@ -16,7 +16,7 @@
 
 //     //!============================================================================> Storing Default Theme
 //     await FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(user.uid)
 //         .collection(AuthStr.preferences)
 //         .doc(AuthStr.appState)
@@ -25,13 +25,13 @@
 
 //     //!============================================================================> STORING Public MyUser MODEL
 //     await FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(user.uid)
 //         .set(_myuser.toMap(), SetOptions(merge: true))
 //         .then((value) => true);
 //     //!============================================================================> STORING PERSON MODEL
 //     bool isCreated = await FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(user.uid)
 //         .collection(AuthStr.person)
 //         .doc(AuthStr.details)
@@ -46,7 +46,7 @@
 //         uid: user.uid, email: user.email, lastActive: DateTime.now());
 //     //!============================================================================> STORING USER'S UID,EMAIL,ROLE EVERYTIME TO KEEP PERSIST
 //     bool isUpdated = await FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(user.uid)
 //         .collection(AuthStr.person)
 //         .doc(AuthStr.details)
@@ -59,7 +59,7 @@
 // //
 //   Future<Person> getUserDetails(String uid) async {
 //     DocumentSnapshot collected = await FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(uid)
 //         .collection(AuthStr.person)
 //         .doc(AuthStr.details)
@@ -71,7 +71,7 @@
 // //
 //   Future<MySettings> getAppSettings(String uid) async {
 //     DocumentSnapshot _settings = await FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(uid)
 //         .collection(AuthStr.preferences)
 //         .doc(AuthStr.appState)
@@ -84,7 +84,7 @@
 //   Future<bool> updateUserPrefs(String uid, bool value) async {
 //     MySettings _settings = MySettings(isDarkMode: value);
 //     await FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(uid)
 //         .collection(AuthStr.preferences)
 //         .doc(AuthStr.appState)
@@ -101,7 +101,7 @@
 // //
 //   Stream<MySettings> streamAppSettings(String uid) {
 //     return FirebaseFirestore.instance
-//         .collection(AuthStr.geekbooks)
+//         .collection(AuthStr.geeklibrary)
 //         .doc(uid)
 //         .collection(AuthStr.preferences)
 //         .doc(AuthStr.appState)

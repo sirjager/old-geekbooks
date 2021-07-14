@@ -4,13 +4,13 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [{
-      "name": "geekbooks",
+      "name": "geeklibrary",
       "request": "launch",
       "type": "dart",
       "console": "externalTerminal"
     },
     {
-      "name": "geekbooks (profile mode)",
+      "name": "geeklibrary (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",

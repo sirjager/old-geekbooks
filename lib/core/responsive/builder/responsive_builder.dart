@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:geekbooks/core/responsive/builder/device_screentype.dart';
-import 'package:geekbooks/core/responsive/info/sizing_info.dart';
+import 'package:geeklibrary/core/responsive/builder/device_screentype.dart';
+import 'package:geeklibrary/core/responsive/info/sizing_info.dart';
 
 class ResponsiveBuilder extends StatelessWidget {
   const ResponsiveBuilder({Key? key, required this.builder}) : super(key: key);

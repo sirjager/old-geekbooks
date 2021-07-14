@@ -1,7 +1,7 @@
-import 'package:geekbooks/backend/export/backend_export.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/models/page/pagination.dart';
-import 'package:geekbooks/widgets/chip/chip.dart';
+import 'package:geeklibrary/backend/export/backend_export.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/models/page/pagination.dart';
+import 'package:geeklibrary/widgets/chip/chip.dart';
 import 'package:string_validator/string_validator.dart';
 
 class PSizingInfo extends ChangeNotifier {

@@ -1,5 +1,5 @@
-import 'package:geekbooks/backend/regex/regex.dart';
-import 'package:geekbooks/models/lenk/lenk.dart';
+import 'package:geeklibrary/backend/regex/regex.dart';
+import 'package:geeklibrary/models/lenk/lenk.dart';
 
 class Grabber {
   static List<Lenk> getLenks(_downSource) {

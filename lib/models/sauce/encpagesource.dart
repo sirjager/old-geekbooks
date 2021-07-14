@@ -1,5 +1,5 @@
-import 'package:geekbooks/backend/crypt/cryptor.dart';
-import 'package:geekbooks/models/sauce/pagesource.dart';
+import 'package:geeklibrary/backend/crypt/cryptor.dart';
+import 'package:geeklibrary/models/sauce/pagesource.dart';
 import 'package:hive/hive.dart';
 
 part 'encpagesource.g.dart';

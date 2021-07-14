@@ -1,5 +1,5 @@
-import 'package:geekbooks/backend/crypt/cryptor.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/backend/crypt/cryptor.dart';
+import 'package:geeklibrary/export/export.dart';
 import 'package:hive/hive.dart';
 
 part 'encbook.g.dart';

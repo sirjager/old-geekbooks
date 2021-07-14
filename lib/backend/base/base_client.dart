@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:geekbooks/backend/exception/exceptions.dart';
-import 'package:geekbooks/core/log/log.dart';
+import 'package:geeklibrary/backend/exception/exceptions.dart';
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:http/http.dart' as http;
 
 class BaseClient {

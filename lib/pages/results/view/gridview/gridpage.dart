@@ -1,8 +1,8 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
-import 'package:geekbooks/constants/numers/nums.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/widgets/kImage/kimage.dart';
+import 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
+import 'package:geeklibrary/constants/numers/nums.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class GridPage extends StatefulWidget {

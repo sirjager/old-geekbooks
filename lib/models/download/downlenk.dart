@@ -1,4 +1,4 @@
-import 'package:geekbooks/models/lenk/lenk.dart';
+import 'package:geeklibrary/models/lenk/lenk.dart';
 import 'package:hive/hive.dart';
 part 'downlenk.g.dart';
 

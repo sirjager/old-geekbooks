@@ -1,5 +1,5 @@
-import 'package:geekbooks/backend/dialog/dialog.dart';
-import 'package:geekbooks/backend/exception/exceptions.dart';
+import 'package:geeklibrary/backend/dialog/dialog.dart';
+import 'package:geeklibrary/backend/exception/exceptions.dart';
 
 class ErrorHandler {
   void handleError(error) {

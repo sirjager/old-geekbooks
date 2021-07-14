@@ -1,6 +1,6 @@
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/models/page/page.dart';
-import 'package:geekbooks/models/sort/sort.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/models/page/page.dart';
+import 'package:geeklibrary/models/sort/sort.dart';
 
 class PagePack {
   PagePack({

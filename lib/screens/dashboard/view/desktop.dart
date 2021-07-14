@@ -1,4 +1,4 @@
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class DashboardDesktop extends ConsumerWidget {
   const DashboardDesktop(this.info, {Key? key}) : super(key: key);

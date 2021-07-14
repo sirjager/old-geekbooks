@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:geekbooks/export/export.dart';
-import 'package:geekbooks/global/titlebar/titlebar.dart';
+import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/global/titlebar/titlebar.dart';
 
 class Homepage extends StatelessWidget {
   Homepage(this.info, {Key? key}) : super(key: key);

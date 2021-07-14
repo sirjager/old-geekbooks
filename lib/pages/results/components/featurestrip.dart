@@ -1,5 +1,5 @@
-import 'package:geekbooks/backend/functions/math/colors_genrator.dart';
-import 'package:geekbooks/export/export.dart';
+import 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
+import 'package:geeklibrary/export/export.dart';
 
 class FeatureStrip extends ConsumerWidget {
   const FeatureStrip(this.info, {Key? key}) : super(key: key);

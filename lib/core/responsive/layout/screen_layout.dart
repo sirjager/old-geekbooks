@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:geekbooks/core/responsive/builder/responsive_builder.dart';
-import 'package:geekbooks/core/responsive/enum/device_screen_type.dart';
+import 'package:geeklibrary/core/responsive/builder/responsive_builder.dart';
+import 'package:geeklibrary/core/responsive/enum/device_screen_type.dart';
 
 class ScreenLayout extends StatelessWidget {
   const ScreenLayout({
