@@ -22,10 +22,10 @@ class VerificationCheck extends StatelessWidget {
                 final _isUserVerified = snapshot.data!;
                 if (_isUserVerified) {
                   Future.delayed(Duration(milliseconds: 100))
-                      .then((value) => Get.off(() => Dashboard()));
+                      .then((value) => Get.offAll(() => Dashboard()));
                 } else {
                   Future.delayed(Duration(milliseconds: 100))
-                      .then((value) => Get.off(() => VerificationPage()));
+                      .then((value) => Get.offAll(() => VerificationPage()));
                 }
               }
             }

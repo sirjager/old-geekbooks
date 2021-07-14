@@ -35,7 +35,7 @@ class _VerificationPageState extends State<VerificationPage> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      Get.off(() => VerificationCheck());
+      Get.offAll(() => VerificationCheck());
     }
   }
 
