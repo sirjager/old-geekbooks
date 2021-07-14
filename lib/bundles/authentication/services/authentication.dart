@@ -30,6 +30,7 @@ class Authentication {
           email: email, password: password);
       _status = AuthResultStatus.successful;
       log.e(_status);
+      await signIn(email, password);
       return _status;
     } on FirebaseAuthException catch (e) {
       _status = AuthExceptionHandler.handleException(e);
@@ -51,6 +52,4 @@ class Authentication {
       return _status;
     }
   }
-
-  
 }

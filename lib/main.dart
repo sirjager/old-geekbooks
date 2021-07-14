@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:geekbooks/ads/adprovider.dart';
 import 'package:geekbooks/ads/adstate.dart';
+import 'package:geekbooks/bundles/authentication/page/verification/verification_checkup.dart';
 import 'package:geekbooks/core/theme/themeData.dart';
 import 'package:geekbooks/models/book/encbook.dart';
 import 'package:geekbooks/models/sauce/encpagesource.dart';
@@ -50,7 +51,7 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.themeLight,
       title: 'GeekBooks',
       home: AuthenticationWrapper(
-        home: Dashboard(),
+        home: VerificationCheck(),
         login: LoginPage(),
       ),
     );
