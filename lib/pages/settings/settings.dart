@@ -1,5 +1,6 @@
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:geeklibrary/bundles/authentication/export/export.dart';
+import 'package:geeklibrary/bundles/authentication/page/login.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
@@ -16,15 +17,15 @@ class Settingspage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            "Settings page",
-          ),
+          Text("Settings page"),
           SizedBox(height: R.h(info, 10)),
           KLeafButton(
             height: R.h(info, 10),
             onPressed: () async {
-              await context.read(auth).signOut();
-              Phoenix.rebirth(context);
+              await context
+                  .read(auth)
+                  .signOut()
+                  .then((value) => Get.offAll(() => LoginPage()));
             },
             child: KText(
               'Go back',

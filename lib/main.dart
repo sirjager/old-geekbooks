@@ -49,7 +49,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: AppTheme.themeDark,
       theme: AppTheme.themeLight,
-      title: 'GeekBooks',
+      title: 'GeekLibrary',
       home: AuthenticationWrapper(
         home: VerificationCheck(),
         login: LoginPage(),
