@@ -1,4 +1,3 @@
-
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
@@ -22,10 +21,10 @@ class VerificationCheck extends StatelessWidget {
                 final _isUserVerified = snapshot.data!;
                 if (_isUserVerified) {
                   Future.delayed(Duration(milliseconds: 100))
-                      .then((value) => Get.offAll(() => Dashboard()));
+                      .then((value) => Get.off(() => Dashboard()));
                 } else {
                   Future.delayed(Duration(milliseconds: 100))
-                      .then((value) => Get.offAll(() => VerificationPage()));
+                      .then((value) => Get.off(() => VerificationPage()));
                 }
               }
             }

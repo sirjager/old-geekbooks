@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:geeklibrary/ads/adprovider.dart';
@@ -7,7 +6,6 @@ import 'package:geeklibrary/core/theme/themeData.dart';
 import 'package:geeklibrary/models/book/encbook.dart';
 import 'package:geeklibrary/models/sauce/encpagesource.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
-
 
 import 'package:geeklibrary/provider/all_provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -43,8 +41,6 @@ class MyApp extends ConsumerWidget {
         isDarkMode ? AppTheme.systemUiDark : AppTheme.systemUiLight);
     return GetMaterialApp(
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       darkTheme: AppTheme.themeDark,
       theme: AppTheme.themeLight,
