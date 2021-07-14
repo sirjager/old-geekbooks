@@ -46,9 +46,9 @@ class _VerificationPageState extends State<VerificationPage> {
         var result = await FirestoreOperations().createNewUser(user);
         final _person = await FirestoreGetOperations.getPersonDetails(user.uid);
         context.read(personProvider).register(_person);
-        final _myUser =
+        final _accountDetails =
             await FirestoreGetOperations.getAccountDetails(user.uid);
-        context.read(personProvider).register(_person);
+        context.read(accountDetailsProvider).register(_accountDetails);
         final _settings = await FirestoreGetOperations.getAppSettings(user.uid);
         context.read(appsettingsProvider).register(_settings);
 

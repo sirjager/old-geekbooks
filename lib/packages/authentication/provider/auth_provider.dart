@@ -10,6 +10,6 @@ final authState =
     StreamProvider<User?>((ref) => ref.watch(auth).authStateChanges);
 
 final personProvider = ChangeNotifierProvider((ref) => PersonProvider());
-final myUserProvider = ChangeNotifierProvider((ref) => MyUserProvider());
+final accountDetailsProvider = ChangeNotifierProvider((ref) => MyUserProvider());
 final appsettingsProvider =
     ChangeNotifierProvider((ref) => AppSettingsProvider());
