@@ -49,8 +49,8 @@ class Person {
       };
 }
 
-class MyUser {
-  MyUser({
+class AccountDetails {
+  AccountDetails({
     this.uid,
     this.email,
     this.isVerified,
@@ -65,7 +65,7 @@ class MyUser {
   final bool? isAnonymous;
   final bool? isAccountEnabled;
   final DateTime? lastActive;
-  factory MyUser.build(User user) => MyUser(
+  factory AccountDetails.build(User user) => AccountDetails(
         uid: user.uid,
         email: user.email,
         lastActive: DateTime.now(),

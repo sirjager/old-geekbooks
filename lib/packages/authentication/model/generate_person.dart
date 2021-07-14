@@ -39,8 +39,8 @@ class Generate {
     );
   }
 
-  MyUser myUserFromSnapshot(DocumentSnapshot snapshot) {
-    return MyUser(
+  AccountDetails myAccountDetailsFromSnapshot(DocumentSnapshot snapshot) {
+    return AccountDetails(
       uid: snapshot['uid'],
       email: snapshot["email"],
       isVerified: snapshot["isVerified"],

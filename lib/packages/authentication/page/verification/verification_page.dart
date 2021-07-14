@@ -44,6 +44,14 @@ class _VerificationPageState extends State<VerificationPage> {
       bool isNewUser = await FirestoreOperations.userExist(user);
       if (isNewUser) {
         var result = await FirestoreOperations().createNewUser(user);
+        final _person = await FirestoreGetOperations.getPersonDetails(user.uid);
+        context.read(personProvider).register(_person);
+        final _myUser =
+            await FirestoreGetOperations.getAccountDetails(user.uid);
+        context.read(personProvider).register(_person);
+        final _settings = await FirestoreGetOperations.getAppSettings(user.uid);
+        context.read(appsettingsProvider).register(_settings);
+
         log.i(
             "Saved User Model = ${result[0]}\nSaved Default AppSettings = ${result[1]}\nSaved Person Model = ${result[2]}");
       } else {

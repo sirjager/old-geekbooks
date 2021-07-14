@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 
-
-
 final authInstance = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
 final auth =
@@ -13,3 +11,5 @@ final authState =
 
 final personProvider = ChangeNotifierProvider((ref) => PersonProvider());
 final myUserProvider = ChangeNotifierProvider((ref) => MyUserProvider());
+final appsettingsProvider =
+    ChangeNotifierProvider((ref) => AppSettingsProvider());

@@ -14,11 +14,21 @@ class PersonProvider extends ChangeNotifier {
 }
 
 class MyUserProvider extends ChangeNotifier {
-  late MyUser __user;
-  MyUser get myuser => __user;
-  void register(MyUser _myuser) {
-    __user = _myuser;
-    print("\nMyUser ${_myuser.email} has been registered\n");
+  late AccountDetails __account;
+  AccountDetails get accountDetails => __account;
+  void register(AccountDetails _accoountDetails) {
+    __account = _accoountDetails;
+    print("\nMyUser ${_accoountDetails.email} has been registered\n");
+    notifyListeners();
+  }
+}
+
+class AppSettingsProvider extends ChangeNotifier {
+  late MySettings __settings;
+  MySettings get settings => __settings;
+  void register(MySettings _settings) {
+    __settings = _settings;
+    print("\nAppSettings has been registered\n");
     notifyListeners();
   }
 }

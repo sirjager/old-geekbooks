@@ -9,6 +9,7 @@ class FirestoreOperations extends FirestoreExceptionHandler {
         .collection(AuthStr.geeklibrary)
         .where("uid", isEqualTo: user.uid)
         .get()
+        // ignore: invalid_return_type_for_catch_error
         .catchError((e) => FirestoreExceptionHandler.handleException(e));
     final List<DocumentSnapshot> docSnap = result.docs;
     final bool isNewUser = docSnap.length == 0 ? true : false;
@@ -18,11 +19,11 @@ class FirestoreOperations extends FirestoreExceptionHandler {
   //***************************************************************************>  CREATE NEW USER
   // This return List of [[ boolean values ]] if for Given Operations
   Future<List<bool>> createNewUser(User user) async {
-    final _myuser = MyUser.build(user);
+    final _accountDetails = AccountDetails.build(user);
     final _settings = MySettings(isDarkMode: false);
     final _person = Generate().personFromUser(user);
-    //!========================================================================> Storing MyUser Model
-    bool isMyUserSaved = await saveMyUser(user, _myuser);
+    //!========================================================================> Storing AccountDetails Model
+    bool isMyUserSaved = await saveAccountDetails(user, _accountDetails);
     //!========================================================================> Storing Default Theme
     bool isAppsettingsSaved = await saveAppSetting(user, _settings);
     //!========================================================================> Storing Person Model
@@ -32,9 +33,9 @@ class FirestoreOperations extends FirestoreExceptionHandler {
 
   //***************************************************************************>  UPDATE RETURNING USER
   // This return List of [[ true/false ]] if User is updated or not
-  Future<bool> updateReturningUser( User user) async {
-    final _myuser = MyUser.build(user);
-    final updatedUser = await saveMyUser(user, _myuser);
+  Future<bool> updateReturningUser(User user) async {
+    final _accountDetails = AccountDetails.build(user);
+    final updatedUser = await saveAccountDetails(user, _accountDetails);
     return updatedUser;
   }
 
@@ -56,11 +57,12 @@ class FirestoreOperations extends FirestoreExceptionHandler {
     }
   }
 
-  static Future<bool> saveMyUser(User user, MyUser _myuser) async {
+  static Future<bool> saveAccountDetails(
+      User user, AccountDetails _accountDetails) async {
     var status = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
         .doc(user.uid)
-        .set(_myuser.toMap(), SetOptions(merge: true))
+        .set(_accountDetails.toMap(), SetOptions(merge: true))
         .then((value) => true)
         .catchError((e) => FirestoreExceptionHandler.handleException(e));
     if (status) {
