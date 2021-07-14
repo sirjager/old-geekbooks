@@ -1,9 +1,0 @@
-export 'package:cloud_firestore/cloud_firestore.dart';
-export 'package:firebase_auth/firebase_auth.dart';
-export 'package:geeklibrary/bundles/authentication/constants/constants.dart';
-export 'package:geeklibrary/bundles/authentication/model/generate_person.dart';
-export 'package:geeklibrary/bundles/authentication/model/person_model.dart';
-export 'package:geeklibrary/bundles/authentication/model/settings_model.dart';
-export 'package:geeklibrary/bundles/authentication/provider/auth_provider.dart';
-export 'package:geeklibrary/bundles/authentication/page/signup.dart';
-export 'package:geeklibrary/bundles/authentication/exception/exceptions.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geeklibrary/bundles/authentication/page/verification/verification_checkup.dart';
+
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:lottie/lottie.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -21,6 +21,7 @@ class _VerificationPageState extends State<VerificationPage> {
     timer = Timer.periodic(Duration(seconds: 5), (timer) {
       checkEmailVerified();
     });
+
     super.initState();
   }
 
@@ -35,6 +36,9 @@ class _VerificationPageState extends State<VerificationPage> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
+      await UserOption().checkUser(user);
+      final _person = await UserOption().getUserDetails(user.uid);
+      context.read(personProvider).register(_person);
       Get.offAll(() => VerificationCheck());
     }
   }

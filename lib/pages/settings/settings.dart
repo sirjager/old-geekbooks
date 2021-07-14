@@ -1,6 +1,5 @@
-import 'package:geeklibrary/bundles/authentication/export/export.dart';
-import 'package:geeklibrary/bundles/authentication/page/login.dart';
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
 class Settingspage extends StatelessWidget {

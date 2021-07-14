@@ -3,17 +3,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:geeklibrary/ads/adprovider.dart';
 import 'package:geeklibrary/ads/adstate.dart';
-import 'package:geeklibrary/bundles/authentication/page/verification/verification_checkup.dart';
 import 'package:geeklibrary/core/theme/themeData.dart';
 import 'package:geeklibrary/models/book/encbook.dart';
 import 'package:geeklibrary/models/sauce/encpagesource.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
+
+
 import 'package:geeklibrary/provider/all_provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import 'bundles/authentication/page/login.dart';
-import 'bundles/authentication/services/authentication_wrapper.dart';
 import 'export/export.dart';
 
 Future<void> main() async {
