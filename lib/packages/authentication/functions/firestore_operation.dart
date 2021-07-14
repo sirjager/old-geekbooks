@@ -1,7 +1,7 @@
 import 'package:geeklibrary/packages/authentication/exception/firestore_excep_handler.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 
-class FireStoreOperations extends FirestoreExceptionHandler {
+class FirestoreOperations extends FirestoreExceptionHandler {
   //***************************************************************************>  DOES USER DOCUMENT EXIST
   // This return [[ true ]] if user document exists in firestore
   static Future<bool> userExist(User user) async {
@@ -32,7 +32,7 @@ class FireStoreOperations extends FirestoreExceptionHandler {
 
   //***************************************************************************>  UPDATE RETURNING USER
   // This return List of [[ true/false ]] if User is updated or not
-  Future<bool> updateReturningUser({required User user}) async {
+  Future<bool> updateReturningUser( User user) async {
     final _myuser = MyUser.build(user);
     final updatedUser = await saveMyUser(user, _myuser);
     return updatedUser;
@@ -51,7 +51,7 @@ class FireStoreOperations extends FirestoreExceptionHandler {
       print("\nAppSettings saved\n");
       return true;
     } else {
-      print("\nAppSettings not saved");
+      print("\nAppSettings not saved\n");
       return false;
     }
   }

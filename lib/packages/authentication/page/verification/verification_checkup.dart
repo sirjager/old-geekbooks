@@ -1,12 +1,18 @@
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
+import 'package:geeklibrary/packages/authentication/functions/firestore_operation.dart';
 
 class VerificationCheck extends StatelessWidget {
   Future<bool> checkUser() async {
-    var status = FirebaseAuth.instance.currentUser!.emailVerified;
-    status ? log.w('User is Verified') : log.w('User is Not Verified');
-    return status;
+    User user = FirebaseAuth.instance.currentUser!;
+    if (user.emailVerified) {
+      final updateResult =
+          await FirestoreOperations().updateReturningUser(user);
+      log.i("Updated MyUser Model = $updateResult");
+      return true;
+    }
+    return false;
   }
 
   @override

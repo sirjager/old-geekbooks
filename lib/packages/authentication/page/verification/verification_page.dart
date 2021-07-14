@@ -20,10 +20,10 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   void initState() {
     user = _auth.currentUser!;
-    // user.sendEmailVerification();
-    // timer = Timer.periodic(Duration(seconds: 5), (timer) {
-    checkEmailVerified();
-    // });
+    user.sendEmailVerification();
+    timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      checkEmailVerified();
+    });
 
     super.initState();
   }
@@ -36,16 +36,22 @@ class _VerificationPageState extends State<VerificationPage> {
 
   Future<void> checkEmailVerified() async {
     user = _auth.currentUser!;
-    // await user.reload();
-    // if (user.emailVerified) {
-    // timer.cancel();
-    bool isNewUser = await FireStoreOperations.userExist(user);
-    log.w("\nis New User = $isNewUser \n");
-
-    // }
+    await user.reload();
+    if (user.emailVerified) {
+      timer.cancel();
+      Get.off(() => VerificationCheck());
+    } else {
+      bool isNewUser = await FirestoreOperations.userExist(user);
+      if (isNewUser) {
+        var result = await FirestoreOperations().createNewUser(user);
+        log.i(
+            "Saved User Model = ${result[0]}\nSaved Default AppSettings = ${result[1]}\nSaved Person Model = ${result[2]}");
+      } else {
+        print("\nReturning User\n");
+      }
+    }
   }
 
-  // Get.off(() => VerificationCheck());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
