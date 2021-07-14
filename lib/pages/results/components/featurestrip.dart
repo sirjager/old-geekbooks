@@ -8,6 +8,7 @@ class FeatureStrip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     var theme = watch(themeProvider);
+    // ignore: unused_local_variable
     var blackwhite = watch(blackNWhiteProvider);
     return Container(
       height: R.h(info, 3),

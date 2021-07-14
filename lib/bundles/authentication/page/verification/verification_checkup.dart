@@ -2,6 +2,7 @@ import 'package:geekbooks/bundles/authentication/export/export.dart';
 import 'package:geekbooks/bundles/authentication/page/verification/verification_page.dart';
 import 'package:geekbooks/core/log/log.dart';
 import 'package:geekbooks/export/export.dart';
+import 'package:lottie/lottie.dart';
 
 class VerificationCheck extends StatelessWidget {
   Future<bool> checkUser() async {
@@ -12,20 +13,24 @@ class VerificationCheck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      future: checkUser(),
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasData) {
-            if (snapshot.data == true)
-              Future.delayed(Duration(milliseconds: 100))
-                  .then((value) => Get.off(() => Dashboard()));
-            else
-              Future.delayed(Duration(milliseconds: 100))
-                  .then((value) => Get.off(() => VerificationPage()));
-          }
-        }
-        return Scaffold();
+    return ResponsiveBuilder(
+      builder: (context, info) {
+        return FutureBuilder<bool>(
+          future: checkUser(),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                if (snapshot.data == true)
+                  Future.delayed(Duration(milliseconds: 100))
+                      .then((value) => Get.off(() => Dashboard()));
+
+                Future.delayed(Duration(seconds: 10))
+                    .then((value) => Get.off(() => VerificationPage()));
+              }
+            }
+            return Scaffold();
+          },
+        );
       },
     );
   }

@@ -23,5 +23,4 @@ class MyAssets {
   static final String sendmail1 = "assets/lottie/sendmail1.json";
   static final String sendmail2 = "assets/lottie/sendmail2.json";
   static final String sendmail3 = "assets/lottie/sendmail3.json";
-  static final String sendmail4 = "assets/lottie/sendmail4.json";
 }
