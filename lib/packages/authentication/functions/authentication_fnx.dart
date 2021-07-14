@@ -36,13 +36,13 @@ class UserOption {
         .collection(AuthStr.preferences)
         .doc(AuthStr.appState)
         .set(_settings.toMap(), SetOptions(merge: true))
-        .then((value) => true);
+        .then((value) => print("\nStored Default Theme for new user \n"));
     //!============================================================================> STORING Public MyUser MODEL
     await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
         .doc(user.uid)
         .set(_myuser.toMap(), SetOptions(merge: true))
-        .then((value) => true);
+        .then((value) => print("\nStored MyUser model for new user \n"));
     //!============================================================================> STORING PERSON MODEL
     bool isCreated = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
@@ -51,6 +51,7 @@ class UserOption {
         .doc(AuthStr.details)
         .set(_person.toMap(), SetOptions(merge: true))
         .then((value) => true);
+    print("\nStored Person Model for new user !\n");
     return isCreated;
   }
 
@@ -66,6 +67,7 @@ class UserOption {
         .doc(AuthStr.details)
         .set(_persist.toMap(), SetOptions(merge: true))
         .then((value) => true);
+    print("\nUpdated Returning User \n");
     return isUpdated;
   }
 
@@ -79,6 +81,16 @@ class UserOption {
         .doc(AuthStr.details)
         .get();
     return _generate.personFromSnapshot(collected);
+  }
+
+//?================== Member Object Generated from Snapshot=====================
+//
+  Future<MyUser> getAccountDetails(String uid) async {
+    DocumentSnapshot collected = await FirebaseFirestore.instance
+        .collection(AuthStr.geeklibrary)
+        .doc(uid)
+        .get();
+    return _generate.myUserFromSnapshot(collected);
   }
 
 //?=============== MySettings Object Generated from Snapshot==================

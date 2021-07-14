@@ -38,4 +38,14 @@ class Generate {
       isAnonymous: snapshot["isAnonymous"],
     );
   }
+
+  MyUser myUserFromSnapshot(DocumentSnapshot snapshot) {
+    return MyUser(
+      uid: snapshot['uid'],
+      email: snapshot["email"],
+      isVerified: snapshot["isVerified"],
+      isAnonymous: snapshot["isAnonymous"],
+      isAccountEnabled: snapshot["isAnonymous"],
+    );
+  }
 }

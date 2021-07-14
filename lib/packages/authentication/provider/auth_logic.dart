@@ -8,7 +8,17 @@ class PersonProvider extends ChangeNotifier {
   Person get person => __person;
   void register(Person _person) {
     __person = _person;
-    print("\nUser ${_person.email} has been registered\n");
+    print("\nPerson ${_person.email} has been registered\n");
+    notifyListeners();
+  }
+}
+
+class MyUserProvider extends ChangeNotifier {
+  late MyUser __user;
+  MyUser get myuser => __user;
+  void register(MyUser _myuser) {
+    __user = _myuser;
+    print("\nMyUser ${_myuser.email} has been registered\n");
     notifyListeners();
   }
 }

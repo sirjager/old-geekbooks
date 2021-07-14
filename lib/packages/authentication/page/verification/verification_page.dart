@@ -39,6 +39,8 @@ class _VerificationPageState extends State<VerificationPage> {
       await UserOption().checkUser(user);
       final _person = await UserOption().getUserDetails(user.uid);
       context.read(personProvider).register(_person);
+      final _myUser = await UserOption().getAccountDetails(user.uid);
+      context.read(myUserProvider).register(_myUser);
       Get.off(() => VerificationCheck());
     }
   }

@@ -50,17 +50,26 @@ class Person {
 }
 
 class MyUser {
-  MyUser({this.uid, this.email, this.isVerified, this.isAnonymous});
+  MyUser({
+    this.uid,
+    this.email,
+    this.isVerified,
+    this.isAnonymous,
+    this.isAccountEnabled,
+  });
+
   final String? uid;
   final String? email;
   final bool? isVerified;
   final bool? isAnonymous;
+  final bool? isAccountEnabled;
 
   factory MyUser.build(User user) => MyUser(
         uid: user.uid,
         email: user.email,
         isVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,
+        isAccountEnabled: true,
       );
 
   Map<String, dynamic> toMap() => {
@@ -68,11 +77,17 @@ class MyUser {
         "email": email.toString().toLowerCase(),
         "isVerified": isVerified,
         "isAnonymous": isAnonymous,
+        "isAccountEnabled": isAccountEnabled,
       };
 }
 
 class PersistUser {
-  PersistUser({this.uid, this.email, this.lastActive});
+  PersistUser({
+    this.uid,
+    this.email,
+    this.lastActive,
+  });
+
   final String? uid;
   final String? email;
   final DateTime? lastActive;
