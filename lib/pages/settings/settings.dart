@@ -1,4 +1,3 @@
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:geeklibrary/bundles/authentication/export/export.dart';
 import 'package:geeklibrary/bundles/authentication/page/login.dart';
 import 'package:geeklibrary/export/export.dart';
