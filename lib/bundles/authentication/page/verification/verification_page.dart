@@ -8,6 +8,9 @@ class VerificationPage extends StatefulWidget {
 }
 
 class _VerificationPageState extends State<VerificationPage> {
+  bool _verificationRequested = false;
+  bool _sentPressed = false;
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +30,39 @@ class _VerificationPageState extends State<VerificationPage> {
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (context, info) {
+          if (!_verificationRequested) {
+            return Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: R.h(info, 2)),
+                    child: _sentPressed
+                        ? Container(
+                            child: Text(
+                              "sent Button Pressed",
+                            ),
+                          )
+                        : OutlinedButton(
+                            onPressed: () =>
+                                setState(() => _sentPressed = false),
+                            child: Padding(
+                              padding: EdgeInsets.all(R.w(info, 5)),
+                              child: KText(
+                                "send veification email",
+                                font: "MavenPro",
+                                size: R.f(info, 15),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                  ),
+                ],
+              ),
+            );
+          }
           return FutureBuilder(
             future: _verifyUser(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
