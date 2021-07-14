@@ -25,12 +25,12 @@ class Authentication {
   Future<AuthResultStatus> signUp(String email, String password) async {
     var _status;
     try {
-      await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) async => await signIn(email, password));
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       _status = AuthResultStatus.successful;
       log.e(_status);
-
+      Future.delayed(Duration(seconds: 2))
+          .then((value) => signIn(email, password));
       return _status;
     } on FirebaseAuthException catch (e) {
       _status = AuthExceptionHandler.handleException(e);
