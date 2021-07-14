@@ -6,7 +6,7 @@ export 'package:geeklibrary/packages/authentication/model/person_model.dart';
 export 'package:geeklibrary/packages/authentication/model/settings_model.dart';
 export 'package:geeklibrary/packages/authentication/provider/auth_provider.dart';
 export 'package:geeklibrary/packages/authentication/page/signup.dart';
-export 'package:geeklibrary/packages/authentication/exception/exceptions.dart';
+export 'package:geeklibrary/packages/authentication/exception/auth_excep_handler.dart';
 export 'package:geeklibrary/packages/authentication/export/export.dart';
 export 'package:geeklibrary/packages/authentication/page/verification/verification_page.dart';
 
