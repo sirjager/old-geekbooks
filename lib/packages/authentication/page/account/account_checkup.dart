@@ -1,40 +1,10 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
-import 'package:geeklibrary/packages/authentication/functions/firestore_operations.dart';
 import 'package:geeklibrary/screens/account/disabled.dart';
+import 'package:geeklibrary/screens/refresh/refresh.dart';
 import 'package:lottie/lottie.dart';
 
-final isNewUserPro = FutureProvider<bool>((ref) async {
-  final _user = FirebaseAuth.instance.currentUser!;
-  return await FirestoreOperations.isNewUser(_user);
-});
-
-final createAccountPro = FutureProvider<bool>((ref) async {
-  final _user = FirebaseAuth.instance.currentUser!;
-  return await FirestoreOperations().createNewUser(_user);
-});
-
-final updateAccountPro = FutureProvider<bool>((ref) async {
-  final _user = FirebaseAuth.instance.currentUser!;
-  final _account = await FirestoreOperations.getAccountDetails(
-      FirebaseAuth.instance.currentUser!);
-  return await FirestoreOperations().updateReturningUser(_user, _account);
-});
-
-final getAccountPro = FutureProvider<AccountDetails>((ref) async {
-  final _user = FirebaseAuth.instance.currentUser!;
-  return await FirestoreOperations.getAccountDetails(_user);
-});
-
 class AccountCheckup extends StatelessWidget {
-  final User user = FirebaseAuth.instance.currentUser!;
-  Future getAccount(BuildContext context) async {
-    final _account = await FirestoreOperations.getAccountDetails(user);
-    context.read(accountProvider).register(_account);
-    context.read(themeProvider).setMode(_account.isDarkThemeEnabled);
-    return _account;
-  }
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
@@ -62,7 +32,7 @@ class AccountCheckup extends StatelessWidget {
                                       if (_acc.isAccountEnabled) {
                                         Future.delayed(Duration(seconds: 2))
                                             .then((value) =>
-                                                Get.off(() => Dashboard()));
+                                                Get.off(() => RefreshApp()));
                                         return Lottie.asset(MyAssets.check,
                                             height: R.w(info, 35));
                                       } else {
@@ -101,7 +71,7 @@ class AccountCheckup extends StatelessWidget {
                                       if (_acc.isAccountEnabled) {
                                         Future.delayed(Duration(seconds: 2))
                                             .then((value) =>
-                                                Get.off(() => Dashboard()));
+                                                Get.off(() => RefreshApp()));
                                         return Lottie.asset(MyAssets.check,
                                             height: R.w(info, 35));
                                       } else {
