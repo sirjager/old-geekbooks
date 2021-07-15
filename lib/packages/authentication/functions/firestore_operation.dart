@@ -47,6 +47,7 @@ class FirestoreOperations extends FirestoreExceptionHandler {
         .doc(AuthStr.appState)
         .set(_settings.toMap(), SetOptions(merge: true))
         .then((value) => true)
+        // ignore: invalid_return_type_for_catch_error
         .catchError((e) => FirestoreExceptionHandler.handleException(e));
     if (status) {
       print("\nAppSettings saved\n");
@@ -64,6 +65,7 @@ class FirestoreOperations extends FirestoreExceptionHandler {
         .doc(user.uid)
         .set(_accountDetails.toMap(), SetOptions(merge: true))
         .then((value) => true)
+        // ignore: invalid_return_type_for_catch_error
         .catchError((e) => FirestoreExceptionHandler.handleException(e));
     if (status) {
       print("\nMyUser Model saved\n");
@@ -82,6 +84,7 @@ class FirestoreOperations extends FirestoreExceptionHandler {
         .doc(AuthStr.details)
         .set(_person.toMap(), SetOptions(merge: true))
         .then((value) => true)
+        // ignore: invalid_return_type_for_catch_error
         .catchError((e) => FirestoreExceptionHandler.handleException(e));
     if (status) {
       print("\nPerson Model is saved\n");

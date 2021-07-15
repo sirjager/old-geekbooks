@@ -1,6 +1,6 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
-import 'package:geeklibrary/packages/authentication/page/load/load.dart';
+import 'package:geeklibrary/packages/authentication/page/account/account_checkup.dart';
 import 'package:lottie/lottie.dart';
 
 class VerificationCheck extends StatelessWidget {
@@ -17,21 +17,27 @@ class VerificationCheck extends StatelessWidget {
             if (snapshot.connectionState != ConnectionState.done) {
               return Scaffold(
                 body: Center(
-                    child: Lottie.asset(MyAssets.check,
-                        repeat: false, height: (Get.height / 100) * 35)),
+                  child: Lottie.asset(MyAssets.wave,
+                      repeat: false, height: (Get.height / 100) * 35),
+                ),
               );
             } else {
               if (snapshot.hasData) {
                 final _isUserVerified = snapshot.data!;
                 if (_isUserVerified) {
-                  Future.delayed(Duration(seconds: 2))
-                      .then((value) => Get.offAll(() => LoadUserPage()));
+                  Future.delayed(Duration(seconds: 3))
+                      .then((value) => Get.offAll(() => AccountCheckup()));
                 } else {
-                  Future.delayed(Duration(seconds: 2))
+                  Future.delayed(Duration(seconds: 3))
                       .then((value) => Get.offAll(() => VerificationPage()));
                 }
               }
-              return Scaffold();
+              return Scaffold(
+                body: Center(
+                  child: Lottie.asset(MyAssets.wave,
+                      height: (Get.height / 100) * 25),
+                ),
+              );
             }
           },
         );

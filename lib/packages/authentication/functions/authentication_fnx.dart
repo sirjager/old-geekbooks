@@ -1,6 +1,7 @@
+import 'package:geeklibrary/packages/authentication/exception/firestore_excep_handler.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 
-class FirestoreGetOperations {
+class FirestoreGetOperations extends FirestoreExceptionHandler {
 //?================== Member Object Generated from Snapshot=====================
 //
   static Future<Person> getPerson(User user) async {
@@ -9,7 +10,9 @@ class FirestoreGetOperations {
         .doc(user.uid)
         .collection(AuthStr.person)
         .doc(AuthStr.details)
-        .get();
+        .get()
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((e) => FirestoreExceptionHandler.handleException(e));
     return Generate().personFromSnapshot(collected);
   }
 
@@ -19,7 +22,9 @@ class FirestoreGetOperations {
     DocumentSnapshot collected = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
         .doc(user.uid)
-        .get();
+        .get()
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((e) => FirestoreExceptionHandler.handleException(e));
     return Generate().myAccountDetailsFromSnapshot(collected);
   }
 
@@ -31,7 +36,9 @@ class FirestoreGetOperations {
         .doc(user.uid)
         .collection(AuthStr.preferences)
         .doc(AuthStr.appState)
-        .get();
+        .get()
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((e) => FirestoreExceptionHandler.handleException(e));
     return _appSettings(_settings);
   }
 
@@ -44,7 +51,10 @@ class FirestoreGetOperations {
         .doc(uid)
         .collection(AuthStr.preferences)
         .doc(AuthStr.appState)
-        .set(_settings.toMap(), SetOptions(merge: true));
+        .set(_settings.toMap(), SetOptions(merge: true))
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((e) => FirestoreExceptionHandler.handleException(e));
+
     return true;
   }
 

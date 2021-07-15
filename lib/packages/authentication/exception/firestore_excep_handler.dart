@@ -4,11 +4,10 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:get/get.dart';
 
 class FirestoreExceptionHandler {
-  static bool handleException(FirebaseException e) {
+  static void handleException(FirebaseException e) {
     __showDialog(e.code, e.message.toString());
     log.e(
         "Plugin : ${e.plugin}\nCode : ${e.code}\nDescription : ${e.message.toString()}");
-    return e.code == "OK" ? true : false;
   }
 
   static __showDialog(String code, String msg, {String action = "go back"}) {
