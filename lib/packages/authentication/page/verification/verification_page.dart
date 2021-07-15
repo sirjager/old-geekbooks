@@ -20,8 +20,10 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   void initState() {
     user = _auth.currentUser!;
-    user.sendEmailVerification();
-    timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    if(!user.emailVerified){
+      user.sendEmailVerification();
+    }else{}
+    timer = Timer.periodic(Duration(seconds: 7), (timer) {
       checkEmailVerified();
     });
 
@@ -41,13 +43,13 @@ class _VerificationPageState extends State<VerificationPage> {
       timer.cancel();
       Get.off(() => VerificationCheck());
     } else {
-      bool isNewUser = await FirestoreOperations.isNewUser(user);
-      if (isNewUser) {
-        var isSaved = await FirestoreOperations().createNewUser(user);
-        log.i("Account Details Saved = $isSaved");
-      } else {
-        print("\nReturning User\n");
-      }
+      // bool isNewUser = await FirestoreOperations.isNewUser(user);
+      // if (isNewUser) {
+      //  await FirestoreOperations().createNewUser(user);
+
+      // } else {
+
+      // }
     }
   }
 

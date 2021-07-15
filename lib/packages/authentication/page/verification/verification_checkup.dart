@@ -3,7 +3,7 @@ import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/packages/authentication/page/account/account_checkup.dart';
 import 'package:lottie/lottie.dart';
 
-final _isVerifiedPro = FutureProvider<bool>((ref) async {
+var _isVerifiedPro = FutureProvider<bool>((ref) async {
   User _user = FirebaseAuth.instance.currentUser!;
   await _user.reload();
   return _user.emailVerified;
@@ -21,7 +21,7 @@ class VerificationCheck extends StatelessWidget {
                 var isverified = watch(_isVerifiedPro);
                 return isverified.when(
                   data: (verified) {
-                    if (verified) {
+                    if (FirebaseAuth.instance.currentUser!.emailVerified) {
                       Future.delayed(Duration(seconds: 1))
                           .then((value) => Get.off(() => AccountCheckup()));
                       return Text("User is Verified");
