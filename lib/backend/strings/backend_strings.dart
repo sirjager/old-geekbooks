@@ -13,6 +13,7 @@ class Str {
   static final String to = "to";
   static final String space = " ";
   static final String none = "";
+  static final String dash = "-";
 
   static final String underscore = "_";
   static final String plus = "+";

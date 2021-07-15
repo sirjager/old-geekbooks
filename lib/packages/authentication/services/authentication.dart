@@ -8,48 +8,36 @@ class Authentication {
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-  Future<AuthResultStatus> signIn(String email, String password) async {
-    var _status;
+  Future<bool> signIn(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      _status = AuthResultStatus.successful;
-      log.e(_status);
-      return _status;
+      log.e("Method = Signin\nEmail = $email\nStatus = Sucessfully");
+      return true;
     } on FirebaseAuthException catch (e) {
-      _status = AuthExceptionHandler.handleException(e);
-      log.e(_status);
-      return _status;
+      AuthExceptionHandler.handleException(e);
+      return false;
     }
   }
 
-  Future<AuthResultStatus> signUp(String email, String password) async {
-    var _status;
+  Future<bool> signUp(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      _status = AuthResultStatus.successful;
-      log.e(_status);
-      Future.delayed(Duration(seconds: 2))
-          .then((value) => signIn(email, password));
-      return _status;
+      log.e("Method = SignUp\nEmail = $email\nStatus = Sucessfully");
+      return true;
     } on FirebaseAuthException catch (e) {
-      _status = AuthExceptionHandler.handleException(e);
-      log.e(_status);
-      return _status;
+      AuthExceptionHandler.handleException(e);
+      return false;
     }
   }
 
-  Future<AuthResultStatus> signOut() async {
-    var _status;
+  Future<bool> signOut() async {
     try {
       await _auth.signOut();
-      _status = AuthResultStatus.successful;
-      log.e(_status);
-      return _status;
+      return true;
     } on FirebaseAuthException catch (e) {
-      _status = AuthExceptionHandler.handleException(e);
-      log.e(_status);
-      return _status;
+      AuthExceptionHandler.handleException(e);
+      return false;
     }
   }
 }

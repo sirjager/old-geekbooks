@@ -9,6 +9,7 @@ class Dashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     var scaf = watch(drawerProvider);
+    watch(themeProvider).isDarkMode;
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(

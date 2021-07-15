@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
-import 'package:geeklibrary/packages/authentication/functions/firestore_operation.dart';
+import 'package:geeklibrary/packages/authentication/functions/firestore_operations.dart';
 import 'package:lottie/lottie.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -41,11 +41,10 @@ class _VerificationPageState extends State<VerificationPage> {
       timer.cancel();
       Get.off(() => VerificationCheck());
     } else {
-      bool isNewUser = await FirestoreOperations.userExist(user);
+      bool isNewUser = await FirestoreOperations.isNewUser(user);
       if (isNewUser) {
-        var result = await FirestoreOperations().createNewUser(user); 
-      log.i(
-            "Saved User Model = ${result[0]}\nSaved Default AppSettings = ${result[1]}\nSaved Person Model = ${result[2]}");
+        var isSaved = await FirestoreOperations().createNewUser(user);
+        log.i("Account Details Saved = $isSaved");
       } else {
         print("\nReturning User\n");
       }

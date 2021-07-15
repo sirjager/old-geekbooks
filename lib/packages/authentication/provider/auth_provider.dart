@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
+import 'package:geeklibrary/packages/authentication/functions/firestore_operations.dart';
 
 final authInstance = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
@@ -9,7 +10,4 @@ final auth =
 final authState =
     StreamProvider<User?>((ref) => ref.watch(auth).authStateChanges);
 
-final personProvider = ChangeNotifierProvider((ref) => PersonProvider());
-final accountDetailsProvider = ChangeNotifierProvider((ref) => MyUserProvider());
-final appsettingsProvider =
-    ChangeNotifierProvider((ref) => AppSettingsProvider());
+final accountProvider = ChangeNotifierProvider((ref) => MyAccount());
