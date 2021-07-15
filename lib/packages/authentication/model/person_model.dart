@@ -7,24 +7,24 @@ String memberToMap(Person data) => json.encode(data.toMap());
 
 class Person {
   Person({
-    this.uid,
+    required this.uid,
     this.name,
     this.email,
     this.image,
     this.phone,
-    this.isVerified,
+    required this.isVerified,
     this.lastActive,
-    this.isAnonymous,
+    required this.isAnonymous,
   });
 
-  final String? uid;
+  final String uid;
   final String? name;
   final String? image;
   final String? email;
   final String? phone;
   final DateTime? lastActive;
-  final bool? isVerified;
-  final bool? isAnonymous;
+  final bool isVerified;
+  final bool isAnonymous;
 
   factory Person.fromMap(Map<String, dynamic> json) => Person(
         uid: json["uid"],
@@ -51,23 +51,23 @@ class Person {
 
 class AccountDetails {
   AccountDetails({
-    this.uid,
-    this.email,
-    this.isVerified,
-    this.lastActive,
-    this.isAnonymous,
-    this.isAccountEnabled,
+    required this.uid,
+    required this.email,
+    required this.isVerified,
+    required this.lastActive,
+    required this.isAnonymous,
+    required this.isAccountEnabled,
   });
 
-  final String? uid;
-  final String? email;
-  final bool? isVerified;
-  final bool? isAnonymous;
-  final bool? isAccountEnabled;
-  final DateTime? lastActive;
+  final String uid;
+  final String email;
+  final bool isVerified;
+  final bool isAnonymous;
+  final bool isAccountEnabled;
+  final DateTime lastActive;
   factory AccountDetails.build(User user) => AccountDetails(
         uid: user.uid,
-        email: user.email,
+        email: user.email!,
         lastActive: DateTime.now(),
         isVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,

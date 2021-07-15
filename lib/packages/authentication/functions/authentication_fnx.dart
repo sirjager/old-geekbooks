@@ -3,10 +3,10 @@ import 'package:geeklibrary/packages/authentication/export/export.dart';
 class FirestoreGetOperations {
 //?================== Member Object Generated from Snapshot=====================
 //
-  static Future<Person> getPersonDetails(String uid) async {
+  static Future<Person> getPerson(User user) async {
     DocumentSnapshot collected = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
-        .doc(uid)
+        .doc(user.uid)
         .collection(AuthStr.person)
         .doc(AuthStr.details)
         .get();
@@ -15,20 +15,20 @@ class FirestoreGetOperations {
 
 //?================== Member Object Generated from Snapshot=====================
 //
-  static Future<AccountDetails> getAccountDetails(String uid) async {
+  static Future<AccountDetails> getAccountDetails(User user) async {
     DocumentSnapshot collected = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
-        .doc(uid)
+        .doc(user.uid)
         .get();
     return Generate().myAccountDetailsFromSnapshot(collected);
   }
 
 //?=============== MySettings Object Generated from Snapshot==================
 //
-  static Future<MySettings> getAppSettings(String uid) async {
+  static Future<MySettings> getAppSettings(User user) async {
     DocumentSnapshot _settings = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
-        .doc(uid)
+        .doc(user.uid)
         .collection(AuthStr.preferences)
         .doc(AuthStr.appState)
         .get();

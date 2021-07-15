@@ -45,7 +45,8 @@ class Generate {
       email: snapshot["email"],
       isVerified: snapshot["isVerified"],
       isAnonymous: snapshot["isAnonymous"],
-      isAccountEnabled: snapshot["isAnonymous"],
+      isAccountEnabled: snapshot["isAccountEnabled"],
+      lastActive: (snapshot["lastActive"] as Timestamp).toDate(),
     );
   }
 }
