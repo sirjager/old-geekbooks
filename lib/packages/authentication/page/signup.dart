@@ -86,9 +86,6 @@ class _SignupPageState extends State<SignupPage> {
                               setState(() {
                                 buttonPressed = true;
                               });
-                              context
-                                  .read(auth)
-                                  .signIn(_email.text, _pass.text);
                             }
                             if (_pass.text.length < 7) {
                               Kui().toast(
