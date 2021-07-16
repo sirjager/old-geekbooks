@@ -44,7 +44,7 @@ class BookCard extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     KText(
-                      book.title,
+                      book.title ?? "no title",
                       size: R.f(info, 8),
                       maxLines: 2,
                       color:

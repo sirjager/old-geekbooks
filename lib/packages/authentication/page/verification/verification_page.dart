@@ -40,7 +40,6 @@ class _VerificationPageState extends State<VerificationPage> {
       print("\n Email Verified = ${user.emailVerified}\n");
       Get.off(
         () => VerificationCheck(),
-        transition: Transition.zoom,
       );
     }
   }

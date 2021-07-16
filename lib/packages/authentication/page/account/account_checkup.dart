@@ -1,7 +1,6 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/screens/account/disabled.dart';
-import 'package:geeklibrary/screens/refresh/refresh.dart';
 import 'package:lottie/lottie.dart';
 
 class AccountCheckup extends StatefulWidget {
@@ -51,30 +50,19 @@ class _AccountCheckupState extends State<AccountCheckup>
                                   return _userDoc.when(
                                     data: (_acc) {
                                       if (_acc.isAccountEnabled) {
-                                        return Lottie.asset(MyAssets.check,
-                                            height: R.w(info, 35),
-                                            repeat: false, onLoaded: (_) {
-                                          _ani.forward().whenComplete(() {
-                                            Get.off(
-                                              () => RefreshApp(),
-                                              transition: Transition.zoom,
-                                            );
-                                          });
-                                        });
+                                        return enabledWidget(info);
                                       } else {
                                         return Lottie.asset(MyAssets.cross,
                                             height: R.w(info, 35),
                                             repeat: false, onLoaded: (_) {
                                           _ani.forward().whenComplete(() {
-                                            Get.off(
-                                              () => AccountStatus(),
-                                              transition: Transition.zoom,
-                                            );
+                                            Get.off(() => AccountStatus(),
+                                                transition: Transition.fadeIn);
                                           });
                                         });
                                       }
                                     },
-                                    loading: () => loadingWidget(),
+                                    loading: () => Container(),
                                     error: (e1, s1) => Text(e1.toString()),
                                   );
                                 });
@@ -84,7 +72,7 @@ class _AccountCheckupState extends State<AccountCheckup>
                                 );
                               }
                             },
-                            loading: () => loadingWidget(),
+                            loading: () => Container(),
                             error: (e1, s1) => Text(e1.toString()),
                           );
                         },
@@ -102,30 +90,19 @@ class _AccountCheckupState extends State<AccountCheckup>
                                   return _userDoc.when(
                                     data: (_acc) {
                                       if (_acc.isAccountEnabled) {
-                                        return Lottie.asset(MyAssets.check,
-                                            height: R.w(info, 35),
-                                            repeat: false, onLoaded: (_) {
-                                          _ani.forward().whenComplete(() {
-                                            Get.off(
-                                              () => RefreshApp(),
-                                              transition: Transition.zoom,
-                                            );
-                                          });
-                                        });
+                                        return enabledWidget(info);
                                       } else {
                                         return Lottie.asset(MyAssets.cross,
                                             height: R.w(info, 35),
                                             repeat: false, onLoaded: (_) {
                                           _ani.forward().whenComplete(() {
-                                            Get.off(
-                                              () => AccountStatus(),
-                                              transition: Transition.zoom,
-                                            );
+                                            Get.off(() => AccountStatus(),
+                                                transition: Transition.fadeIn);
                                           });
                                         });
                                       }
                                     },
-                                    loading: () => loadingWidget(),
+                                    loading: () => Container(),
                                     error: (e1, s1) => Text(e1.toString()),
                                   );
                                 });
@@ -134,14 +111,14 @@ class _AccountCheckupState extends State<AccountCheckup>
                                     "Unable to update User Document in Database");
                               }
                             },
-                            loading: () => loadingWidget(),
+                            loading: () => Container(),
                             error: (e1, s1) => Text(e1.toString()),
                           );
                         },
                       );
                     }
                   },
-                  loading: () => loadingWidget(),
+                  loading: () => Container(),
                   error: (e1, s1) => Text(e1.toString()),
                 );
               },
@@ -152,6 +129,29 @@ class _AccountCheckupState extends State<AccountCheckup>
     );
   }
 
-  Widget loadingWidget() =>
-      Lottie.asset(MyAssets.wave, height: (Get.height / 100) * 25);
+  Consumer enabledWidget(SizingInformation info) {
+    return Consumer(
+      builder: (context, watch4, child4) {
+        var _acc = watch4(initializeAccountPro);
+        return _acc.when(
+          data: (_account) {
+            return Lottie.asset(MyAssets.check,
+                controller: _ani,
+                height: R.w(info, 25),
+                repeat: false, onLoaded: (_) {
+              context.read(themeProvider).setMode(_account.isDarkThemeEnabled);
+              _ani.forward().whenComplete(() {
+                Get.off(() => Dashboard(), transition: Transition.fadeIn);
+              });
+            });
+          },
+          loading: () => Container(),
+          error: (e, s) => Text(e.toString()),
+        );
+      },
+    );
+  }
+
+  // Widget loadingWidget() =>
+  //     Lottie.asset(MyAssets.wave, height: (Get.height / 100) * 25);
 }

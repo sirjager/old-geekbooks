@@ -21,7 +21,7 @@ class Book extends HiveObject {
 
   final String id;
   final String? md5;
-  final String title;
+  final String? title;
   final String? author;
   final String? series;
   final String? publisher;
@@ -56,4 +56,37 @@ class Book extends HiveObject {
       desc: json["descr"] == null ? "null" : json["descr"],
     );
   }
+
+  Book copyWith({
+    String? id,
+    String? md5,
+    String? title,
+    String? author,
+    String? series,
+    String? publisher,
+    String? year,
+    String? language,
+    String? pages,
+    String? exten,
+    String? torrent,
+    String? coverURL,
+    String? desc,
+    String? tags,
+  }) =>
+      Book(
+        id: id ?? this.id,
+        md5: md5 ?? this.md5,
+        title: title ?? this.title,
+        author: author ?? this.author,
+        series: series ?? this.series,
+        publisher: publisher ?? this.publisher,
+        year: year ?? this.year,
+        language: language ?? this.language,
+        pages: pages ?? this.pages,
+        exten: exten ?? this.exten,
+        torrent: torrent ?? this.torrent,
+        coverURL: coverURL ?? this.coverURL,
+        desc: desc ?? this.desc,
+        tags: tags ?? this.tags,
+      );
 }

@@ -59,7 +59,7 @@ class ListPage extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         KText(
-                          book.title,
+                           book.title ?? "no title",
                           size: 15,
                           maxLines: 4,
                           color: theme.isDarkMode ? Colors.white : Colors.blue,

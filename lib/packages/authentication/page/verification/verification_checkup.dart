@@ -44,7 +44,7 @@ class _VerificationCheckState extends State<VerificationCheck>
               future: _emailVerified(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
-                  return Lottie.asset(MyAssets.wave, height: R.w(info, 25));
+                  return Container();
                 } else {
                   if (snapshot.hasError) {
                     return Text(snapshot.error.toString());
@@ -59,7 +59,6 @@ class _VerificationCheckState extends State<VerificationCheck>
                         _ani.forward().whenComplete(() {
                           Get.off(
                             () => AccountCheckup(),
-                            transition: Transition.zoom,
                           );
                         });
                       });
@@ -94,7 +93,6 @@ class _VerificationCheckState extends State<VerificationCheck>
                             child: KLeafButton(
                               onPressed: () => Get.off(
                                 () => VerificationPage(),
-                                transition: Transition.zoom,
                               ),
                               height: R.h(info, 7),
                               width: R.w(info, 35),

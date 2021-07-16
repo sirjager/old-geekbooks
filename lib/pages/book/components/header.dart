@@ -120,7 +120,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
                   physics: ClampingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: KText(
-                    book.title + "        ",
+                    book.title ?? "" + "        ",
                     size: R.f(info, 13),
                     weight: FontWeight.bold,
                   ),
@@ -171,7 +171,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
                         children: [
                           book.title != "" && book.title != " "
                               ? KText(
-                                  book.title,
+                                  book.title ?? "no title",
                                   size: R.f(info, 13),
                                   maxLines: 1,
                                   color: Colors.white,

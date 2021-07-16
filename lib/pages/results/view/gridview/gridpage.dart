@@ -103,7 +103,7 @@ class _GridPageState extends State<GridPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 KText(
-                                  book.title,
+                                  book.title??"no title",
                                   size: R.f(widget.info, 8),
                                   maxLines: 2,
                                   color: theme.isDarkMode
