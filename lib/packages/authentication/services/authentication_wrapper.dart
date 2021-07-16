@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 
 class AuthenticationWrapper extends ConsumerWidget {
@@ -11,11 +12,30 @@ class AuthenticationWrapper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final _state = watch(authState);
-    return _state.when(
-      data: (user) => user == null ? login : home,
-      loading: () => Scaffold(body: Center(child: CircularProgressIndicator())),
-      error: (v, e) => Scaffold(body: Center(child: Text(e.toString()))),
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState != ConnectionState.active) {
+          return Scaffold();
+        } else {
+          if (snapshot.hasError) {
+            return Scaffold(
+                body: Center(child: Text(snapshot.error.toString())));
+          } else if (!snapshot.hasData) {
+            return login;
+          } else if (snapshot.hasData) {
+            User? user = snapshot.data;
+            if (user != null) {
+              return home;
+            } else {
+              return login;
+            }
+          } else {
+            return Scaffold(
+                body: Center(child: Text(snapshot.hashCode.toString())));
+          }
+        }
+      },
     );
   }
 }

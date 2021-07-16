@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
 
 class AccountDetails {
   AccountDetails({
@@ -8,6 +9,8 @@ class AccountDetails {
     required this.image,
     required this.isVerified,
     required this.lastActive,
+    required this.lastSignIn,
+    required this.creationTime,
     required this.isAnonymous,
     required this.isAccountEnabled,
     required this.isDarkThemeEnabled,
@@ -21,7 +24,9 @@ class AccountDetails {
   final bool isVerified;
   final bool isAnonymous;
   final bool isAccountEnabled;
-  final DateTime lastActive;
+  final DateTime? lastActive;
+  final DateTime? lastSignIn;
+  final DateTime? creationTime;
   final bool isDarkThemeEnabled;
   final String accountStatus;
 
@@ -34,6 +39,8 @@ class AccountDetails {
         accountStatus: "Healthy",
         isDarkThemeEnabled: false,
         lastActive: DateTime.now(),
+        lastSignIn: (user.metadata.lastSignInTime as Timestamp).toDate(),
+        creationTime: (user.metadata.creationTime as Timestamp).toDate(),
         isVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,
       );
@@ -44,6 +51,8 @@ class AccountDetails {
         "image": image,
         "isVerified": isVerified,
         'lastActive': lastActive,
+        'lastSignIn': lastSignIn,
+        'creationTime': creationTime,
         "isAnonymous": isAnonymous,
         "accountStatus": accountStatus,
         "isAccountEnabled": isAccountEnabled,
@@ -59,6 +68,8 @@ class AccountDetails {
     bool? isDarkThemeEnabled,
     bool? isVerified,
     DateTime? lastActive,
+    DateTime? creationTime,
+    DateTime? lastSignin,
     String? uid,
     String? image,
     String? name,
@@ -69,6 +80,8 @@ class AccountDetails {
         image: image ?? this.image,
         email: email ?? this.email,
         lastActive: lastActive ?? this.lastActive,
+        lastSignIn: lastSignIn ?? this.lastSignIn,
+        creationTime: creationTime ?? this.creationTime,
         isVerified: isVerified ?? this.isVerified,
         isAnonymous: isAnonymous ?? this.isAnonymous,
         accountStatus: accountStatus ?? this.accountStatus,

@@ -13,6 +13,8 @@ class Generate {
       isDarkThemeEnabled: false,
       isAnonymous: user.isAnonymous,
       lastActive: DateTime.now(),
+      lastSignIn: user.metadata.lastSignInTime,
+      creationTime: user.metadata.creationTime,
       accountStatus: "Healthy",
     );
   }
@@ -26,6 +28,8 @@ class Generate {
       email: snapshot["email"],
       isVerified: snapshot["isVerified"],
       lastActive: (snapshot["lastActive"] as Timestamp).toDate(),
+      lastSignIn: (snapshot["lastSignIn"] as Timestamp).toDate(),
+      creationTime: (snapshot["creationTime"] as Timestamp).toDate(),
       isAnonymous: snapshot["isAnonymous"],
       isAccountEnabled: snapshot["isAccountEnabled"],
       isDarkThemeEnabled: snapshot["isDarkThemeEnabled"],

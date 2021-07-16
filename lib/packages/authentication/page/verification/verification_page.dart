@@ -9,17 +9,16 @@ class VerificationPage extends StatefulWidget {
 }
 
 class _VerificationPageState extends State<VerificationPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  FirebaseAuth _auth = FirebaseAuth.instance;
   late User user;
   late Timer timer;
 
   @override
   void initState() {
     user = _auth.currentUser!;
-    if(!user.emailVerified){
+    if (!user.emailVerified) {
       user.sendEmailVerification();
-    }else{}
+    } else {}
     timer = Timer.periodic(Duration(seconds: 7), (timer) {
       checkEmailVerified();
     });
@@ -38,15 +37,11 @@ class _VerificationPageState extends State<VerificationPage> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      Get.off(() => VerificationCheck());
-    } else {
-      // bool isNewUser = await FirestoreOperations.isNewUser(user);
-      // if (isNewUser) {
-      //  await FirestoreOperations().createNewUser(user);
-
-      // } else {
-
-      // }
+      print("\n Email Verified = ${user.emailVerified}\n");
+      Get.off(
+        () => VerificationCheck(),
+        transition: Transition.zoom,
+      );
     }
   }
 

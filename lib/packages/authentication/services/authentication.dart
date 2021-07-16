@@ -11,7 +11,7 @@ class Authentication {
   Future<bool> signIn(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      log.e("Method = Signin\nEmail = $email\nStatus = Sucessfully");
+      log.e("Method = Signin\nEmail = $email\nStatus = Sucessfull");
       return true;
     } on FirebaseAuthException catch (e) {
       AuthExceptionHandler.handleException(e);
@@ -23,7 +23,7 @@ class Authentication {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      log.e("Method = SignUp\nEmail = $email\nStatus = Sucessfully");
+      log.e("Method = SignUp\nEmail = $email\nStatus = Sucessfull");
       return true;
     } on FirebaseAuthException catch (e) {
       AuthExceptionHandler.handleException(e);
