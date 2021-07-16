@@ -28,7 +28,7 @@ class ApiCalls with ErrorHandler {
     PagePack? _pagePack;
     List<Book> _books = [];
     Sort? _sort;
-    PageInfo _pageInfo = PageInfo();
+    PageInfo? _pageInfo = PageInfo();
     log.i("\Opening Hive\n");
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
@@ -93,7 +93,12 @@ class ApiCalls with ErrorHandler {
         print("\nSaving Encrypted Sauce ...\n");
 
         _sort = SortProvider().sortAsObject(_source);
-        _pageInfo = PageProvider().pageAsObject(_source);
+        try {
+          _pageInfo = PageProvider().pageAsObject(_source);
+        } catch (e) {
+          _pageInfo = null;
+        }
+
         _pagePack = new PagePack(
           query: query,
           books: _books,
@@ -219,7 +224,7 @@ class ApiCalls with ErrorHandler {
   String _makeUniqueKey(String valid, String col, String pag) =>
       valid +
       Str.plus +
-      Str.col +
+      Str.field +
       Str.eq +
       col +
       Str.plus +

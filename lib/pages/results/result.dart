@@ -36,7 +36,9 @@ class _SearchResultsState extends State<SearchResults> {
 
   void initState() {
     newPack = widget.pack;
-    pageination = makePageNavigator(widget.pack.info);
+    if (widget.pack.info != null) {
+      pageination = makePageNavigator(widget.pack.info!);
+    } else {}
     _focus.unfocus();
     _jumper.clear();
     super.initState();
@@ -73,8 +75,8 @@ class _SearchResultsState extends State<SearchResults> {
             if (Get.isDialogOpen!) {
               Get.back();
             }
-            if (pac != null) {
-              pageination = makePageNavigator(pac.info);
+            if (pac != null && pac.info != null) {
+              pageination = makePageNavigator(pac.info!);
               newPack = pac;
             }
           });
@@ -143,193 +145,209 @@ class _SearchResultsState extends State<SearchResults> {
                           ),
                   ),
                 ),
-                Container(
-                  height: R.h(info, 11),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(35)),
-                  ),
-                  margin: const EdgeInsets.only(bottom: pad),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      PreviousButton(
-                        info,
-                        hasPrev: pageination.hasPrev!,
-                        onPressed: () {
-                          if (pageination.hasPrev!) {
-                            update(
-                              context,
-                              query,
-                              pageination.prevPageNumber.toString(),
-                              info,
-                            );
-                          }
-                        },
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: R.w(info, 4)),
-                        child: Column(
+                pageInfo == null
+                    ? Container()
+                    : Container(
+                        height: R.h(info, 11),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(35)),
+                        ),
+                        margin: const EdgeInsets.only(bottom: pad),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(pad),
-                              child: Consumer(
-                                builder: (context, watch, child) {
-                                  var isDarkMode =
-                                      watch(themeProvider).isDarkMode;
-                                  return KText(
-                                    "jump to page",
-                                    size: R.f(info, 9),
-                                    weight: FontWeight.bold,
-                                    color: isDarkMode
-                                        ? XColors.grayColor
-                                        : XColors.darkColor,
+                            PreviousButton(
+                              info,
+                              hasPrev: pageination.hasPrev!,
+                              onPressed: () {
+                                if (pageination.hasPrev!) {
+                                  update(
+                                    context,
+                                    query,
+                                    pageination.prevPageNumber.toString(),
+                                    info,
                                   );
-                                },
-                              ),
+                                }
+                              },
                             ),
-                            Consumer(
-                              builder: (context, watch, child) {
-                                var _jumper =
-                                    watch(jumperProvider).pageNoController;
-                                return Row(
-                                  children: [
-                                    Container(
-                                      width: R.w(info, 25),
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: pad),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              child: Consumer(
-                                                builder:
-                                                    (context, watch, child) {
-                                                  var isDarkMode =
-                                                      watch(themeProvider)
-                                                          .isDarkMode;
-                                                  return CupertinoTextField(
-                                                    decoration: isDarkMode
-                                                        ? BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            color: XColors
-                                                                .deepDark)
-                                                        : null,
-                                                    autofocus: false,
-                                                    controller: _jumper,
-                                                    style: TextStyle(
-                                                      fontSize: R.f(info, 14),
-                                                      color: isDarkMode
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
-                                                    onChanged: (value) {
-                                                      bool isint = isInt(value);
-                                                      if (isint) {
-                                                        var i =
-                                                            int.parse(value);
-                                                        if (i < 1 ||
-                                                            i >
-                                                                pageination
-                                                                    .totalPageNumber) {
-                                                          _jumper.clear();
-                                                          _focus.unfocus();
-                                                          Kui().toast(
-                                                            context,
-                                                            "enter value between 1 to ${pageination.totalPageNumber.toString()}",
-                                                            textColor:
-                                                                Colors.red,
-                                                            backgroundColor: Theme
-                                                                    .of(context)
-                                                                .scaffoldBackgroundColor,
-                                                          );
-                                                        }
-                                                      } else {
-                                                        _jumper.clear();
-                                                        _focus.unfocus();
-                                                        Kui().toast(
-                                                          context,
-                                                          "enter a valid number",
-                                                          textColor: Colors.red,
-                                                          backgroundColor: Theme
-                                                                  .of(context)
-                                                              .scaffoldBackgroundColor,
-                                                        );
-                                                      }
-                                                    },
-                                                    placeholder:
-                                                        pageInfo.currentPage,
-                                                    placeholderStyle: TextStyle(
-                                                      fontSize: R.f(info, 14),
-                                                      color: isDarkMode
-                                                          ? XColors.grayColor
-                                                          : Colors.black,
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    maxLength: 3,
-                                                    maxLines: 1,
-                                                    maxLengthEnforcement:
-                                                        MaxLengthEnforcement
-                                                            .enforced,
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: pad),
-                                            child: KText(
-                                              "/ ${pageInfo.totalPages}",
-                                              size: 14,
-                                              weight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    GoButton(
-                                      info,
-                                      onPressed: () {
-                                        _focus.unfocus();
-                                        update(
-                                          context,
-                                          newPack.query,
-                                          _jumper.text,
-                                          info,
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: R.w(info, 4)),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(pad),
+                                    child: Consumer(
+                                      builder: (context, watch, child) {
+                                        var isDarkMode =
+                                            watch(themeProvider).isDarkMode;
+                                        return KText(
+                                          "jump to page",
+                                          size: R.f(info, 9),
+                                          weight: FontWeight.bold,
+                                          color: isDarkMode
+                                              ? XColors.grayColor
+                                              : XColors.darkColor,
                                         );
                                       },
                                     ),
-                                  ],
-                                );
+                                  ),
+                                  Consumer(
+                                    builder: (context, watch, child) {
+                                      var _jumper = watch(jumperProvider)
+                                          .pageNoController;
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            width: R.w(info, 25),
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: pad),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    child: Consumer(
+                                                      builder: (context, watch,
+                                                          child) {
+                                                        var isDarkMode =
+                                                            watch(themeProvider)
+                                                                .isDarkMode;
+                                                        return CupertinoTextField(
+                                                          decoration: isDarkMode
+                                                              ? BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  color: XColors
+                                                                      .deepDark)
+                                                              : null,
+                                                          autofocus: false,
+                                                          controller: _jumper,
+                                                          style: TextStyle(
+                                                            fontSize:
+                                                                R.f(info, 14),
+                                                            color: isDarkMode
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                          ),
+                                                          onChanged: (value) {
+                                                            bool isint =
+                                                                isInt(value);
+                                                            if (isint) {
+                                                              var i = int.parse(
+                                                                  value);
+                                                              if (i < 1 ||
+                                                                  i >
+                                                                      pageination
+                                                                          .totalPageNumber) {
+                                                                _jumper.clear();
+                                                                _focus
+                                                                    .unfocus();
+                                                                Kui().toast(
+                                                                  context,
+                                                                  "enter value between 1 to ${pageination.totalPageNumber.toString()}",
+                                                                  textColor:
+                                                                      Colors
+                                                                          .red,
+                                                                  backgroundColor:
+                                                                      Theme.of(
+                                                                              context)
+                                                                          .scaffoldBackgroundColor,
+                                                                );
+                                                              }
+                                                            } else {
+                                                              _jumper.clear();
+                                                              _focus.unfocus();
+                                                              Kui().toast(
+                                                                context,
+                                                                "enter a valid number",
+                                                                textColor:
+                                                                    Colors.red,
+                                                                backgroundColor:
+                                                                    Theme.of(
+                                                                            context)
+                                                                        .scaffoldBackgroundColor,
+                                                              );
+                                                            }
+                                                          },
+                                                          placeholder: pageInfo
+                                                              .currentPage,
+                                                          placeholderStyle:
+                                                              TextStyle(
+                                                            fontSize:
+                                                                R.f(info, 14),
+                                                            color: isDarkMode
+                                                                ? XColors
+                                                                    .grayColor
+                                                                : Colors.black,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          maxLength: 3,
+                                                          maxLines: 1,
+                                                          maxLengthEnforcement:
+                                                              MaxLengthEnforcement
+                                                                  .enforced,
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: pad),
+                                                  child: KText(
+                                                    "/ ${pageInfo.totalPages}",
+                                                    size: 14,
+                                                    weight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          GoButton(
+                                            info,
+                                            onPressed: () {
+                                              _focus.unfocus();
+                                              update(
+                                                context,
+                                                newPack.query,
+                                                _jumper.text,
+                                                info,
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            NextButton(
+                              info,
+                              hasNext: pageination.hasNext!,
+                              onPressed: () {
+                                if (pageination.hasNext!) {
+                                  update(
+                                    context,
+                                    query,
+                                    pageination.nextPageNumber.toString(),
+                                    info,
+                                  );
+                                }
                               },
                             ),
                           ],
                         ),
                       ),
-                      NextButton(
-                        info,
-                        hasNext: pageination.hasNext!,
-                        onPressed: () {
-                          if (pageination.hasNext!) {
-                            update(
-                              context,
-                              query,
-                              pageination.nextPageNumber.toString(),
-                              info,
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

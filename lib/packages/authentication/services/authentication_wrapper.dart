@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geeklibrary/core/log/log.dart';
+
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 
 class AuthenticationWrapper extends ConsumerWidget {
@@ -12,6 +12,7 @@ class AuthenticationWrapper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    watch(authState);
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {

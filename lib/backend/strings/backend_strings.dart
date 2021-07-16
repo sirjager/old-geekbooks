@@ -34,6 +34,6 @@ class Str {
 
   static final String showingResultsFrom = "showing results from";
 
-  static final String pag = "pag";
-  static final String col = "col";
+  static final String pag = "page";
+  static final String field = "field";
 }

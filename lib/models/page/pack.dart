@@ -13,5 +13,5 @@ class PagePack {
   final String query;
   final Sort? sort;
   final List<Book> books;
-  final PageInfo info;
+  final PageInfo? info;
 }
