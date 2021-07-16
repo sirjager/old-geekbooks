@@ -25,8 +25,8 @@ class AccountDetails {
   final bool isAnonymous;
   final bool isAccountEnabled;
   final DateTime? lastActive;
-  final DateTime? lastSignIn;
-  final DateTime? creationTime;
+  final String? lastSignIn;
+  final String? creationTime;
   final bool isDarkThemeEnabled;
   final String accountStatus;
 
@@ -39,8 +39,8 @@ class AccountDetails {
         accountStatus: "Healthy",
         isDarkThemeEnabled: false,
         lastActive: DateTime.now(),
-        lastSignIn: (user.metadata.lastSignInTime as Timestamp).toDate(),
-        creationTime: (user.metadata.creationTime as Timestamp).toDate(),
+        lastSignIn: user.metadata.lastSignInTime.toString(),
+        creationTime: user.metadata.creationTime.toString(),
         isVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,
       );
@@ -51,8 +51,8 @@ class AccountDetails {
         "image": image,
         "isVerified": isVerified,
         'lastActive': lastActive,
-        'lastSignIn': lastSignIn,
-        'creationTime': creationTime,
+        'lastSignIn': lastSignIn.toString(),
+        'creationTime': creationTime.toString(),
         "isAnonymous": isAnonymous,
         "accountStatus": accountStatus,
         "isAccountEnabled": isAccountEnabled,
@@ -68,8 +68,8 @@ class AccountDetails {
     bool? isDarkThemeEnabled,
     bool? isVerified,
     DateTime? lastActive,
-    DateTime? creationTime,
-    DateTime? lastSignin,
+    String? creationTime,
+    String? lastSignin,
     String? uid,
     String? image,
     String? name,

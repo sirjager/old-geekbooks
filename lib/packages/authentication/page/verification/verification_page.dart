@@ -88,7 +88,7 @@ class _VerificationPageState extends State<VerificationPage> {
                     right: R.h(info, 5),
                     bottom: R.h(info, 5),
                   ),
-                  child: KText("waiting",
+                  child: KText("waiting for confirmation",
                       font: "MavenPro", textAlign: TextAlign.center),
                 ),
                 Lottie.asset(
