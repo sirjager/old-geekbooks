@@ -49,33 +49,53 @@ class BookView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                book.desc != null && book.desc != "" && book.desc != " "
+                book.desc != null &&
+                        book.desc != "" &&
+                        book.desc != "null" &&
+                        book.desc != " "
                     ? DescriptionBox(info, desc: book.desc!)
                     : Container(),
-                book.author != null && book.author != "" && book.author != " "
+                book.author != null &&
+                        book.author != "" &&
+                        book.author != "null" &&
+                        book.author != " "
                     ? ColumnBox(info, field: "Author", value: book.author!)
                     : Container(),
-                book.series != null && book.series != "" && book.series != " "
+                book.series != null &&
+                        book.series != "" &&
+                        book.series != "null" &&
+                        book.series != " "
                     ? ColumnBox(info, field: "Series", value: book.series!)
                     : Container(),
                 book.publisher != null &&
                         book.publisher != "" &&
+                        book.publisher != "null" &&
                         book.publisher != " "
                     ? ColumnBox(info,
                         field: "Publisher", value: book.publisher!)
                     : Container(),
                 book.language != null &&
                         book.language != "" &&
+                        book.language != "null" &&
                         book.language != " "
                     ? RowBox(info, field: "Language", value: book.language!)
                     : Container(),
-                book.year != null && book.year != "" && book.year != " "
+                book.year != null &&
+                        book.year != "" &&
+                        book.year != "null" &&
+                        book.year != " "
                     ? RowBox(info, field: "Year", value: book.year!)
                     : Container(),
-                book.pages != null && book.pages != "" && book.pages != " "
+                book.pages != null &&
+                        book.pages != "" &&
+                        book.pages != "null" &&
+                        book.pages != " "
                     ? RowBox(info, field: "Pages", value: book.pages!)
                     : Container(),
-                book.md5 != null && book.md5 != "" && book.md5 != " "
+                book.md5 != null &&
+                        book.md5 != "" &&
+                        book.md5 != "null" &&
+                        book.md5 != " "
                     ? Container(
                         margin: const EdgeInsets.all(pad),
                         alignment: Alignment.center,

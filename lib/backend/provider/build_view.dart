@@ -5,14 +5,14 @@ import 'package:geeklibrary/backend/functions/translate/translator.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/utils/striphtml.dart';
 
-class VerifyBuke {
+class Valid {
   XMath math = XMath();
   static Future<Book> verifyBuke(Book _bok) async {
-    var desc = await checkDesc(_bok.desc);
+    var desc = await validateThis(_bok.desc);
     return _bok.copyWith(desc: desc);
   }
 
-  static Future<String> checkDesc(desc) async {
+  static Future<String> validateThis(desc) async {
     var _desc = desc.toString();
     if (_desc != "null" && _desc.length > 5) {
       var _htmlFree = XUtils.stripHtml(_desc);

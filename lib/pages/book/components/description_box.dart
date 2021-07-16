@@ -26,7 +26,7 @@ class DescriptionBox extends ConsumerWidget {
           ),
           SizedBox(height: R.h(info, 1)),
           FutureBuilder<String?>(
-            future: VerifyBuke.checkDesc(desc),
+            future: Valid.validateThis(desc),
             builder: (context, AsyncSnapshot<String?> snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return Center(child: CircularProgressIndicator());
