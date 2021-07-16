@@ -1,40 +1,42 @@
+import 'package:lottie/lottie.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
-import 'package:geeklibrary/packages/authentication/page/account/account_checkup.dart';
-import 'package:lottie/lottie.dart';
-
-var _isVerifiedPro = FutureProvider<bool>((ref) async {
-  User _user = FirebaseAuth.instance.currentUser!;
-  await _user.reload();
-  return _user.emailVerified;
-});
 
 class VerificationCheck extends StatelessWidget {
+  Future<bool> _emailVerified() async {
+    User _user = FirebaseAuth.instance.currentUser!;
+    await _user.reload();
+    return _user.emailVerified;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
           body: Center(
-            child: Consumer(
-              builder: (context, watch, child) {
-                var isverified = watch(_isVerifiedPro);
-                return isverified.when(
-                  data: (verified) {
-                    if (FirebaseAuth.instance.currentUser!.emailVerified) {
-                      Future.delayed(Duration(seconds: 1))
-                          .then((value) => Get.off(() => AccountCheckup()));
-                      return Text("User is Verified");
+            child: FutureBuilder(
+              future: _emailVerified(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return Lottie.asset(MyAssets.wave, height: R.w(info, 25));
+                } else {
+                  if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  } else if (!snapshot.hasData) {
+                    return Text("No Data Found");
+                  } else if (snapshot.hasData) {
+                    if (snapshot.data == true) {
+                      return Text(
+                          "Email is Verified  = ${snapshot.data.toString()}");
                     } else {
-                      Future.delayed(Duration(seconds: 1))
-                          .then((value) => Get.off(() => VerificationPage()));
-                      return Text("User Not Verified");
+                      return Text(
+                          "Email is Not Verified = ${snapshot.data.toString()}");
                     }
-                  },
-                  loading: () => Lottie.asset(MyAssets.wave,
-                      height: (Get.height / 100) * 25),
-                  error: (e, s) => Text(e.toString()),
-                );
+                  } else {
+                    return Text(snapshot.hashCode.toString());
+                  }
+                }
               },
             ),
           ),

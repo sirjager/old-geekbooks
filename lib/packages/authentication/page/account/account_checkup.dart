@@ -78,7 +78,7 @@ class AccountCheckup extends StatelessWidget {
                                         Future.delayed(Duration(seconds: 2))
                                             .then((value) =>
                                                 Get.off(() => AccountStatus()));
-                                        return Text("Updated User Doc");
+                                        return loadingWidget();
                                       }
                                     },
                                     loading: () => loadingWidget(),

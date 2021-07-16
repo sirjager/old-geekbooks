@@ -28,8 +28,8 @@ class AccountDetails {
   factory AccountDetails.build(User user) => AccountDetails(
         uid: user.uid,
         email: user.email!,
-        name: user.displayName,
-        image: user.photoURL,
+        name: user.displayName ?? "",
+        image: user.photoURL ?? "",
         isAccountEnabled: true,
         accountStatus: "Healthy",
         isDarkThemeEnabled: false,

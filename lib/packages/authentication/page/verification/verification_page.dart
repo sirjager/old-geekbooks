@@ -1,10 +1,7 @@
 import 'dart:async';
-
-import 'package:geeklibrary/core/log/log.dart';
+import 'package:lottie/lottie.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
-import 'package:geeklibrary/packages/authentication/functions/firestore_operations.dart';
-import 'package:lottie/lottie.dart';
 
 class VerificationPage extends StatefulWidget {
   @override
