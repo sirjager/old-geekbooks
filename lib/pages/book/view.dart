@@ -9,31 +9,49 @@ import 'package:geeklibrary/pages/book/components/row_box.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 
-class BookView extends StatelessWidget {
+class BookView extends StatefulWidget {
   const BookView({Key? key, required this.books, required this.book})
       : super(key: key);
   final List books;
   final Book book;
 
   @override
+  _BookViewState createState() => _BookViewState();
+}
+
+class _BookViewState extends State<BookView> {
+  bool delayed = false;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (context, info) {
-          return Container(
-            child: CustomScrollView(
-              physics: ClampingScrollPhysics(),
-              slivers: [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: BookViewHeader(info,
-                      book: book, expandedHeight: R.h(info, 55)),
-                ),
-                buildDetailedContent(
-                    book, books, context, context.read(themeProvider), info),
-              ],
-            ),
-          );
+          return !delayed
+              ? Center(
+                  child: Lottie.asset(MyAssets.books, height: R.w(info, 35),
+                      onLoaded: (_) {
+                    Future.delayed(Duration(seconds: 2)).then((value) {
+                      setState(() {
+                        delayed = true;
+                      });
+                    });
+                  }),
+                )
+              : Container(
+                  child: CustomScrollView(
+                    physics: ClampingScrollPhysics(),
+                    slivers: [
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: BookViewHeader(info,
+                            book: widget.book, expandedHeight: R.h(info, 55)),
+                      ),
+                      buildDetailedContent(widget.book, widget.books, context,
+                          context.read(themeProvider), info),
+                    ],
+                  ),
+                );
         },
       ),
     );
@@ -48,8 +66,7 @@ class BookView extends StatelessWidget {
           future: Valid.verifyBuke(book),
           builder: (context, AsyncSnapshot<Book> snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
-              return buildBookBody(book, info, theme, books);
-              // return Lottie.asset(MyAssets.bookLoading, height: R.w(info, 35));
+              return Lottie.asset(MyAssets.bookLoading, height: R.w(info, 35));
             } else {
               if (snapshot.hasData) {
                 Book _book = snapshot.data!;

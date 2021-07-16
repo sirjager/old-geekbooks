@@ -31,6 +31,8 @@ class _SearchResultsState extends State<SearchResults> {
   final FocusNode _focus = FocusNode();
   final ScrollController _scroll = ScrollController();
 
+  bool delayed = false;
+
   late Pageination pageination;
   late PagePack newPack;
 
@@ -64,7 +66,7 @@ class _SearchResultsState extends State<SearchResults> {
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24)),
-              child: Lottie.asset(MyAssets.pleasewait, height: R.h(info, 35)),
+              child: Lottie.asset(MyAssets.books, height: R.w(info, 35)),
             ),
             barrierDismissible: false,
           );
@@ -72,6 +74,7 @@ class _SearchResultsState extends State<SearchResults> {
               .getPagePack(query, info, pageNo: pageNo.toString());
 
           setState(() {
+            delayed = false;
             if (Get.isDialogOpen!) {
               Get.back();
             }
@@ -93,264 +96,293 @@ class _SearchResultsState extends State<SearchResults> {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          body: Container(
-            padding: EdgeInsets.only(top: R.statusbarHeight(info)),
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                PageHeader(info, title: query),
-                PageStrip(info, page: pageInfo),
-                FeatureStrip(info),
-                Expanded(
-                  child: Container(
-                    child: _books.length > 0
-                        ? RawScrollbar(
-                            thickness: pad * 0.75,
-                            thumbColor: Colors.black54,
-                            radius: Radius.circular(20),
-                            controller: _scroll,
-                            child: Consumer(
-                              builder: (context, watch, child) {
-                                var view = watch(gridViewProvider);
-                                return Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: pad),
-                                  child: view.isGrid
-                                      ? StaggeredGridView.countBuilder(
-                                          physics: ClampingScrollPhysics(),
-                                          crossAxisCount: 2,
-                                          mainAxisSpacing: 2,
-                                          crossAxisSpacing: 2,
-                                          itemCount: _books.length,
-                                          staggeredTileBuilder: (index) =>
-                                              StaggeredTile.count(1, 1.75),
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            var book = _books[index];
-                                            return BookCard(
-                                              info,
-                                              book: book,
-                                              books: newPack.books,
-                                            );
-                                          },
-                                        )
-                                      : ListPage(info, books: _books),
-                                );
-                              },
-                            ),
-                          )
-                        : Center(
-                            child: KText("no results found for this query"),
-                          ),
-                  ),
-                ),
-                pageInfo == null
-                    ? Container()
-                    : Container(
-                        height: R.h(info, 11),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(35)),
-                        ),
-                        margin: const EdgeInsets.only(bottom: pad),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            PreviousButton(
-                              info,
-                              hasPrev: pageination.hasPrev!,
-                              onPressed: () {
-                                if (pageination.hasPrev!) {
-                                  update(
-                                    context,
-                                    query,
-                                    pageination.prevPageNumber.toString(),
-                                    info,
-                                  );
-                                }
-                              },
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: R.w(info, 4)),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(pad),
-                                    child: Consumer(
-                                      builder: (context, watch, child) {
-                                        var isDarkMode =
-                                            watch(themeProvider).isDarkMode;
-                                        return KText(
-                                          "jump to page",
-                                          size: R.f(info, 9),
-                                          weight: FontWeight.bold,
-                                          color: isDarkMode
-                                              ? XColors.grayColor
-                                              : XColors.darkColor,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  Consumer(
+          body: !delayed
+              ? Center(
+                  child: Lottie.asset(MyAssets.books, height: R.w(info, 35),
+                      onLoaded: (_) {
+                    Future.delayed(Duration(seconds: 2)).then((value) {
+                      setState(() {
+                        delayed = true;
+                      });
+                    });
+                  }),
+                )
+              : Container(
+                  padding: EdgeInsets.only(top: R.statusbarHeight(info)),
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      PageHeader(info, title: query),
+                      PageStrip(info, page: pageInfo),
+                      FeatureStrip(info),
+                      Expanded(
+                        child: Container(
+                          child: _books.length > 0
+                              ? RawScrollbar(
+                                  thickness: pad * 0.75,
+                                  thumbColor: Colors.black54,
+                                  radius: Radius.circular(20),
+                                  controller: _scroll,
+                                  child: Consumer(
                                     builder: (context, watch, child) {
-                                      var _jumper = watch(jumperProvider)
-                                          .pageNoController;
-                                      return Row(
-                                        children: [
-                                          Container(
-                                            width: R.w(info, 25),
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: pad),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Consumer(
-                                                      builder: (context, watch,
-                                                          child) {
-                                                        var isDarkMode =
-                                                            watch(themeProvider)
-                                                                .isDarkMode;
-                                                        return CupertinoTextField(
-                                                          decoration: isDarkMode
-                                                              ? BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  color: XColors
-                                                                      .deepDark)
-                                                              : null,
-                                                          autofocus: false,
-                                                          controller: _jumper,
-                                                          style: TextStyle(
-                                                            fontSize:
-                                                                R.f(info, 14),
-                                                            color: isDarkMode
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
-                                                          onChanged: (value) {
-                                                            bool isint =
-                                                                isInt(value);
-                                                            if (isint) {
-                                                              var i = int.parse(
-                                                                  value);
-                                                              if (i < 1 ||
-                                                                  i >
-                                                                      pageination
-                                                                          .totalPageNumber) {
-                                                                _jumper.clear();
-                                                                _focus
-                                                                    .unfocus();
-                                                                Kui().toast(
-                                                                  context,
-                                                                  "enter value between 1 to ${pageination.totalPageNumber.toString()}",
-                                                                  textColor:
-                                                                      Colors
-                                                                          .red,
-                                                                  backgroundColor:
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .scaffoldBackgroundColor,
-                                                                );
-                                                              }
-                                                            } else {
-                                                              _jumper.clear();
-                                                              _focus.unfocus();
-                                                              Kui().toast(
-                                                                context,
-                                                                "enter a valid number",
-                                                                textColor:
-                                                                    Colors.red,
-                                                                backgroundColor:
-                                                                    Theme.of(
-                                                                            context)
-                                                                        .scaffoldBackgroundColor,
-                                                              );
-                                                            }
-                                                          },
-                                                          placeholder: pageInfo
-                                                              .currentPage,
-                                                          placeholderStyle:
-                                                              TextStyle(
-                                                            fontSize:
-                                                                R.f(info, 14),
-                                                            color: isDarkMode
-                                                                ? XColors
-                                                                    .grayColor
-                                                                : Colors.black,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          maxLength: 3,
-                                                          maxLines: 1,
-                                                          maxLengthEnforcement:
-                                                              MaxLengthEnforcement
-                                                                  .enforced,
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: pad),
-                                                  child: KText(
-                                                    "/ ${pageInfo.totalPages}",
-                                                    size: 14,
-                                                    weight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GoButton(
-                                            info,
-                                            onPressed: () {
-                                              _focus.unfocus();
-                                              update(
-                                                context,
-                                                newPack.query,
-                                                _jumper.text,
-                                                info,
+                                      var view = watch(gridViewProvider);
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: pad),
+                                        child: view.isGrid
+                                            ? StaggeredGridView.countBuilder(
+                                                physics:
+                                                    ClampingScrollPhysics(),
+                                                crossAxisCount: 2,
+                                                mainAxisSpacing: 2,
+                                                crossAxisSpacing: 2,
+                                                itemCount: _books.length,
+                                                staggeredTileBuilder: (index) =>
+                                                    StaggeredTile.count(
+                                                        1, 1.75),
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  var book = _books[index];
+                                                  return BookCard(
+                                                    info,
+                                                    book: book,
+                                                    books: newPack.books,
+                                                  );
+                                                },
+                                              )
+                                            : ListPage(info, books: _books),
+                                      );
+                                    },
+                                  ),
+                                )
+                              : Center(
+                                  child:
+                                      KText("no results found for this query"),
+                                ),
+                        ),
+                      ),
+                      pageInfo == null
+                          ? Container()
+                          : Container(
+                              height: R.h(info, 11),
+                              decoration: BoxDecoration(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(35)),
+                              ),
+                              margin: const EdgeInsets.only(bottom: pad),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  PreviousButton(
+                                    info,
+                                    hasPrev: pageination.hasPrev!,
+                                    onPressed: () {
+                                      if (pageination.hasPrev!) {
+                                        update(
+                                          context,
+                                          query,
+                                          pageination.prevPageNumber.toString(),
+                                          info,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: R.w(info, 4)),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(pad),
+                                          child: Consumer(
+                                            builder: (context, watch, child) {
+                                              var isDarkMode =
+                                                  watch(themeProvider)
+                                                      .isDarkMode;
+                                              return KText(
+                                                "jump to page",
+                                                size: R.f(info, 9),
+                                                weight: FontWeight.bold,
+                                                color: isDarkMode
+                                                    ? XColors.grayColor
+                                                    : XColors.darkColor,
                                               );
                                             },
                                           ),
-                                        ],
-                                      );
+                                        ),
+                                        Consumer(
+                                          builder: (context, watch, child) {
+                                            var _jumper = watch(jumperProvider)
+                                                .pageNoController;
+                                            return Row(
+                                              children: [
+                                                Container(
+                                                  width: R.w(info, 25),
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: pad),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Container(
+                                                          child: Consumer(
+                                                            builder: (context,
+                                                                watch, child) {
+                                                              var isDarkMode =
+                                                                  watch(themeProvider)
+                                                                      .isDarkMode;
+                                                              return CupertinoTextField(
+                                                                decoration: isDarkMode
+                                                                    ? BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                10),
+                                                                        color: XColors
+                                                                            .deepDark)
+                                                                    : null,
+                                                                autofocus:
+                                                                    false,
+                                                                controller:
+                                                                    _jumper,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: R.f(
+                                                                      info, 14),
+                                                                  color: isDarkMode
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                                onChanged:
+                                                                    (value) {
+                                                                  bool isint =
+                                                                      isInt(
+                                                                          value);
+                                                                  if (isint) {
+                                                                    var i = int
+                                                                        .parse(
+                                                                            value);
+                                                                    if (i < 1 ||
+                                                                        i > pageination.totalPageNumber) {
+                                                                      _jumper
+                                                                          .clear();
+                                                                      _focus
+                                                                          .unfocus();
+                                                                      Kui()
+                                                                          .toast(
+                                                                        context,
+                                                                        "enter value between 1 to ${pageination.totalPageNumber.toString()}",
+                                                                        textColor:
+                                                                            Colors.red,
+                                                                        backgroundColor:
+                                                                            Theme.of(context).scaffoldBackgroundColor,
+                                                                      );
+                                                                    }
+                                                                  } else {
+                                                                    _jumper
+                                                                        .clear();
+                                                                    _focus
+                                                                        .unfocus();
+                                                                    Kui().toast(
+                                                                      context,
+                                                                      "enter a valid number",
+                                                                      textColor:
+                                                                          Colors
+                                                                              .red,
+                                                                      backgroundColor:
+                                                                          Theme.of(context)
+                                                                              .scaffoldBackgroundColor,
+                                                                    );
+                                                                  }
+                                                                },
+                                                                placeholder:
+                                                                    pageInfo
+                                                                        .currentPage,
+                                                                placeholderStyle:
+                                                                    TextStyle(
+                                                                  fontSize: R.f(
+                                                                      info, 14),
+                                                                  color: isDarkMode
+                                                                      ? XColors
+                                                                          .grayColor
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .number,
+                                                                maxLength: 3,
+                                                                maxLines: 1,
+                                                                maxLengthEnforcement:
+                                                                    MaxLengthEnforcement
+                                                                        .enforced,
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: pad),
+                                                        child: KText(
+                                                          "/ ${pageInfo.totalPages}",
+                                                          size: 14,
+                                                          weight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                GoButton(
+                                                  info,
+                                                  onPressed: () {
+                                                    _focus.unfocus();
+                                                    update(
+                                                      context,
+                                                      newPack.query,
+                                                      _jumper.text,
+                                                      info,
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  NextButton(
+                                    info,
+                                    hasNext: pageination.hasNext!,
+                                    onPressed: () {
+                                      if (pageination.hasNext!) {
+                                        update(
+                                          context,
+                                          query,
+                                          pageination.nextPageNumber.toString(),
+                                          info,
+                                        );
+                                      }
                                     },
                                   ),
                                 ],
                               ),
                             ),
-                            NextButton(
-                              info,
-                              hasNext: pageination.hasNext!,
-                              onPressed: () {
-                                if (pageination.hasNext!) {
-                                  update(
-                                    context,
-                                    query,
-                                    pageination.nextPageNumber.toString(),
-                                    info,
-                                  );
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-              ],
-            ),
-          ),
+                    ],
+                  ),
+                ),
         );
       },
     );

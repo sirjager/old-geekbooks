@@ -28,7 +28,10 @@ class BookRow extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.red,
                   highlightColor: Colors.red,
-                  onTap: () => Get.to(BookView(book: book, books: books)),
+                  onTap: () {
+                    Get.back();
+                    Get.to(BookView(book: book, books: books));
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(1),
                     child: Consumer(
