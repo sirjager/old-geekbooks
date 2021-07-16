@@ -25,39 +25,21 @@ class DescriptionBox extends ConsumerWidget {
             weight: FontWeight.w500,
           ),
           SizedBox(height: R.h(info, 1)),
-          FutureBuilder<String?>(
-            future: Valid.validateThis(desc),
-            builder: (context, AsyncSnapshot<String?> snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return Center(child: CircularProgressIndicator());
-              } else {
-                if (snapshot.hasData) {
-                  String _desc = snapshot.data!;
-                  return buildReadMore(_theme, _desc);
-                } else {
-                  return buildReadMore(_theme, desc);
-                }
-              }
-            },
+          ReadMoreText(
+            desc,
+            trimLength: 200,
+            trimMode: TrimMode.Length,
+            colorClickableText: _theme.isDarkMode
+                ? Colors.lightGreenAccent[100]
+                : Colors.blueAccent[100],
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
+              fontWeight: FontWeight.w400,
+              fontSize: R.f(info, 11),
+            ),
           ),
         ],
-      ),
-    );
-  }
-
-  ReadMoreText buildReadMore(ThemeProvider _theme, String text) {
-    return ReadMoreText(
-      text,
-      trimLength: 200,
-      trimMode: TrimMode.Length,
-      colorClickableText: _theme.isDarkMode
-          ? Colors.lightGreenAccent[100]
-          : Colors.blueAccent[100],
-      style: TextStyle(
-        fontFamily: "Poppins",
-        color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
-        fontWeight: FontWeight.w400,
-        fontSize: R.f(info, 11),
       ),
     );
   }
