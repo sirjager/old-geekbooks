@@ -143,7 +143,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                 itemCount: _books.length,
                                                 staggeredTileBuilder: (index) =>
                                                     StaggeredTile.count(
-                                                        1, 1.75),
+                                                        1, 1.80),
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {

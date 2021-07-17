@@ -1,8 +1,10 @@
 import 'package:geeklibrary/export/export.dart';
 
 class AppTitle extends StatelessWidget {
+  const AppTitle(this.info, {Key? key, this.title = "Browse library"})
+      : super(key: key);
   final SizingInformation info;
-  const AppTitle(this.info, {Key? key}) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class AppTitle extends StatelessWidget {
       child: Row(
         children: [
           KText(
-            "Browse library",
+            title,
             font: "MavenPro",
             letterSpacing: 1,
             size: R.f(info, 20),

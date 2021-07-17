@@ -44,12 +44,12 @@ class BookCard extends ConsumerWidget {
                   children: [
                     KText(
                       book.title ?? "no title",
-                      size: R.f(info, 8),
+                      size: R.f(info, 9),
                       maxLines: 2,
                       color: theme.isDarkMode
                           ? XColors.grayColor
                           : XColors.darkColor,
-                      weight: FontWeight.bold,
+                      weight: FontWeight.w900,
                       overflow: TextOverflow.ellipsis,
                       enableGoogleFonts: true,
                       height: 1.2,
@@ -57,15 +57,38 @@ class BookCard extends ConsumerWidget {
                     SizedBox(height: pad),
                     KText(
                       book.author ?? "",
-                      size: R.f(info, 7),
+                      size: R.f(info, 8),
                       maxLines: 2,
                       color: theme.isDarkMode
                           ? XColors.grayText
                           : XColors.darkColor,
-                      weight: FontWeight.bold,
+                      weight: FontWeight.w700,
                       enableGoogleFonts: true,
                       overflow: TextOverflow.ellipsis,
                       height: 1.2,
+                    ),
+                    SizedBox(height: pad),
+                    Row(
+                      children: [
+                        KText(
+                          "Extension : ",
+                          size: R.f(info, 8),
+                          color: theme.isDarkMode
+                              ? XColors.grayText
+                              : XColors.darkColor,
+                          weight: FontWeight.w600,
+                          enableGoogleFonts: true,
+                        ),
+                        KText(
+                          book.exten.toString(),
+                          size: R.f(info, 8),
+                          color: theme.isDarkMode
+                              ? Colors.white
+                              : XColors.darkColor,
+                          weight: FontWeight.bold,
+                          enableGoogleFonts: true,
+                        ),
+                      ],
                     ),
                   ],
                 ),
