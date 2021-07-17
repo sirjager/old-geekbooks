@@ -56,6 +56,7 @@ class _SearchResultsState extends State<SearchResults> {
 
   Future<void> update(BuildContext context, String query, String pageNo,
       SizingInformation info) async {
+    _jumper.clear();
     if (query.length > 0) {
       bool isint = isInt(pageNo);
       if (isint) {
@@ -75,9 +76,11 @@ class _SearchResultsState extends State<SearchResults> {
 
           setState(() {
             delayed = false;
+            _jumper.clear();
             if (Get.isDialogOpen!) {
               Get.back();
             }
+            _jumper.clear();
             if (pac != null && pac.info != null) {
               pageination = makePageNavigator(pac.info!);
               newPack = pac;

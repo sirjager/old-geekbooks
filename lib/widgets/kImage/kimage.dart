@@ -50,17 +50,15 @@ class KImage extends StatelessWidget {
           ),
         ),
       ),
-
-      //  color: isDarkMode ? XColors.grayText : XColors.darkColor,
       placeholder: (context, url) => Shimmer.fromColors(
         baseColor: Get.isDarkMode ? XColors.grayText : Colors.grey[200]!,
-        highlightColor: Colors.white,
+        highlightColor: Get.isDarkMode ? XColors.lightGray : Colors.white,
         child: Container(
           height: height,
           width: width,
           alignment: Alignment.center,
           decoration:
-              BoxDecoration(color: Colors.red, borderRadius: borderRadius),
+              BoxDecoration(color: Colors.white, borderRadius: borderRadius),
         ),
       ),
       errorWidget: (context, url, error) => Container(
