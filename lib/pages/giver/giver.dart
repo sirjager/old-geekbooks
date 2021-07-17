@@ -1,11 +1,10 @@
 import 'package:geeklibrary/backend/calls/api_calls.dart';
-import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/pages/results/components/header.dart';
 import 'package:geeklibrary/pages/zoom/zoom.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
+import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 
 class RiderProvider extends StatefulWidget {
@@ -180,50 +179,29 @@ class _RiderProviderState extends State<RiderProvider> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        KClickable(
-                                          height: R.h(info, 8),
-                                          width: R.w(info, 38),
+                                        KLeafButton(
                                           onPressed: () {
                                             openPage(book.md5!);
                                           },
+                                          height: R.w(info, 15),
+                                          width: R.w(info, 45),
+                                          icon: EvaIcons.globeOutline,
+                                          iconColor: isDarkMode
+                                              ? XColors.grayText1
+                                              : XColors.grayText,
                                           child: KText(
-                                            "visit download page",
-                                            font: "Poppins",
-                                            size: R.f(info, 10),
+                                            "Go To Site",
+                                            font: "MavenPro",
+                                            weight: FontWeight.bold,
+                                            size: R.f(info, 15),
                                             color: isDarkMode
-                                                ? XColors.grayText
-                                                : XColors.darkColor,
-                                            weight: FontWeight.w600,
+                                                ? XColors.lightColor1
+                                                : XColors.lightColor1,
                                           ),
-                                          topDeco: isDarkMode
-                                              ? BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(24),
-                                                  gradient: G
-                                                      .blackGradButtonDeco
-                                                      .gradient,
-                                                )
-                                              : BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(24),
-                                                  gradient:
-                                                      LinearGradient(colors: [
-                                                    XColors.darkGray,
-                                                    XColors.darkGray,
-                                                  ]),
-                                                ),
-                                          bottomDeco: isDarkMode
-                                              ? BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(24),
-                                                  gradient:
-                                                      LinearGradient(colors: [
-                                                    Colors.black,
-                                                    randomLightColor(),
-                                                    randomLightColor(),
-                                                  ]),
-                                                )
-                                              : G.blackGradButtonDeco,
+                                          radius: 0,
+                                          color1: isDarkMode
+                                              ? XColors.grayText1
+                                              : XColors.grayText,
                                         )
                                       ],
                                     ),
@@ -239,26 +217,6 @@ class _RiderProviderState extends State<RiderProvider> {
                 ),
         );
       },
-    );
-  }
-
-  _viewImage(SizingInformation info, imageURL, {double radius = 24.0}) {
-    return Get.dialog(
-      AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-        content: Hero(
-          tag: "giberThis",
-          child: KImage(
-            fit: BoxFit.fill,
-            imageURL: imageURL,
-            width: R.w(info, 50),
-            height: R.w(info, 90),
-            borderRadius: BorderRadius.circular(radius),
-          ),
-        ),
-      ),
-      barrierColor: Colors.black87,
     );
   }
 }
