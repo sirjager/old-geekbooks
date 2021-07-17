@@ -206,6 +206,25 @@ class _RiderProviderState extends State<RiderProvider> {
                                       ],
                                     ),
                                   ),
+                                  Container(
+                                    margin: EdgeInsets.all(R.w(info, 5)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        KText(
+                                          "*this will open webpage externally",
+                                          weight: FontWeight.bold,
+                                          size: R.f(info, 10),
+                                          color: isDarkMode
+                                              ? XColors.lightColor1
+                                                  .withOpacity(0.4)
+                                              : XColors.darkColor1
+                                                  .withOpacity(0.4),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               );
                             },
