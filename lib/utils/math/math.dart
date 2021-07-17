@@ -31,4 +31,9 @@ class XMath {
   static int ranNum(int max) {
     return Random().nextInt(max);
   }
+
+
+
+
+
 }

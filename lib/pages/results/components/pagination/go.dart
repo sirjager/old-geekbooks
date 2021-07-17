@@ -1,5 +1,5 @@
-import 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/utils/math/colors_genrator.dart';
 
 class GoButton extends ConsumerWidget {
   const GoButton(

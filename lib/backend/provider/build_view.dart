@@ -1,9 +1,7 @@
 import 'package:geeklibrary/backend/constants/api_strings.dart';
 import 'package:geeklibrary/backend/export/backend_export.dart';
-import 'package:geeklibrary/backend/functions/math/math.dart';
-import 'package:geeklibrary/backend/functions/translate/translator.dart';
 import 'package:geeklibrary/export/export.dart';
-import 'package:geeklibrary/utils/striphtml.dart';
+import 'package:geeklibrary/utils/html/striphtml.dart';
 
 class Valid {
   XMath math = XMath();

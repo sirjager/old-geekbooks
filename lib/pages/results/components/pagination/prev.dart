@@ -1,4 +1,3 @@
-import 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
 import 'package:geeklibrary/constants/numers/nums.dart';
 import 'package:geeklibrary/export/export.dart';
 

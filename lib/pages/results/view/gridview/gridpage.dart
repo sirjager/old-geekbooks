@@ -1,5 +1,4 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
 import 'package:geeklibrary/constants/numers/nums.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
@@ -103,7 +102,7 @@ class _GridPageState extends State<GridPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 KText(
-                                  book.title??"no title",
+                                  book.title ?? "no title",
                                   size: R.f(widget.info, 8),
                                   maxLines: 2,
                                   color: theme.isDarkMode

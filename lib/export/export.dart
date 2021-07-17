@@ -14,7 +14,9 @@ export 'package:flutter_svg/svg.dart';
 export 'package:geeklibrary/constants/assets/images.dart';
 
 //!Math
-export 'package:geeklibrary/backend/functions/math/colors_genrator.dart';
+export 'package:geeklibrary/utils/math/colors_genrator.dart';
+export 'package:geeklibrary/utils/math/math.dart';
+export 'package:geeklibrary/utils/translate/translator.dart';
 
 //! Kustom Widgets
 export 'package:geeklibrary/widgets/ktext/ktext.dart';
