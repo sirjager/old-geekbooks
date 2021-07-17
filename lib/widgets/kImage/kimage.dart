@@ -16,6 +16,8 @@ class KImage extends StatelessWidget {
     this.repeat = ImageRepeat.noRepeat,
     this.borderRadius,
     this.border,
+ 
+  
   }) : super(key: key);
   final String? imageURL;
   final String? imagePATH;
@@ -28,6 +30,8 @@ class KImage extends StatelessWidget {
   final ImageRepeat repeat;
   final BorderRadius? borderRadius;
   final BoxBorder? border;
+
+
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(

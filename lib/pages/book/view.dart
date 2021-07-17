@@ -45,8 +45,11 @@ class _BookViewState extends State<BookView> {
                     slivers: [
                       SliverPersistentHeader(
                         pinned: true,
-                        delegate: BookViewHeader(info,
-                            book: widget.book, expandedHeight: R.h(info, 55)),
+                        delegate: BookViewHeader(
+                          info,
+                          book: widget.book,
+                          expandedHeight: R.h(info, 55),
+                        ),
                       ),
                       buildDetailedContent(widget.book, widget.books, context,
                           context.read(themeProvider), info),
@@ -62,7 +65,7 @@ class _BookViewState extends State<BookView> {
       ThemeProvider theme, SizingInformation info) {
     return SliverToBoxAdapter(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: pad, vertical: pad * 5),
+        margin: const EdgeInsets.symmetric(horizontal: pad, vertical: pad * 4),
         child: FutureBuilder<Book>(
           future: Valid.verifyBuke(book),
           builder: (context, AsyncSnapshot<Book> snapshot) {
@@ -146,10 +149,7 @@ class _BookViewState extends State<BookView> {
                 ? RowBox(
                     info,
                     field: "Size",
-                    value: ((int.parse(book.fileSize!) / 1024) / 1024)
-                            .toPrecision(0)
-                            .toString() +
-                        " MB",
+                    value: XMath.convertBytesToMB(book.fileSize) + " MB",
                   )
                 : Container(),
             book.exten != null &&
@@ -163,20 +163,30 @@ class _BookViewState extends State<BookView> {
                     book.md5 != "null" &&
                     book.md5 != " "
                 ? Container(
-                    margin: const EdgeInsets.all(pad),
+                    margin: EdgeInsets.only(
+                        top: R.h(info, 5), bottom: R.h(info, 5)),
                     alignment: Alignment.center,
                     child: KLeafButton(
                       onPressed: () => Get.to(() => RiderProvider(book)),
                       height: R.w(info, 15),
                       width: R.w(info, 45),
-                      icon: Ionicons.cloud_download_outline,
-                      iconColor: theme.isDarkMode ? Colors.black : Colors.green,
+                      icon: Ionicons.download_outline,
+                      iconColor: theme.isDarkMode
+                          ? XColors.grayText1
+                          : XColors.grayText,
                       child: KText(
-                        "Download",
+                        "Get it",
+                        font: "MavenPro",
                         weight: FontWeight.bold,
-                        size: R.f(info, 10),
-                        color: Colors.black,
+                        size: R.f(info, 15),
+                        color: theme.isDarkMode
+                            ? XColors.lightColor1
+                            : XColors.lightColor1,
                       ),
+                      radius: 0,
+                      color1: theme.isDarkMode
+                          ? XColors.grayText1
+                          : XColors.grayText,
                     ),
                   )
                 : Container(),

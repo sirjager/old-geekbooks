@@ -32,8 +32,7 @@ class XMath {
     return Random().nextInt(max);
   }
 
-
-
-
-
+  static String convertBytesToMB(bytes, {int precision = 2}) {
+    return ((int.parse(bytes) / 1024) / 1024).toStringAsPrecision(precision);
+  }
 }

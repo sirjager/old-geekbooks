@@ -14,6 +14,7 @@ import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/book/encbook.dart';
 import 'package:geeklibrary/models/download/downlenk.dart';
+import 'package:geeklibrary/models/lenk/lenk.dart';
 import 'package:geeklibrary/models/page/page.dart';
 import 'package:geeklibrary/models/sauce/encpagesource.dart';
 import 'package:geeklibrary/models/sauce/pagesource.dart';
@@ -159,14 +160,14 @@ class ApiCalls with ErrorHandler {
     return books.first;
   }
 
-  Future<DownLenks?> getDownLenx(String md5, String id, String msg) async {
+  Future<List<Lenk>?> getDownLenx(String md5, String id, String msg) async {
     //!==> This will return  [[ Downloads ]] as Download Object for provided md5
-    final _url = _makeGraberURL(md5);
+    final _url = makeGraberURL(md5);
     final _downSource = await _getSource(_url, msg);
     if (_downSource == null) return null;
     var _lenk = Grabber.getLenks(_downSource);
-    final DownLenks _downLenx = DownLenks.generate(id, md5, _lenk);
-    return _downLenx;
+    // final DownLenks _downLenx = DownLenks.generate(id, md5, _lenk);
+    return _lenk;
   }
 
   String _makeValid(String query) => query.replaceAll(Str.space, Str.plus);
@@ -174,7 +175,7 @@ class ApiCalls with ErrorHandler {
   String _makeURL(String valid, String pageNo, String col) =>
       ApiLenks.searchUrl + valid + Str.column + col + Str.page + pageNo;
 
-  String _makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;
+  String makeGraberURL(String md5) => ApiLenks.downloadWithMd5 + md5;
 
   String _makeJsonURL(String ids) =>
       ApiLenks.jsonUrl + Str.ids + ids + Str.fields + Str.normalSet;
