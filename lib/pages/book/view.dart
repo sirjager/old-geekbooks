@@ -6,6 +6,7 @@ import 'package:geeklibrary/pages/book/components/description_box.dart';
 import 'package:geeklibrary/pages/book/components/header.dart';
 import 'package:geeklibrary/pages/book/components/related.dart';
 import 'package:geeklibrary/pages/book/components/row_box.dart';
+import 'package:geeklibrary/pages/giver/giver.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 
@@ -120,6 +121,12 @@ class _BookViewState extends State<BookView> {
                     book.language != " "
                 ? RowBox(info, field: "Language", value: book.language!)
                 : Container(),
+            book.edition != null &&
+                    book.edition != "" &&
+                    book.edition != "null" &&
+                    book.edition != " "
+                ? RowBox(info, field: "Edition", value: book.edition!)
+                : Container(),
             book.year != null &&
                     book.year != "" &&
                     book.year != "null" &&
@@ -132,6 +139,25 @@ class _BookViewState extends State<BookView> {
                     book.pages != " "
                 ? RowBox(info, field: "Pages", value: book.pages!)
                 : Container(),
+            book.fileSize != null &&
+                    book.fileSize != "" &&
+                    book.fileSize != "null" &&
+                    book.fileSize != " "
+                ? RowBox(
+                    info,
+                    field: "Size",
+                    value: ((int.parse(book.fileSize!) / 1024) / 1024)
+                            .toPrecision(0)
+                            .toString() +
+                        " MB",
+                  )
+                : Container(),
+            book.exten != null &&
+                    book.exten != "" &&
+                    book.exten != "null" &&
+                    book.exten != " "
+                ? RowBox(info, field: "Extensions", value: book.exten!)
+                : Container(),
             book.md5 != null &&
                     book.md5 != "" &&
                     book.md5 != "null" &&
@@ -140,10 +166,7 @@ class _BookViewState extends State<BookView> {
                     margin: const EdgeInsets.all(pad),
                     alignment: Alignment.center,
                     child: KLeafButton(
-                      onPressed: () {
-                        // Get.to(() => DownloadPage(
-                        //     book.downloads, book.title!, book.exten!));
-                      },
+                      onPressed: () => Get.to(() => RiderProvider(book)),
                       height: R.w(info, 15),
                       width: R.w(info, 45),
                       icon: Ionicons.cloud_download_outline,

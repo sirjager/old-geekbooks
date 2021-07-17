@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:geeklibrary/export/export.dart';
+import 'package:shimmer/shimmer.dart';
 
 class KImage extends StatelessWidget {
   const KImage({
@@ -49,8 +50,17 @@ class KImage extends StatelessWidget {
           ),
         ),
       ),
-      placeholder: (context, url) =>
-          Center(child: CircularProgressIndicator.adaptive()),
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.white,
+        child: Container(
+          height: height,
+          width: width,
+          alignment: Alignment.center,
+          decoration:
+              BoxDecoration(color: Colors.red, borderRadius: borderRadius),
+        ),
+      ),
       errorWidget: (context, url, error) => Container(
         decoration: BoxDecoration(
           borderRadius: borderRadius,

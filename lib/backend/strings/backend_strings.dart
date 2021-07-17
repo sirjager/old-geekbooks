@@ -1,7 +1,7 @@
 class Str {
   static final String minimalSet = "ID,Title,Author,Coverurl";
   static final String normalSet =
-      "ID,Title,Author,mD5,tags,Series,Publisher,Year,Language,Pages,descr,Extension,Coverurl";
+      "ID,Title,Author,mD5,Series,Edition,Filesize,Publisher,Year,Language,Pages,descr,Extension,Coverurl";
 
   static final String ids = "ids=";
   static final String q = "?";
@@ -14,6 +14,7 @@ class Str {
   static final String space = " ";
   static final String none = "";
   static final String dash = "-";
+  static final String dot = ".";
 
   static final String underscore = "_";
   static final String plus = "+";

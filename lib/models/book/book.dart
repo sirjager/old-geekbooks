@@ -8,15 +8,15 @@ class Book extends HiveObject {
     required this.title,
     required this.author,
     required this.series,
+    required this.edition,
     required this.publisher,
     required this.year,
     required this.language,
     required this.pages,
     required this.exten,
-    required this.torrent,
+    required this.fileSize,
     required this.coverURL,
     required this.desc,
-    required this.tags,
   });
 
   final String id;
@@ -24,15 +24,15 @@ class Book extends HiveObject {
   final String? title;
   final String? author;
   final String? series;
+  final String? edition;
   final String? publisher;
   final String? year;
   final String? language;
   final String? pages;
   final String? exten;
-  final String? torrent;
+  final String? fileSize;
   final String? coverURL;
   final String? desc;
-  final String? tags;
 
   factory Book.build(var json) {
     return Book(
@@ -41,18 +41,18 @@ class Book extends HiveObject {
       title: json["title"] == null ? "null" : json["title"],
       author: json["author"] == null ? "null" : json["author"],
       series: json["series"] == null ? "null" : json["series"],
+      edition: json["edition"] == null ? "null" : json["edition"],
       publisher: json["publisher"] == null ? "null" : json["publisher"],
       year: json["year"] == null ? "null" : json["year"],
       language: json["language"] == null ? "null" : json["language"],
       pages: json["pages"] == null ? "null" : json["pages"],
       exten: json["extension"] == null ? "null" : json["extension"],
-      torrent: json["torrent"] == null ? "null" : json["torrent"],
+      fileSize: json["filesize"] == null ? "null" : json["filesize"],
       coverURL: json["coverurl"] == null
           ? "null"
           : json["coverurl"].toString().contains(json["md5"])
               ? ApiLenks.coverBase + json["coverurl"]
               : ApiLenks.noImage,
-      tags: json["tags"] == null ? "null" : json["tags"],
       desc: json["descr"] == null ? "null" : json["descr"],
     );
   }
@@ -68,7 +68,7 @@ class Book extends HiveObject {
     String? language,
     String? pages,
     String? exten,
-    String? torrent,
+    String? fileSize,
     String? coverURL,
     String? desc,
     String? tags,
@@ -79,14 +79,14 @@ class Book extends HiveObject {
         title: title ?? this.title,
         author: author ?? this.author,
         series: series ?? this.series,
+        edition: edition ?? this.edition,
         publisher: publisher ?? this.publisher,
         year: year ?? this.year,
         language: language ?? this.language,
         pages: pages ?? this.pages,
         exten: exten ?? this.exten,
-        torrent: torrent ?? this.torrent,
+        fileSize: fileSize ?? this.fileSize,
         coverURL: coverURL ?? this.coverURL,
         desc: desc ?? this.desc,
-        tags: tags ?? this.tags,
       );
 }

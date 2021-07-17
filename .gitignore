@@ -46,3 +46,5 @@ app.*.map.json
 /android/app/release
 lib/.keys/keys.dart
 lib/keys/keys.dart
+lib/api/
+.commands/

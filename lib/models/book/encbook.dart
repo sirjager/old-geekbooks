@@ -17,10 +17,11 @@ class EncBook extends HiveObject {
     required this.language,
     required this.pages,
     required this.exten,
-    required this.torrent,
+    required this.fileSize,
     required this.coverURL,
     required this.desc,
-    required this.tags,
+
+    required this.edition,
   });
 
   @HiveField(0)
@@ -44,13 +45,13 @@ class EncBook extends HiveObject {
   @HiveField(9)
   final String? exten;
   @HiveField(10)
-  final String? torrent;
+  final String? fileSize;
   @HiveField(11)
   final String? coverURL;
   @HiveField(12)
   final String? desc;
   @HiveField(13)
-  final String tags;
+  final String edition;
 
   static EncBook buildEnc(Book data) {
     var _id = Encrypt.encryptSAL(data.id);
@@ -58,15 +59,15 @@ class EncBook extends HiveObject {
     var _title = Encrypt.encryptSAL(data.title);
     var _author = Encrypt.encryptSAL(data.author);
     var _series = Encrypt.encryptSAL(data.series);
+    var _edition = Encrypt.encryptSAL(data.edition);
     var _publisher = Encrypt.encryptSAL(data.publisher);
     var _year = Encrypt.encryptSAL(data.year);
     var _language = Encrypt.encryptSAL(data.language);
     var _pages = Encrypt.encryptSAL(data.pages);
     var _exten = Encrypt.encryptSAL(data.exten);
-    var _torrent = Encrypt.encryptSAL(data.torrent);
+    var _fileSize = Encrypt.encryptSAL(data.fileSize);
     var _coverURL = Encrypt.encryptSAL(data.coverURL);
     var _desc = Encrypt.encryptSAL(data.desc);
-    var _tags = Encrypt.encryptSAL(data.tags);
 
     return EncBook(
       id: _id,
@@ -74,15 +75,15 @@ class EncBook extends HiveObject {
       title: _title,
       author: _author,
       series: _series,
+      edition: _edition,
       publisher: _publisher,
       year: _year,
       language: _language,
       pages: _pages,
       exten: _exten,
-      torrent: _torrent,
+      fileSize: _fileSize,
       coverURL: _coverURL,
       desc: _desc,
-      tags: _tags,
     );
   }
 
@@ -92,15 +93,15 @@ class EncBook extends HiveObject {
     var _title = Encrypt.decryptSAL(data.title);
     var _author = Encrypt.decryptSAL(data.author);
     var _series = Encrypt.decryptSAL(data.series);
+    var _edition = Encrypt.decryptSAL(data.edition);
     var _publisher = Encrypt.decryptSAL(data.publisher);
     var _year = Encrypt.decryptSAL(data.year);
     var _language = Encrypt.decryptSAL(data.language);
     var _pages = Encrypt.decryptSAL(data.pages);
     var _exten = Encrypt.decryptSAL(data.exten);
-    var _torrent = Encrypt.decryptSAL(data.torrent);
+    var _fileSize = Encrypt.decryptSAL(data.fileSize);
     var _coverURL = Encrypt.decryptSAL(data.coverURL);
     var _desc = Encrypt.decryptSAL(data.desc);
-    var _tags = Encrypt.decryptSAL(data.tags);
 
     return Book(
       id: _id,
@@ -108,15 +109,15 @@ class EncBook extends HiveObject {
       title: _title,
       author: _author,
       series: _series,
+      edition: _edition,
       publisher: _publisher,
       year: _year,
       language: _language,
       pages: _pages,
       exten: _exten,
-      torrent: _torrent,
+      fileSize: _fileSize,
       coverURL: _coverURL,
       desc: _desc,
-      tags: _tags,
     );
   }
 }

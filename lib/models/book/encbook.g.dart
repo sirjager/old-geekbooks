@@ -27,10 +27,10 @@ class EncBookAdapter extends TypeAdapter<EncBook> {
       language: fields[7] as String?,
       pages: fields[8] as String?,
       exten: fields[9] as String?,
-      torrent: fields[10] as String?,
+      fileSize: fields[10] as String?,
       coverURL: fields[11] as String?,
       desc: fields[12] as String?,
-      tags: fields[13] as String,
+      edition: fields[13] as String,
     );
   }
 
@@ -59,13 +59,13 @@ class EncBookAdapter extends TypeAdapter<EncBook> {
       ..writeByte(9)
       ..write(obj.exten)
       ..writeByte(10)
-      ..write(obj.torrent)
+      ..write(obj.fileSize)
       ..writeByte(11)
       ..write(obj.coverURL)
       ..writeByte(12)
       ..write(obj.desc)
       ..writeByte(13)
-      ..write(obj.tags);
+      ..write(obj.edition);
   }
 
   @override

@@ -1,6 +1,4 @@
-import 'package:geeklibrary/backend/provider/build_view.dart';
 import 'package:geeklibrary/export/export.dart';
-
 import 'package:readmore/readmore.dart';
 
 class DescriptionBox extends ConsumerWidget {
