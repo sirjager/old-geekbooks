@@ -102,8 +102,9 @@ class BookCard extends ConsumerWidget {
                     height: R.h(info, 26),
                     width: R.w(info, 36),
                     imageURL: book.coverURL,
-                    filterColor:
-                        blackNWhite ? Colors.black87 : Colors.transparent,
+                    filterColor: blackNWhite
+                        ? Colors.black87.withOpacity(0.6)
+                        : Colors.transparent,
                     blendMode: blackNWhite ? BlendMode.multiply : null,
                   ),
                 ),

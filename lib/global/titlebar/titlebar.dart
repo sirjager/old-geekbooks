@@ -50,20 +50,12 @@ class Titlebar extends ConsumerWidget {
                   decoration: BoxDecoration(shape: BoxShape.circle),
                   child: RotatedBox(
                     quarterTurns: 1,
-                    child: Consumer(
-                      builder: (context, watch, child) {
-                        var scaf = watch(drawerProvider);
-                        return IconButton(
-                          splashColor: Colors.transparent,
-                          onPressed: () =>
-                              scaf.scaffoldKey.currentState!.openDrawer(),
-                          iconSize: R.w(info, 6),
-                          icon: Icon(EvaIcons.barChartOutline),
-                          color: isDarkMode
-                              ? XColors.grayText
-                              : XColors.darkColor1,
-                        );
-                      },
+                    child: IconButton(
+                      splashColor: Colors.transparent,
+                      onPressed: () => null,
+                      iconSize: R.w(info, 6),
+                      icon: Icon(EvaIcons.barChartOutline),
+                      color: isDarkMode ? XColors.grayText : XColors.darkColor1,
                     ),
                   ),
                 ),

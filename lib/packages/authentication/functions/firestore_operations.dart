@@ -60,4 +60,6 @@ class FirestoreOperations extends FirestoreExceptionHandler {
         .catchError((e) => FirestoreExceptionHandler.handleException(e));
     return Generate().personFromSnapshot(collected);
   }
+
+  
 }

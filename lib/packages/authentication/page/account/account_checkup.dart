@@ -1,6 +1,7 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/screens/account/disabled.dart';
+import 'package:geeklibrary/screens/dashboard/components/drawer/drawer_model.dart';
 import 'package:lottie/lottie.dart';
 
 class AccountCheckup extends StatefulWidget {

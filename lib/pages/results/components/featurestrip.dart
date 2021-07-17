@@ -7,7 +7,6 @@ class FeatureStrip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     var theme = watch(themeProvider);
-    // ignore: unused_local_variable
     var blackwhite = watch(blackNWhiteProvider);
     return Container(
       height: R.h(info, 3),
@@ -27,8 +26,8 @@ class FeatureStrip extends ConsumerWidget {
           ),
           SizedBox(width: R.w(info, 10)),
           Switch.adaptive(
-            onChanged: (bool value) => theme.setMode(value),
-            value: theme.isDarkMode,
+            onChanged: (bool value) => blackwhite.setBlackNWhite(value),
+            value: blackwhite.blackNWhite,
           ),
         ],
       ),

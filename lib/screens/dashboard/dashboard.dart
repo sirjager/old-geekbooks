@@ -12,6 +12,7 @@ class Dashboard extends ConsumerWidget {
       builder: (context, info) {
         return Scaffold(
           drawer: KDrawer(info),
+          endDrawer: KDrawer(info, isEndDrawer: true),
           body: ScreenLayout(
             mobile: DashboardMobile(info),
             tablet: DashboardTablet(info),

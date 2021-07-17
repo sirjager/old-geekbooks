@@ -15,8 +15,8 @@ class KRollSwitch extends StatefulWidget {
     this.disableText = false,
     this.textOn = 'on',
     this.textOff = 'off',
-    this.fontOnColor = Colors.white,
-    this.fontOffColor = Colors.white,
+    this.textOnColor = Colors.white,
+    this.textOffColor = Colors.white,
     this.fontSize = 15.0,
     this.fontWeight = FontWeight.w800,
     this.duration = 600,
@@ -47,8 +47,8 @@ class KRollSwitch extends StatefulWidget {
   final String textOn;
   final String textOff;
 
-  final Color fontOnColor;
-  final Color fontOffColor;
+  final Color textOnColor;
+  final Color textOffColor;
 
   final double fontSize;
   final FontWeight fontWeight;
@@ -160,8 +160,8 @@ class _KRollSwitchState extends State<KRollSwitch> {
                         style: TextStyle(
                           fontSize: widget.fontSize,
                           color: widget.isOn
-                              ? widget.fontOnColor
-                              : widget.fontOffColor,
+                              ? widget.textOnColor
+                              : widget.textOffColor,
                           fontWeight: widget.fontWeight,
                         ),
                       ),
