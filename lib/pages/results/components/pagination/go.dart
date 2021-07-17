@@ -22,7 +22,7 @@ class GoButton extends ConsumerWidget {
         "go",
         size: R.f(info, 12),
         weight: FontWeight.bold,
-        color: isDarkMode ? XColors.grayColor : XColors.darkColor,
+        color: isDarkMode ? XColors.grayText : XColors.darkColor,
       ),
       topDeco: isDarkMode
           ? BoxDecoration(

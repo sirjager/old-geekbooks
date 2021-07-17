@@ -309,9 +309,13 @@ class _SearchResultsState extends State<SearchResults> {
                                                                       info, 14),
                                                                   color: isDarkMode
                                                                       ? XColors
-                                                                          .grayColor
-                                                                      : Colors
-                                                                          .black,
+                                                                          .grayText
+                                                                          .withOpacity(
+                                                                              0.3)
+                                                                      : XColors
+                                                                          .darkColor
+                                                                          .withOpacity(
+                                                                              0.3),
                                                                 ),
                                                                 textAlign:
                                                                     TextAlign

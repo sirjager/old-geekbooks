@@ -24,7 +24,7 @@ class FeatureStrip extends ConsumerWidget {
             font: "Poppins",
             size: R.f(info, 10),
             weight: FontWeight.bold,
-            color: Colors.black,
+            color: theme.isDarkMode ? XColors.grayColor : Colors.black,
           ),
           SizedBox(width: R.w(info, 10)),
           Switch.adaptive(

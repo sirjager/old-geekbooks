@@ -47,8 +47,9 @@ class BookCard extends ConsumerWidget {
                       book.title ?? "no title",
                       size: R.f(info, 8),
                       maxLines: 2,
-                      color:
-                          theme.isDarkMode ? Colors.black : XColors.darkColor,
+                      color: theme.isDarkMode
+                          ? XColors.grayColor
+                          : XColors.darkColor,
                       weight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
                       enableGoogleFonts: true,
@@ -59,8 +60,9 @@ class BookCard extends ConsumerWidget {
                       book.author ?? "",
                       size: R.f(info, 7),
                       maxLines: 2,
-                      color:
-                          theme.isDarkMode ? Colors.black : XColors.darkColor,
+                      color: theme.isDarkMode
+                          ? XColors.grayText
+                          : XColors.darkColor,
                       weight: FontWeight.bold,
                       enableGoogleFonts: true,
                       overflow: TextOverflow.ellipsis,

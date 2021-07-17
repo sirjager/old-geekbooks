@@ -27,7 +27,7 @@ class NextButton extends ConsumerWidget {
                     "next",
                     size: R.f(info, 9),
                     weight: FontWeight.bold,
-                    color: isDarkMode ? XColors.grayColor : XColors.darkColor,
+                    color: isDarkMode ? XColors.grayText : XColors.darkColor,
                   ),
                 ),
                 KClickable(
@@ -36,7 +36,7 @@ class NextButton extends ConsumerWidget {
                   onPressed: () => onPressed(),
                   child: Icon(
                     EvaIcons.arrowRight,
-                    color: Colors.black,
+                    color: isDarkMode ? XColors.grayText : XColors.darkColor,
                   ),
                   topDeco: isDarkMode
                       ? BoxDecoration(

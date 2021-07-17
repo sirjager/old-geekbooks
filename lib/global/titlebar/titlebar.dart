@@ -74,7 +74,7 @@ class Titlebar extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               child: KText(
                 title,
-                color: isDarkMode ? XColors.grayText : XColors.darkColor1,
+                color: isDarkMode ? XColors.grayColor : XColors.darkColor1,
               ),
             ),
           ),
