@@ -1,4 +1,5 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:geeklibrary/screens/dashboard/view/desktop.dart';
 import 'package:geeklibrary/screens/dashboard/view/tablet.dart';
 
@@ -11,8 +12,8 @@ class Dashboard extends ConsumerWidget {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          drawer: KDrawer(info),
-          endDrawer: KDrawer(info, isEndDrawer: true),
+          drawer: LeftDrawer(info),
+          endDrawer: RightDrawer(info),
           body: ScreenLayout(
             mobile: DashboardMobile(info),
             tablet: DashboardTablet(info),

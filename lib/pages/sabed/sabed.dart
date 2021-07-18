@@ -6,6 +6,7 @@ import 'package:geeklibrary/global/book/bookcard.dart';
 import 'package:geeklibrary/pages/results/components/featurestrip.dart';
 import 'package:geeklibrary/pages/results/components/header.dart';
 import 'package:geeklibrary/pages/results/view/listview/listpage.dart';
+import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:lottie/lottie.dart';
 
 class SabedOffline extends StatefulWidget {
@@ -32,8 +33,8 @@ class SabedOfflineState extends State<SabedOffline> {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          drawer: KDrawer(info),
-          endDrawer: KDrawer(info, isEndDrawer: true),
+          drawer: LeftDrawer(info),
+          endDrawer: RightDrawer(info),
           floatingActionButton: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -67,9 +68,9 @@ class SabedOfflineState extends State<SabedOffline> {
                 );
               } else {
                 if (!snapshot.hasData) {
-                  return Text("NO DATA");
+                  return Text("It's Empty Here");
                 } else if (snapshot.hasError) {
-                  return Text("ERROR");
+                  return Text("Something Went Wrong");
                 } else if (snapshot.hasData) {
                   final List<Book> books = snapshot.data!;
                   return Container(
@@ -78,7 +79,6 @@ class SabedOfflineState extends State<SabedOffline> {
                     child: Column(
                       children: [
                         PageHeader(info, title: "Saved Books"),
-                        // PageStrip(info, page: pageInfo),
                         FeatureStrip(info),
                         Expanded(
                           child: Container(

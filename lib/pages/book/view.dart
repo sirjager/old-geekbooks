@@ -7,6 +7,7 @@ import 'package:geeklibrary/pages/book/components/header.dart';
 import 'package:geeklibrary/pages/book/components/related.dart';
 import 'package:geeklibrary/pages/book/components/row_box.dart';
 import 'package:geeklibrary/pages/giver/giver.dart';
+import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 
@@ -28,8 +29,8 @@ class _BookViewState extends State<BookView> {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          drawer: KDrawer(info),
-          endDrawer: KDrawer(info, isEndDrawer: true),
+          drawer: LeftDrawer(info),
+          endDrawer: RightDrawer(info),
           body: !delayed
               ? Center(
                   child: Lottie.asset(MyAssets.books, height: R.w(info, 35),

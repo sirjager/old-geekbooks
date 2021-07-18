@@ -13,7 +13,7 @@ class FeatureStrip extends ConsumerWidget {
       margin: EdgeInsets.only(top: R.h(info, 0.2), bottom: R.h(info, 0.5)),
       padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
       alignment: Alignment.center,
-      color: theme.isDarkMode ? XColors.darkColor2 : randomLightColor(),
+      color: theme.isDarkMode ? XColors.darkColor2 : XColors.darkGray,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

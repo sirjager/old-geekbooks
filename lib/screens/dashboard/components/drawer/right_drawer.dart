@@ -1,15 +1,9 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/widgets/kswitches/kroll_switch.dart';
 
-class KDrawer extends StatelessWidget {
-  const KDrawer(
-    this.info, {
-    Key? key,
-    this.isEndDrawer = false,
-  }) : super(key: key);
-
+class RightDrawer extends StatelessWidget {
+  const RightDrawer(this.info, {Key? key}) : super(key: key);
   final SizingInformation info;
-  final bool isEndDrawer;
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +11,7 @@ class KDrawer extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
       decoration: BoxDecoration(
         color: Get.isDarkMode ? XColors.darkColor2 : XColors.grayText,
-        borderRadius: BorderRadius.horizontal(
-          right: isEndDrawer ? Radius.circular(0) : Radius.circular(24),
-          left: isEndDrawer ? Radius.circular(24) : Radius.circular(0),
-        ),
+        borderRadius: BorderRadius.horizontal(left: Radius.circular(24)),
       ),
       child: Consumer(
         builder: (context, watch, child) {

@@ -45,7 +45,7 @@ class NextButton extends ConsumerWidget {
                       : BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                           gradient: LinearGradient(
-                              colors: [randomLightColor(), randomLightColor()]),
+                              colors: [XColors.darkGray, XColors.darkGray]),
                         ),
                   bottomDeco: isDarkMode
                       ? BoxDecoration(

@@ -16,6 +16,7 @@ import 'package:geeklibrary/pages/results/components/pagination/go.dart';
 import 'package:geeklibrary/pages/results/components/pagination/next.dart';
 import 'package:geeklibrary/pages/results/components/pagination/prev.dart';
 import 'package:geeklibrary/pages/results/view/listview/listpage.dart';
+import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -97,8 +98,8 @@ class _SearchResultsState extends State<SearchResults> {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          drawer: KDrawer(info),
-          endDrawer: KDrawer(info, isEndDrawer: true),
+          drawer: LeftDrawer(info),
+          endDrawer: RightDrawer(info),
           body: !delayed
               ? Center(
                   child: Lottie.asset(MyAssets.books, height: R.w(info, 35),

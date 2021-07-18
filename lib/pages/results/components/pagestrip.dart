@@ -16,7 +16,7 @@ class PageStrip extends ConsumerWidget {
         height: R.h(info, 2),
         padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
         alignment: Alignment.center,
-        color: isDarkMode ? XColors.darkColor2 : randomLightColor(),
+        color: isDarkMode ? XColors.darkColor2 : XColors.darkGray,
         child: Row(
           children: [
             Expanded(

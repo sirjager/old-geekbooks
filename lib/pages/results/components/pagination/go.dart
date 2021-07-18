@@ -31,8 +31,8 @@ class GoButton extends ConsumerWidget {
             )
           : BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              gradient: LinearGradient(
-                  colors: [randomLightColor(), randomLightColor()]),
+              gradient:
+                  LinearGradient(colors: [XColors.darkGray, XColors.darkGray]),
             ),
       bottomDeco: isDarkMode
           ? BoxDecoration(
