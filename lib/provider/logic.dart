@@ -121,3 +121,12 @@ class PBlackNWhite extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class PFavBook extends ChangeNotifier {
+  bool _isFav = false;
+  bool get isFav => _isFav;
+  void setFav(bool set) {
+    _isFav = set;
+    notifyListeners();
+  }
+}
