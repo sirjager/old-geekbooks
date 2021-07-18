@@ -1,6 +1,8 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
+import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
-import 'package:geeklibrary/widgets/kswitches/kroll_switch.dart';
+import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
 class LeftDrawer extends ConsumerWidget {
   LeftDrawer(this.info, {Key? key}) : super(key: key);
@@ -20,81 +22,155 @@ class LeftDrawer extends ConsumerWidget {
       child: Container(
         color: theme.isDarkMode ? XColors.darkColor : Colors.white,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              alignment: Alignment.center,
-              color: theme.isDarkMode ? XColors.darkColor : XColors.darkGray,
-              child: Container(
-                margin: EdgeInsets.only(
-                  top: R.h(info, 5),
-                  bottom: R.h(info, 2),
-                  left: R.w(info, 4),
-                  right: R.w(info, 4),
-                ),
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: R.w(info, 25),
-                      height: R.w(info, 25),
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: KImage(
-                        imageURL: img,
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                        width: double.infinity,
-                      ),
-                    ),
-                    SizedBox(height: R.h(info, 2)),
-                    KText(
-                      "Mr. Masatao",
-                      size: R.f(info, 17),
-                      font: "MavenPro",
-                      weight: FontWeight.bold,
-                    ),
-                    SizedBox(height: R.h(info, 2)),
-                    KText(
-                      "mrmasato@gmail.com",
-                      size: R.f(info, 10),
-                      font: "MavenPro",
-                      weight: FontWeight.w600,
-                    ),
-                  ],
-                ),
-              ),
-            ),
             Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: R.h(info, 1)),
-                  child: GestureDetector(
-                    onTap: () async {
-                      theme.setMode(!theme.isDarkMode);
-                      // Future.delayed(Duration(seconds: 3)).then((_) {
-                      //   BackEndOperation.updateUser(
-                      //       'isDarkThemeEnabled', theme.isDarkMode);
-                      // });
-                    },
-                    child: KRollSwitch(
-                      isOn: theme.isDarkMode,
-                      iconOn: EvaIcons.moon,
-                      iconOff: EvaIcons.sun,
-                      colorOff: Colors.white,
-                      colorOn: XColors.darkColor,
-                      iconOffColor: XColors.darkColor,
-                      textOnColor: Colors.white,
-                      textOffColor: XColors.darkColor,
+                  alignment: Alignment.center,
+                  color:
+                      theme.isDarkMode ? XColors.darkColor : XColors.darkGray,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      top: R.h(info, 5),
+                      bottom: R.h(info, 2),
+                      left: R.w(info, 4),
+                      right: R.w(info, 4),
                     ),
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: R.w(info, 25),
+                          height: R.w(info, 25),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: KImage(
+                            imageURL: img,
+                            fit: BoxFit.cover,
+                            height: double.infinity,
+                            width: double.infinity,
+                          ),
+                        ),
+                        SizedBox(height: R.h(info, 2)),
+                        KText(
+                          "Mr. Masatao",
+                          size: R.f(info, 17),
+                          font: "MavenPro",
+                          weight: FontWeight.bold,
+                        ),
+                        SizedBox(height: R.h(info, 2)),
+                        KText(
+                          "mrmasato@gmail.com",
+                          size: R.f(info, 10),
+                          font: "MavenPro",
+                          weight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      buildMenuTile(
+                        "Browse Library",
+                        EvaIcons.searchOutline,
+                        onTap: () {
+                          Get.off(() => Dashboard());
+                        },
+                      ),
+                      buildMenuTile(
+                        "Cached Results",
+                        Ionicons.library_outline,
+                        onTap: () {
+                          Get.to(() => SabedOffline());
+                        },
+                      ),
+                      buildMenuTile(
+                        "Share App",
+                        EvaIcons.searchOutline,
+                      ),
+                      buildMenuTile(
+                        "About",
+                        EvaIcons.infoOutline,
+                      ),
+                      buildMenuTile(
+                        "Privacy",
+                        EvaIcons.shieldOutline,
+                      ),
+                      buildMenuTile("Settings", EvaIcons.settingsOutline,
+                          onTap: () {
+                        context.read(navigationProvider).changeTo(1);
+                        Get.off(() => Dashboard());
+                      }),
+                    ],
                   ),
                 ),
               ],
             ),
+            Container(
+              margin: EdgeInsets.symmetric(
+                vertical: R.h(info, 5),
+                horizontal: R.w(info, 5),
+              ),
+              child: Row(
+                children: [
+                  KLeafButton(
+                    onPressed: () {
+                      context.read(auth).signOut().then(
+                            (_) => Future.delayed(Duration(seconds: 1))
+                                .then((_) => Get.offAll(LoginPage())),
+                          );
+                    },
+                    height: R.h(info, 5),
+                  ),
+                ],
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildMenuTile(String title, IconData icon, {VoidCallback? onTap}) {
+    return Container(
+      margin: EdgeInsets.only(left: 5),
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Material(
+        child: InkWell(
+          onTap: () {
+            if (onTap != null) onTap();
+            print("$title Pressed");
+          },
+          highlightColor: Colors.black38,
+          splashColor: Colors.transparent,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: R.w(info, 5),
+              vertical: R.w(info, 3),
+            ),
+            child: Row(
+              children: [
+                KText(
+                  title,
+                  font: "MavenPro",
+                  size: R.f(info, 14),
+                  weight: FontWeight.w600,
+                ),
+                SizedBox(width: R.w(info, 3)),
+                Icon(
+                  icon,
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

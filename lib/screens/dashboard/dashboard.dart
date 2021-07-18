@@ -9,9 +9,11 @@ class Dashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     watch(themeProvider);
+    var drawer = watch(drawerProvider);
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
+          key: drawer.scaffoldKey,
           drawer: LeftDrawer(info),
           endDrawer: RightDrawer(info),
           body: ScreenLayout(

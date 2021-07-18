@@ -53,7 +53,8 @@ class Titlebar extends ConsumerWidget {
                     quarterTurns: 1,
                     child: IconButton(
                       splashColor: Colors.transparent,
-                      onPressed: () => null,
+                      onPressed: () =>
+                          context.read(drawerProvider).toggleDrawer(),
                       iconSize: R.w(info, 6),
                       icon: Icon(EvaIcons.barChartOutline),
                       color: isDarkMode ? XColors.grayText : XColors.darkColor1,
@@ -91,8 +92,7 @@ class Titlebar extends ConsumerWidget {
                         children: [
                           IconButton(
                             splashColor: Colors.transparent,
-                            onPressed: () =>
-                                Get.to(() => SabedOffline()),
+                            onPressed: () => Get.to(() => SabedOffline()),
                             iconSize: R.w(info, 6),
                             icon: Icon(
                               Ionicons.library_outline,

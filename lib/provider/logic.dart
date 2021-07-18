@@ -13,16 +13,16 @@ class PSizingInfo extends ChangeNotifier {
   }
 }
 
-// class DrawerProvider extends ChangeNotifier {
-//   //!============> FOR USING DRAWER GLOBALY
-//   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-//   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
-//   void toggleDrawer() {
-//     if (!_scaffoldKey.currentState!.isDrawerOpen) {
-//       _scaffoldKey.currentState!.openDrawer();
-//     }
-//   }
-// }
+class DrawerProvider extends ChangeNotifier {
+  //!============> FOR USING DRAWER GLOBALY
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
+  void toggleDrawer() {
+    if (!_scaffoldKey.currentState!.isDrawerOpen) {
+      _scaffoldKey.currentState!.openDrawer();
+    }
+  }
+}
 
 class ThemeProvider extends ChangeNotifier {
   //!=========> FOR CHECKING AND CHANING SYSTEM THEMEMODE
