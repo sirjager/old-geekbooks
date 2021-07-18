@@ -22,64 +22,32 @@ class KDrawer extends StatelessWidget {
               left: isEndDrawer ? Radius.circular(24) : Radius.circular(0),
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(vertical: R.h(info, 2)),
-                child: Consumer(
-                  builder: (context, watch, child) {
-                    var theme = watch(themeProvider);
-                    return GestureDetector(
-                      onTap: () async {
-                        theme.setMode(!theme.isDarkMode);
-                        Future.delayed(Duration(seconds: 5)).then((_) {
-                          BackEndOperation.updateUser(
-                              'isDarkThemeEnabled', theme.isDarkMode);
-                        });
-                      },
-                      child: KRollSwitch(
-                        isOn: theme.isDarkMode,
-                        iconOn: EvaIcons.moon,
-                        iconOff: EvaIcons.sun,
-                        colorOff: Colors.white,
-                        colorOn: XColors.darkColor,
-                        iconOffColor: XColors.darkColor,
-                        textOnColor: Colors.white,
-                        textOffColor: XColors.darkColor,
-                      ),
-                    );
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: R.h(info, 2)),
+            child: Consumer(
+              builder: (context, watch, child) {
+                var theme = watch(themeProvider);
+                return GestureDetector(
+                  onTap: () async {
+                    theme.setMode(!theme.isDarkMode);
+                    Future.delayed(Duration(seconds: 5)).then((_) {
+                      BackEndOperation.updateUser(
+                          'isDarkThemeEnabled', theme.isDarkMode);
+                    });
                   },
-                ),
-              ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(vertical: R.h(info, 2)),
-              //   child: Consumer(
-              //     builder: (context, watch, child) {
-              //       var theme = watch(themeProvider);
-              //       return GestureDetector(
-              //         onTap: () async {
-              //           theme.setMode(!theme.isDarkMode);
-              //           Future.delayed(Duration(seconds: 5)).then((_) {
-              //             BackEndOperation.updateUser(
-              //                 'isDarkThemeEnabled', theme.isDarkMode);
-              //           });
-              //         },
-              //         child: KRollSwitch(
-              //           isOn: theme.isDarkMode,
-              //           iconOn: EvaIcons.moon,
-              //           iconOff: EvaIcons.sun,
-              //           colorOff: Colors.white,
-              //           colorOn: XColors.darkColor,
-              //           iconOffColor: XColors.darkColor,
-              //           textOnColor: Colors.white,
-              //           textOffColor: XColors.darkColor,
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
-            ],
+                  child: KRollSwitch(
+                    isOn: theme.isDarkMode,
+                    iconOn: EvaIcons.moon,
+                    iconOff: EvaIcons.sun,
+                    colorOff: Colors.white,
+                    colorOn: XColors.darkColor,
+                    iconOffColor: XColors.darkColor,
+                    textOnColor: Colors.white,
+                    textOffColor: XColors.darkColor,
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ],

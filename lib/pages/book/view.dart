@@ -25,10 +25,12 @@ class _BookViewState extends State<BookView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ResponsiveBuilder(
-        builder: (context, info) {
-          return !delayed
+    return ResponsiveBuilder(
+      builder: (context, info) {
+        return Scaffold(
+          drawer: KDrawer(info),
+          endDrawer: KDrawer(info, isEndDrawer: true),
+          body: !delayed
               ? Center(
                   child: Lottie.asset(MyAssets.books, height: R.w(info, 35),
                       onLoaded: (_) {
@@ -55,9 +57,9 @@ class _BookViewState extends State<BookView> {
                           context.read(themeProvider), info),
                     ],
                   ),
-                );
-        },
-      ),
+                ),
+        );
+      },
     );
   }
 
