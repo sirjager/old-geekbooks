@@ -1,6 +1,5 @@
 import 'package:geeklibrary/constants/numers/nums.dart';
 import 'package:geeklibrary/export/export.dart';
-import 'package:geeklibrary/pages/zoom/zoom.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:geeklibrary/widgets/kblur/kblur.dart';
 
@@ -42,7 +41,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
           left: R.w(info, 4),
           right: R.w(info, 4),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Consumer(
                 builder: (context, watch, child) {
@@ -60,27 +59,6 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
                       onPressed: () => Get.back(),
                       iconSize: R.w(info, 5),
                       icon: Icon(EvaIcons.arrowIosBack),
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                  );
-                },
-              ),
-              Consumer(
-                builder: (context, watch, child) {
-                  var darkmode = watch(themeProvider).isDarkMode;
-                  return Container(
-                    height: R.w(info, 11),
-                    width: R.w(info, 11),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: darkmode ? Colors.white10 : Colors.black12,
-                    ),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      onPressed: () {},
-                      iconSize: R.w(info, 5),
-                      icon: Icon(EvaIcons.bellOutline),
                       color: Theme.of(context).scaffoldBackgroundColor,
                     ),
                   );

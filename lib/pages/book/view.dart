@@ -192,7 +192,9 @@ class _BookViewState extends State<BookView> {
                     ),
                   )
                 : Container(),
-            RelatedContent(info, books: books, notIncludeID: book.id),
+            books.length < 2
+                ? Container()
+                : RelatedContent(info, books: books, notIncludeID: book.id),
 
             // SizedBox(height: R.h(info, 50)),
           ],

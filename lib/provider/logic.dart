@@ -130,3 +130,12 @@ class PFavBook extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class PScrollController extends ChangeNotifier {
+  ScrollController _scrollController = ScrollController();
+  ScrollController get scroll => _scrollController;
+  void setScroll(ScrollController _scroll) {
+    _scrollController = _scroll;
+    notifyListeners();
+  }
+}

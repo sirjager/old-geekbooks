@@ -4,16 +4,21 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 
 class ListPage extends ConsumerWidget {
-  const ListPage(this.info, {Key? key, required this.books}) : super(key: key);
+  const ListPage(this.info,
+      {Key? key, required this.books})
+      : super(key: key);
   final List books;
+
   final SizingInformation info;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     var theme = watch(themeProvider);
+    var scroll = watch(scrollProvider).scroll;
     return ListView.builder(
       shrinkWrap: true,
       itemCount: books.length,
+      controller: scroll,
       itemBuilder: (BuildContext context, int index) {
         final Book book = books[index];
         return Container(
@@ -59,9 +64,9 @@ class ListPage extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         KText(
-                           book.title ?? "no title",
+                          book.title ?? "no title",
                           size: 15,
-                          maxLines: 4,
+                          maxLines: 3,
                           color: theme.isDarkMode ? Colors.white : Colors.blue,
                           weight: FontWeight.bold,
                           overflow: TextOverflow.ellipsis,
@@ -70,11 +75,36 @@ class ListPage extends ConsumerWidget {
                         KText(
                           book.author!,
                           size: 10,
-                          maxLines: 5,
+                          maxLines: 3,
                           color:
                               theme.isDarkMode ? Colors.white54 : Colors.blue,
                           weight: FontWeight.bold,
                           overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: pad * 2),
+                        Row(
+                          children: [
+                            KText(
+                              "Extension : ",
+                              size: 10,
+                              maxLines: 1,
+                              color: theme.isDarkMode
+                                  ? Colors.white54
+                                  : Colors.blue,
+                              weight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            KText(
+                              book.exten.toString(),
+                              size: 10,
+                              maxLines: 1,
+                              color: theme.isDarkMode
+                                  ? Colors.white54
+                                  : Colors.blue,
+                              weight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                       ],
                     ),

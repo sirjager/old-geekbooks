@@ -1,7 +1,6 @@
 import 'package:geeklibrary/backend/constants/api_strings.dart';
-import 'package:hive/hive.dart';
 
-class Book extends HiveObject {
+class Book {
   Book({
     required this.id,
     required this.md5,

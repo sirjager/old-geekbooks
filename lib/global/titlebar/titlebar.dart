@@ -1,4 +1,5 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/pages/sabed/sabed.dart';
 
 class Titlebar extends ConsumerWidget {
   const Titlebar(
@@ -90,9 +91,12 @@ class Titlebar extends ConsumerWidget {
                         children: [
                           IconButton(
                             splashColor: Colors.transparent,
-                            onPressed: () {},
+                            onPressed: () =>
+                                Get.to(() => SabedOffline()),
                             iconSize: R.w(info, 6),
-                            icon: Icon(EvaIcons.bellOutline),
+                            icon: Icon(
+                              Ionicons.library_outline,
+                            ),
                             color: isDarkMode
                                 ? XColors.grayText
                                 : XColors.darkColor1,

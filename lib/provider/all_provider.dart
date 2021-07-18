@@ -13,4 +13,4 @@ final jumperProvider = ChangeNotifierProvider((ref) => PJumper());
 final gridViewProvider = ChangeNotifierProvider((ref) => PGridView());
 final blackNWhiteProvider = ChangeNotifierProvider((ref) => PBlackNWhite());
 
-final favProvider = ChangeNotifierProvider((ref) => PFavBook());
+final scrollProvider = ChangeNotifierProvider((ref) => PScrollController());

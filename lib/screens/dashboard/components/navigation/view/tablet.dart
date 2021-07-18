@@ -9,8 +9,8 @@ class NavigationTablet extends ConsumerWidget {
     watch(navigationProvider);
     var _theme = watch(themeProvider);
     final List<NavItem> _nav = [
-      NavItem(0, EvaIcons.searchOutline, 'Open Books'),
-      NavItem(1, Ionicons.library_outline, 'Library'),
+      NavItem(0, EvaIcons.searchOutline, 'Search'),
+      NavItem(1, EvaIcons.settings, 'Settings'),
     ];
     var children = _nav
         .map((e) => InkWell(

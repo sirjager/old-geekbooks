@@ -13,7 +13,6 @@ import 'package:geeklibrary/backend/strings/backend_strings.dart';
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/book/encbook.dart';
-import 'package:geeklibrary/models/download/downlenk.dart';
 import 'package:geeklibrary/models/lenk/lenk.dart';
 import 'package:geeklibrary/models/page/page.dart';
 import 'package:geeklibrary/models/sauce/encpagesource.dart';
@@ -33,6 +32,7 @@ class ApiCalls with ErrorHandler {
     log.i("\Opening Hive\n");
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
+
     final String _valid = _makeValid(query);
     final String _url = _makeURL(_valid, pageNo, col);
     final String _uniqueKey = _makeUniqueKey(_valid, col, pageNo);
@@ -232,4 +232,15 @@ class ApiCalls with ErrorHandler {
       Str.pag +
       Str.eq +
       pag;
+
+  static Future<List<Book>> getSabed() async {
+    final List<Book> _boo = [];
+    final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
+    final List<EncBook> _encBoo = _encBooksBox.toMap().values.toList();
+    for (EncBook enc in _encBoo) {
+      Book _dec = CryptionCalls.decryptBok(enc);
+      _boo.add(_dec);
+    }
+    return _boo;
+  }
 }

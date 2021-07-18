@@ -29,7 +29,6 @@ class SearchResults extends StatefulWidget {
 class _SearchResultsState extends State<SearchResults> {
   final TextEditingController _jumper = TextEditingController();
   final FocusNode _focus = FocusNode();
-  final ScrollController _scroll = ScrollController();
 
   bool delayed = false;
 
@@ -50,7 +49,6 @@ class _SearchResultsState extends State<SearchResults> {
   void dispose() {
     _jumper.dispose();
     _focus.dispose();
-    _scroll.dispose();
     super.dispose();
   }
 
@@ -123,15 +121,16 @@ class _SearchResultsState extends State<SearchResults> {
                       Expanded(
                         child: Container(
                           child: _books.length > 0
-                              ? RawScrollbar(
-                                  thickness: pad * 0.75,
-                                  thumbColor: Colors.black54,
-                                  radius: Radius.circular(20),
-                                  controller: _scroll,
-                                  child: Consumer(
-                                    builder: (context, watch, child) {
-                                      var view = watch(gridViewProvider);
-                                      return Container(
+                              ? Consumer(
+                                  builder: (context, watch, child) {
+                                    var view = watch(gridViewProvider);
+                                    var scroll = watch(scrollProvider).scroll;
+                                    return RawScrollbar(
+                                      thickness: pad * 0.75,
+                                      thumbColor: Colors.black54,
+                                      radius: Radius.circular(20),
+                                      controller: scroll,
+                                      child: Container(
                                         alignment: Alignment.center,
                                         margin: const EdgeInsets.symmetric(
                                             horizontal: pad),
@@ -143,6 +142,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                 mainAxisSpacing: 2,
                                                 crossAxisSpacing: 2,
                                                 itemCount: _books.length,
+                                                controller: scroll,
                                                 staggeredTileBuilder: (index) =>
                                                     StaggeredTile.count(
                                                         1, 1.80),
@@ -158,9 +158,9 @@ class _SearchResultsState extends State<SearchResults> {
                                                 },
                                               )
                                             : ListPage(info, books: _books),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 )
                               : Center(
                                   child:
