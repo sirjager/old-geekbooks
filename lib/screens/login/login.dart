@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       top: 0,
                       left: 0,
                       child: Opacity(
-                        opacity: 0.7,
+                        opacity: theme.isDarkMode ? 0.2 : 0.7,
                         child: RotatedBox(
                           quarterTurns: 2,
                           child: Image.asset(
