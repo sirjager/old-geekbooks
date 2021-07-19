@@ -1,4 +1,5 @@
 import 'package:flutter/animation.dart';
+import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/screens/login/provider/login_provider.dart';
@@ -66,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                       bottom: theme.isDarkMode ? R.h(info, 75) : R.h(info, 28),
                       left: theme.isDarkMode ? R.w(info, 1) : R.w(info, 65),
                       child: AnimatedContainer(
-                        duration: Duration(seconds: 1),
+                        duration: Duration(seconds: 3),
                         curve: Curves.fastOutSlowIn,
                         height: R.w(info, 40),
                         width: R.w(info, 40),
@@ -116,18 +117,29 @@ class _SignUpScreenState extends State<SignUpScreen>
                 ),
               ),
               Container(
+                height: R.w(info, 10),
+                width: R.w(info, 10),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xff00c6ff).withOpacity(0.08),
+                      Color(0xff0072ff).withOpacity(0.08),
+                    ],
+                  ),
                 ),
-                child: Shimmer.fromColors(
-                  period: Duration(seconds: 5),
-                  direction: ShimmerDirection.rtl,
-                  highlightColor:
-                      theme.isDarkMode ? Colors.amber : XColors.darkColor,
-                  baseColor: XColors.grayColor,
-                  child: IconButton(
-                    onPressed: () => theme.setMode(!theme.isDarkMode),
-                    icon: theme.isDarkMode
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(R.w(info, 50)),
+                  onTap: () => theme.setMode(!theme.isDarkMode),
+                  child: Shimmer.fromColors(
+                    period: Duration(seconds: 5),
+                    direction: ShimmerDirection.rtl,
+                    highlightColor:
+                        theme.isDarkMode ? Colors.amber : XColors.darkColor,
+                    baseColor: XColors.grayColor,
+                    child: theme.isDarkMode
                         ? Icon(EvaIcons.sun)
                         : Icon(EvaIcons.moon),
                   ),
@@ -254,21 +266,28 @@ class _SignUpScreenState extends State<SignUpScreen>
                               KClickable(
                                 width: R.w(info, 80),
                                 height: R.h(info, 7),
-                                onPressed: () => context.read(auth).signUp(
-                                      mail.mala.text,
-                                      pasa.pasa.text,
-                                    ),
+                                onPressed: () async {
+                                  setState(() {
+                                    isSubmited = true;
+                                  });
+                                  var sucess = await _signUpCall(
+                                      context, mail.mala, pasa.pasa);
+                                  if (!sucess) {
+                                    setState(() {
+                                      isSubmited = false;
+                                    });
+                                  } else {
+                                    Future.delayed(Duration(milliseconds: 1500))
+                                        .then((value) =>
+                                            Get.off(VerificationCheck()));
+                                  }
+                                },
                                 child: isSubmited
-                                    ? Lottie.asset(MyAssets.ballLoading,
-                                        width: R.w(info, 35),
-                                        controller: _ani,
-                                        repeat: false, onLoaded: (_) {
-                                        _ani.forward().whenComplete(() {
-                                          setState(() {
-                                            isSubmited = true;
-                                          });
-                                        });
-                                      })
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Center(
+                                            child: CircularProgressIndicator()),
+                                      )
                                     : KText(
                                         "Submit",
                                         weight: FontWeight.bold,
@@ -305,5 +324,21 @@ class _SignUpScreenState extends State<SignUpScreen>
         ),
       ],
     );
+  }
+
+  Future<bool> _signUpCall(BuildContext context, TextEditingController _email,
+      TextEditingController _pass) async {
+    var sucess = await context.read(auth).signUp(_email.text, _pass.text);
+    if (sucess) {
+      _email.clear();
+      _pass.clear();
+      return Future.delayed(Duration(milliseconds: 2000)).then((_) => true);
+    } else {
+      Kui().toast(
+        context,
+        "Signup Failed",
+      );
+      return false;
+    }
   }
 }

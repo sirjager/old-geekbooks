@@ -21,10 +21,10 @@ class Authentication {
 
   Future<bool> signUp(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      var result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       log.e("Method = SignUp\nEmail = $email\nStatus = Sucessfull");
-      return true;
+      return result.user != null;
     } on FirebaseAuthException catch (e) {
       AuthExceptionHandler.handleException(e);
       return false;
