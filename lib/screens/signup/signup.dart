@@ -83,38 +83,10 @@ class SignUpScreen extends ConsumerWidget {
                           builder: (context, watch, child) {
                             var mail = watch(mailProvider);
                             var pasa = watch(pasaProvider);
-                            var name = watch(nameProvider);
+
                             return Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Container(
-                                  height: R.h(info, 7),
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: R.w(info, 6)),
-                                  child: TextField(
-                                    controller: name.name,
-                                    keyboardType: TextInputType.emailAddress,
-                                    keyboardAppearance:
-                                        Theme.of(context).brightness,
-                                    style: TextStyle(
-                                      fontSize: R.f(info, 14),
-                                      color: theme.isDarkMode
-                                          ? XColors.darkGray
-                                          : XColors.darkColor.withOpacity(0.75),
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: "name",
-                                      hintStyle: TextStyle(
-                                        fontSize: R.f(info, 14),
-                                        color: theme.isDarkMode
-                                            ? XColors.darkGray.withOpacity(0.5)
-                                            : XColors.darkColor
-                                                .withOpacity(0.2),
-                                      ),
-                                      icon: Icon(Typicons.user_outline),
-                                    ),
-                                  ),
-                                ),
                                 Container(
                                   height: R.h(info, 7),
                                   margin: EdgeInsets.symmetric(
