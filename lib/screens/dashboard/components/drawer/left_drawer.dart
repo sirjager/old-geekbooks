@@ -122,15 +122,33 @@ class LeftDrawer extends ConsumerWidget {
                 horizontal: R.w(info, 5),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   KLeafButton(
+                    radius: 0,
+                    icon: EvaIcons.logOutOutline,
+                    height: R.h(info, 6),
+                    width: R.w(info, 40),
                     onPressed: () {
                       context.read(auth).signOut().then(
                             (_) => Future.delayed(Duration(seconds: 1))
                                 .then((_) => Get.offAll(WelcomeScreen())),
                           );
                     },
-                    height: R.h(info, 5),
+                    child: KText(
+                      "Logout",
+                      font: "Poppins",
+                      weight: FontWeight.bold,
+                      color: theme.isDarkMode
+                          ? Colors.white
+                          : XColors.darkColor.withOpacity(0.7),
+                    ),
+                    color1: theme.isDarkMode
+                        ? XColors.darkColor
+                        : XColors.grayColor,
+                    color2: theme.isDarkMode
+                        ? XColors.grayColor
+                        : XColors.lightColor1,
                   ),
                 ],
               ),
@@ -144,7 +162,7 @@ class LeftDrawer extends ConsumerWidget {
   Widget buildMenuTile(String title, IconData icon, {VoidCallback? onTap}) {
     return Container(
       margin: EdgeInsets.only(left: 5),
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Material(
         child: InkWell(
           onTap: () {
@@ -162,9 +180,10 @@ class LeftDrawer extends ConsumerWidget {
               children: [
                 KText(
                   title,
-                  font: "MavenPro",
+                  font: "Poppins",
                   size: R.f(info, 14),
                   weight: FontWeight.w600,
+                  color: XColors.darkColor.withOpacity(0.7),
                 ),
                 SizedBox(width: R.w(info, 3)),
                 Icon(
