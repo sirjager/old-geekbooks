@@ -71,6 +71,7 @@ flutter:
     - assets/images/jpg/
     - assets/images/png/
     - assets/images/svg/
+    - assets/images/shapes/
 
   fonts:
     - family: MavenPro

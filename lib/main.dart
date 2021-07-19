@@ -8,6 +8,7 @@ import 'package:geeklibrary/models/sauce/encpagesource.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 
 import 'package:geeklibrary/provider/all_provider.dart';
+import 'package:geeklibrary/screens/welcome/welcome.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -47,7 +48,7 @@ class MyApp extends ConsumerWidget {
       title: 'GeekLibrary',
       home: AuthenticationWrapper(
         home: VerificationCheck(),
-        login: LoginPage(),
+        login: WelcomeScreen(),
       ),
     );
   }

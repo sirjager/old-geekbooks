@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:geeklibrary/packages/authentication/export/export.dart';
-
 import 'package:geeklibrary/core/responsive/size/responsive_size.dart';
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -181,7 +180,10 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             OutlinedButton(
-                              onPressed: () => Get.to(() => SignupPage()),
+                              onPressed: () => Get.to(
+                                () => SignupPage(),
+                                transition: Transition.rightToLeftWithFade,
+                              ),
                               child: KText(
                                 'Signup',
                                 size: R.f(info, 12),
@@ -194,6 +196,31 @@ class _LoginPageState extends State<LoginPage> {
                             )
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: theme.isDarkMode
+                                    ? XColors.darkColor1
+                                    : XColors.grayColor,
+                              ),
+                              child: IconButton(
+                                onPressed: () =>
+                                    theme.setMode(!theme.isDarkMode),
+                                icon: Icon(
+                                  theme.isDarkMode
+                                      ? EvaIcons.sun
+                                      : EvaIcons.moon,
+                                  color: theme.isDarkMode
+                                      ? XColors.lightColor1
+                                      : XColors.darkColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
