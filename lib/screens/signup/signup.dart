@@ -74,7 +74,7 @@ class SignUpScreen extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              "assets/images/png/siting.png",
+                              "assets/images/png/signup.png",
                               width: R.w(info, 75),
                             ),
                           ],
@@ -212,7 +212,7 @@ class SignUpScreen extends ConsumerWidget {
                                                   pasa.pasa.text,
                                                 ),
                                         child: KText(
-                                          "Create Account",
+                                          "Submit",
                                           weight: FontWeight.bold,
                                           color: theme.isDarkMode
                                               ? XColors.darkColor
