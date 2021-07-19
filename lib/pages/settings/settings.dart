@@ -1,7 +1,5 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/titlebar/titlebar.dart';
-import 'package:geeklibrary/packages/authentication/export/export.dart';
-import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
 class Settingspage extends StatelessWidget {
   final SizingInformation info;
