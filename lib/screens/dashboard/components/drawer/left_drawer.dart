@@ -1,6 +1,8 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/pages/sabed/sabed.dart';
+import 'package:geeklibrary/screens/login/login.dart';
+import 'package:geeklibrary/screens/welcome/welcome.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
@@ -125,12 +127,11 @@ class LeftDrawer extends ConsumerWidget {
                     onPressed: () {
                       context.read(auth).signOut().then(
                             (_) => Future.delayed(Duration(seconds: 1))
-                                .then((_) => Get.offAll(LoginPage())),
+                                .then((_) => Get.offAll(WelcomeScreen())),
                           );
                     },
                     height: R.h(info, 5),
                   ),
-                  
                 ],
               ),
             ),
