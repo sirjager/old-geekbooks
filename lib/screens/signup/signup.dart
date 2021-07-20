@@ -263,54 +263,57 @@ class _SignUpScreenState extends State<SignUpScreen>
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              KClickable(
-                                width: R.w(info, 80),
-                                height: R.h(info, 7),
-                                onPressed: () async {
-                                  setState(() {
-                                    isSubmited = true;
-                                  });
-                                  var sucess = await _signUpCall(
-                                      context, mail.mala, pasa.pasa);
-                                  if (!sucess) {
-                                    setState(() {
-                                      isSubmited = false;
-                                    });
-                                  } else {
-                                    Future.delayed(Duration(milliseconds: 1500))
-                                        .then((value) =>
-                                            Get.off(VerificationCheck()));
-                                  }
-                                },
-                                child: isSubmited
-                                    ? Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Center(
-                                            child: CircularProgressIndicator()),
-                                      )
-                                    : KText(
+                              isSubmited
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Center(
+                                          child: CircularProgressIndicator(
+                                        color: XColors.grayColor,
+                                      )),
+                                    )
+                                  : KClickable(
+                                      width: R.w(info, 80),
+                                      height: R.h(info, 7),
+                                      onPressed: () async {
+                                        setState(() {
+                                          isSubmited = true;
+                                        });
+                                        var sucess = await _signUpCall(
+                                            context, mail.mala, pasa.pasa);
+                                        if (!sucess) {
+                                          setState(() {
+                                            isSubmited = false;
+                                          });
+                                        } else {
+                                          Future.delayed(
+                                                  Duration(milliseconds: 1500))
+                                              .then((value) => Get.off(
+                                                  () => VerificationCheck()));
+                                        }
+                                      },
+                                      child: KText(
                                         "Submit",
                                         weight: FontWeight.bold,
                                         color: theme.isDarkMode
                                             ? XColors.darkColor
                                             : Colors.white,
                                       ),
-                                topDeco: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      XColors.grayColor,
-                                      XColors.darkGray,
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                bottomDeco: BoxDecoration(
-                                  color: theme.isDarkMode
-                                      ? XColors.darkColor2
-                                      : XColors.darkColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
+                                      topDeco: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            XColors.grayColor,
+                                            XColors.darkGray,
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      bottomDeco: BoxDecoration(
+                                        color: theme.isDarkMode
+                                            ? XColors.darkColor2
+                                            : XColors.darkColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
                             ],
                           ),
                         ),
@@ -332,6 +335,7 @@ class _SignUpScreenState extends State<SignUpScreen>
     if (sucess) {
       _email.clear();
       _pass.clear();
+      Kui().toast(context, "Signup Sucessfull", textColor: Colors.green);
       return Future.delayed(Duration(milliseconds: 2000)).then((_) => true);
     } else {
       Kui().toast(

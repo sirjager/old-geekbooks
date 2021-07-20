@@ -256,12 +256,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: R.h(info, 5)),
+                                  margin: EdgeInsets.only(
+                                    top: R.h(info, 5),
+                                    bottom: R.h(info, 5),
+                                  ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      FirebaseAuth.instance.currentUser != null
-                                          ? Container()
+                                      pressed
+                                          ? Center(
+                                              child: CircularProgressIndicator(
+                                              color: XColors.grayColor,
+                                            ))
                                           : KClickable(
                                               width: R.w(info, 80),
                                               height: R.h(info, 7),
@@ -285,17 +291,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           VerificationCheck()));
                                                 }
                                               },
-                                              child: pressed
-                                                  ? Center(
-                                                      child:
-                                                          CircularProgressIndicator())
-                                                  : KText(
-                                                      "Login",
-                                                      weight: FontWeight.bold,
-                                                      color: theme.isDarkMode
-                                                          ? XColors.darkColor
-                                                          : Colors.white,
-                                                    ),
+                                              child: KText(
+                                                "Login",
+                                                weight: FontWeight.bold,
+                                                color: theme.isDarkMode
+                                                    ? XColors.darkColor
+                                                    : Colors.white,
+                                              ),
                                               topDeco: BoxDecoration(
                                                 gradient: LinearGradient(
                                                   colors: [
@@ -339,6 +341,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (sucess) {
       _email.clear();
       _pass.clear();
+      Kui().toast(context, "Login Sucessfull", textColor: Colors.green);
       return Future.delayed(Duration(milliseconds: 2000)).then((_) => true);
     } else {
       Kui().toast(
