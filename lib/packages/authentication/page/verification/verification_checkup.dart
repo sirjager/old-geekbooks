@@ -54,14 +54,16 @@ class _VerificationCheckState extends State<VerificationCheck>
                         return Text("No Data Found");
                       } else if (snapshot.hasData) {
                         if (snapshot.data == true) {
-                          return Lottie.asset(MyAssets.check,
-                              repeat: false,
-                              width: R.w(info, 35),
-                              controller: _ani, onLoaded: (data) {
-                            _ani.forward().whenComplete(() {
-                              Get.offAll(() => AccountCheckup());
-                            });
-                          });
+                          return Center(
+                            child: Lottie.asset(MyAssets.check,
+                                repeat: false,
+                                width: R.w(info, 35),
+                                controller: _ani, onLoaded: (data) {
+                              _ani.forward().whenComplete(() {
+                                Get.offAll(() => AccountCheckup());
+                              });
+                            }),
+                          );
                         } else {
                           return Container(
                             child: Stack(
