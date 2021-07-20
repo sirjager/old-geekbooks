@@ -1,5 +1,6 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
+import 'package:geeklibrary/pages/profile/profile.dart';
 import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/welcome/welcome.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
@@ -89,9 +90,7 @@ class LeftDrawer extends ConsumerWidget {
                       buildMenuTile(
                         "Cached Results",
                         Ionicons.library_outline,
-                        onTap: () {
-                          Get.to(() => SabedOffline());
-                        },
+                        onTap: () => Get.to(() => ProfilePage()),
                       ),
                       buildMenuTile(
                         "Share App",

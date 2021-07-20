@@ -127,8 +127,17 @@ class _AccountCheckupState extends State<AccountCheckup>
     final User _user = FirebaseAuth.instance.currentUser!;
     final bool isDarkMode = context.read(themeProvider).isDarkMode;
     final String name = context.read(nameProvider).name.text;
+    final avatar = context.read(avatarProvider);
+    final String image = "avatar=" +
+        avatar.avatar.toString() +
+        "+gradient=" +
+        avatar.avatarGradient.toString();
     final user = AccountDetails.build(_user);
-    final _acc = user.copyWith(name: name, isDarkThemeEnabled: isDarkMode);
+    final _acc = user.copyWith(
+      name: name,
+      image: image,
+      isDarkThemeEnabled: isDarkMode,
+    );
     context.read(nameProvider).name.clear();
     return await FirestoreOperations.saveAccountDetails(_user, _acc);
   });

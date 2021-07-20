@@ -14,3 +14,5 @@ final gridViewProvider = ChangeNotifierProvider((ref) => PGridView());
 final blackNWhiteProvider = ChangeNotifierProvider((ref) => PBlackNWhite());
 
 final scrollProvider = ChangeNotifierProvider((ref) => PScrollController());
+
+final avatarProvider = ChangeNotifierProvider((ref) => AvatarProvider());

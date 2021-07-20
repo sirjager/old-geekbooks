@@ -138,3 +138,20 @@ class PScrollController extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class AvatarProvider extends ChangeNotifier {
+  int _avatarIndex = 0;
+  int get avatar => _avatarIndex;
+  int _gradientIndex = 0;
+  int get avatarGradient => _gradientIndex;
+
+  void setAvatar(int set) {
+    _avatarIndex = set;
+    notifyListeners();
+  }
+
+  void setAvatarGradient(int set) {
+    _gradientIndex = set;
+    notifyListeners();
+  }
+}
