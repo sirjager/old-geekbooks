@@ -21,8 +21,3 @@ final getAccountPro = FutureProvider<AccountDetails>((ref) async {
   final _user = FirebaseAuth.instance.currentUser!;
   return await FirestoreOperations.getAccountDetails(_user);
 });
-
-final initializeAccountPro = FutureProvider<AccountDetails>((ref) async {
-  final _user = FirebaseAuth.instance.currentUser!;
-  return await FirestoreOperations.getAccountDetails(_user);
-});
