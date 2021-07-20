@@ -16,22 +16,6 @@ class FirestoreOperations extends FirestoreExceptionHandler {
     return isNewUser;
   }
 
-  //***************************************************************************>  CREATE NEW USER
-  // This return List of [[ boolean values ]] if for Given Operations
-  Future<bool> createNewUser(User user) async {
-    final _accountDetails = AccountDetails.build(user);
-    bool isMyAccountSaved = await saveAccountDetails(user, _accountDetails);
-    return isMyAccountSaved;
-  }
-
-  //***************************************************************************>  UPDATE RETURNING USER
-  // This return List of [[ true/false ]] if User is updated or not
-  Future<bool> updateReturningUser(User user, AccountDetails _account) async {
-    final _updatedAccount = _account.copyWith(lastActive: DateTime.now());
-    final updatedUser = await saveAccountDetails(user, _updatedAccount);
-    return updatedUser;
-  }
-
   //?==========================================================================> Saving Account Details
   static Future<bool> saveAccountDetails(
       User user, AccountDetails _accountDetails) async {
@@ -60,6 +44,4 @@ class FirestoreOperations extends FirestoreExceptionHandler {
         .catchError((e) => FirestoreExceptionHandler.handleException(e));
     return Generate().personFromSnapshot(collected);
   }
-
-  
 }

@@ -8,10 +8,7 @@ class AccountDetails {
     required this.name,
     required this.image,
     required this.isVerified,
-    required this.lastActive,
-    required this.lastSignIn,
     required this.creationTime,
-    required this.isAnonymous,
     required this.isAccountEnabled,
     required this.isDarkThemeEnabled,
     required this.accountStatus,
@@ -22,10 +19,9 @@ class AccountDetails {
   final String? image;
   final String? email;
   final bool isVerified;
-  final bool isAnonymous;
+
   final bool isAccountEnabled;
-  final DateTime? lastActive;
-  final String? lastSignIn;
+
   final String? creationTime;
   final bool isDarkThemeEnabled;
   final String accountStatus;
@@ -38,11 +34,8 @@ class AccountDetails {
         isAccountEnabled: true,
         accountStatus: "Healthy",
         isDarkThemeEnabled: false,
-        lastActive: DateTime.now(),
-        lastSignIn: user.metadata.lastSignInTime.toString(),
         creationTime: user.metadata.creationTime.toString(),
         isVerified: user.emailVerified,
-        isAnonymous: user.isAnonymous,
       );
 
   Map<String, dynamic> toMap() => {
@@ -50,10 +43,7 @@ class AccountDetails {
         "name": name,
         "image": image,
         "isVerified": isVerified,
-        'lastActive': lastActive,
-        'lastSignIn': lastSignIn.toString(),
         'creationTime': creationTime.toString(),
-        "isAnonymous": isAnonymous,
         "accountStatus": accountStatus,
         "isAccountEnabled": isAccountEnabled,
         "email": email.toString().toLowerCase(),
@@ -64,12 +54,9 @@ class AccountDetails {
     String? accountStatus,
     String? email,
     bool? isAccountEnabled,
-    bool? isAnonymous,
     bool? isDarkThemeEnabled,
     bool? isVerified,
-    DateTime? lastActive,
     String? creationTime,
-    String? lastSignin,
     String? uid,
     String? image,
     String? name,
@@ -79,11 +66,8 @@ class AccountDetails {
         name: name ?? this.name,
         image: image ?? this.image,
         email: email ?? this.email,
-        lastActive: lastActive ?? this.lastActive,
-        lastSignIn: lastSignIn ?? this.lastSignIn,
         creationTime: creationTime ?? this.creationTime,
         isVerified: isVerified ?? this.isVerified,
-        isAnonymous: isAnonymous ?? this.isAnonymous,
         accountStatus: accountStatus ?? this.accountStatus,
         isAccountEnabled: isAccountEnabled ?? this.isAccountEnabled,
         isDarkThemeEnabled: isDarkThemeEnabled ?? this.isDarkThemeEnabled,

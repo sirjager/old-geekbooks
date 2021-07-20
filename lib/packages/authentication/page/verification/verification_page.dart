@@ -19,7 +19,7 @@ class _VerificationPageState extends State<VerificationPage> {
     if (!user.emailVerified) {
       user.sendEmailVerification();
     } else {}
-    timer = Timer.periodic(Duration(seconds: 7), (timer) {
+    timer = Timer.periodic(Duration(seconds: 3), (timer) {
       checkEmailVerified();
     });
 
@@ -38,9 +38,8 @@ class _VerificationPageState extends State<VerificationPage> {
     if (user.emailVerified) {
       timer.cancel();
       print("\n Email Verified = ${user.emailVerified}\n");
-      Get.off(
-        () => VerificationCheck(),
-      );
+      Future.delayed(Duration(milliseconds: 1500))
+          .then((value) => Get.off(() => VerificationCheck()));
     }
   }
 
@@ -49,53 +48,71 @@ class _VerificationPageState extends State<VerificationPage> {
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (context, info) {
-          return Container(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset(
-                  MyAssets.checkmail,
-                  height: R.w(info, 50),
+          return Consumer(
+            builder: (context, watch, child) {
+              var isDarkMode = watch(themeProvider).isDarkMode;
+
+              return Container(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      MyAssets.checkmail,
+                      height: R.w(info, 50),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: R.h(info, 5),
+                        left: R.h(info, 5),
+                        right: R.h(info, 5),
+                      ),
+                      child: KText(
+                        "check your inbox",
+                        font: "MavenPro",
+                        color:
+                            isDarkMode ? Colors.greenAccent[200] : Colors.green,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: R.h(info, 2),
+                        left: R.h(info, 5),
+                        right: R.h(info, 5),
+                      ),
+                      child: KText(
+                        "We have sent verification link to your email",
+                        font: "MavenPro",
+                        textAlign: TextAlign.center,
+                        size: R.f(info, 25),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: R.h(info, 5),
+                        left: R.h(info, 5),
+                        right: R.h(info, 5),
+                        bottom: R.h(info, 5),
+                      ),
+                      child: KText(
+                        "waiting for confirmation",
+                        font: "MavenPro",
+                        textAlign: TextAlign.center,
+                        color:
+                            isDarkMode ? Colors.blueAccent[200] : Colors.blue,
+                      ),
+                    ),
+                    Center(
+                      child: Lottie.asset(
+                        MyAssets.wave,
+                        height: R.w(info, 30),
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(
-                    top: R.h(info, 5),
-                    left: R.h(info, 5),
-                    right: R.h(info, 5),
-                  ),
-                  child: KText("check your inbox", font: "MavenPro"),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    top: R.h(info, 2),
-                    left: R.h(info, 5),
-                    right: R.h(info, 5),
-                  ),
-                  child: KText(
-                    "We have sent verification link to your email",
-                    font: "MavenPro",
-                    textAlign: TextAlign.center,
-                    size: R.f(info, 25),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    top: R.h(info, 5),
-                    left: R.h(info, 5),
-                    right: R.h(info, 5),
-                    bottom: R.h(info, 5),
-                  ),
-                  child: KText("waiting for confirmation",
-                      font: "MavenPro", textAlign: TextAlign.center),
-                ),
-                Lottie.asset(
-                  MyAssets.wave,
-                  height: R.w(info, 30),
-                ),
-              ],
-            ),
+              );
+            },
           );
         },
       ),
