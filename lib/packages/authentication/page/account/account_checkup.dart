@@ -129,6 +129,7 @@ class _AccountCheckupState extends State<AccountCheckup>
     final String name = context.read(nameProvider).name.text;
     final user = AccountDetails.build(_user);
     final _acc = user.copyWith(name: name, isDarkThemeEnabled: isDarkMode);
+    context.read(nameProvider).name.clear();
     return await FirestoreOperations.saveAccountDetails(_user, _acc);
   });
 }
