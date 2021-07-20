@@ -87,10 +87,11 @@ class _AccountCheckupState extends State<AccountCheckup>
                                   height: R.w(info, 35),
                                   repeat: false, onLoaded: (_) {
                                 _ani.forward().whenComplete(() {
-                                  Get.off(
-                                      () => AccountStatus(
-                                          msg: _acc.accountStatus),
-                                      transition: Transition.fadeIn);
+                                  Get.offAll(
+                                    () =>
+                                        AccountStatus(msg: _acc.accountStatus),
+                                    transition: Transition.fadeIn,
+                                  );
                                 });
                               });
                             }

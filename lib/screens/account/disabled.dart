@@ -1,6 +1,4 @@
 import 'package:geeklibrary/export/export.dart';
-import 'package:geeklibrary/screens/login/login.dart';
-import 'package:geeklibrary/screens/signup/signup.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AccountStatus extends StatelessWidget {
@@ -13,40 +11,35 @@ class AccountStatus extends StatelessWidget {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          body: Consumer(
-            builder: (context, watch, child) {
-              var theme = watch(themeProvider);
-              return Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Opacity(
-                      opacity: 0.5,
-                      child: Image.asset(
-                        "assets/images/shapes/main_top.png",
-                        width: R.w(info, 35),
-                      ),
+          body: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Opacity(
+                  opacity: 0.5,
+                  child: Image.asset(
+                    "assets/images/shapes/main_top.png",
+                    width: R.w(info, 35),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: RotatedBox(
+                  quarterTurns: 2,
+                  child: Opacity(
+                    opacity: 0.5,
+                    child: Image.asset(
+                      "assets/images/shapes/signup_top.png",
+                      width: R.w(info, 35),
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: RotatedBox(
-                      quarterTurns: 2,
-                      child: Opacity(
-                        opacity: 0.5,
-                        child: Image.asset(
-                          "assets/images/shapes/signup_top.png",
-                          width: R.w(info, 35),
-                        ),
-                      ),
-                    ),
-                  ),
-                  buildBody(info),
-                ],
-              );
-            },
+                ),
+              ),
+              buildBody(info),
+            ],
           ),
         );
       },

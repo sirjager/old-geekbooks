@@ -3,7 +3,6 @@ import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/screens/login/provider/login_provider.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:string_validator/string_validator.dart';
 
