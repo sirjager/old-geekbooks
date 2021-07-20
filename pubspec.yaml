@@ -73,6 +73,7 @@ flutter:
     - assets/images/svg/
     - assets/images/shapes/
     - assets/images/vectors/
+    - assets/images/avatar/
     - assets/images/avatars/
 
   fonts:

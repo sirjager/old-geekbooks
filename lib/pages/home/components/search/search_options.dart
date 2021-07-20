@@ -22,40 +22,61 @@ class SearchOptions extends ConsumerWidget {
     return Container(
       margin: EdgeInsets.symmetric(
           vertical: R.h(info, 2), horizontal: R.w(info, 2)),
-      child: Wrap(
-        children: filters.map(
-          (item) {
-            bool isSelected = searchOption.selected.index == item.index;
-            return Container(
-              margin: const EdgeInsets.all(5),
-              child: KClickable(
-                isPressed: isSelected,
-                height: R.h(info, 5),
-                width: R.w(info, 20),
-                onPressed: () => updateFilter(item.index, searchOption),
-                child: KText(
-                  item.title.toString(),
-                  font: "MavenPro",
-                  letterSpacing: 1,
-                  size: R.f(info, 10),
-                  color: isSelected ? XColors.darkText : XColors.grayText,
-                  weight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                ),
-                topDeco: BoxDecoration(
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
+            child: Row(
+              children: [
+                KText(
+                  "search in field",
+                  font: "Nunito",
+                  weight: FontWeight.w600,
+                  size: R.f(info, 15),
                   color: theme.isDarkMode
-                      ? XColors.darkColor1
-                      : XColors.lightColor1,
-                  borderRadius: BorderRadius.circular(15),
+                      ? XColors.grayColor.withOpacity(0.5)
+                      : XColors.darkColor.withOpacity(0.5),
                 ),
-                bottomDeco: BoxDecoration(
-                  color:
-                      theme.isDarkMode ? XColors.darkColor2 : XColors.grayText,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-            );
-          },
-        ).toList(),
+              ],
+            ),
+          ),
+          Wrap(
+            children: filters.map(
+              (item) {
+                bool isSelected = searchOption.selected.index == item.index;
+                return Container(
+                  margin: const EdgeInsets.all(5),
+                  child: KClickable(
+                    isPressed: isSelected,
+                    height: R.h(info, 5),
+                    width: R.w(info, 20),
+                    onPressed: () => updateFilter(item.index, searchOption),
+                    child: KText(
+                      item.title.toString(),
+                      font: "MavenPro",
+                      letterSpacing: 1,
+                      size: R.f(info, 10),
+                      color: isSelected ? XColors.darkText : XColors.grayText,
+                      weight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                    ),
+                    topDeco: BoxDecoration(
+                      color: theme.isDarkMode
+                          ? XColors.darkColor1
+                          : XColors.lightColor1,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    bottomDeco: BoxDecoration(
+                      color: theme.isDarkMode
+                          ? XColors.darkGray.withOpacity(0.4)
+                          : XColors.grayText,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                );
+              },
+            ).toList(),
+          ),
+        ],
       ),
     );
   }

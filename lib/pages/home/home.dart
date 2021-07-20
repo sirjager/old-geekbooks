@@ -20,6 +20,7 @@ class Homepage extends StatelessWidget {
           Titlebar(info),
           AppTitle(info),
           Searchbar(info, _node),
+         
           SearchOptions(info),
         ],
       ),
