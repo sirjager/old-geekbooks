@@ -2,6 +2,7 @@ import 'package:geeklibrary/constants/numers/nums.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:geeklibrary/widgets/kblur/kblur.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BookViewHeader extends SliverPersistentHeaderDelegate {
   final Book book;
@@ -41,7 +42,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
           left: R.w(info, 4),
           right: R.w(info, 4),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Consumer(
                 builder: (context, watch, child) {
@@ -60,6 +61,31 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
                       iconSize: R.w(info, 5),
                       icon: Icon(EvaIcons.arrowIosBack),
                       color: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                  );
+                },
+              ),
+              Consumer(
+                builder: (context, watch, child) {
+                  var theme = watch(themeProvider);
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(R.w(info, 50)),
+                    child: Shimmer.fromColors(
+                      period: Duration(seconds: 5),
+                      direction: ShimmerDirection.rtl,
+                      highlightColor:
+                          theme.isDarkMode ? Colors.amber : XColors.darkColor,
+                      baseColor: XColors.grayColor,
+                      child: IconButton(
+                        onPressed: () => theme.setMode(!theme.isDarkMode),
+                        splashColor: Colors.transparent,
+                        icon: theme.isDarkMode
+                            ? Icon(EvaIcons.sun)
+                            : Icon(EvaIcons.moon),
+                        color: theme.isDarkMode
+                            ? XColors.grayText
+                            : XColors.darkColor1,
+                      ),
                     ),
                   );
                 },
@@ -91,9 +117,7 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
               ),
               alignment: Alignment.center,
               child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: R.w(info, 17),
-                ),
+                padding: EdgeInsets.symmetric(horizontal: R.w(info, 17)),
                 child: SingleChildScrollView(
                   physics: ClampingScrollPhysics(),
                   scrollDirection: Axis.horizontal,

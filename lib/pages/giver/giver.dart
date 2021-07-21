@@ -34,7 +34,6 @@ class _RiderProviderState extends State<RiderProvider> {
       builder: (context, info) {
         return Scaffold(
           drawer: LeftDrawer(info),
-          endDrawer: RightDrawer(info),
           body: !delayed
               ? Center(
                   child: Lottie.asset(MyAssets.books, height: R.w(info, 35),
@@ -53,8 +52,7 @@ class _RiderProviderState extends State<RiderProvider> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        child: PageHeader(info,
-                            title: "Go Back", disableAction: true),
+                        child: PageHeader(info, title: "Go Back"),
                       ),
                       Container(
                         child: SingleChildScrollView(

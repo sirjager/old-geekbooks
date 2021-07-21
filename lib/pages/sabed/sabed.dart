@@ -34,7 +34,6 @@ class SabedOfflineState extends State<SabedOffline> {
       builder: (context, info) {
         return Scaffold(
           drawer: LeftDrawer(info),
-          endDrawer: RightDrawer(info),
           floatingActionButton: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,

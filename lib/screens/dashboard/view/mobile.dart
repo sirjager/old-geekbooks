@@ -10,7 +10,17 @@ class DashboardMobile extends ConsumerWidget {
       child: Column(
         children: [
           Expanded(
-              child: nav.current == 0 ? Homepage(info) : Settingspage(info)),
+            child: PageView(
+              // physics: C,
+              controller: nav.pageController,
+              physics: ClampingScrollPhysics(),
+              onPageChanged: (int index) => nav.changeTo(index),
+              children: [
+                Homepage(info),
+                Settingspage(info),
+              ],
+            ),
+          ),
           NavigationLayout(info),
         ],
       ),

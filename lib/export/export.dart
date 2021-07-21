@@ -42,7 +42,6 @@ export 'package:geeklibrary/pages/book/view.dart';
 export 'package:geeklibrary/models/book/book.dart';
 
 //! Dashboard
-export 'package:geeklibrary/screens/dashboard/components/drawer/right_drawer.dart';
 export 'package:geeklibrary/core/responsive/builder/orientation_layout.dart';
 export 'package:geeklibrary/core/responsive/layout/screen_layout.dart';
 export 'package:geeklibrary/screens/dashboard/view/mobile.dart';

@@ -15,7 +15,6 @@ class Dashboard extends ConsumerWidget {
         return Scaffold(
           key: drawer.scaffoldKey,
           drawer: LeftDrawer(info),
-          endDrawer: RightDrawer(info),
           body: ScreenLayout(
             mobile: DashboardMobile(info),
             tablet: DashboardTablet(info),

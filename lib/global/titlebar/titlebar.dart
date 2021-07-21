@@ -75,10 +75,12 @@ class Titlebar extends ConsumerWidget {
           action != null
               ? Container(
                   height: R.w(info, 10),
-                  width: R.w(info, 10),
+                  width: R.w(info, 20),
                   alignment: Alignment.center,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                  ),
                   child: action,
                 )
               : disableAction

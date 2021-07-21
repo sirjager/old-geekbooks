@@ -38,8 +38,11 @@ class NavigationProvider extends ChangeNotifier {
   //!=========> FOR CHANGING BETWEEN PAGES HOME NAVIGATION
   int _index = 0;
   int get current => _index;
+  PageController _controller = PageController(initialPage: 0);
+  PageController get pageController => _controller;
   void changeTo(int changeTo) {
     _index = changeTo;
+    _controller.jumpToPage(changeTo);
     notifyListeners();
   }
 }

@@ -30,7 +30,6 @@ class _BookViewState extends State<BookView> {
       builder: (context, info) {
         return Scaffold(
           drawer: LeftDrawer(info),
-          endDrawer: RightDrawer(info),
           body: !delayed
               ? Center(
                   child: Lottie.asset(MyAssets.books, height: R.w(info, 35),
