@@ -111,37 +111,33 @@ class Settingspage extends StatelessWidget {
   }
 
   Widget buildTile(String title, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(10),
-        splashColor: Colors.transparent,
-        child: Container(
-          padding: EdgeInsets.all(R.w(info, 2)),
-          width: R.w(info, 75),
-          child: Consumer(
-            builder: (context, watch, child) {
-              var isDarkMode = watch(themeProvider).isDarkMode;
-              return Row(
-                children: [
-                  Icon(
-                    icon,
-                    size: R.f(info, 20),
-                    color: isDarkMode ? XColors.grayColor : Color(0xff555555),
-                  ),
-                  SizedBox(width: R.w(info, 7)),
-                  KText(
-                    title,
-                    font: "Nunito",
-                    size: R.f(info, 15),
-                    weight: FontWeight.w400,
-                    color: isDarkMode ? XColors.grayColor : Color(0xff555555),
-                  ),
-                ],
-              );
-            },
-          ),
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        padding: EdgeInsets.all(R.w(info, 4)),
+        width: R.w(info, 75),
+        child: Consumer(
+          builder: (context, watch, child) {
+            var isDarkMode = watch(themeProvider).isDarkMode;
+            return Row(
+              children: [
+                Icon(
+                  icon,
+                  size: R.f(info, 20),
+                  color: isDarkMode ? XColors.grayColor : Color(0xff555555),
+                ),
+                SizedBox(width: R.w(info, 7)),
+                KText(
+                  title,
+                  font: "Nunito",
+                  size: R.f(info, 15),
+                  weight: FontWeight.w400,
+                  color: isDarkMode ? XColors.grayColor : Color(0xff555555),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
