@@ -19,9 +19,7 @@ class AccountDetails {
   final String? image;
   final String? email;
   final bool isVerified;
-
   final bool isAccountEnabled;
-
   final String? creationTime;
   final bool isDarkThemeEnabled;
   final String accountStatus;

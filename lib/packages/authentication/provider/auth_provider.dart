@@ -19,5 +19,5 @@ final isNewUserPro = FutureProvider<bool>((ref) async {
 
 final getAccountPro = FutureProvider<AccountDetails>((ref) async {
   final _user = FirebaseAuth.instance.currentUser!;
-  return await FirestoreOperations.getAccountDetails(_user);
+  return await FirestoreOperations.getAccountDetails(_user.uid);
 });

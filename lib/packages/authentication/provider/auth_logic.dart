@@ -4,7 +4,7 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/utils/regex/reg.dart';
 
 class MyAccount extends ChangeNotifier {
-  late final AccountDetails __accounT;
+  late AccountDetails __accounT;
   AccountDetails get account => __accounT;
   void register(AccountDetails _account) {
     __accounT = _account;

@@ -18,10 +18,10 @@ class FirestoreOperations extends FirestoreExceptionHandler {
 
   //?==========================================================================> Saving Account Details
   static Future<bool> saveAccountDetails(
-      User user, AccountDetails _accountDetails) async {
+      String uid, AccountDetails _accountDetails) async {
     var status = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
-        .doc(user.uid)
+        .doc(uid)
         .set(_accountDetails.toMap(), SetOptions(merge: true))
         .then((value) => true)
         // ignore: invalid_return_type_for_catch_error
@@ -35,10 +35,10 @@ class FirestoreOperations extends FirestoreExceptionHandler {
     }
   }
 
-  static Future<AccountDetails> getAccountDetails(User user) async {
+  static Future<AccountDetails> getAccountDetails(String uid) async {
     DocumentSnapshot collected = await FirebaseFirestore.instance
         .collection(AuthStr.geeklibrary)
-        .doc(user.uid)
+        .doc(uid)
         .get()
         // ignore: invalid_return_type_for_catch_error
         .catchError((e) => FirestoreExceptionHandler.handleException(e));

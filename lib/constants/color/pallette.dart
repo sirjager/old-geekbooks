@@ -16,3 +16,20 @@ class XColors {
   static Color get darkColor3 => Color(0xff262726);
   static Color get lightColor1 => Color(0xffF8F8FA);
 }
+
+class XGradient {
+  static final List<Gradient?> gradient = [
+    G.blueGradient,
+    G.blue2Gradient,
+    G.greenGradient,
+    G.green2Gradient,
+    G.green3Gradient,
+    G.redGradient,
+    G.yellowGradient,
+    G.purpleGradient,
+    G.yellowGradient,
+    G.pinkGradient,
+    G.blackGradient,
+    G.whiteGradient,
+  ];
+}

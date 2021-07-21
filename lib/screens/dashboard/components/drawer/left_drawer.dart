@@ -1,9 +1,7 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/pages/profile/profile.dart';
-import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/welcome/welcome.dart';
-import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
 class LeftDrawer extends ConsumerWidget {
@@ -12,10 +10,10 @@ class LeftDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final String img =
-        "https://cdn2.vectorstock.com/i/1000x1000/20/76/man-avatar-profile-vector-21372076.jpg";
-
     var theme = watch(themeProvider);
+    var avatar = watch(avatarProvider);
+    var _acc = watch(accountProvider).account;
+
     return Container(
       height: double.infinity,
       width: R.w(info, 65),
@@ -44,29 +42,41 @@ class LeftDrawer extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: R.w(info, 25),
-                          height: R.w(info, 25),
-                          clipBehavior: Clip.antiAlias,
+                          margin: EdgeInsets.all(1),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
+                            color: Colors.greenAccent,
                           ),
-                          child: KImage(
-                            imageURL: img,
-                            fit: BoxFit.cover,
-                            height: double.infinity,
-                            width: double.infinity,
+                          child: Container(
+                            margin: EdgeInsets.all(R.w(info, 1)),
+                            padding: EdgeInsets.only(
+                              top: R.w(info, 2),
+                              left: R.w(info, 1),
+                              right: R.w(info, 1),
+                            ),
+                            alignment: Alignment.bottomCenter,
+                            child: SvgPicture.asset(
+                              _avatarImage(avatar.avatar),
+                              fit: BoxFit.contain,
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              gradient:
+                                  XGradient.gradient[avatar.avatarGradient],
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
                         SizedBox(height: R.h(info, 2)),
                         KText(
-                          "Mr. Masatao",
+                          _acc.name.toString(),
                           size: R.f(info, 17),
                           font: "MavenPro",
                           weight: FontWeight.bold,
                         ),
                         SizedBox(height: R.h(info, 2)),
                         KText(
-                          "mrmasato@gmail.com",
+                          _acc.email.toString(),
                           size: R.f(info, 10),
                           font: "MavenPro",
                           weight: FontWeight.w600,
@@ -88,8 +98,8 @@ class LeftDrawer extends ConsumerWidget {
                         },
                       ),
                       buildMenuTile(
-                        "Cached Results",
-                        Ionicons.library_outline,
+                        "Profile",
+                        Typicons.user_outline,
                         onTap: () => Get.to(() => ProfilePage()),
                       ),
                       buildMenuTile(
@@ -117,16 +127,16 @@ class LeftDrawer extends ConsumerWidget {
             Container(
               margin: EdgeInsets.symmetric(
                 vertical: R.h(info, 5),
-                horizontal: R.w(info, 5),
+                horizontal: R.w(info, 2),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   KLeafButton(
                     radius: 0,
                     icon: EvaIcons.logOutOutline,
                     height: R.h(info, 6),
-                    width: R.w(info, 40),
+                    width: R.w(info, 35),
                     onPressed: () {
                       context.read(auth).signOut().then(
                             (_) => Future.delayed(Duration(seconds: 1))
@@ -148,6 +158,28 @@ class LeftDrawer extends ConsumerWidget {
                         ? XColors.grayColor
                         : XColors.lightColor1,
                   ),
+                  KClickable(
+                    height: R.w(info, 9),
+                    width: R.w(info, 9),
+                    onPressed: () => Get.offAll(VerificationCheck()),
+                    child: Center(
+                        child: Icon(
+                      EvaIcons.refresh,
+                      size: R.f(info, 12),
+                    )),
+                    topDeco: BoxDecoration(
+                      color: theme.isDarkMode
+                          ? XColors.darkColor1
+                          : XColors.grayColor,
+                      shape: BoxShape.circle,
+                    ),
+                    bottomDeco: BoxDecoration(
+                      color: theme.isDarkMode
+                          ? XColors.grayColor.withOpacity(0.5)
+                          : XColors.darkColor2,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -156,6 +188,9 @@ class LeftDrawer extends ConsumerWidget {
       ),
     );
   }
+
+  String _avatarImage(int index) =>
+      "assets/images/avatar/p" + index.toString() + ".svg";
 
   Widget buildMenuTile(String title, IconData icon, {VoidCallback? onTap}) {
     return Container(
