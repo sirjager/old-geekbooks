@@ -88,28 +88,15 @@ class Titlebar extends ConsumerWidget {
                       width: R.w(info, 10),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(shape: BoxShape.circle),
-                      child: Stack(
-                        children: [
-                          IconButton(
-                            splashColor: Colors.transparent,
-                            onPressed: () => Get.to(() => SabedOffline()),
-                            iconSize: R.w(info, 6),
-                            icon: Icon(
-                              Ionicons.library_outline,
-                            ),
-                            color: isDarkMode
-                                ? XColors.grayText
-                                : XColors.darkColor1,
-                          ),
-                          Positioned(
-                            top: 0,
-                            right: R.w(info, 2),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.red,
-                              radius: R.h(info, 0.5),
-                            ),
-                          ),
-                        ],
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        onPressed: () => Get.to(() => SabedOffline()),
+                        iconSize: R.w(info, 6),
+                        icon: Icon(
+                          Ionicons.library_outline,
+                        ),
+                        color:
+                            isDarkMode ? XColors.grayText : XColors.darkColor1,
                       ),
                     ),
         ],

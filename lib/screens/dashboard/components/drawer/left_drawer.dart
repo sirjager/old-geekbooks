@@ -12,7 +12,9 @@ class LeftDrawer extends ConsumerWidget {
       width: R.w(info, 65),
       padding: EdgeInsets.symmetric(),
       color: XColors.darkColor,
-      child: Container(),
+      child: Container(
+        color: Colors.red,
+      ),
     );
   }
 

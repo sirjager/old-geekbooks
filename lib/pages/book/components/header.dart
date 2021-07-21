@@ -85,11 +85,10 @@ class BookViewHeader extends SliverPersistentHeaderDelegate {
               height: minExtent,
               padding: EdgeInsets.only(top: R.h(info, 3)),
               decoration: BoxDecoration(
-                  color: darkMode
-                      ? XColors.deepDark
-                      : Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(24))),
+                color: darkMode
+                    ? XColors.deepDark
+                    : Theme.of(context).scaffoldBackgroundColor,
+              ),
               alignment: Alignment.center,
               child: Container(
                 padding: EdgeInsets.symmetric(
