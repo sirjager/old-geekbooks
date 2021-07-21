@@ -1,5 +1,5 @@
 import 'package:geeklibrary/export/export.dart';
-import 'package:geeklibrary/pages/sabed/sabed.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Titlebar extends ConsumerWidget {
   const Titlebar(
@@ -83,21 +83,30 @@ class Titlebar extends ConsumerWidget {
                 )
               : disableAction
                   ? Container()
-                  : Container(
-                      height: R.w(info, 10),
-                      width: R.w(info, 10),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(shape: BoxShape.circle),
-                      child: IconButton(
-                        splashColor: Colors.transparent,
-                        onPressed: () => Get.to(() => SabedOffline()),
-                        iconSize: R.w(info, 6),
-                        icon: Icon(
-                          Ionicons.library_outline,
+                  : Row(
+                      children: [
+                        Consumer(
+                          builder: (context, watch, child) {
+                            var theme = watch(themeProvider);
+                            return InkWell(
+                              borderRadius:
+                                  BorderRadius.circular(R.w(info, 50)),
+                              onTap: () => theme.setMode(!theme.isDarkMode),
+                              child: Shimmer.fromColors(
+                                period: Duration(seconds: 5),
+                                direction: ShimmerDirection.rtl,
+                                highlightColor: theme.isDarkMode
+                                    ? Colors.amber
+                                    : XColors.darkColor,
+                                baseColor: XColors.grayColor,
+                                child: theme.isDarkMode
+                                    ? Icon(EvaIcons.sun)
+                                    : Icon(EvaIcons.moon),
+                              ),
+                            );
+                          },
                         ),
-                        color:
-                            isDarkMode ? XColors.grayText : XColors.darkColor1,
-                      ),
+                      ],
                     ),
         ],
       ),

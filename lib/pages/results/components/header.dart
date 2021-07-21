@@ -25,11 +25,16 @@ class PageHeader extends ConsumerWidget {
       ),
       action: disableAction
           ? null
-          : IconButton(
-              onPressed: () => view.toggleGrid(),
-              splashColor: Colors.transparent,
-              icon: Icon(view.isGrid ? EvaIcons.gridOutline : EvaIcons.list),
-              color: isDarkMode ? XColors.grayText : XColors.darkColor1,
+          : Row(
+              children: [
+                IconButton(
+                  onPressed: () => view.toggleGrid(),
+                  splashColor: Colors.transparent,
+                  icon:
+                      Icon(view.isGrid ? EvaIcons.gridOutline : EvaIcons.list),
+                  color: isDarkMode ? XColors.grayText : XColors.darkColor1,
+                ),
+              ],
             ),
     );
   }

@@ -173,8 +173,11 @@ class WelcomeScreen extends StatelessWidget {
                         children: [
                           KClickable(
                             width: R.w(info, 80),
-                            onPressed: () => Get.to(() => Dashboard(),
-                                transition: Transition.rightToLeftWithFade),
+                            onPressed: () =>
+                                Future.delayed(Duration(milliseconds: 150))
+                                    .then((value) => Get.offAll(
+                                        () => Dashboard(),
+                                        transition: Transition.fade)),
                             child: KText(
                               "Tutorial",
                               weight: FontWeight.bold,
@@ -211,8 +214,11 @@ class WelcomeScreen extends StatelessWidget {
                         children: [
                           KClickable(
                             width: R.w(info, 80),
-                            onPressed: () => Get.offAll(() => Dashboard(),
-                                transition: Transition.rightToLeftWithFade),
+                            onPressed: () =>
+                                Future.delayed(Duration(milliseconds: 150))
+                                    .then((value) => Get.offAll(
+                                        () => Dashboard(),
+                                        transition: Transition.fade)),
                             child: KText(
                               "Home",
                               weight: FontWeight.bold,

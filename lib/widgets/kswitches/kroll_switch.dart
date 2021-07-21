@@ -96,10 +96,10 @@ class _KRollSwitchState extends State<KRollSwitch> {
               )
             : widget.enableBackgroundImage
                 ? BoxDecoration(
-                    // image: DecorationImage(
-                    //   fit: widget.boxFit,
-                    //   image: widget.image!,
-                    // ),
+                    image: DecorationImage(
+                      fit: widget.boxFit,
+                      image: widget.image!,
+                    ),
                     borderRadius: BorderRadius.circular(widget.radius),
                     color: widget.isOn ? widget.colorOn : widget.colorOff,
                   )
