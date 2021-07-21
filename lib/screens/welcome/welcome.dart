@@ -1,26 +1,8 @@
 import 'package:geeklibrary/export/export.dart';
-import 'package:geeklibrary/screens/login/login.dart';
-import 'package:geeklibrary/screens/signup/signup.dart';
 import 'package:shimmer/shimmer.dart';
 
-class WelcomeScreen extends StatefulWidget {
+class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
-
-  @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,12 +173,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         children: [
                           KClickable(
                             width: R.w(info, 80),
-                            onPressed: () => Get.to(
-                              () => LoginScreen(),
-                              transition: Transition.rightToLeftWithFade,
-                            ),
+                            onPressed: () => Get.to(() => Dashboard(),
+                                transition: Transition.rightToLeftWithFade),
                             child: KText(
-                              "Login",
+                              "Tutorial",
                               weight: FontWeight.bold,
                               color: theme.isDarkMode
                                   ? XColors.darkColor
@@ -231,12 +211,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         children: [
                           KClickable(
                             width: R.w(info, 80),
-                            onPressed: () => Get.to(
-                              () => SignUpScreen(),
-                              transition: Transition.rightToLeftWithFade,
-                            ),
+                            onPressed: () => Get.offAll(() => Dashboard(),
+                                transition: Transition.rightToLeftWithFade),
                             child: KText(
-                              "Sign up",
+                              "Home",
                               weight: FontWeight.bold,
                               color: XColors.grayColor,
                             ),

@@ -5,7 +5,6 @@ import 'package:geeklibrary/ads/adstate.dart';
 import 'package:geeklibrary/core/theme/themeData.dart';
 import 'package:geeklibrary/models/book/encbook.dart';
 import 'package:geeklibrary/models/sauce/encpagesource.dart';
-import 'package:geeklibrary/packages/authentication/export/export.dart';
 
 import 'package:geeklibrary/provider/all_provider.dart';
 import 'package:geeklibrary/screens/welcome/welcome.dart';
@@ -46,10 +45,7 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.themeDark,
       theme: AppTheme.themeLight,
       title: 'GeekLibrary',
-      home: AuthenticationWrapper(
-        home: VerificationCheck(),
-        login: WelcomeScreen(),
-      ),
+      home: WelcomeScreen(),
     );
   }
 }

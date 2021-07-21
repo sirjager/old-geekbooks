@@ -70,4 +70,3 @@ export 'package:eva_icons_flutter/eva_icons_flutter.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //!Packages
-export 'package:geeklibrary/packages/authentication/services/authentication_wrapper.dart';
