@@ -47,7 +47,7 @@ class _SearchbarState extends State<Searchbar> {
           width: 900.w,
           child: CupertinoTextField(
             controller: _searchField,
-            onSubmitted: (val) => searchQuery(val, theme, widget.info),
+            onSubmitted: (val) => searchQuery(val, theme),
             decoration: BoxDecoration(
               color: XColors.lightGray,
               borderRadius: BorderRadius.circular(100.w),
@@ -79,82 +79,89 @@ class _SearchbarState extends State<Searchbar> {
     );
   }
 
-  searchQuery(String query, ThemeProvider theme, SizingInformation info) async {
+  searchQuery(String query, ThemeProvider theme) async {
     widget.focus.unfocus();
     String string =
         query.removeAllWhitespace.toString().replaceAll(Str.space, Str.none);
     if (string.length > 0) {
       String col = context.read(searchOptionProvider).selected.value;
       UiDialog.showDialog(
-        info,
         title: "",
         lottie: MyAssets.check,
         actionTitle: "",
         child: FutureBuilder<PagePack?>(
-          future: ApiCalls().getPagePack(query, info, col: col),
+          future: ApiCalls().getPagePack(query, col: col),
           builder: (context, AsyncSnapshot<PagePack?> snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data != null) {
-                PagePack pack = snapshot.data!;
-                return Container(
-                  padding: const EdgeInsets.all(pad),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset(MyAssets.check, height: 350.w),
-                      KLeafButton(
-                        onPressed: () {
-                          if (Get.isDialogOpen!) Get.back();
-                          Get.to(() => SearchResults(pack: pack));
-                        },
-                        color1: theme.isDarkMode
-                            ? XColors.darkColor
-                            : Colors.greenAccent[100]!,
-                        color2: theme.isDarkMode
-                            ? XColors.darkColor2
-                            : Colors.greenAccent[200]!,
-                        height: 150.h,
-                        width: 300.w,
-                        child: KText(
-                          "continue",
-                          font: "Poppins",
-                          size: 40.sp,
-                          color: theme.isDarkMode
+            if (snapshot.connectionState != ConnectionState.done) {
+              return Container(
+                height: 500.h,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+                child: Lottie.asset(MyAssets.pleasewait, width: 500.w),
+              );
+            } else {
+              if (snapshot.hasError) {
+                return Center(child: Text(snapshot.error.toString()));
+              } else if (!snapshot.hasData) {
+                return Center(child: Text("No data found"));
+              } else if (snapshot.hasData) {
+                if (snapshot.data != null) {
+                  PagePack pack = snapshot.data!;
+                  return Container(
+                    padding: const EdgeInsets.all(pad),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset(MyAssets.check, height: 350.w),
+                        KLeafButton(
+                          onPressed: () {
+                            if (Get.isDialogOpen!) Get.back();
+                            Get.to(() => SearchResults(pack: pack));
+                          },
+                          color1: theme.isDarkMode
+                              ? XColors.darkColor
+                              : Colors.greenAccent[100]!,
+                          color2: theme.isDarkMode
+                              ? XColors.darkColor2
+                              : Colors.greenAccent[200]!,
+                          height: 150.h,
+                          width: 350.w,
+                          child: KText(
+                            "continue",
+                            font: "Poppins",
+                            size: 40.sp,
+                            color: theme.isDarkMode
+                                ? XColors.darkText
+                                : XColors.darkColor2,
+                            weight: FontWeight.bold,
+                          ),
+                          icon: Ionicons.arrow_forward_circle,
+                          iconColor: theme.isDarkMode
                               ? XColors.darkText
                               : XColors.darkColor2,
-                          weight: FontWeight.bold,
                         ),
-                        icon: Ionicons.arrow_forward_circle,
-                        iconColor: theme.isDarkMode
-                            ? XColors.darkText
-                            : XColors.darkColor2,
-                      ),
-                      SizedBox(height: 50.h),
-                    ],
-                  ),
-                );
+                        SizedBox(height: 100.h),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Center(child: Text("Some Error Occured"));
+                }
               } else {
                 log.e("\n\n Page Return Null \n\n");
                 while (Get.isDialogOpen != null && Get.isDialogOpen!) {
                   Get.back();
                 }
                 UiDialog.showDialog(
-                  info,
-                  isDarkMode: theme.isDarkMode,
                   title: "Search Complete",
                   lottie: MyAssets.notfound1,
                   actionTitle: "Okay",
                 );
+                return Container();
               }
             }
-            return Container(
-              height: 500.h,
-              decoration: BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-              child: Lottie.asset(MyAssets.pleasewait, width: 500.w),
-            );
           },
         ),
       );

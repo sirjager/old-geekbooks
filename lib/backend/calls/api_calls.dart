@@ -23,7 +23,7 @@ import 'package:string_validator/string_validator.dart';
 
 class ApiCalls with ErrorHandler {
   //!==================================  [[ 1 ]]
-  Future<PagePack?> getPagePack(String query, SizingInformation info,
+  Future<PagePack?> getPagePack(String query,
       {String pageNo = "1", String col = 'def'}) async {
     PagePack? _pagePack;
     List<Book> _books = [];
@@ -116,7 +116,6 @@ class ApiCalls with ErrorHandler {
         log.i("\nClosing Hive\n");
         Hive.close();
         UiDialog.showDialog(
-          info,
           title: "Search Complete",
           lottie: MyAssets.notfound1,
           actionTitle: "Okay",

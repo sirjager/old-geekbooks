@@ -1,7 +1,7 @@
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
-import 'package:geeklibrary/screens/dashboard/components/navigation/view/mobile.dart';
+import 'package:geeklibrary/screens/dashboard/components/navigation/navbar.dart';
 
 class Dashboard extends ConsumerWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class Dashboard extends ConsumerWidget {
         return Scaffold(
           key: drawer.scaffoldKey,
           drawer: LeftDrawer(info),
+          resizeToAvoidBottomInset: false,
           body: Column(
             children: [
               Expanded(
@@ -24,10 +25,7 @@ class Dashboard extends ConsumerWidget {
                   controller: nav.pageController,
                   physics: ClampingScrollPhysics(),
                   onPageChanged: (int index) => nav.changeTo(index),
-                  children: [
-                    Homepage(info),
-                    Settingspage(info),
-                  ],
+                  children: [Homepage(info), Settingspage(info)],
                 ),
               ),
               Navigationbar(),

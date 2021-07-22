@@ -1,19 +1,18 @@
+import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:geeklibrary/export/export.dart';
 
 class UiDialog {
   static void showExceptionDialog(
-      {String title = "Error",
-      String desc = "Something went wrong",
-      SizingInformation? info}) {
+      {String title = "Error", String desc = "Something went wrong"}) {
     Get.dialog(
       Dialog(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         child: Container(
-          height: info != null ? R.h(info, 35) : 400,
-          width: info != null ? R.w(info, 40) : 300,
+          height: 850.h,
+          width: 300.w,
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
@@ -21,8 +20,7 @@ class UiDialog {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.asset(MyAssets.cross,
-                      height: info != null ? R.h(info, 15) : 50),
+                  Lottie.asset(MyAssets.cross, height: 400.w),
                   Text(
                     title,
                     style: Get.textTheme.headline4,
@@ -47,9 +45,7 @@ class UiDialog {
     );
   }
 
-  static void showDialog(
-    SizingInformation info, {
-    bool isDarkMode = false,
+  static void showDialog({
     required String title,
     String desc = "",
     required String lottie,
@@ -62,41 +58,66 @@ class UiDialog {
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         child: child ??
-            Container(
-              height: R.h(info, 35),
-              width: R.w(info, 40),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset(lottie, height: R.h(info, 15)),
-                      KText(title,
-                          size: R.f(info, 20), weight: FontWeight.bold),
-                      SizedBox(height: R.h(info, 2)),
-                      KText(desc, size: R.f(info, 10), weight: FontWeight.bold),
-                      SizedBox(height: R.h(info, 2)),
-                      KClickable(
-                        height: R.h(info, 5),
-                        width: R.w(info, 18),
-                        topDeco: G.blueGradBannerDeco,
-                        bottomDeco: G.blackGradButtonDeco,
-                        onPressed: () {
-                          if (Get.isDialogOpen == true) Get.back();
-                        },
-                        child: KText(
-                          actionTitle,
-                          size: R.f(info, 11),
-                          weight: FontWeight.bold,
-                          color: isDarkMode ? Colors.black87 : Colors.black87,
+            Consumer(
+              builder: (context, watch, child) {
+                bool isDarkMode = watch(themeProvider).isDarkMode;
+                return child ??
+                    Container(
+                      height: 850.h,
+                      width: 300.w,
+                      child: Padding(
+                        padding: EdgeInsets.all(10.w),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 50.h),
+                              Lottie.asset(lottie, height: 400.w),
+                              SizedBox(height: 50.h),
+                              KText(
+                                title,
+                                size: 80.sp,
+                                weight: FontWeight.bold,
+                                color: isDarkMode
+                                    ? Colors.black
+                                    : XColors.grayColor,
+                              ),
+                              SizedBox(height: 10.h),
+                              KText(desc, size: 40.sp, weight: FontWeight.bold),
+                              SizedBox(height: 50.h),
+                              KLeafButton(
+                                onPressed: () {
+                                  if (Get.isDialogOpen == true) Get.back();
+                                },
+                                color1: isDarkMode
+                                    ? XColors.darkColor
+                                    : Colors.blueGrey[100]!,
+                                color2: isDarkMode
+                                    ? XColors.darkColor2
+                                    : Colors.blueGrey[200]!,
+                                height: 150.h,
+                                width: 350.w,
+                                child: KText(
+                                  "continue",
+                                  font: "Poppins",
+                                  size: 40.sp,
+                                  color: isDarkMode
+                                      ? XColors.darkText
+                                      : XColors.darkColor2,
+                                  weight: FontWeight.bold,
+                                ),
+                                icon: Ionicons.arrow_forward_circle,
+                                iconColor: isDarkMode
+                                    ? XColors.darkText
+                                    : XColors.darkColor2,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    );
+              },
             ),
       ),
       barrierDismissible: false,

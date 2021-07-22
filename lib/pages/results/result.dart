@@ -70,8 +70,8 @@ class _SearchResultsState extends State<SearchResults> {
             ),
             barrierDismissible: false,
           );
-          var pac = await ApiCalls()
-              .getPagePack(query, info, pageNo: pageNo.toString());
+          var pac =
+              await ApiCalls().getPagePack(query, pageNo: pageNo.toString());
 
           setState(() {
             delayed = false;
