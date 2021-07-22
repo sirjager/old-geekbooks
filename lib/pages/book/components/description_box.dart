@@ -2,27 +2,26 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:readmore/readmore.dart';
 
 class DescriptionBox extends ConsumerWidget {
-  const DescriptionBox(this.info, {Key? key, required this.desc})
-      : super(key: key);
+  const DescriptionBox({Key? key, required this.desc}) : super(key: key);
   final String desc;
-  final SizingInformation info;
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final _theme = watch(themeProvider);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
+      margin: EdgeInsets.symmetric(horizontal: 50.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           KText(
             "Description",
-            size: R.f(info, 15),
+            size: 60.sp,
             font: "Poppins",
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
           ),
-          SizedBox(height: R.h(info, 1)),
+          SizedBox(height: 30.h),
           ReadMoreText(
             desc,
             trimLength: 200,
@@ -34,7 +33,7 @@ class DescriptionBox extends ConsumerWidget {
               fontFamily: "Poppins",
               color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
               fontWeight: FontWeight.w400,
-              fontSize: R.f(info, 11),
+              fontSize: 45.sp,
             ),
           ),
         ],

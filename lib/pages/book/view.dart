@@ -32,7 +32,7 @@ class _BookViewState extends State<BookView> {
           drawer: LeftDrawer(),
           body: !delayed
               ? Center(
-                  child: Lottie.asset(MyAssets.books, height: R.w(info, 35),
+                  child: Lottie.asset(MyAssets.books, height: 400.w,
                       onLoaded: (_) {
                     Future.delayed(Duration(seconds: 2)).then((value) {
                       setState(() {
@@ -48,10 +48,7 @@ class _BookViewState extends State<BookView> {
                       SliverPersistentHeader(
                         pinned: true,
                         delegate: BookViewHeader(
-                          info,
-                          book: widget.book,
-                          expandedHeight: R.h(info, 55),
-                        ),
+                            book: widget.book, expandedHeight: 1300.h),
                       ),
                       buildDetailedContent(widget.book, widget.books, context,
                           context.read(themeProvider), info),
@@ -72,13 +69,13 @@ class _BookViewState extends State<BookView> {
           future: Valid.verifyBuke(book),
           builder: (context, AsyncSnapshot<Book> snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
-              return Lottie.asset(MyAssets.bookLoading, height: R.w(info, 35));
+              return Lottie.asset(MyAssets.bookLoading, height: 350.w);
             } else {
               if (snapshot.hasData) {
                 Book _book = snapshot.data!;
-                return buildBookBody(_book, info, theme, books);
+                return buildBookBody(_book, theme, books);
               } else {
-                return buildBookBody(book, info, theme, books);
+                return buildBookBody(book, theme, books);
               }
             }
           },
@@ -87,8 +84,7 @@ class _BookViewState extends State<BookView> {
     );
   }
 
-  Scrollbar buildBookBody(Book book, SizingInformation info,
-      ThemeProvider theme, List<dynamic> books) {
+  Scrollbar buildBookBody(Book book, ThemeProvider theme, List<dynamic> books) {
     return Scrollbar(
       child: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
@@ -100,56 +96,55 @@ class _BookViewState extends State<BookView> {
                     book.desc != "" &&
                     book.desc != "null" &&
                     book.desc != " "
-                ? DescriptionBox(info, desc: book.desc!)
+                ? DescriptionBox(desc: book.desc!)
                 : Container(),
             book.author != null &&
                     book.author != "" &&
                     book.author != "null" &&
                     book.author != " "
-                ? ColumnBox(info, field: "Author", value: book.author!)
+                ? ColumnBox(field: "Author", value: book.author!)
                 : Container(),
             book.series != null &&
                     book.series != "" &&
                     book.series != "null" &&
                     book.series != " "
-                ? ColumnBox(info, field: "Series", value: book.series!)
+                ? ColumnBox(field: "Series", value: book.series!)
                 : Container(),
             book.publisher != null &&
                     book.publisher != "" &&
                     book.publisher != "null" &&
                     book.publisher != " "
-                ? ColumnBox(info, field: "Publisher", value: book.publisher!)
+                ? ColumnBox(field: "Publisher", value: book.publisher!)
                 : Container(),
             book.language != null &&
                     book.language != "" &&
                     book.language != "null" &&
                     book.language != " "
-                ? RowBox(info, field: "Language", value: book.language!)
+                ? RowBox(field: "Language", value: book.language!)
                 : Container(),
             book.edition != null &&
                     book.edition != "" &&
                     book.edition != "null" &&
                     book.edition != " "
-                ? RowBox(info, field: "Edition", value: book.edition!)
+                ? RowBox(field: "Edition", value: book.edition!)
                 : Container(),
             book.year != null &&
                     book.year != "" &&
                     book.year != "null" &&
                     book.year != " "
-                ? RowBox(info, field: "Year", value: book.year!)
+                ? RowBox(field: "Year", value: book.year!)
                 : Container(),
             book.pages != null &&
                     book.pages != "" &&
                     book.pages != "null" &&
                     book.pages != " "
-                ? RowBox(info, field: "Pages", value: book.pages!)
+                ? RowBox(field: "Pages", value: book.pages!)
                 : Container(),
             book.fileSize != null &&
                     book.fileSize != "" &&
                     book.fileSize != "null" &&
                     book.fileSize != " "
                 ? RowBox(
-                    info,
                     field: "Size",
                     value: XMath.convertBytesToMB(book.fileSize) + " MB",
                   )
@@ -158,20 +153,19 @@ class _BookViewState extends State<BookView> {
                     book.exten != "" &&
                     book.exten != "null" &&
                     book.exten != " "
-                ? RowBox(info, field: "Extensions", value: book.exten!)
+                ? RowBox(field: "Extensions", value: book.exten!)
                 : Container(),
             book.md5 != null &&
                     book.md5 != "" &&
                     book.md5 != "null" &&
                     book.md5 != " "
                 ? Container(
-                    margin: EdgeInsets.only(
-                        top: R.h(info, 5), bottom: R.h(info, 5)),
+                    margin: EdgeInsets.symmetric(vertical: 100.h),
                     alignment: Alignment.center,
                     child: KLeafButton(
                       onPressed: () => Get.to(() => RiderProvider(book)),
-                      height: R.w(info, 15),
-                      width: R.w(info, 45),
+                      height: 160.h,
+                      width: 350.w,
                       icon: Ionicons.download_outline,
                       iconColor: theme.isDarkMode
                           ? XColors.grayText1
@@ -180,7 +174,7 @@ class _BookViewState extends State<BookView> {
                         "Get it",
                         font: "MavenPro",
                         weight: FontWeight.bold,
-                        size: R.f(info, 15),
+                        size: 60.sp,
                         color: theme.isDarkMode
                             ? XColors.lightColor1
                             : XColors.lightColor1,
@@ -194,7 +188,7 @@ class _BookViewState extends State<BookView> {
                 : Container(),
             books.length < 2
                 ? Container()
-                : RelatedContent(info, books: books, notIncludeID: book.id),
+                : RelatedContent(books: books, notIncludeID: book.id),
 
             // SizedBox(height: R.h(info, 50)),
           ],

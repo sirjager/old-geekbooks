@@ -3,16 +3,15 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 
 class BookRow extends StatelessWidget {
-  const BookRow(this.info,
-      {Key? key, required this.books, required this.notIncludeID})
+  const BookRow({Key? key, required this.books, required this.notIncludeID})
       : super(key: key);
   final List books;
   final String notIncludeID;
-  final SizingInformation info;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: R.h(info, 29),
+      height: 700.h,
       width: double.infinity,
       child: ListView.builder(
         physics: ClampingScrollPhysics(),
@@ -26,25 +25,23 @@ class BookRow extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  splashColor: Colors.red,
-                  highlightColor: Colors.red,
+                  splashColor: XColors.grayColor,
+                  highlightColor: XColors.grayColor,
                   onTap: () {
                     Get.back();
                     Get.to(BookView(book: book, books: books));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(1),
+                    padding: EdgeInsets.all(10.w),
                     child: Consumer(
                       builder: (context, watch, child) {
                         return Container(
-                          margin: const EdgeInsets.all(pad / 2),
+                          margin: EdgeInsets.all(20.w),
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              width: pad,
-                              color: Colors.black,
-                            ),
+                            border:
+                                Border.all(width: 30.w, color: Colors.black),
                           ),
-                          width: R.w(info, 37),
+                          width: 350.w,
                           child: KImage(
                             fit: BoxFit.fill,
                             imageURL: book.coverURL,

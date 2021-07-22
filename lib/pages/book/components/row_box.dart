@@ -4,9 +4,8 @@ import 'package:geeklibrary/export/export.dart';
 class RowBox extends ConsumerWidget {
   final String field;
   final String value;
-  final SizingInformation info;
 
-  RowBox(this.info, {required this.value, required this.field});
+  RowBox({required this.value, required this.field});
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -20,17 +19,17 @@ class RowBox extends ConsumerWidget {
         children: [
           KText(
             field,
-            size: R.f(info, 15),
+            size: 60.sp,
             font: "Poppins",
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
           ),
-          SizedBox(width: pad),
+          SizedBox(width: 30.w),
           KText(
             value,
             font: "Poppins",
             color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
-            size: R.f(info, 12),
+            size: 50.sp,
             maxLines: 3,
             textAlign: TextAlign.right,
             weight: FontWeight.w400,
