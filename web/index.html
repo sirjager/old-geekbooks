@@ -27,9 +27,36 @@
     <link rel="manifest" href="manifest.json" />
   </head>
   <body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyCa9axyT5E1H59kYIccvRskqL9GxgZeaSo",
+        authDomain: "appstonight-0318.firebaseapp.com",
+        databaseURL:
+          "https://appstonight-0318-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "appstonight-0318",
+        storageBucket: "appstonight-0318.appspot.com",
+        messagingSenderId: "247840151513",
+        appId: "1:247840151513:web:e6ab08c1abc56f1d21ebc8",
+        measurementId: "G-YR91181VPN",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
     <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+
     <script>
       var serviceWorkerVersion = null;
       var scriptLoaded = false;

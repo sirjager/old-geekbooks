@@ -9,59 +9,56 @@ class WelcomeScreen extends StatelessWidget {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          body: Container(
-            alignment: Alignment.center,
-            child: Consumer(
-              builder: (context, watch, child) {
-                var theme = watch(themeProvider);
-                return Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Opacity(
-                        opacity: 0.3,
-                        child: Image.asset(
-                          "assets/images/shapes/main_top.png",
-                          width: R.w(info, 50),
-                          color: theme.isDarkMode ? Colors.white30 : null,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
+          body: Consumer(
+            builder: (context, watch, child) {
+              var theme = watch(themeProvider);
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Opacity(
+                      opacity: 0.3,
                       child: Image.asset(
-                        "assets/images/shapes/main_bottom.png",
-                        width: R.w(info, 30),
-                        color: theme.isDarkMode ? Colors.white12 : null,
+                        "assets/images/shapes/main_top.png",
+                        width: R.w(info, 50),
+                        color: theme.isDarkMode ? Colors.white30 : null,
                       ),
                     ),
-                    Positioned(
-                      bottom: R.h(info, 28),
-                      left: R.w(info, 1),
-                      child: Container(
-                        height: R.w(info, 40),
-                        width: R.w(info, 40),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.indigo.withOpacity(0.1),
-                              Colors.blueAccent.withOpacity(0.1),
-                            ],
-                          ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Image.asset(
+                      "assets/images/shapes/main_bottom.png",
+                      width: R.w(info, 30),
+                      color: theme.isDarkMode ? Colors.white12 : null,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: R.h(info, 28),
+                    left: R.w(info, 1),
+                    child: Container(
+                      height: R.w(info, 40),
+                      width: R.w(info, 40),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.indigo.withOpacity(0.1),
+                            Colors.blueAccent.withOpacity(0.1),
+                          ],
                         ),
                       ),
                     ),
-                    buildBody(info),
-                  ],
-                );
-              },
-            ),
+                  ),
+                  buildBody(info),
+                ],
+              );
+            },
           ),
         );
       },
@@ -70,7 +67,6 @@ class WelcomeScreen extends StatelessWidget {
 
   Container buildBody(SizingInformation info) {
     return Container(
-      margin: EdgeInsets.only(top: R.appbarHeight),
       alignment: Alignment.center,
       child: Consumer(
         builder: (context, watch, child) {
@@ -80,7 +76,11 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               Container(
                 height: R.h(info, 5),
-                margin: EdgeInsets.symmetric(horizontal: R.w(info, 4)),
+                margin: EdgeInsets.only(
+                  right: R.w(info, 4),
+                  left: R.w(info, 4),
+                  top: R.appbarHeight,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -118,127 +118,114 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/png/library.png",
-                        filterQuality: FilterQuality.high,
-                        width: R.w(info, 90),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                KText(
-                                  "GeekLibrary",
-                                  font: "MavenPro",
-                                  size: R.f(info, 35),
-                                  weight: FontWeight.bold,
-                                  color: theme.isDarkMode
-                                      ? XColors.darkGray
-                                      : XColors.darkColor.withOpacity(0.85),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: R.h(info, 1)),
-                            KText(
-                              "Free and Open Libgen Search Engine",
-                              size: R.f(info, 15),
-                              weight: FontWeight.w300,
-                              height: R.h(info, 0.135),
-                              color: theme.isDarkMode
-                                  ? XColors.darkGray
-                                  : XColors.darkColor.withOpacity(0.85),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Image.asset(
+                  "assets/images/png/library.png",
+                  filterQuality: FilterQuality.high,
                 ),
               ),
               Container(
+                margin: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: R.h(info, 5)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          KClickable(
-                            width: R.w(info, 80),
-                            onPressed: () =>
-                                Future.delayed(Duration(milliseconds: 150))
-                                    .then((value) => Get.offAll(
-                                        () => Dashboard(),
-                                        transition: Transition.fade)),
-                            child: KText(
-                              "Tutorial",
-                              weight: FontWeight.bold,
-                              color: theme.isDarkMode
-                                  ? XColors.darkColor
-                                  : Colors.white,
-                            ),
-                            topDeco: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  XColors.grayColor,
-                                  XColors.darkGray,
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            bottomDeco: BoxDecoration(
-                              color: theme.isDarkMode
-                                  ? XColors.darkColor2
-                                  : XColors.darkColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ],
+                    Row(
+                      children: [
+                        KText(
+                          "GeekLibrary",
+                          font: "MavenPro",
+                          size: R.w(info, 10),
+                          weight: FontWeight.bold,
+                          color: theme.isDarkMode
+                              ? XColors.darkGray
+                              : XColors.darkColor.withOpacity(0.85),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: R.h(info, 1)),
+                    KText(
+                      "Free and Open Libgen Search Engine",
+                      size: R.w(info, 5),
+                      weight: FontWeight.w300,
+                      height: R.h(info, 0.135),
+                      color: theme.isDarkMode
+                          ? XColors.darkGray
+                          : XColors.darkColor.withOpacity(0.85),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  top: R.h(info, 2),
+                  left: R.w(info, 5),
+                  right: R.w(info, 5),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    KClickable(
+                      width: R.w(info, 65),
+                      onPressed: () =>
+                          Future.delayed(Duration(milliseconds: 150)).then(
+                              (value) => Get.offAll(() => Dashboard(),
+                                  transition: Transition.fade)),
+                      child: KText(
+                        "Tutorial",
+                        weight: FontWeight.bold,
+                        color:
+                            theme.isDarkMode ? XColors.darkColor : Colors.white,
+                      ),
+                      topDeco: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            XColors.grayColor,
+                            XColors.darkGray,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      bottomDeco: BoxDecoration(
+                        color: theme.isDarkMode
+                            ? XColors.darkColor2
+                            : XColors.darkColor,
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: R.h(info, 2),
-                        bottom: R.h(info, 5),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  top: R.h(info, 2),
+                  bottom: R.h(info, 5),
+                  left: R.w(info, 5),
+                  right: R.w(info, 5),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    KClickable(
+                      width: R.w(info, 65),
+                      onPressed: () =>
+                          Future.delayed(Duration(milliseconds: 150)).then(
+                              (value) => Get.offAll(() => Dashboard(),
+                                  transition: Transition.fade)),
+                      child: KText(
+                        "Home",
+                        weight: FontWeight.bold,
+                        color: XColors.grayColor,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          KClickable(
-                            width: R.w(info, 80),
-                            onPressed: () =>
-                                Future.delayed(Duration(milliseconds: 150))
-                                    .then((value) => Get.offAll(
-                                        () => Dashboard(),
-                                        transition: Transition.fade)),
-                            child: KText(
-                              "Home",
-                              weight: FontWeight.bold,
-                              color: XColors.grayColor,
-                            ),
-                            topDeco: BoxDecoration(
-                              color: theme.isDarkMode
-                                  ? XColors.darkColor
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            bottomDeco: BoxDecoration(
-                              border: Border.all(
-                                color: XColors.grayColor,
-                                width: R.w(info, 1),
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ],
+                      topDeco: BoxDecoration(
+                        color:
+                            theme.isDarkMode ? XColors.darkColor : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      bottomDeco: BoxDecoration(
+                        border: Border.all(
+                          color: XColors.grayColor,
+                          width: R.w(info, 1),
+                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ],

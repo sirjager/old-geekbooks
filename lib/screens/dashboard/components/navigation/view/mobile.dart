@@ -18,6 +18,7 @@ class NavigationMobile extends ConsumerWidget {
               highlightColor: Colors.transparent,
               onTap: () => context.read(navigationProvider).changeTo(e.index),
               child: Container(
+                color: Colors.red,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: R.h(info, 2),
@@ -40,15 +41,13 @@ class NavigationMobile extends ConsumerWidget {
         .toList();
 
     return Container(
+      color: Colors.yellow,
       height: R.h(info, 7),
-      width: double.infinity,
-      child: SingleChildScrollView(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: children,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: children,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:geeklibrary/ads/adprovider.dart';
@@ -24,10 +25,13 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(
-    Phoenix(
-      child: ProviderScope(
-        overrides: [adStateProvider.overrideWithValue(adState)],
-        child: MyApp(),
+    DevicePreview(
+      enabled: true,
+      builder: (context) => Phoenix(
+        child: ProviderScope(
+          overrides: [adStateProvider.overrideWithValue(adState)],
+          child: MyApp(),
+        ),
       ),
     ),
   );

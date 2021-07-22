@@ -21,42 +21,44 @@ class Settingspage extends StatelessWidget {
             children: [
               Titlebar(info),
               AppTitle(info, title: "Settings"),
-              Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: R.w(info, 5), vertical: R.h(info, 1)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildTile("Offline", EvaIcons.downloadOutline),
-                    buildTile("Feedback", LineIcons.sms),
-                    buildTile("App Info", EvaIcons.infoOutline),
-                    buildTile("Contact Us", EvaIcons.peopleOutline),
-                    buildTile("Report Bug", Ionicons.bug_outline),
-                    buildTile(
-                        "Help Center", EvaIcons.questionMarkCircleOutline),
-                    buildTile("Share App", EvaIcons.shareOutline),
-                    buildTile("Privacy Policy", EvaIcons.fileOutline),
-                  ],
-                ),
-              ),
-              Spacer(),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Consumer(
-                      builder: (context, watch, child) {
-                        bool isDarkMode = watch(themeProvider).isDarkMode;
-                        return KText(
-                          "App version : v1.0",
-                          size: R.f(info, 11),
-                          color: isDarkMode
-                              ? XColors.grayColor.withOpacity(0.7)
-                              : XColors.darkColor.withOpacity(0.5),
-                        );
-                      },
-                    )
-                  ],
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: R.w(info, 3)),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        buildTile("Offline", EvaIcons.downloadOutline),
+                        buildTile("Feedback", LineIcons.sms),
+                        buildTile("App Info", EvaIcons.infoOutline),
+                        buildTile("Contact Us", EvaIcons.peopleOutline),
+                        buildTile("Report Bug", Ionicons.bug_outline),
+                        buildTile(
+                            "Help Center", EvaIcons.questionMarkCircleOutline),
+                        buildTile("Share App", EvaIcons.shareOutline),
+                        buildTile("Privacy Policy", EvaIcons.fileOutline),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Consumer(
+                                builder: (context, watch, child) {
+                                  bool isDarkMode =
+                                      watch(themeProvider).isDarkMode;
+                                  return KText(
+                                    "App version : v1.0",
+                                    size: R.f(info, 11),
+                                    color: isDarkMode
+                                        ? XColors.grayColor.withOpacity(0.7)
+                                        : XColors.darkColor.withOpacity(0.5),
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
