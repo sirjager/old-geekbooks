@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geeklibrary/ads/adprovider.dart';
 import 'package:geeklibrary/ads/adstate.dart';
 import 'package:geeklibrary/core/theme/themeData.dart';
@@ -43,13 +44,16 @@ class MyApp extends ConsumerWidget {
     bool isDarkMode = watch(themeProvider).isDarkMode;
     SystemChrome.setSystemUIOverlayStyle(
         isDarkMode ? AppTheme.systemUiDark : AppTheme.systemUiLight);
-    return GetMaterialApp(
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      debugShowCheckedModeBanner: false,
-      darkTheme: AppTheme.themeDark,
-      theme: AppTheme.themeLight,
-      title: 'GeekLibrary',
-      home: WelcomeScreen(),
+    return ScreenUtilInit(
+      designSize: Size(1080, 2340),
+      builder: () => GetMaterialApp(
+        themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        debugShowCheckedModeBanner: false,
+        darkTheme: AppTheme.themeDark,
+        theme: AppTheme.themeLight,
+        title: 'GeekLibrary',
+        home: WelcomeScreen(),
+      ),
     );
   }
 }

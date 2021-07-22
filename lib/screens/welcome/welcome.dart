@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
                       opacity: 0.3,
                       child: Image.asset(
                         "assets/images/shapes/main_top.png",
-                        width: R.w(info, 50),
+                        width: 350.w,
                         color: theme.isDarkMode ? Colors.white30 : null,
                       ),
                     ),
@@ -32,16 +32,16 @@ class WelcomeScreen extends StatelessWidget {
                     left: 0,
                     child: Image.asset(
                       "assets/images/shapes/main_bottom.png",
-                      width: R.w(info, 30),
+                      width: 350.w,
                       color: theme.isDarkMode ? Colors.white12 : null,
                     ),
                   ),
                   Positioned(
-                    bottom: R.h(info, 28),
-                    left: R.w(info, 1),
+                    bottom: 350.h,
+                    left: 20.w,
                     child: Container(
-                      height: R.w(info, 40),
-                      width: R.w(info, 40),
+                      height: 300.w,
+                      width: 300.w,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
@@ -75,18 +75,18 @@ class WelcomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: R.h(info, 5),
+                height: 200.h,
                 margin: EdgeInsets.only(
-                  right: R.w(info, 4),
-                  left: R.w(info, 4),
-                  top: R.appbarHeight,
+                  right: 50.w,
+                  left: 50.w,
+                  top: 50.h,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      height: R.w(info, 10),
-                      width: R.w(info, 10),
+                      height: 150.w,
+                      width: 150.w,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
@@ -99,7 +99,7 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(R.w(info, 50)),
+                        borderRadius: BorderRadius.circular(200.w),
                         onTap: () => theme.setMode(!theme.isDarkMode),
                         child: Shimmer.fromColors(
                           period: Duration(seconds: 5),
@@ -117,14 +117,13 @@ class WelcomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Image.asset(
-                  "assets/images/png/library.png",
-                  filterQuality: FilterQuality.high,
-                ),
+              Image.asset(
+                "assets/images/png/library.png",
+                filterQuality: FilterQuality.high,
+                width: 900.w,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
+                margin: EdgeInsets.symmetric(horizontal: 50.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -133,7 +132,7 @@ class WelcomeScreen extends StatelessWidget {
                         KText(
                           "GeekLibrary",
                           font: "MavenPro",
-                          size: R.w(info, 10),
+                          size: 170.sp,
                           weight: FontWeight.bold,
                           color: theme.isDarkMode
                               ? XColors.darkGray
@@ -141,12 +140,11 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: R.h(info, 1)),
+                    SizedBox(height: 50.h),
                     KText(
                       "Free and Open Libgen Search Engine",
-                      size: R.w(info, 5),
+                      size: 70.sp,
                       weight: FontWeight.w300,
-                      height: R.h(info, 0.135),
                       color: theme.isDarkMode
                           ? XColors.darkGray
                           : XColors.darkColor.withOpacity(0.85),
@@ -155,16 +153,13 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(
-                  top: R.h(info, 2),
-                  left: R.w(info, 5),
-                  right: R.w(info, 5),
-                ),
+                margin: EdgeInsets.only(top: 50.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     KClickable(
-                      width: R.w(info, 65),
+                      height: 200.h,
+                      width: 800.w,
                       onPressed: () =>
                           Future.delayed(Duration(milliseconds: 150)).then(
                               (value) => Get.offAll(() => Dashboard(),
@@ -195,17 +190,13 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(
-                  top: R.h(info, 2),
-                  bottom: R.h(info, 5),
-                  left: R.w(info, 5),
-                  right: R.w(info, 5),
-                ),
+                margin: EdgeInsets.only(top: 10.h, bottom: 100.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     KClickable(
-                      width: R.w(info, 65),
+                      height: 200.h,
+                      width: 800.w,
                       onPressed: () =>
                           Future.delayed(Duration(milliseconds: 150)).then(
                               (value) => Get.offAll(() => Dashboard(),
@@ -221,10 +212,8 @@ class WelcomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       bottomDeco: BoxDecoration(
-                        border: Border.all(
-                          color: XColors.grayColor,
-                          width: R.w(info, 1),
-                        ),
+                        border:
+                            Border.all(color: XColors.grayColor, width: 15.w),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),

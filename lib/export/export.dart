@@ -5,6 +5,7 @@ export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
 
 //! Responsive Ui Kit
+export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:geeklibrary/core/responsive/builder/responsive_builder.dart';
 export 'package:geeklibrary/core/responsive/size/responsive_size.dart';
 export 'package:geeklibrary/core/responsive/info/sizing_info.dart';
@@ -44,7 +45,6 @@ export 'package:geeklibrary/models/book/book.dart';
 //! Dashboard
 export 'package:geeklibrary/core/responsive/builder/orientation_layout.dart';
 export 'package:geeklibrary/core/responsive/layout/screen_layout.dart';
-export 'package:geeklibrary/screens/dashboard/view/mobile.dart';
 
 // Components
 export 'package:geeklibrary/pages/home/components/search/search_options.dart';
