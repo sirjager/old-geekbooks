@@ -2,9 +2,8 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/page/page.dart';
 
 class PageStrip extends ConsumerWidget {
-  const PageStrip(this.info, {Key? key, required this.page}) : super(key: key);
+  const PageStrip({Key? key, required this.page}) : super(key: key);
   final PageInfo? page;
-  final SizingInformation info;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -13,8 +12,8 @@ class PageStrip extends ConsumerWidget {
       return Container();
     } else {
       return Container(
-        height: R.h(info, 2),
-        padding: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
+        height: 40.h,
+        padding: EdgeInsets.symmetric(horizontal: 40.w),
         alignment: Alignment.center,
         color: isDarkMode ? XColors.darkColor2 : XColors.darkGray,
         child: Row(
@@ -27,13 +26,13 @@ class PageStrip extends ConsumerWidget {
                   children: [
                     KText(
                       page!.totalFiles.toString(),
-                      size: R.f(info, 9),
+                      size: 35.sp,
                       weight: FontWeight.bold,
                       color: isDarkMode ? XColors.grayColor : Colors.black,
                     ),
                     KText(
                       "Results Found",
-                      size: R.f(info, 9),
+                      size: 35.sp,
                       weight: FontWeight.bold,
                       color: isDarkMode ? XColors.grayColor : Colors.black,
                     ),
@@ -42,7 +41,7 @@ class PageStrip extends ConsumerWidget {
               ),
             ),
             VerticalDivider(
-              thickness: 1,
+              thickness: 5.w,
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
             Row(
@@ -50,20 +49,20 @@ class PageStrip extends ConsumerWidget {
               children: [
                 KText(
                   "Page ",
-                  size: R.f(info, 9),
+                  size: 35.sp,
                   weight: FontWeight.bold,
                   color: isDarkMode ? XColors.grayColor : Colors.black,
                 ),
                 KText(
                   page!.currentPage.toString(),
-                  size: R.f(info, 9),
+                  size: 35.sp,
                   weight: FontWeight.bold,
                   color: isDarkMode ? XColors.grayColor : Colors.black,
                 ),
               ],
             ),
             VerticalDivider(
-              thickness: 1,
+              thickness: 5.w,
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
             Expanded(
@@ -72,25 +71,25 @@ class PageStrip extends ConsumerWidget {
                 children: [
                   KText(
                     "Showing from ",
-                    size: R.f(info, 9),
+                    size: 35.sp,
                     weight: FontWeight.bold,
                     color: isDarkMode ? XColors.grayColor : Colors.black,
                   ),
                   KText(
                     page!.showingResultsFrom.toString(),
-                    size: R.f(info, 9),
+                    size: 35.sp,
                     weight: FontWeight.bold,
                     color: isDarkMode ? XColors.grayColor : Colors.black,
                   ),
                   KText(
                     "-",
-                    size: R.f(info, 9),
+                    size: 35.sp,
                     weight: FontWeight.bold,
                     color: isDarkMode ? XColors.grayColor : Colors.black,
                   ),
                   KText(
                     page!.showingResultsTo.toString(),
-                    size: R.f(info, 9),
+                    size: 35.sp,
                     weight: FontWeight.bold,
                     color: isDarkMode ? XColors.grayColor : Colors.black,
                   ),

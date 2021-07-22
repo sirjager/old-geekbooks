@@ -18,7 +18,7 @@ class ZoomView extends StatelessWidget {
             padding: EdgeInsets.only(top: R.statusbarHeight(info)),
             child: Column(
               children: [
-                PageHeader(info, title: "Go Back"),
+                ResultHeader(title: "Go Back"),
                 Expanded(
                   child: Hero(
                     tag: tag,

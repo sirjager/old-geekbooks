@@ -77,7 +77,7 @@ class SabedOfflineState extends State<SabedOffline> {
                     alignment: Alignment.center,
                     child: Column(
                       children: [
-                        PageHeader(info, title: "Saved Books"),
+                        ResultHeader(title: "Saved Books"),
                         FeatureStrip(info),
                         Expanded(
                           child: Container(

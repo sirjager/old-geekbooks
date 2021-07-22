@@ -52,7 +52,7 @@ class _RiderProviderState extends State<RiderProvider> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        child: PageHeader(info, title: "Go Back"),
+                        child: ResultHeader(title: "Go Back"),
                       ),
                       Container(
                         child: SingleChildScrollView(

@@ -101,7 +101,7 @@ class _SearchResultsState extends State<SearchResults> {
           drawer: LeftDrawer(info),
           body: !delayed
               ? Center(
-                  child: Lottie.asset(MyAssets.books, height: R.w(info, 35),
+                  child: Lottie.asset(MyAssets.books, height: 350.w,
                       onLoaded: (_) {
                     Future.delayed(Duration(seconds: 2)).then((value) {
                       setState(() {
@@ -115,8 +115,8 @@ class _SearchResultsState extends State<SearchResults> {
                   alignment: Alignment.center,
                   child: Column(
                     children: [
-                      PageHeader(info, title: query),
-                      PageStrip(info, page: pageInfo),
+                      ResultHeader(title: query),
+                      PageStrip(page: pageInfo),
                       FeatureStrip(info),
                       Expanded(
                         child: Container(
@@ -126,9 +126,9 @@ class _SearchResultsState extends State<SearchResults> {
                                     var view = watch(gridViewProvider);
                                     var scroll = watch(scrollProvider).scroll;
                                     return RawScrollbar(
-                                      thickness: pad * 0.75,
+                                      thickness: 30.w,
                                       thumbColor: Colors.black54,
-                                      radius: Radius.circular(20),
+                                      radius: Radius.circular(20.w),
                                       controller: scroll,
                                       child: Container(
                                         alignment: Alignment.center,
