@@ -1,6 +1,7 @@
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
+import 'package:geeklibrary/screens/dashboard/components/navigation/view/mobile.dart';
 
 class Dashboard extends ConsumerWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class Dashboard extends ConsumerWidget {
                   ],
                 ),
               ),
-              NavigationLayout(info),
+              Navigationbar(),
             ],
           ),
         );

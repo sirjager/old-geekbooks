@@ -44,17 +44,17 @@ class SearchOptions extends ConsumerWidget {
               (item) {
                 bool isSelected = searchOption.selected.index == item.index;
                 return Container(
-                  padding: EdgeInsets.all(15.w),
+                  padding: EdgeInsets.all(10.w),
                   child: KClickable(
                     isPressed: isSelected,
                     height: 130.h,
-                    width: 210.w,
+                    width: 230.w,
                     onPressed: () => updateFilter(item.index, searchOption),
                     child: KText(
                       item.title.toString(),
                       font: "MavenPro",
                       letterSpacing: 1,
-                      size: 40.sp,
+                      size: 38.sp,
                       color: isSelected ? XColors.darkText : XColors.grayText,
                       weight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     ),

@@ -1,8 +1,8 @@
 import 'package:geeklibrary/export/export.dart';
 
-class NavigationMobile extends ConsumerWidget {
-  const NavigationMobile(this.info, {Key? key}) : super(key: key);
-  final SizingInformation info;
+class Navigationbar extends ConsumerWidget {
+  const Navigationbar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     watch(navigationProvider);
@@ -18,31 +18,26 @@ class NavigationMobile extends ConsumerWidget {
               highlightColor: Colors.transparent,
               onTap: () => context.read(navigationProvider).changeTo(e.index),
               child: Container(
-                color: Colors.red,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: R.h(info, 2),
-                    horizontal: R.w(info, 4),
-                  ),
-                  child: Icon(
-                    e.icon,
-                    color: context.read(navigationProvider).current == e.index
-                        ? Theme.of(context).primaryColor
-                        : _theme.isDarkMode
-                            ? Colors.white38
-                            : Colors.black38,
-                    size: context.read(navigationProvider).current == e.index
-                        ? R.w(info, 7)
-                        : R.w(info, 5),
-                  ),
+                margin: EdgeInsets.all(2.w),
+                padding: EdgeInsets.symmetric(vertical: 50.w, horizontal: 50.w),
+                child: Icon(
+                  e.icon,
+                  color: context.read(navigationProvider).current == e.index
+                      ? Theme.of(context).primaryColor
+                      : _theme.isDarkMode
+                          ? Colors.white38
+                          : Colors.black38,
+                  size: context.read(navigationProvider).current == e.index
+                      ? 80.w
+                      : 60.w,
                 ),
               ),
             ))
         .toList();
 
     return Container(
-      color: Colors.yellow,
-      height: R.h(info, 7),
+      height: 180.h,
+      margin: EdgeInsets.symmetric(vertical: 5.h),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

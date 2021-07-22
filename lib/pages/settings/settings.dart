@@ -15,50 +15,18 @@ class Settingspage extends StatelessWidget {
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ScreenTopbar(),
               ScreenTitlebar(title: "Settings"),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: R.w(info, 3)),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        buildTile("Offline", EvaIcons.downloadOutline),
-                        buildTile("Feedback", LineIcons.sms),
-                        buildTile("App Info", EvaIcons.infoOutline),
-                        buildTile("Contact Us", EvaIcons.peopleOutline),
-                        buildTile("Report Bug", Ionicons.bug_outline),
-                        buildTile(
-                            "Help Center", EvaIcons.questionMarkCircleOutline),
-                        buildTile("Share App", EvaIcons.shareOutline),
-                        buildTile("Privacy Policy", EvaIcons.fileOutline),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Consumer(
-                                builder: (context, watch, child) {
-                                  bool isDarkMode =
-                                      watch(themeProvider).isDarkMode;
-                                  return KText(
-                                    "App version : v1.0",
-                                    size: R.f(info, 11),
-                                    color: isDarkMode
-                                        ? XColors.grayColor.withOpacity(0.7)
-                                        : XColors.darkColor.withOpacity(0.5),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(height: 50.h),
+              buildTile("Offline", EvaIcons.downloadOutline),
+              buildTile("Feedback", LineIcons.sms),
+              buildTile("App Info", EvaIcons.infoOutline),
+              buildTile("Contact Us", EvaIcons.peopleOutline),
+              buildTile("Report Bug", Ionicons.bug_outline),
+              buildTile("Help Center", EvaIcons.questionMarkCircleOutline),
+              buildTile("Share App", EvaIcons.shareOutline),
+              buildTile("Privacy Policy", EvaIcons.fileOutline),
             ],
           ),
         ),
@@ -79,22 +47,22 @@ class Settingspage extends StatelessWidget {
                 left: 0,
                 child: Image.asset(
                   "assets/images/shapes/main_top.png",
-                  width: R.w(info, 45),
+                  width: 500.w,
                   color: isDarkMode
                       ? Colors.white.withOpacity(0.07)
                       : Colors.red.withOpacity(0.1),
                 ),
               ),
               AnimatedPositioned(
-                bottom: isDarkMode ? 0 : R.h(info, 65),
-                left: isDarkMode ? 0 : R.w(info, 75),
+                bottom: isDarkMode ? 0 : 1800.h,
+                left: isDarkMode ? 0 : 800.w,
                 curve: Curves.fastOutSlowIn,
                 duration: Duration(seconds: 3),
                 child: AnimatedContainer(
                   curve: Curves.fastOutSlowIn,
                   duration: Duration(seconds: 2),
-                  height: isDarkMode ? R.w(info, 25) : R.w(info, 30),
-                  width: isDarkMode ? R.w(info, 25) : R.w(info, 30),
+                  height: isDarkMode ? 350.w : 400.w,
+                  width: isDarkMode ? 350.w : 400.w,
                   decoration: BoxDecoration(
                     color: isDarkMode
                         ? Colors.white.withOpacity(0.05)
@@ -113,32 +81,36 @@ class Settingspage extends StatelessWidget {
   Widget buildTile(String title, IconData icon) {
     return InkWell(
       onTap: () {},
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        padding: EdgeInsets.all(R.w(info, 4)),
-        width: R.w(info, 75),
-        child: Consumer(
-          builder: (context, watch, child) {
-            var isDarkMode = watch(themeProvider).isDarkMode;
-            return Row(
-              children: [
-                Icon(
-                  icon,
-                  size: R.f(info, 20),
-                  color: isDarkMode ? XColors.grayColor : Color(0xff555555),
-                ),
-                SizedBox(width: R.w(info, 7)),
-                KText(
-                  title,
-                  font: "Nunito",
-                  size: R.f(info, 15),
-                  weight: FontWeight.w400,
-                  color: isDarkMode ? XColors.grayColor : Color(0xff555555),
-                ),
-              ],
-            );
-          },
-        ),
+      borderRadius: BorderRadius.circular(20.w),
+      child: Row(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 50.w),
+            padding: EdgeInsets.all(45.w),
+            child: Consumer(
+              builder: (context, watch, child) {
+                var isDarkMode = watch(themeProvider).isDarkMode;
+                return Row(
+                  children: [
+                    Icon(
+                      icon,
+                      size: 80.sp,
+                      color: isDarkMode ? XColors.grayColor : Color(0xff555555),
+                    ),
+                    SizedBox(width: 50.w),
+                    KText(
+                      title,
+                      font: "Nunito",
+                      size: 60.sp,
+                      weight: FontWeight.w400,
+                      color: isDarkMode ? XColors.grayColor : Color(0xff555555),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
