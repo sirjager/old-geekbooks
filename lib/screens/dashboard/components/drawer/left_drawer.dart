@@ -4,14 +4,13 @@ import 'package:geeklibrary/screens/dashboard/components/drawer/provider/dmi_pro
 import 'package:geeklibrary/widgets/kswitches/kroll_switch.dart';
 
 class LeftDrawer extends ConsumerWidget {
-  LeftDrawer(this.info, {Key? key}) : super(key: key);
-  final SizingInformation info;
+  LeftDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     var theme = watch(themeProvider);
     return Container(
-      width: R.w(info, 65),
+      width: 700.w,
       height: double.infinity,
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Container(
@@ -20,7 +19,7 @@ class LeftDrawer extends ConsumerWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.only(top: R.statusbarHeight(info)),
+                padding: EdgeInsets.only(top: ScreenUtil().statusBarHeight),
                 color: theme.isDarkMode
                     ? XColors.darkColor1
                     : Theme.of(context).scaffoldBackgroundColor,
@@ -28,12 +27,9 @@ class LeftDrawer extends ConsumerWidget {
                 child: Column(
                   children: [
                     Container(
-                      height: R.h(info, 5),
-                      margin: EdgeInsets.only(
-                        left: R.w(info, 5),
-                        right: R.w(info, 5),
-                        top: R.h(info, 1.2),
-                      ),
+                      height: 150.h,
+                      margin:
+                          EdgeInsets.only(left: 50.w, right: 50.w, top: 30.h),
                       child: Row(
                         children: [
                           Material(
@@ -41,7 +37,7 @@ class LeftDrawer extends ConsumerWidget {
                             child: IconButton(
                               splashColor: Colors.transparent,
                               onPressed: () => Get.back(),
-                              iconSize: R.w(info, 6),
+                              iconSize: 100.sp,
                               icon: Icon(Ionicons.logo_xbox),
                               color: theme.isDarkMode
                                   ? XColors.grayText
@@ -57,7 +53,7 @@ class LeftDrawer extends ConsumerWidget {
                         child: KText(
                           "GeekLibrary",
                           font: "MavenPro",
-                          size: R.f(info, 25),
+                          size: 100.sp,
                           weight: FontWeight.bold,
                         ),
                       ),
@@ -70,11 +66,7 @@ class LeftDrawer extends ConsumerWidget {
               flex: 8,
               child: Container(
                 child: Column(
-                  children: KDMI.items
-                      .map(
-                        (i) => builTile(i),
-                      )
-                      .toList(),
+                  children: KDMI.items.map((i) => builTile(i)).toList(),
                 ),
               ),
             ),
@@ -82,20 +74,20 @@ class LeftDrawer extends ConsumerWidget {
               flex: 1,
               child: Container(
                 padding: EdgeInsets.only(
-                  bottom: R.w(info, 5),
-                  left: R.w(info, 2),
-                  right: R.w(info, 2),
+                  bottom: 50.h,
+                  left: 30.w,
+                  right: 30.w,
                 ),
                 alignment: Alignment.center,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: R.w(info, 2)),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: KText(
                         "Dark Mode",
                         font: "Nunito",
-                        size: R.f(info, 18),
+                        size: 80.sp,
                         weight: FontWeight.bold,
                       ),
                     ),
@@ -145,10 +137,11 @@ class LeftDrawer extends ConsumerWidget {
                   : selected
                       ? XColors.darkColor
                       : XColors.grayColor,
+              size: 65.sp,
             ),
             trailing: Icon(
               item.icon,
-              size: R.f(info, 20),
+              size: 80.sp,
               color: isDark
                   ? selected
                       ? XColors.darkColor

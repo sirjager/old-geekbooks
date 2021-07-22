@@ -33,7 +33,7 @@ class _RiderProviderState extends State<RiderProvider> {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          drawer: LeftDrawer(info),
+          drawer: LeftDrawer(),
           body: !delayed
               ? Center(
                   child: Lottie.asset(MyAssets.books, height: R.w(info, 35),

@@ -1,4 +1,3 @@
-import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:geeklibrary/screens/dashboard/components/navigation/navbar.dart';
@@ -15,7 +14,7 @@ class Dashboard extends ConsumerWidget {
       builder: (context, info) {
         return Scaffold(
           key: drawer.scaffoldKey,
-          drawer: LeftDrawer(info),
+          drawer: LeftDrawer(),
           resizeToAvoidBottomInset: false,
           body: Column(
             children: [

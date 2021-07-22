@@ -53,8 +53,11 @@ class _SearchResultsState extends State<SearchResults> {
     super.dispose();
   }
 
-  Future<void> update(BuildContext context, String query, String pageNo,
-      SizingInformation info) async {
+  Future<void> update(
+    BuildContext context,
+    String query,
+    String pageNo,
+  ) async {
     _jumper.clear();
     if (query.length > 0) {
       bool isint = isInt(pageNo);
@@ -66,7 +69,7 @@ class _SearchResultsState extends State<SearchResults> {
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24)),
-              child: Lottie.asset(MyAssets.books, height: R.w(info, 35)),
+              child: Lottie.asset(MyAssets.books, height: 300.w),
             ),
             barrierDismissible: false,
           );
@@ -98,7 +101,7 @@ class _SearchResultsState extends State<SearchResults> {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          drawer: LeftDrawer(info),
+          drawer: LeftDrawer(),
           body: !delayed
               ? Center(
                   child: Lottie.asset(MyAssets.books, height: 350.w,
@@ -111,13 +114,13 @@ class _SearchResultsState extends State<SearchResults> {
                   }),
                 )
               : Container(
-                  padding: EdgeInsets.only(top: R.statusbarHeight(info)),
+                  margin: EdgeInsets.only(top: 90.h),
                   alignment: Alignment.center,
                   child: Column(
                     children: [
                       ResultHeader(title: query),
                       PageStrip(page: pageInfo),
-                      FeatureStrip(info),
+                      FeatureStrip(),
                       Expanded(
                         child: Container(
                           child: _books.length > 0
@@ -125,9 +128,12 @@ class _SearchResultsState extends State<SearchResults> {
                                   builder: (context, watch, child) {
                                     var view = watch(gridViewProvider);
                                     var scroll = watch(scrollProvider).scroll;
+                                    var theme = watch(themeProvider);
                                     return RawScrollbar(
                                       thickness: 30.w,
-                                      thumbColor: Colors.black54,
+                                      thumbColor: theme.isDarkMode
+                                          ? XColors.grayColor
+                                          : XColors.darkColor,
                                       radius: Radius.circular(20.w),
                                       controller: scroll,
                                       child: Container(
@@ -151,13 +157,12 @@ class _SearchResultsState extends State<SearchResults> {
                                                         int index) {
                                                   var book = _books[index];
                                                   return BookCard(
-                                                    info,
                                                     book: book,
                                                     books: newPack.books,
                                                   );
                                                 },
                                               )
-                                            : ListPage(info, books: _books),
+                                            : ListPage(books: _books),
                                       ),
                                     );
                                   },
@@ -171,20 +176,14 @@ class _SearchResultsState extends State<SearchResults> {
                       pageInfo == null
                           ? Container()
                           : Container(
-                              height: R.h(info, 11),
-                              decoration: BoxDecoration(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(35)),
-                              ),
+                              height: 255.h,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                               margin: const EdgeInsets.only(bottom: pad),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   PreviousButton(
-                                    info,
                                     hasPrev: pageination.hasPrev!,
                                     onPressed: () {
                                       if (pageination.hasPrev!) {
@@ -192,18 +191,17 @@ class _SearchResultsState extends State<SearchResults> {
                                           context,
                                           query,
                                           pageination.prevPageNumber.toString(),
-                                          info,
                                         );
                                       }
                                     },
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: R.w(info, 4)),
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 50.w),
                                     child: Column(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.all(pad),
+                                          padding: EdgeInsets.all(30.w),
                                           child: Consumer(
                                             builder: (context, watch, child) {
                                               var isDarkMode =
@@ -211,7 +209,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                       .isDarkMode;
                                               return KText(
                                                 "jump to page",
-                                                size: R.f(info, 9),
+                                                size: 35.sp,
                                                 weight: FontWeight.bold,
                                                 color: isDarkMode
                                                     ? XColors.grayColor
@@ -227,9 +225,9 @@ class _SearchResultsState extends State<SearchResults> {
                                             return Row(
                                               children: [
                                                 Container(
-                                                  width: R.w(info, 25),
+                                                  width: 255.w,
                                                   margin: EdgeInsets.symmetric(
-                                                      horizontal: pad),
+                                                      horizontal: 30.w),
                                                   child: Row(
                                                     children: [
                                                       Expanded(
@@ -244,8 +242,8 @@ class _SearchResultsState extends State<SearchResults> {
                                                                 decoration: isDarkMode
                                                                     ? BoxDecoration(
                                                                         borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                10),
+                                                                            BorderRadius.circular(20
+                                                                                .w),
                                                                         color: XColors
                                                                             .deepDark)
                                                                     : null,
@@ -255,8 +253,8 @@ class _SearchResultsState extends State<SearchResults> {
                                                                     _jumper,
                                                                 style:
                                                                     TextStyle(
-                                                                  fontSize: R.f(
-                                                                      info, 14),
+                                                                  fontSize:
+                                                                      45.sp,
                                                                   color: isDarkMode
                                                                       ? Colors
                                                                           .white
@@ -310,8 +308,8 @@ class _SearchResultsState extends State<SearchResults> {
                                                                         .currentPage,
                                                                 placeholderStyle:
                                                                     TextStyle(
-                                                                  fontSize: R.f(
-                                                                      info, 14),
+                                                                  fontSize:
+                                                                      45.sp,
                                                                   color: isDarkMode
                                                                       ? XColors
                                                                           .grayText
@@ -345,7 +343,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                                 left: pad),
                                                         child: KText(
                                                           "/ ${pageInfo.totalPages}",
-                                                          size: 14,
+                                                          size: 45.sp,
                                                           weight:
                                                               FontWeight.bold,
                                                         ),
@@ -354,15 +352,12 @@ class _SearchResultsState extends State<SearchResults> {
                                                   ),
                                                 ),
                                                 GoButton(
-                                                  info,
                                                   onPressed: () {
                                                     _focus.unfocus();
                                                     update(
-                                                      context,
-                                                      newPack.query,
-                                                      _jumper.text,
-                                                      info,
-                                                    );
+                                                        context,
+                                                        newPack.query,
+                                                        _jumper.text);
                                                   },
                                                 ),
                                               ],
@@ -373,7 +368,6 @@ class _SearchResultsState extends State<SearchResults> {
                                     ),
                                   ),
                                   NextButton(
-                                    info,
                                     hasNext: pageination.hasNext!,
                                     onPressed: () {
                                       if (pageination.hasNext!) {
@@ -381,7 +375,6 @@ class _SearchResultsState extends State<SearchResults> {
                                           context,
                                           query,
                                           pageination.nextPageNumber.toString(),
-                                          info,
                                         );
                                       }
                                     },

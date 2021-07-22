@@ -1,15 +1,12 @@
-import 'package:geeklibrary/constants/numers/nums.dart';
 import 'package:geeklibrary/export/export.dart';
 
 class NextButton extends ConsumerWidget {
-  const NextButton(
-    this.info, {
+  const NextButton({
     Key? key,
     required this.hasNext,
     required this.onPressed,
   }) : super(key: key);
 
-  final SizingInformation info;
   final bool hasNext;
   final VoidCallback onPressed;
   @override
@@ -17,21 +14,21 @@ class NextButton extends ConsumerWidget {
     var isDarkMode = watch(themeProvider).isDarkMode;
     return hasNext
         ? Container(
-            margin: EdgeInsets.only(right: R.w(info, 7)),
+            margin: EdgeInsets.only(right: 50.w),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(pad),
+                  padding: EdgeInsets.all(30.w),
                   child: KText(
                     "next",
-                    size: R.f(info, 9),
+                    size: 45.sp,
                     weight: FontWeight.bold,
                     color: isDarkMode ? XColors.grayText : XColors.darkColor,
                   ),
                 ),
                 KClickable(
-                  height: R.h(info, 5),
-                  width: R.w(info, 13),
+                  height: 120.h,
+                  width: 120.w,
                   onPressed: () => onPressed(),
                   child: Icon(
                     EvaIcons.arrowRight,
@@ -39,17 +36,17 @@ class NextButton extends ConsumerWidget {
                   ),
                   topDeco: isDarkMode
                       ? BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(30.w),
                           gradient: G.blackGradButtonDeco.gradient,
                         )
                       : BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(30.w),
                           gradient: LinearGradient(
                               colors: [XColors.darkGray, XColors.darkGray]),
                         ),
                   bottomDeco: isDarkMode
                       ? BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(30.w),
                           gradient: LinearGradient(
                               colors: [Colors.black, randomLightColor()]),
                         )

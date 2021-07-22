@@ -1,15 +1,9 @@
-import 'package:geeklibrary/constants/numers/nums.dart';
 import 'package:geeklibrary/export/export.dart';
-
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 
 class ListPage extends ConsumerWidget {
-  const ListPage(this.info,
-      {Key? key, required this.books})
-      : super(key: key);
+  const ListPage({Key? key, required this.books}) : super(key: key);
   final List books;
-
-  final SizingInformation info;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -21,96 +15,105 @@ class ListPage extends ConsumerWidget {
       controller: scroll,
       itemBuilder: (BuildContext context, int index) {
         final Book book = books[index];
-        return Container(
-          padding: const EdgeInsets.all(pad),
-          margin: const EdgeInsets.all(pad),
-          decoration: theme.isDarkMode
-              ? BoxDecoration(
-                  color: Colors.white12,
-                  borderRadius: BorderRadius.circular(24),
-                )
-              : BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38,
-                        offset: Offset(1, 1),
-                        blurRadius: 1),
-                  ],
-                ),
-          child: InkWell(
-            onTap: () => Get.to(() => BookView(book: book, books: books)),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: KImage(
-                      borderRadius: BorderRadius.circular(11),
-                      height: R.w(info, 30),
-                      width: R.w(info, 20),
-                      imageURL: book.coverURL,
-                    ),
+        return SizedBox(
+          height: 500.h,
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(10.w),
+            margin: EdgeInsets.all(10.w),
+            decoration: theme.isDarkMode
+                ? BoxDecoration(
+                    color: Colors.white12,
+                    borderRadius: BorderRadius.circular(20.w),
+                  )
+                : BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.w),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black38,
+                          offset: Offset(1, 1),
+                          blurRadius: 1),
+                    ],
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: pad / 2),
-                    margin: const EdgeInsets.symmetric(vertical: pad),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        KText(
-                          book.title ?? "no title",
-                          size: 15,
-                          maxLines: 3,
-                          color: theme.isDarkMode ? Colors.white : Colors.blue,
-                          weight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: pad * 2),
-                        KText(
-                          book.author!,
-                          size: 10,
-                          maxLines: 3,
-                          color:
-                              theme.isDarkMode ? Colors.white54 : Colors.blue,
-                          weight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: pad * 2),
-                        Row(
+            child: InkWell(
+              onTap: () => Get.to(() => BookView(book: book, books: books)),
+              borderRadius: BorderRadius.circular(20.w),
+              child: Padding(
+                padding: EdgeInsets.all(20.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    KImage(
+                      borderRadius: BorderRadius.circular(20.w),
+                      height: 400.h,
+                      width: 230.w,
+                      imageURL: book.coverURL,
+                      fit: BoxFit.fill,
+                    ),
+                    SizedBox(width: 40.w),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 20.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             KText(
-                              "Extension : ",
-                              size: 10,
-                              maxLines: 1,
+                              book.title ?? "no title",
+                              size: 40.sp,
+                              maxLines: 3,
+                              font: "MavenPro",
+                              color:
+                                  theme.isDarkMode ? Colors.white : Colors.blue,
+                              overflow: TextOverflow.ellipsis,
+                              weight: FontWeight.w500,
+                            ),
+                            SizedBox(height: 40.h),
+                            KText(
+                              book.author!,
+                              size: 35.sp,
+                              font: "MavenPro",
+                              maxLines: 3,
                               color: theme.isDarkMode
                                   ? Colors.white54
                                   : Colors.blue,
                               weight: FontWeight.bold,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            KText(
-                              book.exten.toString(),
-                              size: 10,
-                              maxLines: 1,
-                              color: theme.isDarkMode
-                                  ? Colors.white54
-                                  : Colors.blue,
-                              weight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
+                            SizedBox(height: 50.h),
+                            Row(
+                              children: [
+                                KText(
+                                  "Extension : ",
+                                  size: 35.sp,
+                                  font: "MavenPro",
+                                  maxLines: 1,
+                                  color: theme.isDarkMode
+                                      ? Colors.white54
+                                      : Colors.blue,
+                                  weight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                KText(
+                                  book.exten.toString(),
+                                  size: 40.sp,
+                                  maxLines: 1,
+                                  font: "MavenPro",
+                                  color: theme.isDarkMode
+                                      ? XColors.grayText
+                                      : XColors.darkColor,
+                                  weight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         );

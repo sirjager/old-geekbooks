@@ -33,7 +33,7 @@ class SabedOfflineState extends State<SabedOffline> {
     return ResponsiveBuilder(
       builder: (context, info) {
         return Scaffold(
-          drawer: LeftDrawer(info),
+          drawer: LeftDrawer(),
           floatingActionButton: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -78,7 +78,7 @@ class SabedOfflineState extends State<SabedOffline> {
                     child: Column(
                       children: [
                         ResultHeader(title: "Saved Books"),
-                        FeatureStrip(info),
+                        FeatureStrip(),
                         Expanded(
                           child: Container(
                             child: books.length > 0
@@ -123,13 +123,12 @@ class SabedOfflineState extends State<SabedOffline> {
                                                           (BuildContext context,
                                                               int index) {
                                                         var book = books[index];
-                                                        return BookCard(info,
+                                                        return BookCard(
                                                             book: book,
                                                             books: books);
                                                       },
                                                     )
-                                                  : ListPage(info,
-                                                      books: books),
+                                                  : ListPage(books: books),
                                             );
                                           },
                                         ),
