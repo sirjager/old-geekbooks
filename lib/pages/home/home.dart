@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geeklibrary/export/export.dart';
-import 'package:geeklibrary/global/titlebar/titlebar.dart';
+import 'package:geeklibrary/global/screentitle/titlebar.dart';
 
 class Homepage extends StatelessWidget {
   Homepage(this.info, {Key? key}) : super(key: key);
@@ -15,14 +15,11 @@ class Homepage extends StatelessWidget {
         buildShapes(),
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.symmetric(
-            horizontal: R.w(info, 1),
-            vertical: R.statusbarHeight(info),
-          ),
+          margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
           child: Column(
             children: [
-              Titlebar(info),
-              AppTitle(info),
+              ScreenTopbar(),
+              ScreenTitlebar(title: "Browse Library"),
               Searchbar(info, _node),
               SearchOptions(info),
             ],
@@ -47,27 +44,27 @@ class Homepage extends StatelessWidget {
                   quarterTurns: 3,
                   child: Image.asset(
                     "assets/images/shapes/login_bottom.png",
-                    width: R.w(info, 45),
+                    width: 400.w,
                     color: isDarkMode
                         ? Colors.white.withOpacity(0.07)
-                        : XColors.grayColor.withOpacity(0.1),
+                        : XColors.grayColor.withOpacity(0.2),
                   ),
                 ),
               ),
               AnimatedPositioned(
-                top: isDarkMode ? R.h(info, 70) : R.h(info, 5),
-                left: isDarkMode ? R.w(info, 75) : R.w(info, 1),
+                top: isDarkMode ? 1500.h : 100.h,
+                left: isDarkMode ? 950.w : 50.w,
                 curve: Curves.fastOutSlowIn,
                 duration: Duration(seconds: 3),
                 child: AnimatedContainer(
                   curve: Curves.fastOutSlowIn,
                   duration: Duration(seconds: 2),
-                  height: isDarkMode ? R.w(info, 40) : R.w(info, 30),
-                  width: isDarkMode ? R.w(info, 40) : R.w(info, 30),
+                  height: isDarkMode ? 250.w : 350.w,
+                  width: isDarkMode ? 250.w : 350.w,
                   decoration: BoxDecoration(
                     color: isDarkMode
-                        ? Colors.white.withOpacity(0.05)
-                        : Colors.green.withOpacity(0.05),
+                        ? Colors.white.withOpacity(0.07)
+                        : Colors.green.withOpacity(0.07),
                     shape: BoxShape.circle,
                   ),
                 ),

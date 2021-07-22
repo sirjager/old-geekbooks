@@ -36,26 +36,31 @@ class Titlebar extends ConsumerWidget {
         children: [
           leading != null
               ? Container(
-                  height: R.w(info, 10),
-                  width: R.w(info, 10),
+                  height: 150.w,
+                  width: 150.w,
                   clipBehavior: Clip.antiAlias,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
                   child: leading,
                 )
               : Container(
-                  height: R.w(info, 10),
-                  width: R.w(info, 10),
+                  height: 150.w,
+                  width: 150.w,
                   alignment: Alignment.center,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red,
+                  ),
                   child: RotatedBox(
                     quarterTurns: 1,
                     child: IconButton(
                       splashColor: Colors.transparent,
                       onPressed: () =>
                           context.read(drawerProvider).toggleDrawer(),
-                      iconSize: R.w(info, 6),
+                      iconSize: 70.w,
                       icon: Icon(EvaIcons.barChartOutline),
                       color: isDarkMode ? XColors.grayText : XColors.darkColor1,
                     ),

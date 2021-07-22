@@ -20,19 +20,18 @@ class SearchOptions extends ConsumerWidget {
     var searchOption = watch(searchOptionProvider);
     var theme = watch(themeProvider);
     return Container(
-      margin: EdgeInsets.symmetric(
-          vertical: R.h(info, 2), horizontal: R.w(info, 2)),
+      margin: EdgeInsets.symmetric(vertical: 50.h, horizontal: 10.w),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: R.w(info, 5)),
+            margin: EdgeInsets.symmetric(horizontal: 50.w, vertical: 10.w),
             child: Row(
               children: [
                 KText(
                   "search in field",
                   font: "Nunito",
                   weight: FontWeight.w600,
-                  size: R.f(info, 15),
+                  size: 60.sp,
                   color: theme.isDarkMode
                       ? XColors.grayColor.withOpacity(0.5)
                       : XColors.darkColor.withOpacity(0.5),
@@ -45,17 +44,17 @@ class SearchOptions extends ConsumerWidget {
               (item) {
                 bool isSelected = searchOption.selected.index == item.index;
                 return Container(
-                  margin: const EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15.w),
                   child: KClickable(
                     isPressed: isSelected,
-                    height: R.h(info, 5),
-                    width: R.w(info, 20),
+                    height: 130.h,
+                    width: 210.w,
                     onPressed: () => updateFilter(item.index, searchOption),
                     child: KText(
                       item.title.toString(),
                       font: "MavenPro",
                       letterSpacing: 1,
-                      size: R.f(info, 10),
+                      size: 40.sp,
                       color: isSelected ? XColors.darkText : XColors.grayText,
                       weight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     ),
@@ -63,13 +62,13 @@ class SearchOptions extends ConsumerWidget {
                       color: theme.isDarkMode
                           ? XColors.darkColor1
                           : XColors.lightColor1,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(50.w),
                     ),
                     bottomDeco: BoxDecoration(
                       color: theme.isDarkMode
                           ? XColors.darkGray.withOpacity(0.4)
                           : XColors.grayText,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(50.w),
                     ),
                   ),
                 );

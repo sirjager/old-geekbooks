@@ -44,36 +44,33 @@ class _SearchbarState extends State<Searchbar> {
         var theme = watch(themeProvider);
         return Container(
           alignment: Alignment.center,
-          width: R.w(widget.info, 85),
+          width: 900.w,
           child: CupertinoTextField(
             controller: _searchField,
             onSubmitted: (val) => searchQuery(val, theme, widget.info),
             decoration: BoxDecoration(
               color: XColors.lightGray,
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(100.w),
             ),
-            padding: EdgeInsets.all(R.w(widget.info, 4)),
+            padding: EdgeInsets.all(50.w),
             style: TextStyle(
               fontFamily: "MavenPro",
               fontWeight: FontWeight.w400,
-              fontSize: R.f(widget.info, 10),
+              fontSize: 50.sp,
               letterSpacing: 1,
               color: Colors.black87,
             ),
             prefix: Padding(
-              padding: EdgeInsets.only(left: R.w(widget.info, 5)),
-              child: Icon(
-                EvaIcons.search,
-                color: XColors.grayText,
-                size: R.h(widget.info, 3.1),
-              ),
+              padding: EdgeInsets.only(left: 35.w),
+              child:
+                  Icon(EvaIcons.search, color: XColors.grayText, size: 70.sp),
             ),
             placeholder: "type here to search",
             placeholderStyle: TextStyle(
               fontFamily: "MavenPro",
               fontWeight: FontWeight.w300,
               letterSpacing: 1,
-              fontSize: R.f(widget.info, 10),
+              fontSize: 50.sp,
               color: XColors.grayText,
             ),
           ),
@@ -99,14 +96,13 @@ class _SearchbarState extends State<Searchbar> {
             if (snapshot.hasData) {
               if (snapshot.data != null) {
                 PagePack pack = snapshot.data!;
-
                 return Container(
                   padding: const EdgeInsets.all(pad),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Lottie.asset(MyAssets.check, height: R.h(info, 25)),
+                      Lottie.asset(MyAssets.check, height: 350.w),
                       KLeafButton(
                         onPressed: () {
                           if (Get.isDialogOpen!) Get.back();
@@ -118,12 +114,12 @@ class _SearchbarState extends State<Searchbar> {
                         color2: theme.isDarkMode
                             ? XColors.darkColor2
                             : Colors.greenAccent[200]!,
-                        height: R.w(info, 15),
-                        width: R.w(info, 35),
+                        height: 150.h,
+                        width: 300.w,
                         child: KText(
                           "continue",
                           font: "Poppins",
-                          size: R.f(info, 10),
+                          size: 40.sp,
                           color: theme.isDarkMode
                               ? XColors.darkText
                               : XColors.darkColor2,
@@ -134,7 +130,7 @@ class _SearchbarState extends State<Searchbar> {
                             ? XColors.darkText
                             : XColors.darkColor2,
                       ),
-                      SizedBox(height: pad * 2),
+                      SizedBox(height: 50.h),
                     ],
                   ),
                 );
@@ -153,11 +149,11 @@ class _SearchbarState extends State<Searchbar> {
               }
             }
             return Container(
-              height: R.w(info, 50),
+              height: 500.h,
               decoration: BoxDecoration(
-                color: theme.isDarkMode ? Colors.black45 : Colors.white,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              child: Lottie.asset(MyAssets.pleasewait),
+              child: Lottie.asset(MyAssets.pleasewait, width: 500.w),
             );
           },
         ),

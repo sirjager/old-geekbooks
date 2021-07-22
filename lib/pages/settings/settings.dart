@@ -1,5 +1,5 @@
 import 'package:geeklibrary/export/export.dart';
-import 'package:geeklibrary/global/titlebar/titlebar.dart';
+import 'package:geeklibrary/global/screentitle/titlebar.dart';
 
 class Settingspage extends StatelessWidget {
   final SizingInformation info;
@@ -8,19 +8,17 @@ class Settingspage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         buildShapes(),
         Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.symmetric(
-            horizontal: R.w(info, 1),
-            vertical: R.statusbarHeight(info),
-          ),
+          margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Titlebar(info),
-              AppTitle(info, title: "Settings"),
+              ScreenTopbar(),
+              ScreenTitlebar(title: "Settings"),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: R.w(info, 3)),
