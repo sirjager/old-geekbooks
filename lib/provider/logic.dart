@@ -4,14 +4,6 @@ import 'package:geeklibrary/models/page/pagination.dart';
 import 'package:geeklibrary/widgets/chip/chip.dart';
 import 'package:string_validator/string_validator.dart';
 
-class PSizingInfo extends ChangeNotifier {
-  SizingInformation _sizing = SizingInformation();
-  SizingInformation get info => _sizing;
-  void updateSizingInfo(SizingInformation __info) {
-    _sizing = __info;
-    notifyListeners();
-  }
-}
 
 class DrawerProvider extends ChangeNotifier {
   //!============> FOR USING DRAWER GLOBALY

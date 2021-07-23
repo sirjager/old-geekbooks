@@ -2,9 +2,11 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ResultHeader extends ConsumerWidget {
-  const ResultHeader({Key? key, required this.title}) : super(key: key);
-
+  const ResultHeader(
+      {Key? key, required this.title, this.disableToggleView = false})
+      : super(key: key);
   final String title;
+  final bool disableToggleView;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -45,17 +47,22 @@ class ResultHeader extends ConsumerWidget {
               var theme = watch(themeProvider);
               return Row(
                 children: [
-                  Container(
-                    height: 120.w,
-                    width: 120.w,
-                    child: IconButton(
-                      onPressed: () => view.toggleGrid(),
-                      splashColor: Colors.transparent,
-                      icon: Icon(
-                          view.isGrid ? EvaIcons.gridOutline : EvaIcons.list),
-                      color: isDarkMode ? XColors.grayText : XColors.darkColor1,
-                    ),
-                  ),
+                  disableToggleView
+                      ? SizedBox.shrink()
+                      : Container(
+                          height: 120.w,
+                          width: 120.w,
+                          child: IconButton(
+                            onPressed: () => view.toggleGrid(),
+                            splashColor: Colors.transparent,
+                            icon: Icon(view.isGrid
+                                ? EvaIcons.gridOutline
+                                : EvaIcons.list),
+                            color: isDarkMode
+                                ? XColors.grayText
+                                : XColors.darkColor1,
+                          ),
+                        ),
                   SizedBox(width: 10.w),
                   Container(
                     height: 120.w,

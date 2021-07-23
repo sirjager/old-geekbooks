@@ -3,8 +3,8 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
 
 class Homepage extends StatelessWidget {
-  Homepage(this.info, {Key? key}) : super(key: key);
-  final SizingInformation info;
+  Homepage( {Key? key}) : super(key: key);
+
   final FocusNode _node = FocusNode();
 
   @override
@@ -20,8 +20,8 @@ class Homepage extends StatelessWidget {
             children: [
               ScreenTopbar(),
               ScreenTitlebar(title: "Browse Library"),
-              Searchbar(info, _node),
-              SearchOptions(info),
+              Searchbar( _node),
+              SearchOptions(),
             ],
           ),
         ),

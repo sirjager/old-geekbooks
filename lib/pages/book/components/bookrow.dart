@@ -11,7 +11,7 @@ class BookRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700.h,
+      height: 700.w,
       width: double.infinity,
       child: ListView.builder(
         physics: ClampingScrollPhysics(),
@@ -41,7 +41,7 @@ class BookRow extends StatelessWidget {
                             border:
                                 Border.all(width: 30.w, color: Colors.black),
                           ),
-                          width: 350.w,
+                          width: 410.w,
                           child: KImage(
                             fit: BoxFit.fill,
                             imageURL: book.coverURL,

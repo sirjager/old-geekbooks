@@ -15,7 +15,7 @@ import 'package:geeklibrary/pages/results/components/pagestrip.dart';
 import 'package:geeklibrary/pages/results/components/pagination/go.dart';
 import 'package:geeklibrary/pages/results/components/pagination/next.dart';
 import 'package:geeklibrary/pages/results/components/pagination/prev.dart';
-import 'package:geeklibrary/pages/results/view/listview/listpage.dart';
+import 'package:geeklibrary/pages/results/view/listpage.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
@@ -98,295 +98,272 @@ class _SearchResultsState extends State<SearchResults> {
     final query = newPack.query;
     final _books = newPack.books;
     final pageInfo = newPack.info;
-    return ResponsiveBuilder(
-      builder: (context, info) {
-        return Scaffold(
-          drawer: LeftDrawer(),
-          body: !delayed
-              ? Center(
-                  child: Lottie.asset(MyAssets.books, height: 350.w,
-                      onLoaded: (_) {
-                    Future.delayed(Duration(seconds: 2)).then((value) {
-                      setState(() {
-                        delayed = true;
-                      });
-                    });
-                  }),
-                )
-              : Container(
-                  margin: EdgeInsets.only(top: 90.h),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      ResultHeader(title: query),
-                      PageStrip(page: pageInfo),
-                      FeatureStrip(),
-                      Expanded(
-                        child: Container(
-                          child: _books.length > 0
-                              ? Consumer(
-                                  builder: (context, watch, child) {
-                                    var view = watch(gridViewProvider);
-                                    var scroll = watch(scrollProvider).scroll;
-                                    var theme = watch(themeProvider);
-                                    return RawScrollbar(
-                                      thickness: 30.w,
-                                      thumbColor: theme.isDarkMode
-                                          ? XColors.grayColor
-                                          : XColors.darkColor,
-                                      radius: Radius.circular(20.w),
-                                      controller: scroll,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: pad),
-                                        child: view.isGrid
-                                            ? StaggeredGridView.countBuilder(
-                                                physics:
-                                                    ClampingScrollPhysics(),
-                                                crossAxisCount: 2,
-                                                mainAxisSpacing: 2,
-                                                crossAxisSpacing: 2,
-                                                itemCount: _books.length,
-                                                controller: scroll,
-                                                staggeredTileBuilder: (index) =>
-                                                    StaggeredTile.count(
-                                                        1, 1.80),
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  var book = _books[index];
-                                                  return BookCard(
-                                                    book: book,
-                                                    books: newPack.books,
-                                                  );
-                                                },
-                                              )
-                                            : ListPage(books: _books),
-                                      ),
-                                    );
-                                  },
-                                )
-                              : Center(
-                                  child:
-                                      KText("no results found for this query"),
-                                ),
-                        ),
-                      ),
-                      pageInfo == null
-                          ? Container()
-                          : Container(
-                              height: 255.h,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              margin: const EdgeInsets.only(bottom: pad),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  PreviousButton(
-                                    hasPrev: pageination.hasPrev!,
-                                    onPressed: () {
-                                      if (pageination.hasPrev!) {
-                                        update(
-                                          context,
-                                          query,
-                                          pageination.prevPageNumber.toString(),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 50.w),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(30.w),
-                                          child: Consumer(
-                                            builder: (context, watch, child) {
-                                              var isDarkMode =
-                                                  watch(themeProvider)
-                                                      .isDarkMode;
-                                              return KText(
-                                                "jump to page",
-                                                size: 35.sp,
-                                                weight: FontWeight.bold,
-                                                color: isDarkMode
-                                                    ? XColors.grayColor
-                                                    : XColors.darkColor,
+    return Scaffold(
+      drawer: LeftDrawer(),
+      body: !delayed
+          ? Center(
+              child: Lottie.asset(MyAssets.books, height: 350.w, onLoaded: (_) {
+                Future.delayed(Duration(seconds: 2)).then((value) {
+                  setState(() {
+                    delayed = true;
+                  });
+                });
+              }),
+            )
+          : Container(
+              margin: EdgeInsets.only(top: 90.h),
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  ResultHeader(title: query),
+                  PageStrip(page: pageInfo),
+                  FeatureStrip(),
+                  Expanded(
+                    child: Container(
+                      child: _books.length > 0
+                          ? Consumer(
+                              builder: (context, watch, child) {
+                                var view = watch(gridViewProvider);
+                                var scroll = watch(scrollProvider).scroll;
+                                var theme = watch(themeProvider);
+                                return RawScrollbar(
+                                  thickness: 30.w,
+                                  thumbColor: theme.isDarkMode
+                                      ? XColors.grayColor
+                                      : XColors.darkColor,
+                                  radius: Radius.circular(20.w),
+                                  controller: scroll,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: pad),
+                                    child: view.isGrid
+                                        ? StaggeredGridView.countBuilder(
+                                            physics: ClampingScrollPhysics(),
+                                            crossAxisCount: 2,
+                                            mainAxisSpacing: 2,
+                                            crossAxisSpacing: 2,
+                                            itemCount: _books.length,
+                                            controller: scroll,
+                                            staggeredTileBuilder: (index) =>
+                                                StaggeredTile.count(1, 1.80),
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              var book = _books[index];
+                                              return BookCard(
+                                                book: book,
+                                                books: newPack.books,
                                               );
                                             },
-                                          ),
-                                        ),
-                                        Consumer(
-                                          builder: (context, watch, child) {
-                                            var _jumper = watch(jumperProvider)
-                                                .pageNoController;
-                                            return Row(
-                                              children: [
-                                                Container(
-                                                  width: 255.w,
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 30.w),
-                                                  child: Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Container(
-                                                          child: Consumer(
-                                                            builder: (context,
-                                                                watch, child) {
-                                                              var isDarkMode =
-                                                                  watch(themeProvider)
-                                                                      .isDarkMode;
-                                                              return CupertinoTextField(
-                                                                decoration: isDarkMode
-                                                                    ? BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(20
-                                                                                .w),
-                                                                        color: XColors
-                                                                            .deepDark)
-                                                                    : null,
-                                                                autofocus:
-                                                                    false,
-                                                                controller:
-                                                                    _jumper,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      45.sp,
-                                                                  color: isDarkMode
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .black,
-                                                                ),
-                                                                onChanged:
-                                                                    (value) {
-                                                                  bool isint =
-                                                                      isInt(
-                                                                          value);
-                                                                  if (isint) {
-                                                                    var i = int
-                                                                        .parse(
-                                                                            value);
-                                                                    if (i < 1 ||
-                                                                        i > pageination.totalPageNumber) {
-                                                                      _jumper
-                                                                          .clear();
-                                                                      _focus
-                                                                          .unfocus();
-                                                                      Kui()
-                                                                          .toast(
-                                                                        context,
-                                                                        "enter value between 1 to ${pageination.totalPageNumber.toString()}",
-                                                                        textColor:
-                                                                            Colors.red,
-                                                                        backgroundColor:
-                                                                            Theme.of(context).scaffoldBackgroundColor,
-                                                                      );
-                                                                    }
-                                                                  } else {
-                                                                    _jumper
-                                                                        .clear();
-                                                                    _focus
-                                                                        .unfocus();
-                                                                    Kui().toast(
-                                                                      context,
-                                                                      "enter a valid number",
-                                                                      textColor:
-                                                                          Colors
-                                                                              .red,
-                                                                      backgroundColor:
-                                                                          Theme.of(context)
-                                                                              .scaffoldBackgroundColor,
-                                                                    );
-                                                                  }
-                                                                },
-                                                                placeholder:
-                                                                    pageInfo
-                                                                        .currentPage,
-                                                                placeholderStyle:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      45.sp,
-                                                                  color: isDarkMode
-                                                                      ? XColors
-                                                                          .grayText
-                                                                          .withOpacity(
-                                                                              0.3)
-                                                                      : XColors
-                                                                          .darkColor
-                                                                          .withOpacity(
-                                                                              0.3),
-                                                                ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                                maxLength: 3,
-                                                                maxLines: 1,
-                                                                maxLengthEnforcement:
-                                                                    MaxLengthEnforcement
-                                                                        .enforced,
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: pad),
-                                                        child: KText(
-                                                          "/ ${pageInfo.totalPages}",
-                                                          size: 45.sp,
-                                                          weight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                GoButton(
-                                                  onPressed: () {
-                                                    _focus.unfocus();
-                                                    update(
-                                                        context,
-                                                        newPack.query,
-                                                        _jumper.text);
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
+                                          )
+                                        : ListPage(books: _books),
                                   ),
-                                  NextButton(
-                                    hasNext: pageination.hasNext!,
-                                    onPressed: () {
-                                      if (pageination.hasNext!) {
-                                        update(
-                                          context,
-                                          query,
-                                          pageination.nextPageNumber.toString(),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ],
-                              ),
+                                );
+                              },
+                            )
+                          : Center(
+                              child: KText("no results found for this query"),
                             ),
-                    ],
+                    ),
                   ),
-                ),
-        );
-      },
+                  pageInfo == null
+                      ? Container()
+                      : Container(
+                          height: 255.h,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          margin: const EdgeInsets.only(bottom: pad),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PreviousButton(
+                                hasPrev: pageination.hasPrev!,
+                                onPressed: () {
+                                  if (pageination.hasPrev!) {
+                                    update(
+                                      context,
+                                      query,
+                                      pageination.prevPageNumber.toString(),
+                                    );
+                                  }
+                                },
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 50.w),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(30.w),
+                                      child: Consumer(
+                                        builder: (context, watch, child) {
+                                          var isDarkMode =
+                                              watch(themeProvider).isDarkMode;
+                                          return KText(
+                                            "jump to page",
+                                            size: 35.sp,
+                                            weight: FontWeight.bold,
+                                            color: isDarkMode
+                                                ? XColors.grayColor
+                                                : XColors.darkColor,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    Consumer(
+                                      builder: (context, watch, child) {
+                                        var _jumper = watch(jumperProvider)
+                                            .pageNoController;
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              width: 255.w,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 30.w),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      child: Consumer(
+                                                        builder: (context,
+                                                            watch, child) {
+                                                          var isDarkMode = watch(
+                                                                  themeProvider)
+                                                              .isDarkMode;
+                                                          return CupertinoTextField(
+                                                            decoration: isDarkMode
+                                                                ? BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(20
+                                                                            .w),
+                                                                    color: XColors
+                                                                        .deepDark)
+                                                                : null,
+                                                            autofocus: false,
+                                                            controller: _jumper,
+                                                            style: TextStyle(
+                                                              fontSize: 45.sp,
+                                                              color: isDarkMode
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              bool isint =
+                                                                  isInt(value);
+                                                              if (isint) {
+                                                                var i =
+                                                                    int.parse(
+                                                                        value);
+                                                                if (i < 1 ||
+                                                                    i >
+                                                                        pageination
+                                                                            .totalPageNumber) {
+                                                                  _jumper
+                                                                      .clear();
+                                                                  _focus
+                                                                      .unfocus();
+                                                                  Kui().toast(
+                                                                    context,
+                                                                    "enter value between 1 to ${pageination.totalPageNumber.toString()}",
+                                                                    textColor:
+                                                                        Colors
+                                                                            .red,
+                                                                    backgroundColor:
+                                                                        Theme.of(context)
+                                                                            .scaffoldBackgroundColor,
+                                                                  );
+                                                                }
+                                                              } else {
+                                                                _jumper.clear();
+                                                                _focus
+                                                                    .unfocus();
+                                                                Kui().toast(
+                                                                  context,
+                                                                  "enter a valid number",
+                                                                  textColor:
+                                                                      Colors
+                                                                          .red,
+                                                                  backgroundColor:
+                                                                      Theme.of(
+                                                                              context)
+                                                                          .scaffoldBackgroundColor,
+                                                                );
+                                                              }
+                                                            },
+                                                            placeholder: pageInfo
+                                                                .currentPage,
+                                                            placeholderStyle:
+                                                                TextStyle(
+                                                              fontSize: 45.sp,
+                                                              color: isDarkMode
+                                                                  ? XColors
+                                                                      .grayText
+                                                                      .withOpacity(
+                                                                          0.3)
+                                                                  : XColors
+                                                                      .darkColor
+                                                                      .withOpacity(
+                                                                          0.3),
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            maxLength: 3,
+                                                            maxLines: 1,
+                                                            maxLengthEnforcement:
+                                                                MaxLengthEnforcement
+                                                                    .enforced,
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: pad),
+                                                    child: KText(
+                                                      "/ ${pageInfo.totalPages}",
+                                                      size: 45.sp,
+                                                      weight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            GoButton(
+                                              onPressed: () {
+                                                _focus.unfocus();
+                                                update(context, newPack.query,
+                                                    _jumper.text);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              NextButton(
+                                hasNext: pageination.hasNext!,
+                                onPressed: () {
+                                  if (pageination.hasNext!) {
+                                    update(
+                                      context,
+                                      query,
+                                      pageination.nextPageNumber.toString(),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                ],
+              ),
+            ),
     );
   }
 

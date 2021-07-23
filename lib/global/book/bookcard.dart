@@ -24,7 +24,7 @@ class BookCard extends ConsumerWidget {
             children: [
               Container(
                 alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.only(top: 250.h),
+                margin: EdgeInsets.only(top: 275.w),
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 decoration: theme.isDarkMode
                     ? BoxDecoration(
@@ -36,7 +36,7 @@ class BookCard extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 350.h),
+                    SizedBox(height: 275.w),
                     Expanded(
                       flex: 2,
                       child: Container(
@@ -109,8 +109,8 @@ class BookCard extends ConsumerWidget {
                   tag: book.id + "result",
                   child: KImage(
                     borderRadius: BorderRadius.circular(25.w),
-                    height: 600.h,
-                    width: 350.w,
+                    height: 550.w,
+                    width: 375.w,
                     fit: BoxFit.fill,
                     imageURL: book.coverURL,
                     filterColor: blackNWhite

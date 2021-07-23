@@ -50,7 +50,8 @@ class NextButton extends ConsumerWidget {
                           gradient: LinearGradient(
                               colors: [Colors.black, randomLightColor()]),
                         )
-                      : G.blackGradButtonDeco,
+                      : G.blackGradButtonDeco
+                          .copyWith(borderRadius: BorderRadius.circular(30.w)),
                 ),
               ],
             ),

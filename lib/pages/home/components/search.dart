@@ -13,8 +13,8 @@ import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 
 class Searchbar extends StatefulWidget {
-  const Searchbar(this.info, this.focus, {Key? key}) : super(key: key);
-  final SizingInformation info;
+  const Searchbar(this.focus, {Key? key}) : super(key: key);
+
   final FocusNode focus;
 
   @override

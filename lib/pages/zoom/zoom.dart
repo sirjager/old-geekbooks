@@ -11,49 +11,44 @@ class ZoomView extends StatelessWidget {
   final String tag;
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, info) {
-        return Scaffold(
-          body: Container(
-            padding: EdgeInsets.only(top: R.statusbarHeight(info)),
-            child: Column(
-              children: [
-                ResultHeader(title: "Go Back"),
-                Expanded(
-                  child: Hero(
-                    tag: tag,
-                    child: CachedNetworkImage(
-                      imageUrl: img ?? "",
-                      imageBuilder: (context, imageProvider) => PhotoView(
-                        imageProvider: imageProvider,
-                      ),
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Get.isDarkMode
-                            ? XColors.grayText
-                            : Colors.grey[200]!,
-                        highlightColor:
-                            Get.isDarkMode ? XColors.lightGray : Colors.white,
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(color: Colors.white),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/png/noimage.png"),
-                          ),
-                        ),
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.only(top: 90.h),
+        child: Column(
+          children: [
+            ResultHeader(title: "Go Back"),
+            Expanded(
+              child: Hero(
+                tag: tag,
+                child: CachedNetworkImage(
+                  imageUrl: img ?? "",
+                  imageBuilder: (context, imageProvider) => PhotoView(
+                    imageProvider: imageProvider,
+                  ),
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor:
+                        Get.isDarkMode ? XColors.grayText : Colors.grey[200]!,
+                    highlightColor:
+                        Get.isDarkMode ? XColors.lightGray : Colors.white,
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: Colors.white),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/images/png/noimage.png"),
                       ),
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

@@ -6,66 +6,62 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, info) {
-        return Scaffold(
-          body: Consumer(
-            builder: (context, watch, child) {
-              var theme = watch(themeProvider);
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Opacity(
-                      opacity: 0.3,
-                      child: Image.asset(
-                        "assets/images/shapes/main_top.png",
-                        width: 350.w,
-                        color: theme.isDarkMode ? Colors.white30 : null,
-                      ),
+    return Scaffold(
+      body: Consumer(
+        builder: (context, watch, child) {
+          var theme = watch(themeProvider);
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Opacity(
+                  opacity: 0.3,
+                  child: Image.asset(
+                    "assets/images/shapes/main_top.png",
+                    width: 350.w,
+                    color: theme.isDarkMode ? Colors.white30 : null,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Image.asset(
+                  "assets/images/shapes/main_bottom.png",
+                  width: 350.w,
+                  color: theme.isDarkMode ? Colors.white12 : null,
+                ),
+              ),
+              Positioned(
+                bottom: 350.h,
+                left: 20.w,
+                child: Container(
+                  height: 300.w,
+                  width: 300.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.indigo.withOpacity(0.1),
+                        Colors.blueAccent.withOpacity(0.1),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: Image.asset(
-                      "assets/images/shapes/main_bottom.png",
-                      width: 350.w,
-                      color: theme.isDarkMode ? Colors.white12 : null,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 350.h,
-                    left: 20.w,
-                    child: Container(
-                      height: 300.w,
-                      width: 300.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Colors.indigo.withOpacity(0.1),
-                            Colors.blueAccent.withOpacity(0.1),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  buildBody(info),
-                ],
-              );
-            },
-          ),
-        );
-      },
+                ),
+              ),
+              buildBody(),
+            ],
+          );
+        },
+      ),
     );
   }
 
-  Container buildBody(SizingInformation info) {
+  Container buildBody() {
     return Container(
       alignment: Alignment.center,
       child: Consumer(

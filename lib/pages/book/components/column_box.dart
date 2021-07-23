@@ -22,7 +22,7 @@ class ColumnBox extends ConsumerWidget {
         children: [
           KText(
             field,
-            size: 60.sp,
+            size: 50.sp,
             font: "Poppins",
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
@@ -32,7 +32,7 @@ class ColumnBox extends ConsumerWidget {
             value,
             font: "Poppins",
             color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
-            size: 50.sp,
+            size: 40.sp,
             maxLines: 3,
             textAlign: TextAlign.left,
             weight: FontWeight.w400,

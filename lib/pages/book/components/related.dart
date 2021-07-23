@@ -21,11 +21,18 @@ class RelatedContent extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 50.w),
             child: Row(
               children: [
-                KText(
-                  "Related Books",
-                  size: 65.sp,
-                  font: "Poppins",
-                  weight: FontWeight.w500,
+                Consumer(
+                  builder: (context, watch, child) {
+                    var isDarkMode = watch(themeProvider).isDarkMode;
+                    return KText(
+                      "Related Books",
+                      size: 65.sp,
+                      font: "Poppins",
+                      weight: FontWeight.w500,
+                      color:
+                          isDarkMode ? XColors.darkColor2 : XColors.darkColor2,
+                    );
+                  },
                 ),
               ],
             ),

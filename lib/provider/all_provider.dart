@@ -2,7 +2,6 @@ import 'package:geeklibrary/export/export.dart';
 
 final drawerProvider = ChangeNotifierProvider((ref) => DrawerProvider());
 final themeProvider = ChangeNotifierProvider((ref) => ThemeProvider());
-final infoProvider = ChangeNotifierProvider((ref) => PSizingInfo());
 final navigationProvider =
     ChangeNotifierProvider((ref) => NavigationProvider());
 

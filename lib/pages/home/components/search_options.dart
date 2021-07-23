@@ -2,8 +2,7 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/widgets/chip/chip.dart';
 
 class SearchOptions extends ConsumerWidget {
-  SearchOptions(this.info, {Key? key}) : super(key: key);
-  final SizingInformation info;
+  SearchOptions({Key? key}) : super(key: key);
 
   final List<KItem> filters = [
     KItem(index: 0, title: "Default", active: false, value: "def"),

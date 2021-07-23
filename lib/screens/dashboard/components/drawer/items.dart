@@ -14,30 +14,7 @@ class KDMI {
       title: 'Offline',
       icon: EvaIcons.downloadOutline,
     ),
-    // Dmi(
-    //   index: 2,
-    //   onTap: () {},
-    //   title: 'App Info',
-    //   icon: EvaIcons.infoOutline,
-    // ),
-    // Dmi(
-    //   index: 3,
-    //   onTap: () {},
-    //   title: 'Contact Us',
-    //   icon: EvaIcons.peopleOutline,
-    // ),
-    // Dmi(
-    //   index: 4,
-    //   onTap: () {},
-    //   title: 'Help Center',
-    //   icon: EvaIcons.questionMarkCircleOutline,
-    // ),
-    // Dmi(
-    //   index: 5,
-    //   onTap: () {},
-    //   title: 'Privacy Policy',
-    //   icon: EvaIcons.fileOutline,
-    // ),
+    
   ];
 }
 

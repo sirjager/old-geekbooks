@@ -10,28 +10,24 @@ class Dashboard extends ConsumerWidget {
     watch(themeProvider);
     var drawer = watch(drawerProvider);
     var nav = watch(navigationProvider);
-    return ResponsiveBuilder(
-      builder: (context, info) {
-        return Scaffold(
-          key: drawer.scaffoldKey,
-          drawer: LeftDrawer(),
-          resizeToAvoidBottomInset: false,
-          body: Column(
-            children: [
-              Expanded(
-                child: PageView(
-                  // physics: C,
-                  controller: nav.pageController,
-                  physics: ClampingScrollPhysics(),
-                  onPageChanged: (int index) => nav.changeTo(index),
-                  children: [Homepage(info), Settingspage(info)],
-                ),
-              ),
-              Navigationbar(),
-            ],
+    return Scaffold(
+      key: drawer.scaffoldKey,
+      drawer: LeftDrawer(),
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView(
+              // physics: C,
+              controller: nav.pageController,
+              physics: ClampingScrollPhysics(),
+              onPageChanged: (int index) => nav.changeTo(index),
+              children: [Homepage(), Settingspage()],
+            ),
           ),
-        );
-      },
+          Navigationbar(),
+        ],
+      ),
     );
   }
 }

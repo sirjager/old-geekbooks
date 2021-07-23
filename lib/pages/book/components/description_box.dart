@@ -16,7 +16,7 @@ class DescriptionBox extends ConsumerWidget {
         children: [
           KText(
             "Description",
-            size: 60.sp,
+            size: 50.sp,
             font: "Poppins",
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
@@ -33,7 +33,7 @@ class DescriptionBox extends ConsumerWidget {
               fontFamily: "Poppins",
               color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
               fontWeight: FontWeight.w400,
-              fontSize: 45.sp,
+              fontSize: 40.sp,
             ),
           ),
         ],

@@ -26,42 +26,37 @@ class _BookViewState extends State<BookView> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, info) {
-        return Scaffold(
-          drawer: LeftDrawer(),
-          body: !delayed
-              ? Center(
-                  child: Lottie.asset(MyAssets.books, height: 400.w,
-                      onLoaded: (_) {
-                    Future.delayed(Duration(seconds: 2)).then((value) {
-                      setState(() {
-                        delayed = true;
-                      });
-                    });
-                  }),
-                )
-              : Container(
-                  child: CustomScrollView(
-                    physics: ClampingScrollPhysics(),
-                    slivers: [
-                      SliverPersistentHeader(
-                        pinned: true,
-                        delegate: BookViewHeader(
-                            book: widget.book, expandedHeight: 1300.h),
-                      ),
-                      buildDetailedContent(widget.book, widget.books, context,
-                          context.read(themeProvider), info),
-                    ],
+    return Scaffold(
+      drawer: LeftDrawer(),
+      body: !delayed
+          ? Center(
+              child: Lottie.asset(MyAssets.books, height: 400.w, onLoaded: (_) {
+                Future.delayed(Duration(seconds: 2)).then((value) {
+                  setState(() {
+                    delayed = true;
+                  });
+                });
+              }),
+            )
+          : Container(
+              child: CustomScrollView(
+                physics: ClampingScrollPhysics(),
+                slivers: [
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: BookViewHeader(
+                        book: widget.book, expandedHeight: 1300.h),
                   ),
-                ),
-        );
-      },
+                  buildDetailedContent(widget.book, widget.books, context,
+                      context.read(themeProvider)),
+                ],
+              ),
+            ),
     );
   }
 
-  Widget buildDetailedContent(Book book, List books, BuildContext context,
-      ThemeProvider theme, SizingInformation info) {
+  Widget buildDetailedContent(
+      Book book, List books, BuildContext context, ThemeProvider theme) {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: pad, vertical: pad * 4),

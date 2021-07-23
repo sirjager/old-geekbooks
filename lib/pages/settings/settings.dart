@@ -2,8 +2,7 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
 
 class Settingspage extends StatelessWidget {
-  final SizingInformation info;
-  const Settingspage(this.info, {Key? key}) : super(key: key);
+  const Settingspage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
