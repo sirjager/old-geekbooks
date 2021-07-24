@@ -1,66 +1,96 @@
+import 'package:geeklibrary/backend/dialog/dialog.dart';
+import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/screens/login/login.dart';
 import 'package:geeklibrary/screens/signup/signup.dart';
 import 'package:shimmer/shimmer.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  DateTime _pressed = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer(
-        builder: (context, watch, child) {
-          var theme = watch(themeProvider);
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                child: Opacity(
-                  opacity: 0.3,
-                  child: Image.asset(
-                    "assets/images/shapes/main_top.png",
-                    width: 350.w,
-                    color: theme.isDarkMode ? Colors.white30 : null,
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: Image.asset(
-                  "assets/images/shapes/main_bottom.png",
-                  width: 350.w,
-                  color: theme.isDarkMode ? Colors.white12 : null,
-                ),
-              ),
-              Positioned(
-                bottom: 350.h,
-                left: 20.w,
-                child: Container(
-                  height: 300.w,
-                  width: 300.w,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.indigo.withOpacity(0.1),
-                        Colors.blueAccent.withOpacity(0.1),
-                      ],
+      body: WillPopScope(
+        onWillPop: onWillPop,
+        child: Consumer(
+          builder: (context, watch, child) {
+            var theme = watch(themeProvider);
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Opacity(
+                    opacity: 0.3,
+                    child: Image.asset(
+                      "assets/images/shapes/main_top.png",
+                      width: 350.w,
+                      color: theme.isDarkMode ? Colors.white30 : null,
                     ),
                   ),
                 ),
-              ),
-              buildBody(),
-            ],
-          );
-        },
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Image.asset(
+                    "assets/images/shapes/main_bottom.png",
+                    width: 350.w,
+                    color: theme.isDarkMode ? Colors.white12 : null,
+                  ),
+                ),
+                Positioned(
+                  bottom: 350.h,
+                  left: 20.w,
+                  child: Container(
+                    height: 300.w,
+                    width: 300.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.indigo.withOpacity(0.1),
+                          Colors.blueAccent.withOpacity(0.1),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                buildBody(),
+              ],
+            );
+          },
+        ),
       ),
     );
+  }
+
+  Future<bool> onWillPop() async {
+    DateTime current = DateTime.now();
+    bool backButton = current.difference(_pressed) > Duration(seconds: 3);
+    if (backButton) {
+      _pressed = current;
+      Kui().toast(context, "Double tap back to exit app");
+      return false;
+    } else {
+      return UiDialog.choiseDialog(
+        title: "Close App ?",
+        lottie: MyAssets.ghost,
+        color: context.read(themeProvider).isDarkMode
+            ? XColors.darkColor2
+            : XColors.darkColor2,
+      );
+    }
   }
 
   Container buildBody() {

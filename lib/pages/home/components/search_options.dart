@@ -61,13 +61,13 @@ class SearchOptions extends ConsumerWidget {
                       color: theme.isDarkMode
                           ? XColors.darkColor1
                           : XColors.lightColor1,
-                      borderRadius: BorderRadius.circular(50.w),
+                      borderRadius: BorderRadius.circular(0.w),
                     ),
                     bottomDeco: BoxDecoration(
                       color: theme.isDarkMode
                           ? XColors.darkGray.withOpacity(0.4)
                           : XColors.grayText,
-                      borderRadius: BorderRadius.circular(50.w),
+                      borderRadius: BorderRadius.circular(0.w),
                     ),
                   ),
                 );

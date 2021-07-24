@@ -23,10 +23,10 @@ class Navigationbar extends ConsumerWidget {
                 child: Icon(
                   e.icon,
                   color: context.read(navigationProvider).current == e.index
-                      ? Theme.of(context).primaryColor
+                      ? XColors.grayColor
                       : _theme.isDarkMode
-                          ? Colors.white38
-                          : Colors.black38,
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.black.withOpacity(0.2),
                   size: context.read(navigationProvider).current == e.index
                       ? 80.w
                       : 60.w,

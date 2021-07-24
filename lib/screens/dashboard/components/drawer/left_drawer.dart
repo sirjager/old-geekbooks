@@ -1,12 +1,10 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
-import 'package:geeklibrary/pages/ads/test.dart';
 import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/items.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/provider/dmi_provider.dart';
 import 'package:geeklibrary/screens/welcome/welcome.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
-import 'package:geeklibrary/widgets/kswitches/kroll_switch.dart';
 
 class LeftDrawer extends ConsumerWidget {
   LeftDrawer({Key? key}) : super(key: key);
@@ -15,7 +13,7 @@ class LeftDrawer extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     var theme = watch(themeProvider);
     return Container(
-      width: 700.w,
+      width: 800.w,
       height: double.infinity,
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Container(
@@ -24,41 +22,54 @@ class LeftDrawer extends ConsumerWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.only(top: ScreenUtil().statusBarHeight),
+                padding: EdgeInsets.only(),
                 color: theme.isDarkMode
                     ? XColors.darkColor1
-                    : Theme.of(context).scaffoldBackgroundColor,
+                    : XColors.grayColor.withOpacity(0.5),
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    Container(
-                      height: 150.h,
-                      margin:
-                          EdgeInsets.only(left: 50.w, right: 50.w, top: 10.h),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () => Get.back(),
-                            iconSize: 70.w,
-                            icon: Icon(
-                              EvaIcons.closeCircleOutline,
-                              size: 110.sp,
-                            ),
-                            color: theme.isDarkMode
-                                ? XColors.grayText
-                                : XColors.darkColor1,
-                          ),
-                        ],
-                      ),
-                    ),
                     Expanded(
+                      flex: 4,
                       child: Container(
                         alignment: Alignment.center,
-                        child: KText(
-                          "GeekLibrary",
-                          font: "MavenPro",
-                          size: 100.sp,
-                          weight: FontWeight.bold,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 150.h,
+                              margin: EdgeInsets.only(
+                                left: 50.w,
+                                right: 50.w,
+                                top: ScreenUtil().statusBarHeight,
+                              ),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () => Get.back(),
+                                    iconSize: 70.w,
+                                    icon: Icon(
+                                      EvaIcons.closeCircleOutline,
+                                      size: 110.sp,
+                                    ),
+                                    color: theme.isDarkMode
+                                        ? XColors.grayText
+                                        : XColors.darkColor1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: KText(
+                                  "GeekLibrary",
+                                  font: "MavenPro",
+                                  size: 100.sp,
+                                  weight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -67,7 +78,7 @@ class LeftDrawer extends ConsumerWidget {
               ),
             ),
             Expanded(
-              flex: 8,
+              flex: 4,
               child: Container(
                 child: Column(
                   children: [
@@ -80,10 +91,11 @@ class LeftDrawer extends ConsumerWidget {
                           child: ListTile(
                             onTap: () {
                               Get.back();
-                              Get.offAll(() => Dashboard());
+                              Future.delayed(Duration(milliseconds: 200)).then(
+                                  (value) => Get.offAll(() => Dashboard()));
                             },
                             title: KText(
-                              "Searchs",
+                              "Search",
                               font: "Nunito",
                               weight: FontWeight.w600,
                               color: isDark
@@ -111,7 +123,8 @@ class LeftDrawer extends ConsumerWidget {
                           child: ListTile(
                             onTap: () {
                               Get.back();
-                              Get.to(() => SabedOffline());
+                              Future.delayed(Duration(milliseconds: 200)).then(
+                                  (value) => Get.offAll(() => SabedOffline()));
                             },
                             title: KText(
                               "Offline",
@@ -124,37 +137,6 @@ class LeftDrawer extends ConsumerWidget {
                             ),
                             trailing: Icon(
                               EvaIcons.downloadOutline,
-                              size: 80.sp,
-                              color: isDark
-                                  ? XColors.grayColor
-                                  : XColors.grayColor,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    Consumer(
-                      builder: (context, watch, child) {
-                        bool isDark = watch(themeProvider).isDarkMode;
-
-                        return Material(
-                          color: Colors.transparent,
-                          child: ListTile(
-                            onTap: () {
-                              Get.back();
-                              Get.to(() => TestAds());
-                            },
-                            title: KText(
-                              "Ads Testing",
-                              font: "Nunito",
-                              weight: FontWeight.w600,
-                              color: isDark
-                                  ? XColors.grayColor
-                                  : XColors.grayColor,
-                              size: 65.sp,
-                            ),
-                            trailing: Icon(
-                              EvaIcons.npmOutline,
                               size: 80.sp,
                               color: isDark
                                   ? XColors.grayColor

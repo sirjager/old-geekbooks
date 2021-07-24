@@ -9,7 +9,7 @@ import 'package:geeklibrary/models/sauce/encpagesource.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/packages/authentication/services/authentication_wrapper.dart';
 import 'package:geeklibrary/provider/all_provider.dart';
-import 'package:geeklibrary/screens/login/login.dart';
+
 import 'package:geeklibrary/screens/welcome/welcome.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
@@ -20,22 +20,20 @@ import 'export/export.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  final initialization = MobileAds.instance.initialize();
-  final adState = AdState(initialization: initialization);
-  await nativeAds.MobileAds.initialize();
-  await nativeAds.MobileAds.setTestDeviceIds(
-      ["BBD7957A66F990FAC85812B555A9ED7A"]);
+  // final initialization = MobileAds.instance.initialize();
+  // final adState = AdState(initialization: initialization);
+  // await nativeAds.MobileAds.initialize();
+  // await nativeAds.MobileAds.setTestDeviceIds(
+  //     ["BBD7957A66F990FAC85812B555A9ED7A"]);
   await Hive.initFlutter();
   Hive.registerAdapter(EncPageSourceAdapter());
   Hive.registerAdapter(EncBookAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(
-    Phoenix(
-      child: ProviderScope(
-        overrides: [adStateProvider.overrideWithValue(adState)],
-        child: MyApp(),
-      ),
+    ProviderScope(
+      // overrides: [adStateProvider.overrideWithValue(adState)],
+      child: MyApp(),
     ),
   );
 }
