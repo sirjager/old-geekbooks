@@ -1,11 +1,35 @@
 import 'package:flutter/cupertino.dart';
+import 'package:geeklibrary/ads/ads_defaults.dart';
+import 'package:geeklibrary/core/responsive/builder/responsive_builder.dart';
+import 'package:geeklibrary/core/responsive/size/responsive_size.dart';
+
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
 
+  @override
+  _HomepageState createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
   final FocusNode _node = FocusNode();
+  late final ad1;
+
+  @override
+  void initState() {
+    ad1 = new BannerAdController();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    ad1.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +38,46 @@ class Homepage extends StatelessWidget {
       children: [
         buildShapes(),
         Container(
-          alignment: Alignment.topCenter,
-          margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ScreenTopbar(),
-                ScreenTitlebar(title: "Browse Library"),
-                Searchbar(_node),
-                SearchOptions(),
-              ],
-            ),
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(vertical: 20.h),
+          child: Column(
+            children: [
+              ScreenTopbar(),
+              ScreenTitlebar(title: "Browse Library"),
+              Searchbar(_node),
+              SearchOptions(),
+              SizedBox(height: 100.h),
+              Spacer(),
+              // buildAd(100, 15, ad1)
+            ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildAd(double w, double h, BannerAdController _controller) {
+    return ResponsiveBuilder(
+      builder: (context, info) {
+        return Container(
+          width: R.w(info, w),
+          height: R.h(info, h),
+          child: BannerAd(
+            controller: _controller,
+            unitId: DefaultAds.bannerAdUnitId,
+            error: Container(),
+            loading: Container(),
+            builder: (context, child) {
+              return BannerAd(
+                keywords: ["Education"],
+                size: BannerSize(
+                  Size(R.w(info, w), R.h(info, h)),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 

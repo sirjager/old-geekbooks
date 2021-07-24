@@ -6,7 +6,7 @@ class AdState {
   Future<InitializationStatus> initialization;
   AdState({required this.initialization});
 
-  String get bannerAdUnitID => AdId.bannerAndroid;
+  String get bannerAdUnitID => AdId.imageBanner;
 
   String get imageAd => AdId.imageBanner;
   String get videoAd => AdId.videoBanner;

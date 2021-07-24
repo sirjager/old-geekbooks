@@ -12,13 +12,16 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'export/export.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart' as nativeAds;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final initialization = MobileAds.instance.initialize();
   final adState = AdState(initialization: initialization);
-
+  await nativeAds.MobileAds.initialize();
+  await nativeAds.MobileAds.setTestDeviceIds(
+      ["BBD7957A66F990FAC85812B555A9ED7A"]);
   await Hive.initFlutter();
   Hive.registerAdapter(EncPageSourceAdapter());
   Hive.registerAdapter(EncBookAdapter());
@@ -48,7 +51,8 @@ class MyApp extends ConsumerWidget {
         darkTheme: AppTheme.themeDark,
         theme: AppTheme.themeLight,
         title: 'GeekLibrary',
-        home: WelcomeScreen(),
+        home: Dashboard(),
+        // WelcomeScreen(),
       ),
     );
   }

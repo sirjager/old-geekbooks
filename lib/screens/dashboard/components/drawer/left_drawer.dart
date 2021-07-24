@@ -1,4 +1,5 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/pages/ads/test.dart';
 import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/items.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/provider/dmi_provider.dart';
@@ -120,6 +121,37 @@ class LeftDrawer extends ConsumerWidget {
                             ),
                             trailing: Icon(
                               EvaIcons.downloadOutline,
+                              size: 80.sp,
+                              color: isDark
+                                  ? XColors.grayColor
+                                  : XColors.grayColor,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Consumer(
+                      builder: (context, watch, child) {
+                        bool isDark = watch(themeProvider).isDarkMode;
+
+                        return Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            onTap: () {
+                              Get.back();
+                              Get.to(() => TestAds());
+                            },
+                            title: KText(
+                              "Ads Testing",
+                              font: "Nunito",
+                              weight: FontWeight.w600,
+                              color: isDark
+                                  ? XColors.grayColor
+                                  : XColors.grayColor,
+                              size: 65.sp,
+                            ),
+                            trailing: Icon(
+                              EvaIcons.npmOutline,
                               size: 80.sp,
                               color: isDark
                                   ? XColors.grayColor
