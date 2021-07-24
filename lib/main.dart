@@ -10,6 +10,7 @@ import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/packages/authentication/services/authentication_wrapper.dart';
 import 'package:geeklibrary/provider/all_provider.dart';
 import 'package:geeklibrary/screens/login/login.dart';
+import 'package:geeklibrary/screens/welcome/welcome.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -54,7 +55,7 @@ class MyApp extends ConsumerWidget {
         theme: AppTheme.themeLight,
         title: 'GeekLibrary',
         home: AuthenticationWrapper(
-          login: LoginScreen(),
+          login: WelcomeScreen(),
           home: VerificationCheck(),
         ),
         // WelcomeScreen(),

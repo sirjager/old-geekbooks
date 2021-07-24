@@ -282,6 +282,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   pasa.pasa,
                                                 );
                                                 if (!sucess) {
+                                                  context
+                                                      .read(pasaProvider)
+                                                      .pasa
+                                                      .clear();
                                                   setState(() {
                                                     pressed = false;
                                                   });

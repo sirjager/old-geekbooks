@@ -7,12 +7,10 @@ class Generate {
     return new AccountDetails(
       uid: user.uid,
       name: user.displayName,
-      image: user.photoURL,
       email: user.email,
       isAccountEnabled: true,
       isVerified: user.emailVerified,
       isDarkThemeEnabled: false,
-     
       creationTime: user.metadata.creationTime.toString(),
       accountStatus: "Healthy",
     );
@@ -23,12 +21,9 @@ class Generate {
     return AccountDetails(
       uid: snapshot['uid'],
       name: snapshot["name"],
-      image: snapshot["image"],
       email: snapshot["email"],
       isVerified: snapshot["isVerified"],
-     
       creationTime: snapshot["creationTime"].toString(),
-    
       isAccountEnabled: snapshot["isAccountEnabled"],
       isDarkThemeEnabled: snapshot["isDarkThemeEnabled"],
       accountStatus: snapshot["accountStatus"],

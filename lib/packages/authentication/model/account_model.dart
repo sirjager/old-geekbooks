@@ -6,7 +6,6 @@ class AccountDetails {
     required this.uid,
     required this.email,
     required this.name,
-    required this.image,
     required this.isVerified,
     required this.creationTime,
     required this.isAccountEnabled,
@@ -16,7 +15,7 @@ class AccountDetails {
 
   final String uid;
   final String? name;
-  final String? image;
+
   final String? email;
   final bool isVerified;
   final bool isAccountEnabled;
@@ -28,7 +27,6 @@ class AccountDetails {
         uid: user.uid,
         email: user.email!,
         name: user.displayName ?? "",
-        image: user.photoURL ?? "",
         isAccountEnabled: true,
         accountStatus: "Healthy",
         isDarkThemeEnabled: false,
@@ -39,7 +37,6 @@ class AccountDetails {
   Map<String, dynamic> toMap() => {
         "uid": uid,
         "name": name,
-        "image": image,
         "isVerified": isVerified,
         'creationTime': creationTime.toString(),
         "accountStatus": accountStatus,
@@ -62,7 +59,6 @@ class AccountDetails {
       AccountDetails(
         uid: uid ?? this.uid,
         name: name ?? this.name,
-        image: image ?? this.image,
         email: email ?? this.email,
         creationTime: creationTime ?? this.creationTime,
         isVerified: isVerified ?? this.isVerified,

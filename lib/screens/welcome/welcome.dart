@@ -1,4 +1,6 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/screens/login/login.dart';
+import 'package:geeklibrary/screens/signup/signup.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -158,10 +160,10 @@ class WelcomeScreen extends StatelessWidget {
                       width: 800.w,
                       onPressed: () =>
                           Future.delayed(Duration(milliseconds: 150)).then(
-                              (value) => Get.offAll(() => Dashboard(),
+                              (value) => Get.to(() => LoginScreen(),
                                   transition: Transition.fade)),
                       child: KText(
-                        "Tutorial",
+                        "Login",
                         weight: FontWeight.bold,
                         color:
                             theme.isDarkMode ? XColors.darkColor : Colors.white,
@@ -195,10 +197,10 @@ class WelcomeScreen extends StatelessWidget {
                       width: 800.w,
                       onPressed: () =>
                           Future.delayed(Duration(milliseconds: 150)).then(
-                              (value) => Get.offAll(() => Dashboard(),
+                              (value) => Get.to(() => SignUpScreen(),
                                   transition: Transition.fade)),
                       child: KText(
-                        "Home",
+                        "Signup",
                         weight: FontWeight.bold,
                         color: XColors.grayColor,
                       ),

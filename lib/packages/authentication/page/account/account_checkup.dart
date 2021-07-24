@@ -116,7 +116,6 @@ class _AccountCheckupState extends State<AccountCheckup>
 
   Widget enabledWidget(SizingInformation info, AccountDetails _account) {
     context.read(accountProvider).register(_account);
-    
     return Lottie.asset(MyAssets.check,
         controller: _ani, height: R.w(info, 25), repeat: false, onLoaded: (_) {
       context.read(themeProvider).setMode(_account.isDarkThemeEnabled);
@@ -129,16 +128,9 @@ class _AccountCheckupState extends State<AccountCheckup>
   late final createAccountPro = FutureProvider<bool>((ref) async {
     final User _user = FirebaseAuth.instance.currentUser!;
     final bool isDarkMode = context.read(themeProvider).isDarkMode;
-    final String name = context.read(nameProvider).name.text;
-    final avatar = context.read(avatarProvider);
-    final String image =
-        avatar.avatar.toString() + "+" + avatar.avatarGradient.toString();
+    final String name = context.read(nameProvider).name.text;    
     final user = AccountDetails.build(_user);
-    final _acc = user.copyWith(
-      name: name,
-      image: image,
-      isDarkThemeEnabled: isDarkMode,
-    );
+    final _acc = user.copyWith(name: name, isDarkThemeEnabled: isDarkMode);
     context.read(nameProvider).name.clear();
     return await FirestoreOperations.saveAccountDetails(_user.uid, _acc);
   });
