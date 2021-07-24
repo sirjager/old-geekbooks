@@ -6,6 +6,7 @@ class KLeafButton extends StatefulWidget {
 
     //
     required this.onPressed,
+    this.isPressed = false,
     this.shadowSpread = 2,
     this.shadowColor,
     this.blurRadius = 10,
@@ -36,6 +37,8 @@ class KLeafButton extends StatefulWidget {
   final double shadowX;
   final double shadowY;
   final bool enabled;
+  final bool isPressed;
+
   final int duration;
   final ShadowDegree shadowDegree;
   final GestureTapCallback onPressed;
@@ -102,7 +105,7 @@ class _KLeafButtonState extends State<KLeafButton> {
             ),
             AnimatedPositioned(
               curve: _curve,
-              bottom: _position,
+              bottom: widget.isPressed ? 0 : _position,
               duration: Duration(milliseconds: widget.duration),
               child: Container(
                 height: _height,

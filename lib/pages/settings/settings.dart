@@ -1,5 +1,6 @@
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
+import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/weview/kwebview.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
 
@@ -35,41 +36,39 @@ class _SettingspageState extends State<Settingspage> {
         Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ScreenTopbar(),
-                ScreenTitlebar(title: "Settings"),
-                Column(
-                  children: [
-                    buildTile("Offline", EvaIcons.downloadOutline, () {}),
-                    buildTile(
-                        "Feedback",
-                        LineIcons.sms,
-                        () => Get.to(() => KWebView(
-                            title: "Feedback", url: Googleforms.feedback))),
-                    buildTile("App Info", EvaIcons.infoOutline, () {}),
-                    buildTile(
-                        "Contact Us",
-                        EvaIcons.peopleOutline,
-                        () => Get.to(() => KWebView(
-                            title: "Contact", url: Googleforms.contact))),
-                    buildTile(
-                      "Report Bug",
-                      Ionicons.bug_outline,
-                      () => Get.to(() =>
-                          KWebView(title: "Report Bug", url: Googleforms.bug)),
-                    ),
-                    buildTile("Help Center", EvaIcons.questionMarkCircleOutline,
-                        () {}),
-                    buildTile("Share App", EvaIcons.shareOutline, () {}),
-                    buildTile("Privacy Policy", EvaIcons.fileOutline, () {}),
-                    // buildAd(100, 10, ad1),
-                  ],
-                )
-              ],
-            ),
+          child: Column(
+            children: [
+              ScreenTopbar(),
+              ScreenTitlebar(title: "Settings"),
+              Column(
+                children: [
+                  buildTile("Offline", EvaIcons.downloadOutline,
+                      () => Get.to(() => SabedOffline())),
+                  buildTile(
+                      "Feedback",
+                      LineIcons.sms,
+                      () => Get.to(() => KWebView(
+                          title: "Feedback", url: Googleforms.feedback))),
+                  buildTile("App Info", EvaIcons.infoOutline, () {}),
+                  buildTile(
+                      "Contact Us",
+                      EvaIcons.peopleOutline,
+                      () => Get.to(() => KWebView(
+                          title: "Contact", url: Googleforms.contact))),
+                  buildTile(
+                    "Report Bug",
+                    Ionicons.bug_outline,
+                    () => Get.to(() =>
+                        KWebView(title: "Report Bug", url: Googleforms.bug)),
+                  ),
+                  buildTile(
+                      "Help Center", EvaIcons.questionMarkCircleOutline, () {}),
+                  buildTile("Share App", EvaIcons.shareOutline, () {}),
+                  buildTile("Privacy Policy", EvaIcons.fileOutline, () {}),
+                  // buildAd(100, 10, ad1),
+                ],
+              )
+            ],
           ),
         ),
       ],

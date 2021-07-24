@@ -47,7 +47,7 @@ class _HomepageState extends State<Homepage> {
               Searchbar(_node),
               SearchOptions(),
               SizedBox(height: 100.h),
-              Spacer(),
+              // Spacer(),
               // buildAd(100, 15, ad1)
             ],
           ),

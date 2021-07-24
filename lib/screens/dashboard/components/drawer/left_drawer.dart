@@ -1,8 +1,11 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/pages/ads/test.dart';
 import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/items.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/provider/dmi_provider.dart';
+import 'package:geeklibrary/screens/welcome/welcome.dart';
+import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:geeklibrary/widgets/kswitches/kroll_switch.dart';
 
 class LeftDrawer extends ConsumerWidget {
@@ -177,30 +180,43 @@ class LeftDrawer extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: KText(
-                        "Dark Mode",
-                        font: "Nunito",
-                        size: 60.sp,
-                        weight: FontWeight.bold,
-                      ),
+                    KLeafButton(
+                      onPressed: () => theme.setMode(!theme.isDarkMode),
+                      height: 120.h,
+                      radius: 0,
+                      isPressed: theme.isDarkMode,
+                      child: Text("Dark"),
+                      icon: theme.isDarkMode ? EvaIcons.moon : EvaIcons.sun,
+                      iconColor: theme.isDarkMode
+                          ? XColors.lightColor1
+                          : XColors.darkGray,
+                      color1: theme.isDarkMode
+                          ? XColors.darkColor1
+                          : XColors.darkGray,
+                      color2: theme.isDarkMode
+                          ? XColors.darkColor3
+                          : XColors.lightColor1,
                     ),
-                    GestureDetector(
-                      onTap: () => theme.setMode(!theme.isDarkMode),
-                      child: KRollSwitch(
-                        height: 100.h,
-                        width: 200.w,
-                        isOn: theme.isDarkMode,
-                        iconOn: EvaIcons.moon,
-                        iconOff: EvaIcons.sun,
-                        colorOff: XColors.grayColor,
-                        colorOn: XColors.darkColor2,
-                        iconOffColor: XColors.darkColor,
-                        textOnColor: Colors.white,
-                        textOffColor: XColors.darkColor,
-                      ),
-                    ),
+                    KLeafButton(
+                      onPressed: () => context
+                          .read(auth)
+                          .signOut()
+                          .then((value) => Future.delayed(Duration(seconds: 1)))
+                          .then((value) => Get.offAll(() => WelcomeScreen())),
+                      height: 120.h,
+                      radius: 0,
+                      child: Text("Logout"),
+                      icon: EvaIcons.logOutOutline,
+                      iconColor: theme.isDarkMode
+                          ? XColors.lightColor1
+                          : XColors.darkGray,
+                      color1: theme.isDarkMode
+                          ? XColors.darkColor1
+                          : XColors.darkGray,
+                      color2: theme.isDarkMode
+                          ? XColors.darkColor3
+                          : XColors.lightColor1,
+                    )
                   ],
                 ),
               ),

@@ -162,12 +162,11 @@ class WelcomeScreen extends StatelessWidget {
                           Future.delayed(Duration(milliseconds: 150)).then(
                               (value) => Get.to(() => LoginScreen(),
                                   transition: Transition.fade)),
-                      child: KText(
-                        "Login",
-                        weight: FontWeight.bold,
-                        color:
-                            theme.isDarkMode ? XColors.darkColor : Colors.white,
-                      ),
+                      child: KText("Login",
+                          weight: FontWeight.bold,
+                          color: theme.isDarkMode
+                              ? XColors.darkColor
+                              : Colors.white),
                       topDeco: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
