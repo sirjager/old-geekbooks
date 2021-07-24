@@ -1,20 +1,20 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/pages/sabed/sabed.dart';
 
 class KDMI {
   static final List<Dmi> items = [
     Dmi(
       index: 0,
-      onTap: () {},
+      onTap: () => Get.offAll(() => Dashboard()),
       title: 'Search',
       icon: EvaIcons.searchOutline,
     ),
     Dmi(
       index: 1,
-      onTap: () {},
+      onTap: () => Get.to(() => SabedOffline()),
       title: 'Offline',
       icon: EvaIcons.downloadOutline,
     ),
-    
   ];
 }
 

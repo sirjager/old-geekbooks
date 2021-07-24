@@ -27,7 +27,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => Phoenix(
         child: ProviderScope(
           overrides: [adStateProvider.overrideWithValue(adState)],

@@ -1,4 +1,5 @@
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/items.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/provider/dmi_provider.dart';
 import 'package:geeklibrary/widgets/kswitches/kroll_switch.dart';
@@ -29,20 +30,19 @@ class LeftDrawer extends ConsumerWidget {
                     Container(
                       height: 150.h,
                       margin:
-                          EdgeInsets.only(left: 50.w, right: 50.w, top: 30.h),
+                          EdgeInsets.only(left: 50.w, right: 50.w, top: 10.h),
                       child: Row(
                         children: [
-                          Material(
-                            color: Colors.transparent,
-                            child: IconButton(
-                              splashColor: Colors.transparent,
-                              onPressed: () => Get.back(),
-                              iconSize: 70.w,
-                              icon: Icon(EvaIcons.barChartOutline),
-                              color: theme.isDarkMode
-                                  ? XColors.grayText
-                                  : XColors.darkColor1,
+                          IconButton(
+                            onPressed: () => Get.back(),
+                            iconSize: 70.w,
+                            icon: Icon(
+                              EvaIcons.closeCircleOutline,
+                              size: 110.sp,
                             ),
+                            color: theme.isDarkMode
+                                ? XColors.grayText
+                                : XColors.darkColor1,
                           ),
                         ],
                       ),
@@ -66,7 +66,70 @@ class LeftDrawer extends ConsumerWidget {
               flex: 8,
               child: Container(
                 child: Column(
-                  children: KDMI.items.map((i) => builTile(i)).toList(),
+                  children: [
+                    Consumer(
+                      builder: (context, watch, child) {
+                        bool isDark = watch(themeProvider).isDarkMode;
+
+                        return Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            onTap: () {
+                              Get.back();
+                              Get.offAll(() => Dashboard());
+                            },
+                            title: KText(
+                              "Searchs",
+                              font: "Nunito",
+                              weight: FontWeight.w600,
+                              color: isDark
+                                  ? XColors.grayColor
+                                  : XColors.grayColor,
+                              size: 65.sp,
+                            ),
+                            trailing: Icon(
+                              EvaIcons.searchOutline,
+                              size: 80.sp,
+                              color: isDark
+                                  ? XColors.grayColor
+                                  : XColors.grayColor,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Consumer(
+                      builder: (context, watch, child) {
+                        bool isDark = watch(themeProvider).isDarkMode;
+
+                        return Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            onTap: () {
+                              Get.back();
+                              Get.to(() => SabedOffline());
+                            },
+                            title: KText(
+                              "Offline",
+                              font: "Nunito",
+                              weight: FontWeight.w600,
+                              color: isDark
+                                  ? XColors.grayColor
+                                  : XColors.grayColor,
+                              size: 65.sp,
+                            ),
+                            trailing: Icon(
+                              EvaIcons.downloadOutline,
+                              size: 80.sp,
+                              color: isDark
+                                  ? XColors.grayColor
+                                  : XColors.grayColor,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -87,13 +150,15 @@ class LeftDrawer extends ConsumerWidget {
                       child: KText(
                         "Dark Mode",
                         font: "Nunito",
-                        size: 80.sp,
+                        size: 60.sp,
                         weight: FontWeight.bold,
                       ),
                     ),
                     GestureDetector(
                       onTap: () => theme.setMode(!theme.isDarkMode),
                       child: KRollSwitch(
+                        height: 100.h,
+                        width: 200.w,
                         isOn: theme.isDarkMode,
                         iconOn: EvaIcons.moon,
                         iconOff: EvaIcons.sun,

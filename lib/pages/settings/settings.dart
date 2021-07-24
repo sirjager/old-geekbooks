@@ -1,5 +1,7 @@
+import 'package:geeklibrary/constants/forms/links.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
+import 'package:geeklibrary/screens/weview/kwebview.dart';
 
 class Settingspage extends StatelessWidget {
   const Settingspage({Key? key}) : super(key: key);
@@ -18,14 +20,16 @@ class Settingspage extends StatelessWidget {
               ScreenTopbar(),
               ScreenTitlebar(title: "Settings"),
               SizedBox(height: 50.h),
-              buildTile("Offline", EvaIcons.downloadOutline),
-              buildTile("Feedback", LineIcons.sms),
-              buildTile("App Info", EvaIcons.infoOutline),
-              buildTile("Contact Us", EvaIcons.peopleOutline),
-              buildTile("Report Bug", Ionicons.bug_outline),
-              buildTile("Help Center", EvaIcons.questionMarkCircleOutline),
-              buildTile("Share App", EvaIcons.shareOutline),
-              buildTile("Privacy Policy", EvaIcons.fileOutline),
+              buildTile("Offline", EvaIcons.downloadOutline, () {}),
+              buildTile("Feedback", LineIcons.sms,
+                  () => Get.to(KWebView(url: Googleforms.feedback))),
+              buildTile("App Info", EvaIcons.infoOutline, () {}),
+              buildTile("Contact Us", EvaIcons.peopleOutline, () {}),
+              buildTile("Report Bug", Ionicons.bug_outline, () {}),
+              buildTile(
+                  "Help Center", EvaIcons.questionMarkCircleOutline, () {}),
+              buildTile("Share App", EvaIcons.shareOutline, () {}),
+              buildTile("Privacy Policy", EvaIcons.fileOutline, () {}),
             ],
           ),
         ),
@@ -77,9 +81,9 @@ class Settingspage extends StatelessWidget {
     );
   }
 
-  Widget buildTile(String title, IconData icon) {
+  Widget buildTile(String title, IconData icon, VoidCallback onTap) {
     return InkWell(
-      onTap: () {},
+      onTap: () => onTap(),
       borderRadius: BorderRadius.circular(20.w),
       child: Row(
         children: [

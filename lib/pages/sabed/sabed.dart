@@ -75,6 +75,7 @@ class SabedOfflineState extends State<SabedOffline> {
                 alignment: Alignment.center,
                 child: Column(
                   children: [
+                    SizedBox(height: 50.h),
                     ResultHeader(title: "Saved Books"),
                     FeatureStrip(),
                     Expanded(
