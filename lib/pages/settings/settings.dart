@@ -22,7 +22,7 @@ class Settingspage extends StatelessWidget {
               SizedBox(height: 50.h),
               buildTile("Offline", EvaIcons.downloadOutline, () {}),
               buildTile("Feedback", LineIcons.sms,
-                  () => Get.to(KWebView(url: Googleforms.feedback))),
+                  () => Get.to(() => KWebView(url: Googleforms.feedback))),
               buildTile("App Info", EvaIcons.infoOutline, () {}),
               buildTile("Contact Us", EvaIcons.peopleOutline, () {}),
               buildTile("Report Bug", Ionicons.bug_outline, () {}),

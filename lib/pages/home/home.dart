@@ -3,7 +3,7 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
 
 class Homepage extends StatelessWidget {
-  Homepage( {Key? key}) : super(key: key);
+  Homepage({Key? key}) : super(key: key);
 
   final FocusNode _node = FocusNode();
 
@@ -14,15 +14,18 @@ class Homepage extends StatelessWidget {
       children: [
         buildShapes(),
         Container(
-          alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-          child: Column(
-            children: [
-              ScreenTopbar(),
-              ScreenTitlebar(title: "Browse Library"),
-              Searchbar( _node),
-              SearchOptions(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ScreenTopbar(),
+                ScreenTitlebar(title: "Browse Library"),
+                Searchbar(_node),
+                SearchOptions(),
+              ],
+            ),
           ),
         ),
       ],

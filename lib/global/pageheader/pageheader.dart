@@ -2,11 +2,10 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PageHeader extends ConsumerWidget {
-  const PageHeader(
-      {Key? key, required this.title, this.disableToggleView = false})
+  const PageHeader({Key? key, required this.title, this.enableDarkMode = false})
       : super(key: key);
   final String title;
-  final bool disableToggleView;
+  final bool enableDarkMode;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -46,33 +45,35 @@ class PageHeader extends ConsumerWidget {
             },
           ),
           Spacer(),
-          Consumer(
-            builder: (context, watch, child) {
-              var theme = watch(themeProvider);
-              return Container(
-                height: 120.w,
-                width: 120.w,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(50.w),
-                  child: Shimmer.fromColors(
-                    period: Duration(seconds: 5),
-                    direction: ShimmerDirection.rtl,
-                    highlightColor:
-                        theme.isDarkMode ? Colors.amber : XColors.darkColor,
-                    baseColor: XColors.grayColor,
-                    child: IconButton(
-                      onPressed: () => theme.setMode(!theme.isDarkMode),
-                      splashColor: Colors.transparent,
-                      icon: theme.isDarkMode
-                          ? Icon(EvaIcons.sun)
-                          : Icon(EvaIcons.moon),
-                      color: isDarkMode ? XColors.grayText : XColors.darkColor1,
+          if (enableDarkMode)
+            Consumer(
+              builder: (context, watch, child) {
+                var theme = watch(themeProvider);
+                return Container(
+                  height: 120.w,
+                  width: 120.w,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(50.w),
+                    child: Shimmer.fromColors(
+                      period: Duration(seconds: 5),
+                      direction: ShimmerDirection.rtl,
+                      highlightColor:
+                          theme.isDarkMode ? Colors.amber : XColors.darkColor,
+                      baseColor: XColors.grayColor,
+                      child: IconButton(
+                        onPressed: () => theme.setMode(!theme.isDarkMode),
+                        splashColor: Colors.transparent,
+                        icon: theme.isDarkMode
+                            ? Icon(EvaIcons.sun)
+                            : Icon(EvaIcons.moon),
+                        color:
+                            isDarkMode ? XColors.grayText : XColors.darkColor1,
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          ),
+                );
+              },
+            ),
         ],
       ),
     );

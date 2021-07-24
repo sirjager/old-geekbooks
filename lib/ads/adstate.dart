@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:geeklibrary/ads/ad_ids.dart';
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -8,8 +6,7 @@ class AdState {
   Future<InitializationStatus> initialization;
   AdState({required this.initialization});
 
-  String get bannerAdUnitID =>
-      Platform.isAndroid ? AdId.bannerAndroid : bannerAdUnitID;
+  String get bannerAdUnitID => AdId.bannerAndroid;
 
   String get imageAd => AdId.imageBanner;
   String get videoAd => AdId.videoBanner;
