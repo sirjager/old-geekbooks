@@ -3,9 +3,8 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AccountStatus extends StatelessWidget {
-  const AccountStatus({Key? key, this.status = "", this.msg = ""})
-      : super(key: key);
-  final String status;
+  const AccountStatus({Key? key, this.msg = ""}) : super(key: key);
+
   final String msg;
   @override
   Widget build(BuildContext context) {

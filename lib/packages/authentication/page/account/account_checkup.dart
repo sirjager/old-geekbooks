@@ -41,8 +41,8 @@ class _AccountCheckupState extends State<AccountCheckup>
                   data: (isNew) {
                     if (isNew) {
                       //* Create User Document for this new user
-                      return Consumer(builder: (context, watch, child) {
-                        var _created = watch(createAccountPro);
+                      return Consumer(builder: (context, watch2, child2) {
+                        var _created = watch2(createAccountPro);
                         return _created.when(
                           data: (created) {
                             if (created) {
@@ -58,14 +58,17 @@ class _AccountCheckupState extends State<AccountCheckup>
                                           height: R.w(info, 35),
                                           repeat: false, onLoaded: (_) {
                                         _ani.forward().whenComplete(() {
-                                          Get.offAll(() => AccountStatus(),
+                                          Get.offAll(
+                                              () => AccountStatus(
+                                                  msg: _acc.accountStatus),
                                               transition: Transition.fadeIn);
                                         });
                                       });
                                     }
                                   },
                                   loading: () => Container(),
-                                  error: (e1, s1) => Text(e1.toString()),
+                                  error: (e1, s1) =>
+                                      Center(child: Text(e1.toString())),
                                 );
                               });
                             } else {
@@ -73,12 +76,12 @@ class _AccountCheckupState extends State<AccountCheckup>
                             }
                           },
                           loading: () => Container(),
-                          error: (e1, s1) => Text(e1.toString()),
+                          error: (e1, s1) => Center(child: Text(e1.toString())),
                         );
                       });
                     } else {
-                      return Consumer(builder: (context, watch3, child3) {
-                        final _userDoc = watch3(getAccountPro);
+                      return Consumer(builder: (context, watch4, child4) {
+                        final _userDoc = watch4(getAccountPro);
                         return _userDoc.when(
                           data: (_acc) {
                             if (_acc.isAccountEnabled) {
@@ -98,13 +101,13 @@ class _AccountCheckupState extends State<AccountCheckup>
                             }
                           },
                           loading: () => Container(),
-                          error: (e1, s1) => Text(e1.toString()),
+                          error: (e1, s1) => Center(child: Text(e1.toString())),
                         );
                       });
                     }
                   },
                   loading: () => Container(),
-                  error: (e1, s1) => Text(e1.toString()),
+                  error: (e1, s1) => Center(child: Text(e1.toString())),
                 );
               },
             ),
@@ -115,12 +118,13 @@ class _AccountCheckupState extends State<AccountCheckup>
   }
 
   Widget enabledWidget(SizingInformation info, AccountDetails _account) {
-    context.read(accountProvider).register(_account);
     return Lottie.asset(MyAssets.check,
         controller: _ani, height: R.w(info, 25), repeat: false, onLoaded: (_) {
+      context.read(accountProvider).register(_account);
       context.read(themeProvider).setMode(_account.isDarkThemeEnabled);
       _ani.forward().whenComplete(() {
-        Get.offAll(() => Dashboard(), transition: Transition.fadeIn);
+        Future.delayed(Duration(milliseconds: 400)).then((value) =>
+            Get.offAll(() => Dashboard(), transition: Transition.fadeIn));
       });
     });
   }
@@ -128,7 +132,7 @@ class _AccountCheckupState extends State<AccountCheckup>
   late final createAccountPro = FutureProvider<bool>((ref) async {
     final User _user = FirebaseAuth.instance.currentUser!;
     final bool isDarkMode = context.read(themeProvider).isDarkMode;
-    final String name = context.read(nameProvider).name.text;    
+    final String name = context.read(nameProvider).name.text;
     final user = AccountDetails.build(_user);
     final _acc = user.copyWith(name: name, isDarkThemeEnabled: isDarkMode);
     context.read(nameProvider).name.clear();
