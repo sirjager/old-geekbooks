@@ -73,7 +73,7 @@ class ListPage extends ConsumerWidget {
                               book.author!,
                               size: 35.sp,
                               font: "MavenPro",
-                              maxLines: 3,
+                              maxLines: 2,
                               color: theme.isDarkMode
                                   ? Colors.white54
                                   : Colors.blue,

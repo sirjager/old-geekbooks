@@ -37,8 +37,8 @@ class LeftDrawer extends ConsumerWidget {
                             child: IconButton(
                               splashColor: Colors.transparent,
                               onPressed: () => Get.back(),
-                              iconSize: 100.sp,
-                              icon: Icon(Ionicons.logo_xbox),
+                              iconSize: 70.w,
+                              icon: Icon(EvaIcons.barChartOutline),
                               color: theme.isDarkMode
                                   ? XColors.grayText
                                   : XColors.darkColor1,
