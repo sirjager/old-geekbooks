@@ -117,7 +117,6 @@ class LeftDrawer extends ConsumerWidget {
                     Consumer(
                       builder: (context, watch, child) {
                         bool isDark = watch(themeProvider).isDarkMode;
-
                         return Material(
                           color: Colors.transparent,
                           child: ListTile(
@@ -163,7 +162,7 @@ class LeftDrawer extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     KLeafButton(
-                      onPressed: () => theme.setMode(!theme.isDarkMode),
+                      onPressed: () async => theme.setMode(!theme.isDarkMode),
                       height: 120.h,
                       radius: 0,
                       isPressed: theme.isDarkMode,
