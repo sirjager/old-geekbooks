@@ -9,13 +9,11 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
   adaptive_dialog: ^1.0.1
   cached_network_image: ^3.0.0
-  clipboard: ^0.1.3
-  cloud_firestore: ^2.4.0
-  cloud_firestore_web: ^2.3.0
   cupertino_icons: ^1.0.3
-  device_preview: ^0.7.4
   dio: ^4.0.0
   encrypt: ^5.0.0
   eva_icons_flutter: ^3.0.0
@@ -23,11 +21,6 @@ dependencies:
   firebase_app_check: ^0.0.2+1
   firebase_auth: ^3.0.1
   firebase_core: ^1.4.0
-  flash: ^2.0.1
-  flowder: ^0.2.0
-  flutter:
-    sdk: flutter
-  flutter_inappwebview: ^5.3.2
   flutter_local_notifications: ^8.1.1+2
   flutter_phoenix: ^1.0.0
   flutter_riverpod: ^0.14.0+3
@@ -40,31 +33,25 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   get: ^4.1.4
   google_fonts: ^2.1.0
-  google_sign_in: ^5.0.4
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   http: ^0.13.3
   intl: ^0.17.0
   ionicons: ^0.1.2
   line_icons: ^2.0.1
-  liquid_progress_indicator: ^0.4.0
   logger: ^1.0.0
   lottie: ^1.0.1
-  numberpicker: ^2.1.1
   open_file: ^3.2.1
-  palette_generator: ^0.3.0
   path_provider: ^2.0.2
   permission_handler: ^8.1.2
   photo_view: ^0.11.1
   pointycastle: ^3.1.3
   readmore: ^2.1.0
   shimmer: ^2.0.0
-  sign_button: ^2.0.0
   string_validator: ^0.3.0
   translator: ^0.1.7
   typicons_flutter: ^0.5.0
   url_launcher: ^6.0.9
-  webview_flutter: ^2.0.9
 
 dev_dependencies:
   build_runner: ^2.0.4
@@ -81,4 +68,3 @@ flutter:
     - assets/lottie/
     - assets/images/png/
     - assets/images/shapes/
-    - assets/images/avatar/
