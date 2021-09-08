@@ -17,9 +17,10 @@ class ScreenTitlebar extends StatelessWidget {
               return KText(
                 title,
                 font: "MavenPro",
-                letterSpacing: 1,
                 size: 100.sp,
-                weight: FontWeight.w600,
+                letterSpacing: 1.5,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.hammersmithOne(),
                 color: isDarkMode ? XColors.grayColor : Color(0xff555555),
               );
             },

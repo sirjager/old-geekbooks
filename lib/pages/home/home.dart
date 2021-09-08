@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
+import 'package:lottie/lottie.dart';
 
 class Homepage extends StatelessWidget {
   final FocusNode _node = FocusNode();
@@ -18,6 +19,7 @@ class Homepage extends StatelessWidget {
           child: Column(
             children: [
               ScreenTopbar(),
+              Lottie.asset(MyAssets.girlBlink),
               ScreenTitlebar(title: "Browse Library"),
               Searchbar(_node),
               SearchOptions(),
