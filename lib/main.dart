@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geeklibrary/core/theme/themeData.dart';
 import 'package:geeklibrary/models/book/encbook.dart';
 import 'package:geeklibrary/models/sauce/encpagesource.dart';
-import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/packages/authentication/services/authentication_wrapper.dart';
 import 'package:geeklibrary/provider/all_provider.dart';
 import 'package:geeklibrary/screens/welcome/welcome.dart';

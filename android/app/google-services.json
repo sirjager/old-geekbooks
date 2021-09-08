@@ -1,48 +1,38 @@
 {
   "project_info": {
-    "project_number": "247840151513",
-    "firebase_url": "https://appstonight-0318-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "appstonight-0318",
-    "storage_bucket": "appstonight-0318.appspot.com"
+    "project_number": "485171031749",
+    "project_id": "geeklibrary-1811",
+    "storage_bucket": "geeklibrary-1811.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:247840151513:android:821de4fff00ce68b21ebc8",
+        "mobilesdk_app_id": "1:485171031749:android:41e8cbe2ae45fee5c38aac",
         "android_client_info": {
           "package_name": "com.sirjager.geeklibrary"
         }
       },
       "oauth_client": [
         {
-          "client_id": "247840151513-5qlatt68pr8mfoj6tcmavbmkg853s33c.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sirjager.geeklibrary",
-            "certificate_hash": "8ffb181133ac9c59a1f03f2aa5258b561be83c44"
-          }
-        },
-        {
-          "client_id": "247840151513-u0o5v7vssotut1cud6qhdabv6vag59tt.apps.googleusercontent.com",
+          "client_id": "485171031749-do4lnkmppcn2j15dfc01jrp6n3ci1s7g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDkpMdE1n6oCBY7X1yaCHSCcaKYdCrXqUM"
+          "current_key": "AIzaSyDOMMyNm8WqRaeyhlmTtIJNtYHSPsUbWGI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "247840151513-u0o5v7vssotut1cud6qhdabv6vag59tt.apps.googleusercontent.com",
+              "client_id": "485171031749-do4lnkmppcn2j15dfc01jrp6n3ci1s7g.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      },
-      "admob_app_id": "ca-app-pub-9510752255420297~7975368104"
+      }
     }
   ],
   "configuration_version": "1"
