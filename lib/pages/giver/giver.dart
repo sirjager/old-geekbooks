@@ -1,5 +1,8 @@
 import 'package:geeklibrary/backend/calls/api_calls.dart';
+import 'package:geeklibrary/backend/provider/down_provider.dart';
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
+import 'package:geeklibrary/models/lenk/lenk.dart';
 import 'package:geeklibrary/pages/results/components/header.dart';
 import 'package:geeklibrary/pages/zoom/zoom.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
@@ -17,14 +20,6 @@ class RiderProvider extends StatefulWidget {
 
 class _RiderProviderState extends State<RiderProvider> {
   bool delayed = false;
-
-  void openPage(String md5) async {
-    final String _url = ApiCalls().makeGraberURL(md5);
-    bool _canLaunch = await launch.canLaunch(_url);
-    if (_canLaunch) {
-      await launch.launch(_url);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,35 +157,23 @@ class _RiderProviderState extends State<RiderProvider> {
                                 Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 60.w, vertical: 30.w),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      KLeafButton(
-                                        onPressed: () {
-                                          openPage(book.md5!);
-                                        },
-                                        height: 170.w,
-                                        width: 450.w,
-                                        icon: EvaIcons.globeOutline,
-                                        iconColor: isDarkMode
-                                            ? XColors.grayText1
-                                            : XColors.grayText,
-                                        child: KText(
-                                          "Go To Site",
-                                          font: "MavenPro",
-                                          weight: FontWeight.bold,
-                                          size: 45.sp,
-                                          color: isDarkMode
-                                              ? XColors.lightColor1
-                                              : XColors.lightColor1,
-                                        ),
-                                        radius: 0,
-                                        color1: isDarkMode
-                                            ? XColors.grayText1
-                                            : XColors.grayText,
-                                      )
-                                    ],
+                                  child: FutureBuilder<List<Lenk>>(
+                                    future: getDownloadLinks(book),
+                                    builder: (context,
+                                        AsyncSnapshot<List<Lenk>> snapshot) {
+                                      if (snapshot.connectionState !=
+                                          ConnectionState.done) {
+                                        return Container();
+                                      } else {
+                                        if (snapshot.hasData &&
+                                            snapshot.data != null) {
+                                          List<Lenk> lenks = snapshot.data!;
+                                          return buildDownloadButton(
+                                              isDarkMode, lenks);
+                                        } else
+                                          return Container();
+                                      }
+                                    },
                                   ),
                                 ),
                                 Container(
@@ -221,6 +204,30 @@ class _RiderProviderState extends State<RiderProvider> {
                 ],
               ),
             ),
+    );
+  }
+
+  Future<List<Lenk>> getDownloadLinks(Book book) async {
+    if (book.md5 != null) {
+      return await ApiCalls().getDownLenx(book.md5!, book.id, book.title ?? "");
+    } else
+      return [];
+  }
+
+  Widget buildDownloadButton(bool isDarkMode, List<Lenk> lenks) {
+    return Column(
+      children: lenks
+          .map((e) => OutlinedButton(
+                onPressed: () {},
+                child: KText(
+                  e.title,
+                  font: "MavenPro",
+                  weight: FontWeight.bold,
+                  size: 45.sp,
+                  color: isDarkMode ? XColors.lightColor1 : XColors.lightColor1,
+                ),
+              ))
+          .toList(),
     );
   }
 }

@@ -159,11 +159,11 @@ class ApiCalls with ErrorHandler {
     return books.first;
   }
 
-  Future<List<Lenk>?> getDownLenx(String md5, String id, String msg) async {
+  Future<List<Lenk>> getDownLenx(String md5, String id, String msg) async {
     //!==> This will return  [[ Downloads ]] as Download Object for provided md5
     final _url = makeGraberURL(md5);
     final _downSource = await _getSource(_url, msg);
-    if (_downSource == null) return null;
+    if (_downSource == null) return [];
     var _lenk = Grabber.getLenks(_downSource);
     // final DownLenks _downLenx = DownLenks.generate(id, md5, _lenk);
     return _lenk;
