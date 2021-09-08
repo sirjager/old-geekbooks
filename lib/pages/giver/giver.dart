@@ -1,6 +1,5 @@
 import 'package:geeklibrary/backend/calls/api_calls.dart';
 import 'package:geeklibrary/core/log/log.dart';
-import 'package:geeklibrary/core/services/notifications.dart';
 import 'package:geeklibrary/core/services/permissions.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/lenk/lenk.dart';
@@ -31,14 +30,6 @@ class _RiderProviderState extends State<RiderProvider> {
     } else
       return [];
   });
-
-  @override
-  void initState() {
-    super.initState();
-    notificationPlugin
-        .setListenerForLowerVersion(onNotificationInLowerVersions);
-    notificationPlugin.setOnNotificationClick(onNotificationClick);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,17 +229,17 @@ class _RiderProviderState extends State<RiderProvider> {
     try {
       final hasPermission = await SPermissions.handleStoragePermission();
       if (hasPermission) {
-        // Get.snackbar(
-        //   "Download Started",
-        //   book.title ?? book.author ?? "",
-        //   snackPosition: SnackPosition.BOTTOM,
-        // );
+        Get.snackbar(
+          "Download Started",
+          book.title ?? book.author ?? "",
+          snackPosition: SnackPosition.BOTTOM,
+        );
         final dir = await XFiles.getAppPath();
         final fileName = (book.title ?? book.author ?? "Geeklibrary") +
             "_${DateTime.now()}" +
             ".${book.exten!}";
         final String filepath = dir + "/" + fileName;
-        final taskId = await FlutterDownloader.enqueue(
+        await FlutterDownloader.enqueue(
           url: url,
           savedDir: dir,
           showNotification: true,
@@ -256,18 +247,13 @@ class _RiderProviderState extends State<RiderProvider> {
           fileName: fileName,
         );
 
-        // Get.snackbar(
-        //   "Download Finished",
-        //   book.title ?? book.author ?? "",
-        //   snackPosition: SnackPosition.BOTTOM,
-        //   backgroundColor: XColors.grayColor,
-        //   colorText: XColors.darkColor1,
-        //   onTap: (tap) {},
-        // );
-        notificationPlugin.sendNotification(
-          title: "Download Finished",
-          body: book.title ?? book.author ?? book.id,
-          payload: filepath,
+        Get.snackbar(
+          "Download Finished",
+          book.title ?? book.author ?? "",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: XColors.grayColor,
+          colorText: XColors.darkColor1,
+          onTap: (tap) {},
         );
       }
     } catch (e) {
@@ -275,14 +261,6 @@ class _RiderProviderState extends State<RiderProvider> {
     }
 
     return true;
-  }
-
-  onNotificationInLowerVersions(ReceivedNotification receivedNotification) {
-    print('Notification Received ${receivedNotification.id}');
-  }
-
-  onNotificationClick(String payload) {
-    OpenFile.open(payload);
   }
 
   final downloadProgressProvider =
