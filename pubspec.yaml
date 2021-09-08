@@ -79,10 +79,6 @@ flutter:
 
   assets:
     - assets/lottie/
-    - assets/images/jpg/
     - assets/images/png/
-    - assets/images/svg/
     - assets/images/shapes/
-    - assets/images/vectors/
     - assets/images/avatar/
-    - assets/images/avatars/
