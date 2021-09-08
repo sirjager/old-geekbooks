@@ -54,7 +54,7 @@ class SearchOptions extends ConsumerWidget {
                       font: "MavenPro",
                       letterSpacing: 1,
                       size: 38.sp,
-                      color: isSelected ? XColors.darkText : XColors.grayText,
+                      color: isSelected ? XColors.grayColor : XColors.grayText,
                       weight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     ),
                     topDeco: BoxDecoration(
@@ -65,7 +65,7 @@ class SearchOptions extends ConsumerWidget {
                     ),
                     bottomDeco: BoxDecoration(
                       color: theme.isDarkMode
-                          ? XColors.darkGray.withOpacity(0.4)
+                          ? XColors.grayColor.withOpacity(0.2)
                           : XColors.grayText,
                       borderRadius: BorderRadius.circular(30.w),
                     ),

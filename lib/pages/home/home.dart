@@ -2,27 +2,11 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
+import 'package:geeklibrary/pages/home/components/lottie_provider.dart';
 import 'package:lottie/lottie.dart';
 
-class Homepage extends StatefulWidget {
-  @override
-  _HomepageState createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
-  bool _animate = false;
+class Homepage extends StatelessWidget {
   final FocusNode _node = FocusNode();
-
-  _play() async {
-    if (_animate) {
-      await Future.delayed(Duration(seconds: 3))
-          .then((value) => setState(() => _animate = false));
-    } else {
-      setState(() => _animate = true);
-      await Future.delayed(Duration(seconds: 3))
-          .then((value) => _animate = false);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +19,27 @@ class _HomepageState extends State<Homepage> {
           margin: EdgeInsets.symmetric(vertical: 20.h),
           child: Stack(
             children: [
-              GestureDetector(
-                onTap: () => _play,
-                child: Container(
-                  margin: EdgeInsets.only(top: 100.h, left: 550.w),
-                  child: Lottie.asset(
-                    MyAssets.girlFlower,
-                    repeat: _animate,
-                    height: 500.w,
-                  ),
+              Container(
+                margin: EdgeInsets.only(top: 100.h),
+                child: Consumer(
+                  builder: (context, watch, child) {
+                    var lot = watch(KLottieProvider.lottieProvider);
+                    return GestureDetector(
+                      onTap: () async => lot.play(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            child: Lottie.asset(
+                              MyAssets.girlFlower,
+                              repeat: lot.animate,
+                              height: 500.w,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
               Column(
