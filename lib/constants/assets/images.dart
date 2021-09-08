@@ -14,4 +14,5 @@ class MyAssets {
   static final String pleasewait = "assets/lottie/pleaseWait.json";
   static final String girlFlower = "assets/lottie/flower_girl.json";
   static final String ghost = "assets/lottie/ghost.json";
+  static final String bookstack = "assets/lottie/bookstack.json";
 }
