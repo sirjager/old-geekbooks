@@ -10,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'export/export.dart';
+import 'screens/login/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,7 @@ class MyApp extends ConsumerWidget {
         theme: AppTheme.themeLight,
         title: 'GeekLibrary',
         home: AuthenticationWrapper(
-          login: WelcomeScreen(),
+          login: LoginScreen(),
           home: Dashboard(),
         ),
         // WelcomeScreen(),
