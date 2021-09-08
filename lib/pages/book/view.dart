@@ -164,12 +164,13 @@ class _BookViewState extends State<BookView> {
                         weight: FontWeight.bold,
                         size: 60.sp,
                         googleFont: GoogleFonts.mavenPro(),
-                        color: theme.isDarkMode
-                            ? XColors.lightColor1
-                            : XColors.lightColor1,
+                        color: Colors.black,
                       ),
                       topDeco: G.green2GradBannerDeco,
-                      bottomDeco: G.green3GradBannerDeco,
+                      bottomDeco: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: XColors.darkColor2,
+                      ),
                     ),
                   )
                 : Container(),

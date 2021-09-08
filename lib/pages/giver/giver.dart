@@ -248,6 +248,10 @@ class _RiderProviderState extends State<RiderProvider> {
                     color: isDarkMode ? XColors.darkColor1 : XColors.darkColor2,
                   ),
                   topDeco: G.green2GradBannerDeco,
+                  bottomDeco: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: XColors.darkColor2,
+                  ),
                 ),
               ))
           .toList(),
