@@ -51,7 +51,7 @@ class SearchOptions extends ConsumerWidget {
                     onPressed: () => updateFilter(item.index, searchOption),
                     child: KText(
                       item.title.toString(),
-                      font: "MavenPro",
+                      googleFont: GoogleFonts.mavenPro(),
                       letterSpacing: 1,
                       size: 38.sp,
                       color: isSelected ? XColors.grayColor : XColors.grayText,
