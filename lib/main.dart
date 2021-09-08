@@ -8,6 +8,7 @@ import 'package:geeklibrary/models/sauce/encpagesource.dart';
 import 'package:geeklibrary/packages/authentication/services/authentication_wrapper.dart';
 import 'package:geeklibrary/provider/all_provider.dart';
 import 'package:hive/hive.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'export/export.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate();
   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  await FlutterDownloader.initialize(debug: false);
   await Hive.initFlutter();
   Hive.registerAdapter(EncPageSourceAdapter());
   Hive.registerAdapter(EncBookAdapter());

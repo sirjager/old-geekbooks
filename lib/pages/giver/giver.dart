@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:geeklibrary/backend/calls/api_calls.dart';
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/core/services/notifications.dart';
@@ -11,6 +10,7 @@ import 'package:geeklibrary/utils/files/files.dart';
 import 'package:open_file/open_file.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 
 class RiderProvider extends StatefulWidget {
@@ -31,7 +31,6 @@ class _RiderProviderState extends State<RiderProvider> {
     } else
       return [];
   });
-  var dio = Dio();
 
   @override
   void initState() {
@@ -248,8 +247,15 @@ class _RiderProviderState extends State<RiderProvider> {
         final fileName = (book.title ?? book.author ?? "Geeklibrary") +
             "_${DateTime.now()}" +
             ".${book.exten!}";
-        await dio.download(url, dir + "/" + fileName);
         final String filepath = dir + "/" + fileName;
+        final taskId = await FlutterDownloader.enqueue(
+          url: url,
+          savedDir: dir,
+          showNotification: true,
+          openFileFromNotification: true,
+          fileName: fileName,
+        );
+
         // Get.snackbar(
         //   "Download Finished",
         //   book.title ?? book.author ?? "",
