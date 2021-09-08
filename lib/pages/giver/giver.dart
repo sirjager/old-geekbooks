@@ -483,14 +483,14 @@ class _RiderProviderState extends State<RiderProvider> {
               SizedBox(height: 40.h),
               KText(
                 "After File is Downloaded You can directly open from Popup Snackbar",
-                color: Colors.yellowAccent,
+                color: isDarkMode ? Colors.yellowAccent : Colors.indigo,
                 weight: FontWeight.bold,
                 googleFont: GoogleFonts.mavenPro(),
               ),
               SizedBox(height: 40.h),
               KText(
                 "Snackbar Will automatically close after 5 seconds",
-                color: Colors.yellowAccent,
+                color: isDarkMode ? Colors.yellowAccent : Colors.indigo,
                 weight: FontWeight.bold,
                 googleFont: GoogleFonts.mavenPro(),
               ),
