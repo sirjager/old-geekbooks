@@ -306,8 +306,8 @@ class _RiderProviderState extends State<RiderProvider> {
                 book.title ?? book.author ?? "",
                 snackPosition: SnackPosition.BOTTOM,
               );
-              final hasFilePath = await XFiles.download2(dio, url, filepath)
-                  .whenComplete(() async => await checkForFile(dir, fileName));
+              await XFiles.download2(dio, url, filepath);
+              final hasFilePath = await checkForFile(dir, fileName);
               if (hasFilePath != null) {
                 finishedSnackbar(hasFilePath, fileName);
               } else {
