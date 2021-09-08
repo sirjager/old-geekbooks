@@ -342,7 +342,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<bool> _signInCall(BuildContext context, TextEditingController _email,
       TextEditingController _pass) async {
-    var sucess = await context.read(auth).signIn(_email.text, _pass.text);
+    var sucess =
+        await context.read(auth).signIn("gimhani@geeklibrary.com", "000000"
+            // _email.text,
+            // _pass.text,
+            );
     if (sucess) {
       _email.clear();
       _pass.clear();

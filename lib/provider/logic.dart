@@ -4,7 +4,6 @@ import 'package:geeklibrary/models/page/pagination.dart';
 import 'package:geeklibrary/widgets/chip/chip.dart';
 import 'package:string_validator/string_validator.dart';
 
-
 class DrawerProvider extends ChangeNotifier {
   //!============> FOR USING DRAWER GLOBALY
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -18,7 +17,7 @@ class DrawerProvider extends ChangeNotifier {
 
 class ThemeProvider extends ChangeNotifier {
   //!=========> FOR CHECKING AND CHANING SYSTEM THEMEMODE
-  ThemeMode _mode = ThemeMode.light;
+  ThemeMode _mode = ThemeMode.dark;
   bool get isDarkMode => _mode == ThemeMode.dark;
   void setMode(bool isDarkMode) {
     _mode = isDarkMode ? ThemeMode.dark : ThemeMode.light;

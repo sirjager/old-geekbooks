@@ -9,31 +9,8 @@ class ScreenTopbar extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 70.h),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            height: 150.w,
-            width: 150.w,
-            alignment: Alignment.center,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(shape: BoxShape.circle),
-            child: Consumer(
-              builder: (context, watch, child) {
-                var isDarkMode = watch(themeProvider).isDarkMode;
-                return RotatedBox(
-                  quarterTurns: 1,
-                  child: IconButton(
-                    splashColor: Colors.transparent,
-                    onPressed: () =>
-                        context.read(drawerProvider).toggleDrawer(),
-                    iconSize: 70.w,
-                    icon: Icon(EvaIcons.barChartOutline),
-                    color: isDarkMode ? XColors.grayText : XColors.darkColor1,
-                  ),
-                );
-              },
-            ),
-          ),
           Container(
             height: 150.w,
             width: 150.w,
