@@ -75,31 +75,6 @@ class _SettingspageState extends State<Settingspage> {
     );
   }
 
-  Widget buildAd(double w, double h, BannerAdController ad1) {
-    return ResponsiveBuilder(
-      builder: (context, info) {
-        return Container(
-          width: R.w(info, w),
-          height: R.h(info, h),
-          child: BannerAd(
-            controller: ad1,
-            unitId: DefaultAds.bannerAdUnitId,
-            error: Container(),
-            loading: Container(),
-            builder: (context, child) {
-              return BannerAd(
-                keywords: ["Education"],
-                size: BannerSize(
-                  Size(R.w(info, w), R.h(info, h)),
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
   Widget buildShapes() {
     return Consumer(
       builder: (context, watch, child) {

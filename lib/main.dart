@@ -1,40 +1,27 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geeklibrary/ads/adprovider.dart';
-import 'package:geeklibrary/ads/adstate.dart';
 import 'package:geeklibrary/core/theme/themeData.dart';
 import 'package:geeklibrary/models/book/encbook.dart';
 import 'package:geeklibrary/models/sauce/encpagesource.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/packages/authentication/services/authentication_wrapper.dart';
 import 'package:geeklibrary/provider/all_provider.dart';
-
 import 'package:geeklibrary/screens/welcome/welcome.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart' as nativeAds;
+
 import 'export/export.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // final initialization = MobileAds.instance.initialize();
-  // final adState = AdState(initialization: initialization);
-  // await nativeAds.MobileAds.initialize();
-  // await nativeAds.MobileAds.setTestDeviceIds(
-  //     ["BBD7957A66F990FAC85812B555A9ED7A"]);
   await Hive.initFlutter();
   Hive.registerAdapter(EncPageSourceAdapter());
   Hive.registerAdapter(EncBookAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(
-    ProviderScope(
-      // overrides: [adStateProvider.overrideWithValue(adState)],
-      child: MyApp(),
-    ),
+    ProviderScope(child: MyApp()),
   );
 }
 

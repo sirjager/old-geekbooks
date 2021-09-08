@@ -1,7 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:geeklibrary/ads/ads_defaults.dart';
-import 'package:geeklibrary/core/responsive/builder/responsive_builder.dart';
-import 'package:geeklibrary/core/responsive/size/responsive_size.dart';
 
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
@@ -53,31 +50,6 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget buildAd(double w, double h, BannerAdController _controller) {
-    return ResponsiveBuilder(
-      builder: (context, info) {
-        return Container(
-          width: R.w(info, w),
-          height: R.h(info, h),
-          child: BannerAd(
-            controller: _controller,
-            unitId: DefaultAds.bannerAdUnitId,
-            error: Container(),
-            loading: Container(),
-            builder: (context, child) {
-              return BannerAd(
-                keywords: ["Education"],
-                size: BannerSize(
-                  Size(R.w(info, w), R.h(info, h)),
-                ),
-              );
-            },
-          ),
-        );
-      },
     );
   }
 
