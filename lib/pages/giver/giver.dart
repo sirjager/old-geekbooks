@@ -294,15 +294,9 @@ class _RiderProviderState extends State<RiderProvider> {
               (book.title ?? book.author ?? DateTime.now().toString()) +
                   ".${book.exten!}";
           final String filepath = dir + "/" + fileName;
-          Get.snackbar(
-            "Download Started",
-            book.title ?? book.author ?? "",
-            snackPosition: SnackPosition.BOTTOM,
-          );
 
-          await XFiles.download2(dio, url, filepath);
-          final exist = await checkForFile(dir, fileName);
-          if (exist) {
+          final checkforFile = await checkForFile(dir, filepath);
+          if (checkforFile) {
             Get.snackbar(
               "Download finished",
               fileName,
@@ -320,22 +314,48 @@ class _RiderProviderState extends State<RiderProvider> {
             );
           } else {
             Get.snackbar(
-              "Something went wrong",
-              "Try another link\nIf still not working try\nEnabling Browser Mode",
-              isDismissible: false,
+              "Download Started",
+              book.title ?? book.author ?? "",
               snackPosition: SnackPosition.BOTTOM,
-              duration: Duration(seconds: 5),
-              backgroundColor: XColors.grayColor.withOpacity(0.3),
-              colorText: Colors.black,
-              mainButton: TextButton(
-                  onPressed: () =>
-                      downloadFile(url, book, downloadExternaly: true),
-                  child: KText(
-                    "Retry",
-                    color: Colors.black,
-                    weight: FontWeight.bold,
-                  )),
             );
+
+            await XFiles.download2(dio, url, filepath);
+            final exist = await checkForFile(dir, fileName);
+            if (exist) {
+              Get.snackbar(
+                "Download finished",
+                fileName,
+                duration: Duration(seconds: 5),
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: XColors.grayColor.withOpacity(0.3),
+                colorText: Colors.black,
+                mainButton: TextButton(
+                    onPressed: () => OpenFile.open(filepath),
+                    child: KText(
+                      "Open",
+                      color: Colors.black,
+                      weight: FontWeight.bold,
+                    )),
+              );
+            } else {
+              Get.snackbar(
+                "Something went wrong",
+                "Try another link\nIf still not working try\nEnabling Browser Mode",
+                isDismissible: false,
+                snackPosition: SnackPosition.BOTTOM,
+                duration: Duration(seconds: 5),
+                backgroundColor: XColors.grayColor.withOpacity(0.3),
+                colorText: Colors.black,
+                mainButton: TextButton(
+                    onPressed: () =>
+                        downloadFile(url, book, downloadExternaly: true),
+                    child: KText(
+                      "Retry",
+                      color: Colors.black,
+                      weight: FontWeight.bold,
+                    )),
+              );
+            }
           }
         }
       }
