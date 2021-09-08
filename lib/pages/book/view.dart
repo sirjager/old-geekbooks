@@ -165,7 +165,7 @@ class _BookViewState extends State<BookView> {
                           : XColors.grayText,
                       child: KText(
                         "Get it",
-                        font: "MavenPro",
+                        googleFont: GoogleFonts.mavenPro(),
                         weight: FontWeight.bold,
                         size: 60.sp,
                         color: theme.isDarkMode

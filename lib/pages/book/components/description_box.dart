@@ -17,7 +17,7 @@ class DescriptionBox extends ConsumerWidget {
           KText(
             "Description",
             size: 50.sp,
-            font: "Poppins",
+            googleFont: GoogleFonts.poppins(),
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
           ),

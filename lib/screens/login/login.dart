@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       KText(
                         "Welcome\nBack",
-                        font: "MavenPro",
+                        googleFont: GoogleFonts.mavenPro(),
                         size: R.w(info, 10),
                         weight: FontWeight.bold,
                         color: theme.isDarkMode

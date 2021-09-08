@@ -108,7 +108,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                   width: 1000.w,
                                   child: KText(
                                     book.title!,
-                                    font: "MavenPro",
+                                    googleFont: GoogleFonts.mavenPro(),
                                     size: 60.sp,
                                     weight: FontWeight.w500,
                                     textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                     children: [
                                       KText(
                                         'File Size : ',
-                                        font: "MavenPro",
+                                        googleFont: GoogleFonts.mavenPro(),
                                         size: 60.sp,
                                         weight: FontWeight.w500,
                                         color: isDarkMode
@@ -136,7 +136,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                       KText(
                                         XMath.convertBytesToMB(book.fileSize) +
                                             ' MB',
-                                        font: "MavenPro",
+                                        googleFont: GoogleFonts.mavenPro(),
                                         size: 60.sp,
                                         weight: FontWeight.w500,
                                         color: isDarkMode
@@ -147,7 +147,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                       SizedBox(width: 40.w),
                                       KText(
                                         'Extension : ',
-                                        font: "MavenPro",
+                                        googleFont: GoogleFonts.mavenPro(),
                                         size: 60.sp,
                                         weight: FontWeight.w500,
                                         color: isDarkMode
@@ -157,7 +157,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                       ),
                                       KText(
                                         book.exten ?? "unknown",
-                                        font: "MavenPro",
+                                        googleFont: GoogleFonts.mavenPro(),
                                         size: 65.sp,
                                         weight: FontWeight.w500,
                                         color: isDarkMode
@@ -174,7 +174,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                   children: [
                                     KText(
                                       "Download with browser ? ",
-                                      font: "MavenPro",
+                                      googleFont: GoogleFonts.mavenPro(),
                                       size: 65.sp,
                                       weight: FontWeight.w500,
                                       color: isDarkMode
@@ -240,7 +240,7 @@ class _RiderProviderState extends State<RiderProvider> {
                   },
                   child: KText(
                     e.title.toUpperCase(),
-                    font: "MavenPro",
+                    googleFont: GoogleFonts.mavenPro(),
                     weight: FontWeight.bold,
                     size: 45.sp,
                     color: isDarkMode ? XColors.darkColor1 : XColors.darkColor2,

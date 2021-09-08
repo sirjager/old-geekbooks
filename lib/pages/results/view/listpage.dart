@@ -62,7 +62,7 @@ class ListPage extends ConsumerWidget {
                               book.title ?? "no title",
                               size: 40.sp,
                               maxLines: 3,
-                              font: "MavenPro",
+                              googleFont: GoogleFonts.mavenPro(),
                               color:
                                   theme.isDarkMode ? Colors.white : Colors.blue,
                               overflow: TextOverflow.ellipsis,
@@ -72,7 +72,7 @@ class ListPage extends ConsumerWidget {
                             KText(
                               book.author!,
                               size: 35.sp,
-                              font: "MavenPro",
+                              googleFont: GoogleFonts.mavenPro(),
                               maxLines: 2,
                               color: theme.isDarkMode
                                   ? Colors.white54
@@ -86,7 +86,7 @@ class ListPage extends ConsumerWidget {
                                 KText(
                                   "Extension : ",
                                   size: 35.sp,
-                                  font: "MavenPro",
+                                  googleFont: GoogleFonts.mavenPro(),
                                   maxLines: 1,
                                   color: theme.isDarkMode
                                       ? Colors.white54
@@ -98,7 +98,7 @@ class ListPage extends ConsumerWidget {
                                   book.exten.toString(),
                                   size: 40.sp,
                                   maxLines: 1,
-                                  font: "MavenPro",
+                                  googleFont: GoogleFonts.mavenPro(),
                                   color: theme.isDarkMode
                                       ? XColors.grayText
                                       : XColors.darkColor,

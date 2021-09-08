@@ -36,7 +36,7 @@ class PageHeader extends ConsumerWidget {
               var isDarkMode = watch(themeProvider).isDarkMode;
               return KText(
                 title,
-                font: "MavenPro",
+                googleFont: GoogleFonts.mavenPro(),
                 letterSpacing: 1,
                 size: 100.sp,
                 weight: FontWeight.w600,

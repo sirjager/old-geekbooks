@@ -20,14 +20,14 @@ class RowBox extends ConsumerWidget {
           KText(
             field,
             size: 50.sp,
-            font: "Poppins",
+            googleFont: GoogleFonts.poppins(),
             color: _theme.isDarkMode ? Colors.white70 : XColors.darkGray,
             weight: FontWeight.w500,
           ),
           SizedBox(width: 30.w),
           KText(
             value,
-            font: "Poppins",
+            googleFont: GoogleFonts.poppins(),
             color: _theme.isDarkMode ? XColors.grayText1 : XColors.darkColor,
             size: 40.sp,
             maxLines: 3,

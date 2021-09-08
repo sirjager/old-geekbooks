@@ -15,7 +15,6 @@ class ScreenTitlebar extends StatelessWidget {
             builder: (context, watch, child) {
               return KText(
                 title,
-                font: "MavenPro",
                 size: 100.sp,
                 letterSpacing: 1.5,
                 weight: FontWeight.bold,

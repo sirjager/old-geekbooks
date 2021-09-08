@@ -37,7 +37,7 @@ class FirestoreExceptionHandler {
                   padding: EdgeInsets.all(w * 5),
                   child: KText(
                     _title,
-                    font: "MavenPro",
+                    googleFont: GoogleFonts.mavenPro(),
                     size: f * 16,
                     color: Colors.redAccent[200],
                     weight: FontWeight.bold,
@@ -49,7 +49,7 @@ class FirestoreExceptionHandler {
                   child: KText(
                     msg,
                     size: f * 12,
-                    font: "Poppins",
+                    googleFont: GoogleFonts.poppins(),
                     textAlign: TextAlign.center,
                   ),
                 ),

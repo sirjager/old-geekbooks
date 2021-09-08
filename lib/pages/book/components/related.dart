@@ -27,7 +27,7 @@ class RelatedContent extends StatelessWidget {
                     return KText(
                       "Related Books",
                       size: 65.sp,
-                      font: "Poppins",
+                      googleFont: GoogleFonts.poppins(),
                       weight: FontWeight.w500,
                       color:
                           isDarkMode ? XColors.darkColor2 : XColors.darkColor2,

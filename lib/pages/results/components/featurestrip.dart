@@ -18,7 +18,7 @@ class FeatureStrip extends ConsumerWidget {
         children: [
           KText(
             "Make cover images darker",
-            font: "Poppins",
+            googleFont: GoogleFonts.poppins(),
             size: 35.sp,
             weight: FontWeight.bold,
             color: theme.isDarkMode ? XColors.grayColor : Colors.black,

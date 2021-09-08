@@ -102,7 +102,7 @@ class UiDialog {
                                 width: 350.w,
                                 child: KText(
                                   "continue",
-                                  font: "Poppins",
+                                  googleFont: GoogleFonts.poppins(),
                                   size: 40.sp,
                                   color: isDarkMode
                                       ? XColors.darkText
@@ -192,7 +192,7 @@ class UiDialog {
                                     width: 250.w,
                                     child: KText(
                                       choice1,
-                                      font: "Poppins",
+                                      googleFont: GoogleFonts.poppins(),
                                       size: 40.sp,
                                       color: isDarkMode
                                           ? XColors.darkText
@@ -221,7 +221,7 @@ class UiDialog {
                                     width: 250.w,
                                     child: KText(
                                       choice2,
-                                      font: "Poppins",
+                                      googleFont: GoogleFonts.poppins(),
                                       size: 40.sp,
                                       color: isDarkMode
                                           ? XColors.darkText

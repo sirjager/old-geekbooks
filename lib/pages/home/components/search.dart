@@ -130,7 +130,7 @@ class _SearchbarState extends State<Searchbar> {
                           width: 350.w,
                           child: KText(
                             "continue",
-                            font: "Poppins",
+                            googleFont: GoogleFonts.poppins(),
                             size: 40.sp,
                             color: theme.isDarkMode
                                 ? XColors.darkText
