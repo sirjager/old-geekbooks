@@ -27,7 +27,6 @@ dependencies:
   flowder: ^0.2.0
   flutter:
     sdk: flutter
-  flutter_downloader: ^1.7.0
   flutter_inappwebview: ^5.3.2
   flutter_local_notifications: ^8.1.1+2
   flutter_phoenix: ^1.0.0

@@ -1,18 +1,17 @@
-import 'dart:io';
-
-import 'package:flowder/flowder.dart';
+import 'package:dio/dio.dart' as dioo;
+import 'package:flutter/cupertino.dart';
 import 'package:geeklibrary/backend/calls/api_calls.dart';
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/core/services/permissions.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/lenk/lenk.dart';
+import 'package:geeklibrary/pages/giver/provider.dart';
 import 'package:geeklibrary/pages/results/components/header.dart';
 import 'package:geeklibrary/pages/zoom/zoom.dart';
 import 'package:geeklibrary/utils/files/files.dart';
 import 'package:open_file/open_file.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 
 class RiderProvider extends StatefulWidget {
@@ -25,6 +24,7 @@ class RiderProvider extends StatefulWidget {
 
 class _RiderProviderState extends State<RiderProvider> {
   bool delayed = false;
+
   late final FutureProvider? buttonProvider =
       FutureProvider<List<Lenk>>((_) async {
     if (widget.book.md5 != null) {
@@ -61,6 +61,7 @@ class _RiderProviderState extends State<RiderProvider> {
                     child: Consumer(
                       builder: (context, watch, child) {
                         var isDarkMode = watch(themeProvider).isDarkMode;
+                        var extenal = watch(externalIndicator);
                         return Expanded(
                           child: SingleChildScrollView(
                             physics: ClampingScrollPhysics(),
@@ -167,6 +168,25 @@ class _RiderProviderState extends State<RiderProvider> {
                                     ],
                                   ),
                                 ),
+                                SizedBox(height: 100.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    KText(
+                                      "Download with browser ? ",
+                                      font: "MavenPro",
+                                      size: 65.sp,
+                                      weight: FontWeight.w500,
+                                      color: isDarkMode
+                                          ? XColors.darkGray.withOpacity(0.7)
+                                          : XColors.darkColor1.withOpacity(0.7),
+                                    ),
+                                    CupertinoSwitch(
+                                      value: extenal.external,
+                                      onChanged: (val) => extenal.changeMode(),
+                                    ),
+                                  ],
+                                ),
                                 if (buttonProvider != null)
                                   Container(
                                     margin: EdgeInsets.symmetric(
@@ -176,13 +196,16 @@ class _RiderProviderState extends State<RiderProvider> {
                                       var got = watch(buttonProvider!);
                                       return got.when(
                                         data: (list) => buildDownloadButton(
-                                            isDarkMode, list, book),
+                                            isDarkMode,
+                                            list,
+                                            book,
+                                            extenal.external),
                                         loading: () => Container(),
                                         error: (e, s) => Text(e.toString()),
                                       );
                                     }),
                                   ),
-                                SizedBox(height: 100.h),
+                                SizedBox(height: 300.h),
                               ],
                             ),
                           ),
@@ -203,84 +226,82 @@ class _RiderProviderState extends State<RiderProvider> {
       return [];
   }
 
-  Widget buildDownloadButton(bool isDarkMode, List<Lenk> lenks, Book book) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget buildDownloadButton(
+      bool isDarkMode, List<Lenk> lenks, Book book, bool extenal) {
+    return Wrap(
       children: lenks
-          .map((e) => OutlinedButton(
-                onPressed: () => openPage(e.lenk, book),
-                child: KText(
-                  e.title.toUpperCase(),
-                  font: "MavenPro",
-                  weight: FontWeight.bold,
-                  size: 45.sp,
-                  color: isDarkMode ? XColors.lightColor1 : XColors.darkColor2,
+          .map((e) => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 50.w),
+                child: KClickable(
+                  height: 200.w,
+                  width: 350.w,
+                  onPressed: () {
+                    openPage(e.lenk, book, extenal);
+                  },
+                  child: KText(
+                    e.title.toUpperCase(),
+                    font: "MavenPro",
+                    weight: FontWeight.bold,
+                    size: 45.sp,
+                    color: isDarkMode ? XColors.darkColor1 : XColors.darkColor2,
+                  ),
+                  topDeco: G.green2GradBannerDeco,
                 ),
               ))
           .toList(),
     );
   }
 
-  void openPage(String url, Book book) async {
+  void openPage(String url, Book book, bool external) async {
     bool _canLaunch = await launch.canLaunch(url);
     if (_canLaunch) {
-      await downloadFile(url, book);
+      if (external)
+        await launch.launch(url);
+      else
+        await downloadFile(url, book);
     }
   }
 
-  Future<bool> downloadFile(String url, Book book) async {
+  Future<bool> downloadFile(String url, Book book,
+      {bool downloadExternaly = false}) async {
+    var dio = dioo.Dio();
     try {
       final hasPermission = await SPermissions.handleStoragePermission();
       if (hasPermission) {
-        Get.snackbar(
-          "Download Started",
-          book.title ?? book.author ?? "",
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        final dir = await XFiles.getAppPath();
-        final fileName = (book.title ?? book.author) ??
-            DateTime.now().toString() + ".${book.exten!}";
-        final String filepath = dir + "/" + fileName;
+        if (url.length > 8) {
+          final dir = await XFiles.getAppPath();
+          final fileName =
+              (book.title ?? book.author ?? DateTime.now().toString()) +
+                  ".${book.exten!}";
+          final String filepath = dir + "/" + fileName;
+          Get.snackbar(
+            "Download Started",
+            book.title ?? book.author ?? "",
+            snackPosition: SnackPosition.BOTTOM,
+          );
 
-        final downloaderUtils = DownloaderUtils(
-          progressCallback: (current, total) {
-            final progress = (current / total) * 100;
-            (context.read(downloadProgressProvider)).update(progress);
-          },
-          file: File(filepath),
-          progress: ProgressImplementation(),
-          onDone: () => print('Download done'),
-          deleteOnCancel: true,
-        );
-
-        await Flowder.download(url, downloaderUtils);
-
-        Get.snackbar(
-          "Download Finished",
-          book.title ?? book.author ?? "",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: XColors.grayColor,
-          colorText: XColors.darkColor1,
-          onTap: (tap) {},
-        );
+          await XFiles.download2(dio, url, filepath);
+          Get.snackbar(
+            "Download finished",
+            fileName,
+            duration: Duration(seconds: 5),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: XColors.grayColor.withOpacity(0.3),
+            colorText: Colors.black,
+            mainButton: TextButton(
+                onPressed: () => OpenFile.open(filepath),
+                child: KText(
+                  "Open",
+                  color: Colors.black,
+                  weight: FontWeight.bold,
+                )),
+          );
+        }
       }
     } catch (e) {
       log.e(e.toString());
     }
 
     return true;
-  }
-
-  final downloadProgressProvider =
-      ChangeNotifierProvider((_) => DownloadProgressProvider());
-}
-
-class DownloadProgressProvider extends ChangeNotifier {
-  double _progress = 0.0;
-  double get progress => _progress;
-
-  void update(double current) {
-    _progress = current;
-    notifyListeners();
   }
 }

@@ -4,29 +4,20 @@ import 'package:geeklibrary/export/export.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);
-
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
   DateTime _pressed = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, watch, child) {
-        watch(themeProvider);
-        var drawer = watch(drawerProvider);
-        return Scaffold(
-          key: drawer.scaffoldKey,
-          resizeToAvoidBottomInset: false,
-          body: WillPopScope(
-            onWillPop: onWillPop,
-            child: Homepage(),
-          ),
-        );
-      },
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: WillPopScope(
+        onWillPop: onWillPop,
+        child: Homepage(),
+      ),
     );
   }
 

@@ -105,4 +105,27 @@ class XFiles {
 
     return true;
   }
+
+  static Future download2(Dio dio, String url, String savePath) async {
+    try {
+      var response = await dio.get(
+        url,
+        onReceiveProgress: (r, t) {},
+        options: Options(
+            responseType: ResponseType.bytes,
+            followRedirects: false,
+            validateStatus: (status) {
+              if (status != null) return status < 500;
+              return false;
+            }),
+      );
+      print(response.headers);
+      File file = File(savePath);
+      var raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(response.data);
+      await raf.close();
+    } catch (e) {
+      print(e);
+    }
+  }
 }
