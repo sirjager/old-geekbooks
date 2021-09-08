@@ -346,13 +346,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (sucess) {
       _email.clear();
       _pass.clear();
-      Kui().toast(context, "Login Sucessfull", textColor: Colors.green);
+      Kui().toast("Login Sucessfull", textColor: Colors.green);
       return Future.delayed(Duration(milliseconds: 2000)).then((_) => true);
     } else {
-      Kui().toast(
-        context,
-        "Login Failed",
-      );
+      Kui().toast("Login Failed");
       return false;
     }
   }

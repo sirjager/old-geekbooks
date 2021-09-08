@@ -2,7 +2,6 @@ import 'package:geeklibrary/backend/calls/api_calls.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/pages/results/components/header.dart';
 import 'package:geeklibrary/pages/zoom/zoom.dart';
-import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
@@ -31,7 +30,6 @@ class _RiderProviderState extends State<RiderProvider> {
   Widget build(BuildContext context) {
     final Book book = widget.book;
     return Scaffold(
-      drawer: LeftDrawer(),
       body: !delayed
           ? Center(
               child: Lottie.asset(MyAssets.books, height: 350.w, onLoaded: (_) {

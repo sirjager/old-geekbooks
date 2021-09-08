@@ -35,7 +35,6 @@ export 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Pages
 export 'package:geeklibrary/pages/home/home.dart';
-export 'package:geeklibrary/pages/settings/settings.dart';
 
 // Screen
 export 'package:geeklibrary/screens/dashboard/dashboard.dart';

@@ -45,7 +45,6 @@ dependencies:
   line_icons: ^2.0.1
   logger: ^1.0.0
   lottie: ^1.0.1
-  native_admob_flutter: ^1.4.1
   numberpicker: ^2.1.1
   palette_generator: ^0.3.0
   path_provider: ^2.0.2

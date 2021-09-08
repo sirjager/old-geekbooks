@@ -3,8 +3,6 @@ import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/packages/authentication/functions/firestore_operations.dart';
-import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
-import 'package:geeklibrary/screens/dashboard/components/navigation/navbar.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);
@@ -22,27 +20,12 @@ class _DashboardState extends State<Dashboard> {
       builder: (context, watch, child) {
         watch(themeProvider);
         var drawer = watch(drawerProvider);
-        var nav = watch(navigationProvider);
         return Scaffold(
           key: drawer.scaffoldKey,
-          drawer: LeftDrawer(),
           resizeToAvoidBottomInset: false,
           body: WillPopScope(
             onWillPop: onWillPop,
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView(
-                    // physics: C,
-                    controller: nav.pageController,
-                    physics: ClampingScrollPhysics(),
-                    onPageChanged: (int index) => nav.changeTo(index),
-                    children: [Homepage(), Settingspage()],
-                  ),
-                ),
-                Navigationbar(),
-              ],
-            ),
+            child: Homepage(),
           ),
         );
       },
@@ -57,7 +40,7 @@ class _DashboardState extends State<Dashboard> {
     bool backButton = current.difference(_pressed) > Duration(seconds: 3);
     if (backButton) {
       _pressed = current;
-      Kui().toast(context, "Double tap back to exit app");
+      Kui().toast("Double tap back to exit app");
       return false;
     } else {
       var result = await UiDialog.choiseDialog(

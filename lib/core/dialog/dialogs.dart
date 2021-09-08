@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geeklibrary/export/export.dart';
 
 class Kui {
-  void toast(BuildContext context, String msg,
+  void toast(String msg,
       {Color? backgroundColor, Color? textColor, double? fontSize}) {
     Fluttertoast.showToast(
       msg: msg,

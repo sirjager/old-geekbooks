@@ -16,7 +16,6 @@ import 'package:geeklibrary/pages/results/components/pagination/go.dart';
 import 'package:geeklibrary/pages/results/components/pagination/next.dart';
 import 'package:geeklibrary/pages/results/components/pagination/prev.dart';
 import 'package:geeklibrary/pages/results/view/listpage.dart';
-import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -99,7 +98,6 @@ class _SearchResultsState extends State<SearchResults> {
     final _books = newPack.books;
     final pageInfo = newPack.info;
     return Scaffold(
-      drawer: LeftDrawer(),
       body: !delayed
           ? Center(
               child: Lottie.asset(MyAssets.books, height: 350.w, onLoaded: (_) {
@@ -262,7 +260,6 @@ class _SearchResultsState extends State<SearchResults> {
                                                                   _focus
                                                                       .unfocus();
                                                                   Kui().toast(
-                                                                    context,
                                                                     "enter value between 1 to ${pageination.totalPageNumber.toString()}",
                                                                     textColor:
                                                                         Colors
@@ -277,7 +274,6 @@ class _SearchResultsState extends State<SearchResults> {
                                                                 _focus
                                                                     .unfocus();
                                                                 Kui().toast(
-                                                                  context,
                                                                   "enter a valid number",
                                                                   textColor:
                                                                       Colors

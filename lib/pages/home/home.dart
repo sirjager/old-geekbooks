@@ -2,31 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 
-class Homepage extends StatefulWidget {
-  Homepage({Key? key}) : super(key: key);
-
-  @override
-  _HomepageState createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
+class Homepage extends StatelessWidget {
   final FocusNode _node = FocusNode();
-  late final ad1;
-
-  @override
-  void initState() {
-    ad1 = new BannerAdController();
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    ad1.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

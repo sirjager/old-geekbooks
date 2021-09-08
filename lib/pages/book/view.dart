@@ -7,7 +7,6 @@ import 'package:geeklibrary/pages/book/components/header.dart';
 import 'package:geeklibrary/pages/book/components/related.dart';
 import 'package:geeklibrary/pages/book/components/row_box.dart';
 import 'package:geeklibrary/pages/giver/giver.dart';
-import 'package:geeklibrary/screens/dashboard/components/drawer/left_drawer.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 
@@ -27,7 +26,6 @@ class _BookViewState extends State<BookView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: LeftDrawer(),
       body: !delayed
           ? Center(
               child: Lottie.asset(MyAssets.books, height: 400.w, onLoaded: (_) {
