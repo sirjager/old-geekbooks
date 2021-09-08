@@ -4,8 +4,25 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
 import 'package:lottie/lottie.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
+  @override
+  _HomepageState createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  bool _animate = false;
   final FocusNode _node = FocusNode();
+
+  _play() async {
+    if (_animate) {
+      await Future.delayed(Duration(seconds: 3))
+          .then((value) => setState(() => _animate = false));
+    } else {
+      setState(() => _animate = true);
+      await Future.delayed(Duration(seconds: 3))
+          .then((value) => _animate = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +35,15 @@ class Homepage extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 20.h),
           child: Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 100.h, left: 550.w),
-                child: Lottie.asset(
-                  MyAssets.girlPhone,
-                  height: 500.w,
-                  repeat: false,
+              GestureDetector(
+                onTap: () => _play,
+                child: Container(
+                  margin: EdgeInsets.only(top: 100.h, left: 550.w),
+                  child: Lottie.asset(
+                    MyAssets.girlFlower,
+                    repeat: _animate,
+                    height: 500.w,
+                  ),
                 ),
               ),
               Column(
@@ -33,8 +53,6 @@ class Homepage extends StatelessWidget {
                   Searchbar(_node),
                   SearchOptions(),
                   SizedBox(height: 100.h),
-                  // Spacer(),
-                  // buildAd(100, 15, ad1)
                 ],
               ),
             ],

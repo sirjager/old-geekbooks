@@ -14,7 +14,7 @@ class AppTheme {
   static const Color subtitleColorLight = Color(0xFF222831);
 
   //==========================For Dark Themes=======================*
-  static const Color themeColorDark = Colors.green;
+  static const Color themeColorDark = Colors.red;
 
   static const Color backgroundColorDark = Color(0xff202021);
   static const Color accentColorDark = Color(0xff2E2E2E);
@@ -207,8 +207,8 @@ class AppTheme {
   static final ThemeData themeDark = ThemeData(
     textTheme: darkTextTheme,
     brightness: Brightness.dark,
-    primarySwatch: themeColorDark as MaterialColor,
     primaryColor: themeColorDark,
+    primarySwatch: themeColorDark as MaterialColor,
     colorScheme: ColorScheme.dark(),
     buttonColor: AppTheme.buttonColorDark,
     dividerColor: Colors.transparent,

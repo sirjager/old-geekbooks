@@ -13,7 +13,6 @@ class ScreenTitlebar extends StatelessWidget {
         children: [
           Consumer(
             builder: (context, watch, child) {
-              var isDarkMode = watch(themeProvider).isDarkMode;
               return KText(
                 title,
                 font: "MavenPro",
@@ -21,7 +20,8 @@ class ScreenTitlebar extends StatelessWidget {
                 letterSpacing: 1.5,
                 weight: FontWeight.bold,
                 googleFont: GoogleFonts.hammersmithOne(),
-                color: isDarkMode ? XColors.grayColor : Color(0xff555555),
+                color: XColors.grayColor,
+                // color: isDarkMode ? XColors.grayColor : Color(0xff555555),
               );
             },
           ),

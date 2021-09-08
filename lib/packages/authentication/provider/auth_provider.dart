@@ -10,8 +10,6 @@ final auth =
 final authState =
     StreamProvider<User?>((ref) => ref.watch(auth).authStateChanges);
 
-final accountProvider = ChangeNotifierProvider((ref) => MyAccount());
-
 final isNewUserPro = FutureProvider<bool>((ref) async {
   final _user = FirebaseAuth.instance.currentUser!;
   return await FirestoreOperations.isNewUser(_user);
