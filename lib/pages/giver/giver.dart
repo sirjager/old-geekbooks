@@ -294,7 +294,6 @@ class _RiderProviderState extends State<RiderProvider> {
               (book.title ?? book.author ?? DateTime.now().toString()) +
                   ".${book.exten!}";
           final String filepath = dir + "/" + fileName;
-
           final checkforFile = await checkForFile(dir, filepath);
           if (checkforFile) {
             Get.snackbar(
@@ -318,7 +317,6 @@ class _RiderProviderState extends State<RiderProvider> {
               book.title ?? book.author ?? "",
               snackPosition: SnackPosition.BOTTOM,
             );
-
             await XFiles.download2(dio, url, filepath);
             final exist = await checkForFile(dir, fileName);
             if (exist) {
@@ -379,6 +377,21 @@ class _RiderProviderState extends State<RiderProvider> {
         exist = false;
       }
     }
+    if (!exist) {
+      final _downPath = await XFiles.getDownloadFolderPath();
+      final _downdir = Directory(_downPath);
+      final List<FileSystemEntity> downItems =
+          await _downdir.list(recursive: false).toList();
+      for (FileSystemEntity downitem in downItems) {
+        final file = downitem.path.split("/").last;
+        if (file.contains(fileName)) {
+          exist = true;
+        } else {
+          exist = false;
+        }
+      }
+    }
+
     return exist;
   }
 
