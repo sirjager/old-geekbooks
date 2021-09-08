@@ -41,7 +41,7 @@ class MyApp extends ConsumerWidget {
         title: 'GeekLibrary',
         home: AuthenticationWrapper(
           login: WelcomeScreen(),
-          home: VerificationCheck(),
+          home: Dashboard(),
         ),
         // WelcomeScreen(),
       ),
