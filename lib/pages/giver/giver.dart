@@ -202,7 +202,9 @@ class _RiderProviderState extends State<RiderProvider> {
                                             list,
                                             book,
                                             extenal.external),
-                                        loading: () => Container(),
+                                        loading: () => Lottie.asset(
+                                            MyAssets.bookLoading,
+                                            height: 350.h),
                                         error: (e, s) => Text(e.toString()),
                                       );
                                     }),

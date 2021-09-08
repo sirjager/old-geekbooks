@@ -7,7 +7,6 @@ import 'package:geeklibrary/pages/book/components/header.dart';
 import 'package:geeklibrary/pages/book/components/related.dart';
 import 'package:geeklibrary/pages/book/components/row_box.dart';
 import 'package:geeklibrary/pages/giver/giver.dart';
-import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 
 class BookView extends StatefulWidget {
