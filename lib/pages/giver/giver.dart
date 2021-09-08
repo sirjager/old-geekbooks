@@ -172,21 +172,33 @@ class _RiderProviderState extends State<RiderProvider> {
                                 ),
                                 SizedBox(height: 100.h),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     KText(
-                                      "Download with browser ? ",
+                                      "Download with browser ?",
                                       googleFont: GoogleFonts.mavenPro(),
-                                      size: 65.sp,
-                                      weight: FontWeight.w500,
+                                      size: 55.sp,
+                                      weight: FontWeight.bold,
                                       color: isDarkMode
                                           ? XColors.darkGray.withOpacity(0.7)
                                           : XColors.darkColor1.withOpacity(0.7),
                                     ),
                                     CupertinoSwitch(
                                       value: extenal.external,
-                                      onChanged: (val) => extenal.changeMode(),
+                                      onChanged: (val) =>
+                                          extenal.changeMode(val),
                                     ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.bottomSheet(
+                                            helpWidget(isDarkMode, extenal));
+                                      },
+                                      child: Icon(
+                                        Ionicons.help_circle_outline,
+                                        size: 120.sp,
+                                      ),
+                                    )
                                   ],
                                 ),
                                 if (buttonProvider != null)
@@ -308,16 +320,18 @@ class _RiderProviderState extends State<RiderProvider> {
             );
           } else {
             Get.snackbar(
-              "Something Went Wrong",
-              "Enable browser mode and try again",
-              duration: Duration(seconds: 5),
+              "Something went wrong",
+              "Try another link\nIf still not working try\nEnabling Browser Mode",
+              isDismissible: false,
               snackPosition: SnackPosition.BOTTOM,
+              duration: Duration(seconds: 5),
               backgroundColor: XColors.grayColor.withOpacity(0.3),
               colorText: Colors.black,
               mainButton: TextButton(
-                  onPressed: () => OpenFile.open(filepath),
+                  onPressed: () =>
+                      downloadFile(url, book, downloadExternaly: true),
                   child: KText(
-                    "Open",
+                    "Retry",
                     color: Colors.black,
                     weight: FontWeight.bold,
                   )),
@@ -347,4 +361,143 @@ class _RiderProviderState extends State<RiderProvider> {
     }
     return exist;
   }
+
+  Widget helpWidget(bool isDarkMode, DownloadExternallyProvider pro) =>
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: isDarkMode ? XColors.darkColor : XColors.lightColor1,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 50.w),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  KText(
+                    "Frequently Asked Questions",
+                    size: 75.sp,
+                    color: XColors.grayColor,
+                    weight: FontWeight.bold,
+                    googleFont: GoogleFonts.mavenPro(),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.h),
+              KText(
+                "How many providers are there ?",
+                color: Colors.red,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              KText(
+                "There are 4 different download providers.",
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              SizedBox(height: 40.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: providerList
+                    .map(
+                      (e) => Container(
+                        decoration: G.green2GradBannerDeco,
+                        height: 100.w,
+                        width: 200.w,
+                        alignment: Alignment.center,
+                        child: KText(
+                          e,
+                          size: 30.sp,
+                          weight: FontWeight.bold,
+                          color: isDarkMode
+                              ? XColors.darkColor1
+                              : XColors.lightColor1,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              SizedBox(height: 40.h),
+              KText(
+                "What should i do if link dosen't work ?",
+                color: Colors.red,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              KText(
+                "If one dosen't work or show \"Something went wrong\",then try downloading with different download provider.",
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              SizedBox(height: 40.h),
+              KText(
+                "Some links are old and might not work or take more time",
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              SizedBox(height: 40.h),
+              KText(
+                "What can i do if in-app downloading is not working ?",
+                color: Colors.red,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              KText(
+                "If In-App Download is still not working then try switching to Browser Mode.",
+                color: XColors.grayColor,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  KText(
+                    "Enable Broweser Mode",
+                    googleFont: GoogleFonts.mavenPro(),
+                    size: 55.sp,
+                    weight: FontWeight.bold,
+                    color: isDarkMode
+                        ? XColors.darkGray.withOpacity(0.7)
+                        : XColors.darkColor1.withOpacity(0.7),
+                  ),
+                  CupertinoSwitch(
+                    value: pro.external,
+                    onChanged: (val) {
+                      pro.changeMode(val);
+                      while (Get.isBottomSheetOpen == true) {
+                        Get.back();
+                      }
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.h),
+              KText(
+                "BROWSER MODE will open same download link in your browser.",
+                color: Colors.blueAccent,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              SizedBox(height: 40.h),
+              KText(
+                "After File is Downloaded You can directly open from Popup Snackbar",
+                color: Colors.yellowAccent,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+              SizedBox(height: 40.h),
+              KText(
+                "Snackbar Will automatically close after 5 seconds",
+                color: Colors.yellowAccent,
+                weight: FontWeight.bold,
+                googleFont: GoogleFonts.mavenPro(),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  List<String> providerList = ["GET", "CLOUDFLARE", "IPFS", "INFURA"];
 }

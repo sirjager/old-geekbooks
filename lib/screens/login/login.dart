@@ -286,14 +286,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .read(pasaProvider)
                                                       .pasa
                                                       .clear();
-                                                  setState(() {
-                                                    pressed = false;
-                                                  });
-                                                } else {
-                                                  Future.delayed(Duration(
-                                                          milliseconds: 1000))
-                                                      .then((_) => Get.offAll(
-                                                          () => Dashboard()));
+                                                  setState(
+                                                      () => pressed = false);
                                                 }
                                               },
                                               child: KText(

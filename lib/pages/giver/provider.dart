@@ -4,8 +4,8 @@ class DownloadExternallyProvider extends ChangeNotifier {
   bool _external = false;
   bool get external => _external;
 
-  void changeMode() {
-    _external = !_external;
+  void changeMode(bool value) {
+    _external = value;
     notifyListeners();
   }
 }
