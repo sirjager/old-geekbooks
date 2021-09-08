@@ -294,8 +294,8 @@ class _RiderProviderState extends State<RiderProvider> {
               (book.title ?? book.author ?? DateTime.now().toString()) +
                   ".${book.exten!}";
           final String filepath = dir + "/" + fileName;
-          final checkforFile = await checkForFile(dir, filepath);
-          if (checkforFile) {
+          final hasDownFilepath = await checkForFile(dir, filepath);
+          if (hasDownFilepath != null) {
             Get.snackbar(
               "Download finished",
               fileName,
@@ -304,7 +304,7 @@ class _RiderProviderState extends State<RiderProvider> {
               backgroundColor: XColors.grayColor.withOpacity(0.3),
               colorText: Colors.black,
               mainButton: TextButton(
-                  onPressed: () => OpenFile.open(filepath),
+                  onPressed: () => OpenFile.open(hasDownFilepath),
                   child: KText(
                     "Open",
                     color: Colors.black,
@@ -318,8 +318,8 @@ class _RiderProviderState extends State<RiderProvider> {
               snackPosition: SnackPosition.BOTTOM,
             );
             await XFiles.download2(dio, url, filepath);
-            final exist = await checkForFile(dir, fileName);
-            if (exist) {
+            final hasFilePath = await checkForFile(dir, fileName);
+            if (hasFilePath != null) {
               Get.snackbar(
                 "Download finished",
                 fileName,
@@ -328,7 +328,7 @@ class _RiderProviderState extends State<RiderProvider> {
                 backgroundColor: XColors.grayColor.withOpacity(0.3),
                 colorText: Colors.black,
                 mainButton: TextButton(
-                    onPressed: () => OpenFile.open(filepath),
+                    onPressed: () => OpenFile.open(hasFilePath),
                     child: KText(
                       "Open",
                       color: Colors.black,
@@ -364,34 +364,29 @@ class _RiderProviderState extends State<RiderProvider> {
     return true;
   }
 
-  Future<bool> checkForFile(String dir, String fileName) async {
+  Future<String?> checkForFile(String dir, String fileName) async {
     final _dir = Directory(dir);
     final List<FileSystemEntity> items =
         await _dir.list(recursive: false).toList();
-    bool exist = false;
+    String? exist;
     for (FileSystemEntity item in items) {
       final file = item.path.split("/").last;
       if (file.contains(fileName)) {
-        exist = true;
-      } else {
-        exist = false;
-      }
+        exist = item.path;
+      } else {}
     }
-    if (!exist) {
+    if (exist == null) {
       final _downPath = await XFiles.getDownloadFolderPath();
       final _downdir = Directory(_downPath);
       final List<FileSystemEntity> downItems =
           await _downdir.list(recursive: false).toList();
       for (FileSystemEntity downitem in downItems) {
-        final file = downitem.path.split("/").last;
-        if (file.contains(fileName)) {
-          exist = true;
-        } else {
-          exist = false;
+        final downfile = downitem.path.split("/").last;
+        if (downfile.contains(fileName)) {
+          exist = downitem.path;
         }
       }
     }
-
     return exist;
   }
 
