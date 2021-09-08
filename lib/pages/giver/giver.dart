@@ -1,12 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:geeklibrary/backend/calls/api_calls.dart';
-import 'package:geeklibrary/backend/provider/down_provider.dart';
 import 'package:geeklibrary/core/log/log.dart';
+import 'package:geeklibrary/core/services/notifications.dart';
+import 'package:geeklibrary/core/services/permissions.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/lenk/lenk.dart';
 import 'package:geeklibrary/pages/results/components/header.dart';
 import 'package:geeklibrary/pages/zoom/zoom.dart';
+import 'package:geeklibrary/utils/files/files.dart';
+import 'package:open_file/open_file.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
-import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 
@@ -20,6 +23,23 @@ class RiderProvider extends StatefulWidget {
 
 class _RiderProviderState extends State<RiderProvider> {
   bool delayed = false;
+  late final FutureProvider? buttonProvider =
+      FutureProvider<List<Lenk>>((_) async {
+    if (widget.book.md5 != null) {
+      return await ApiCalls().getDownLenx(
+          widget.book.md5!, widget.book.id, widget.book.title ?? "");
+    } else
+      return [];
+  });
+  var dio = Dio();
+
+  @override
+  void initState() {
+    super.initState();
+    notificationPlugin
+        .setListenerForLowerVersion(onNotificationInLowerVersions);
+    notificationPlugin.setOnNotificationClick(onNotificationClick);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,46 +174,22 @@ class _RiderProviderState extends State<RiderProvider> {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 60.w, vertical: 30.w),
-                                  child: FutureBuilder<List<Lenk>>(
-                                    future: getDownloadLinks(book),
-                                    builder: (context,
-                                        AsyncSnapshot<List<Lenk>> snapshot) {
-                                      if (snapshot.connectionState !=
-                                          ConnectionState.done) {
-                                        return Container();
-                                      } else {
-                                        if (snapshot.hasData &&
-                                            snapshot.data != null) {
-                                          List<Lenk> lenks = snapshot.data!;
-                                          return buildDownloadButton(
-                                              isDarkMode, lenks);
-                                        } else
-                                          return Container();
-                                      }
-                                    },
+                                if (buttonProvider != null)
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 60.w, vertical: 30.w),
+                                    child: Consumer(
+                                        builder: (context, watch, child) {
+                                      var got = watch(buttonProvider!);
+                                      return got.when(
+                                        data: (list) => buildDownloadButton(
+                                            isDarkMode, list, book),
+                                        loading: () => Container(),
+                                        error: (e, s) => Text(e.toString()),
+                                      );
+                                    }),
                                   ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.all(50.w),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      KText(
-                                        "*this will open webpage externally",
-                                        weight: FontWeight.bold,
-                                        size: 40.sp,
-                                        color: isDarkMode
-                                            ? XColors.lightColor1
-                                                .withOpacity(0.3)
-                                            : XColors.darkColor1
-                                                .withOpacity(0.3),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                SizedBox(height: 100.h),
                               ],
                             ),
                           ),
@@ -214,20 +210,92 @@ class _RiderProviderState extends State<RiderProvider> {
       return [];
   }
 
-  Widget buildDownloadButton(bool isDarkMode, List<Lenk> lenks) {
-    return Column(
+  Widget buildDownloadButton(bool isDarkMode, List<Lenk> lenks, Book book) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: lenks
           .map((e) => OutlinedButton(
-                onPressed: () {},
+                onPressed: () => openPage(e.lenk, book),
                 child: KText(
-                  e.title,
+                  e.title.toUpperCase(),
                   font: "MavenPro",
                   weight: FontWeight.bold,
                   size: 45.sp,
-                  color: isDarkMode ? XColors.lightColor1 : XColors.lightColor1,
+                  color: isDarkMode ? XColors.lightColor1 : XColors.darkColor2,
                 ),
               ))
           .toList(),
     );
+  }
+
+  void openPage(String url, Book book) async {
+    bool _canLaunch = await launch.canLaunch(url);
+    if (_canLaunch) {
+      await downloadFile(url, book);
+    }
+  }
+
+  Future<bool> downloadFile(String url, Book book) async {
+    try {
+      final hasPermission = await SPermissions.handleStoragePermission();
+      if (hasPermission) {
+        // Get.snackbar(
+        //   "Download Started",
+        //   book.title ?? book.author ?? "",
+        //   snackPosition: SnackPosition.BOTTOM,
+        // );
+        final dir = await XFiles.getAppPath();
+        final fileName = (book.title ?? book.author ?? "Geeklibrary") +
+            "_${DateTime.now()}" +
+            ".${book.exten!}";
+        await dio.download(url, dir + "/" + fileName);
+        final String filepath = dir + "/" + fileName;
+        // Get.snackbar(
+        //   "Download Finished",
+        //   book.title ?? book.author ?? "",
+        //   snackPosition: SnackPosition.BOTTOM,
+        //   backgroundColor: XColors.grayColor,
+        //   colorText: XColors.darkColor1,
+        //   onTap: (tap) {},
+        // );
+        notificationPlugin.sendNotification(
+          title: "Download Finished",
+          body: book.title ?? book.author ?? book.id,
+          payload: filepath,
+        );
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+
+    return true;
+  }
+
+  onNotificationInLowerVersions(ReceivedNotification receivedNotification) {
+    print('Notification Received ${receivedNotification.id}');
+  }
+
+  onNotificationClick(String payload) {
+    OpenFile.open(payload);
+  }
+
+  final downloadProgressProvider =
+      ChangeNotifierProvider((_) => DownloadProgressProvider());
+}
+
+class DownloadProgressProvider extends ChangeNotifier {
+  int _received = 0;
+  int _total = 0;
+  int get received => _received;
+  int get total => _total;
+  double _proggress = 0.0;
+  double get progress => _proggress;
+
+  void update(int received, int total) {
+    _received = received;
+    _total = total;
+    _proggress = _received / _total;
+    print(_proggress);
+    notifyListeners();
   }
 }

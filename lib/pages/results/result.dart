@@ -259,7 +259,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                                       .clear();
                                                                   _focus
                                                                       .unfocus();
-                                                                  Kui().toast(
+                                                                  Kui.toast(
                                                                     "enter value between 1 to ${pageination.totalPageNumber.toString()}",
                                                                     textColor:
                                                                         Colors
@@ -273,7 +273,7 @@ class _SearchResultsState extends State<SearchResults> {
                                                                 _jumper.clear();
                                                                 _focus
                                                                     .unfocus();
-                                                                Kui().toast(
+                                                                Kui.toast(
                                                                   "enter a valid number",
                                                                   textColor:
                                                                       Colors

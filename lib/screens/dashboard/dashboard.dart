@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
     bool backButton = current.difference(_pressed) > Duration(seconds: 3);
     if (backButton) {
       _pressed = current;
-      Kui().toast("Double tap back to exit app");
+      Kui.toast("Double tap back to exit app");
       return false;
     } else {
       var result = await UiDialog.choiseDialog(
