@@ -292,8 +292,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 } else {
                                                   Future.delayed(Duration(
                                                           milliseconds: 1000))
-                                                      .then((_) => Get.offAll(() =>
-                                                          VerificationCheck()));
+                                                      .then((_) => Get.offAll(
+                                                          () => Dashboard()));
                                                 }
                                               },
                                               child: KText(

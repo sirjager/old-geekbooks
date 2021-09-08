@@ -2,7 +2,6 @@ import 'package:geeklibrary/backend/dialog/dialog.dart';
 import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/screens/login/login.dart';
-import 'package:geeklibrary/screens/signup/signup.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -210,37 +209,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         color: theme.isDarkMode
                             ? XColors.darkColor2
                             : XColors.darkColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10.h, bottom: 100.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    KClickable(
-                      height: 200.h,
-                      width: 800.w,
-                      onPressed: () =>
-                          Future.delayed(Duration(milliseconds: 150)).then(
-                              (value) => Get.to(() => SignUpScreen(),
-                                  transition: Transition.fade)),
-                      child: KText(
-                        "Signup",
-                        weight: FontWeight.bold,
-                        color: XColors.grayColor,
-                      ),
-                      topDeco: BoxDecoration(
-                        color:
-                            theme.isDarkMode ? XColors.darkColor : Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      bottomDeco: BoxDecoration(
-                        border:
-                            Border.all(color: XColors.grayColor, width: 15.w),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
