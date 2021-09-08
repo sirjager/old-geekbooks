@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' as dioo;
 import 'package:flutter/cupertino.dart';
 import 'package:geeklibrary/backend/calls/api_calls.dart';
@@ -281,21 +283,40 @@ class _RiderProviderState extends State<RiderProvider> {
           );
 
           await XFiles.download2(dio, url, filepath);
-          Get.snackbar(
-            "Download finished",
-            fileName,
-            duration: Duration(seconds: 5),
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: XColors.grayColor.withOpacity(0.3),
-            colorText: Colors.black,
-            mainButton: TextButton(
-                onPressed: () => OpenFile.open(filepath),
-                child: KText(
-                  "Open",
-                  color: Colors.black,
-                  weight: FontWeight.bold,
-                )),
-          );
+          final exist = await checkForFile(dir, fileName);
+          if (exist) {
+            Get.snackbar(
+              "Download finished",
+              fileName,
+              duration: Duration(seconds: 5),
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: XColors.grayColor.withOpacity(0.3),
+              colorText: Colors.black,
+              mainButton: TextButton(
+                  onPressed: () => OpenFile.open(filepath),
+                  child: KText(
+                    "Open",
+                    color: Colors.black,
+                    weight: FontWeight.bold,
+                  )),
+            );
+          } else {
+            Get.snackbar(
+              "Something Went Wrong",
+              "Enable browser mode and try again",
+              duration: Duration(seconds: 5),
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: XColors.grayColor.withOpacity(0.3),
+              colorText: Colors.black,
+              mainButton: TextButton(
+                  onPressed: () => OpenFile.open(filepath),
+                  child: KText(
+                    "Open",
+                    color: Colors.black,
+                    weight: FontWeight.bold,
+                  )),
+            );
+          }
         }
       }
     } catch (e) {
@@ -303,5 +324,21 @@ class _RiderProviderState extends State<RiderProvider> {
     }
 
     return true;
+  }
+
+  Future<bool> checkForFile(String dir, String fileName) async {
+    final _dir = Directory(dir);
+    final List<FileSystemEntity> items =
+        await _dir.list(recursive: false).toList();
+    bool exist = false;
+    for (FileSystemEntity item in items) {
+      final file = item.path.split("/").last;
+      if (file.contains(fileName)) {
+        exist = true;
+      } else {
+        exist = false;
+      }
+    }
+    return exist;
   }
 }

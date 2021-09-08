@@ -29,7 +29,7 @@ class BookRow extends StatelessWidget {
                   highlightColor: XColors.grayColor,
                   onTap: () {
                     Get.back();
-                    Get.to(BookView(book: book, books: books));
+                    Get.to(()=> BookView(book: book, books: books));
                   },
                   child: Padding(
                     padding: EdgeInsets.all(10.w),

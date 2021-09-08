@@ -155,27 +155,21 @@ class _BookViewState extends State<BookView> {
                 ? Container(
                     margin: EdgeInsets.symmetric(vertical: 100.h),
                     alignment: Alignment.center,
-                    child: KLeafButton(
+                    child: KClickable(
                       onPressed: () => Get.to(() => RiderProvider(book)),
                       height: 160.h,
                       width: 350.w,
-                      icon: Ionicons.download_outline,
-                      iconColor: theme.isDarkMode
-                          ? XColors.grayText1
-                          : XColors.grayText,
                       child: KText(
-                        "Get it",
-                        googleFont: GoogleFonts.mavenPro(),
+                        "Download",
                         weight: FontWeight.bold,
                         size: 60.sp,
+                        googleFont: GoogleFonts.mavenPro(),
                         color: theme.isDarkMode
                             ? XColors.lightColor1
                             : XColors.lightColor1,
                       ),
-                      radius: 0,
-                      color1: theme.isDarkMode
-                          ? XColors.grayText1
-                          : XColors.grayText,
+                      topDeco: G.green2GradBannerDeco,
+                      bottomDeco: G.green3GradBannerDeco,
                     ),
                   )
                 : Container(),
