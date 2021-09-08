@@ -290,16 +290,20 @@ class _RiderProviderState extends State<RiderProvider> {
           final fileName =
               (book.title ?? book.author ?? book.id) + ".${book.exten!}";
           final String filepath = dir + "/" + fileName;
-          final hasDownFilepath = await checkForFile(dir, filepath);
+          final filebeforeStart = await checkForFile(dir, fileName);
           if (downloadExternaly == true) {
-            if (hasDownFilepath != null) {
-              finishedSnackbar(hasDownFilepath, fileName);
+            if (filebeforeStart != null) {
+              finishedSnackbar(filebeforeStart, fileName);
             } else {
               await launch.launch(url);
+              final afterExternalDownload = await checkForFile(dir, fileName);
+              if (afterExternalDownload != null) {
+                finishedSnackbar(afterExternalDownload, fileName);
+              }
             }
           } else {
-            if (hasDownFilepath != null) {
-              finishedSnackbar(hasDownFilepath, fileName);
+            if (filebeforeStart != null) {
+              finishedSnackbar(filebeforeStart, fileName);
             } else {
               Get.snackbar(
                 "Download Started",
