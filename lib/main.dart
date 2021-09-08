@@ -19,9 +19,7 @@ Future<void> main() async {
   Hive.registerAdapter(EncBookAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(
-    ProviderScope(child: MyApp()),
-  );
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {

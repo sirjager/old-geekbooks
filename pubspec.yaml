@@ -36,7 +36,6 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   get: ^4.1.4
   google_fonts: ^2.1.0
-  google_mobile_ads: ^0.13.2
   google_sign_in: ^5.0.4
   hive: ^2.0.4
   hive_flutter: ^1.1.0
