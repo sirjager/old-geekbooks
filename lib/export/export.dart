@@ -5,7 +5,6 @@ export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
 
 //!ADS
-export 'package:geeklibrary/constants/forms/links.dart';
 export 'package:geeklibrary/core/responsive/builder/responsive_builder.dart';
 export 'package:geeklibrary/core/responsive/size/responsive_size.dart';
 

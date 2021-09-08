@@ -16,8 +16,6 @@ class KImage extends StatelessWidget {
     this.repeat = ImageRepeat.noRepeat,
     this.borderRadius,
     this.border,
- 
-  
   }) : super(key: key);
   final String? imageURL;
   final String? imagePATH;
@@ -30,7 +28,6 @@ class KImage extends StatelessWidget {
   final ImageRepeat repeat;
   final BorderRadius? borderRadius;
   final BoxBorder? border;
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +53,8 @@ class KImage extends StatelessWidget {
       ),
       placeholder: (context, url) => Shimmer.fromColors(
         baseColor: Get.isDarkMode ? XColors.grayText : Colors.grey[200]!,
-        highlightColor: Get.isDarkMode ? XColors.lightGray : Colors.white,
+        highlightColor:
+            Get.isDarkMode ? XColors.lightGray.withOpacity(0.2) : Colors.white,
         child: Container(
           height: height,
           width: width,
