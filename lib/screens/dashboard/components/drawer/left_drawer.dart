@@ -3,7 +3,7 @@ import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/pages/sabed/sabed.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/items.dart';
 import 'package:geeklibrary/screens/dashboard/components/drawer/provider/dmi_provider.dart';
-import 'package:geeklibrary/screens/welcome/welcome.dart';
+import 'package:geeklibrary/screens/login/login.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 
 class LeftDrawer extends ConsumerWidget {
@@ -183,7 +183,7 @@ class LeftDrawer extends ConsumerWidget {
                           .read(auth)
                           .signOut()
                           .then((value) => Future.delayed(Duration(seconds: 1)))
-                          .then((value) => Get.offAll(() => WelcomeScreen())),
+                          .then((value) => Get.offAll(() => LoginScreen())),
                       height: 120.h,
                       radius: 0,
                       child: Text("Logout"),
