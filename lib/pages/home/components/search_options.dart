@@ -28,7 +28,7 @@ class SearchOptions extends ConsumerWidget {
               children: [
                 KText(
                   "search in field",
-                  font: "Nunito",
+                  googleFont: GoogleFonts.nunito(),
                   weight: FontWeight.w600,
                   size: 60.sp,
                   color: theme.isDarkMode
@@ -51,7 +51,7 @@ class SearchOptions extends ConsumerWidget {
                     onPressed: () => updateFilter(item.index, searchOption),
                     child: KText(
                       item.title.toString(),
-                      googleFont: GoogleFonts.mavenPro(),
+                      font: "MavenPro",
                       letterSpacing: 1,
                       size: 38.sp,
                       color: isSelected ? XColors.grayColor : XColors.grayText,
