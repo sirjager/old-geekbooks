@@ -16,16 +16,27 @@ class Homepage extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(vertical: 20.h),
-          child: Column(
+          child: Stack(
             children: [
-              ScreenTopbar(),
-              Lottie.asset(MyAssets.girlBlink),
-              ScreenTitlebar(title: "Browse Library"),
-              Searchbar(_node),
-              SearchOptions(),
-              SizedBox(height: 100.h),
-              // Spacer(),
-              // buildAd(100, 15, ad1)
+              Container(
+                margin: EdgeInsets.only(top: 100.h, left: 550.w),
+                child: Lottie.asset(
+                  MyAssets.girlPhone,
+                  height: 500.w,
+                  repeat: false,
+                ),
+              ),
+              Column(
+                children: [
+                  ScreenTopbar(),
+                  ScreenTitlebar(title: "Browse Library"),
+                  Searchbar(_node),
+                  SearchOptions(),
+                  SizedBox(height: 100.h),
+                  // Spacer(),
+                  // buildAd(100, 15, ad1)
+                ],
+              ),
             ],
           ),
         ),

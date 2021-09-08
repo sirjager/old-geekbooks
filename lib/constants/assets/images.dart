@@ -7,8 +7,8 @@ const String NOIMAGE = "assets/images/png/noimage.png";
 
 class MyAssets {
   static final String girlBlink = "assets/lottie/girl_blinking.json";
-  static final String girlFlower = "assets/lottie/girl_phone.json";
-  static final String girlPhone = "assets/lottie/flower_girl.json";
+  static final String girlPhone = "assets/lottie/girl_phone.json";
+  static final String girlFlower = "assets/lottie/flower_girl.json";
 
   static final String cross = "assets/lottie/cross.json";
   static final String check = "assets/lottie/check.json";
