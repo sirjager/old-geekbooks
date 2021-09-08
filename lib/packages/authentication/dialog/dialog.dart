@@ -3,8 +3,13 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class AuthDialog {
-  static showDialog(BuildContext ctx,
-      {String? title, String? desc, String? lottie, VoidCallback? onPressed}) {
+  static showDialog(
+    BuildContext ctx, {
+    String? title,
+    String? desc,
+    required String lottie,
+    VoidCallback? onPressed,
+  }) {
     var size = MediaQuery.of(ctx).size;
     var height = (size.height) / 100;
     var width = (size.width) / 100;
@@ -16,7 +21,7 @@ class AuthDialog {
           padding: EdgeInsets.all(width * 5),
           child: Column(
             children: [
-              Lottie.asset(lottie ?? MyAssets.checkmail, height: height * 10),
+              Lottie.asset(lottie, height: height * 10),
               Container(
                 margin: EdgeInsets.symmetric(vertical: height * 10),
                 child: KText(title ?? "", size: (width / 3) * 10),
