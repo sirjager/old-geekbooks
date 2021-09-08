@@ -8,6 +8,7 @@ import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/page/page.dart';
 import 'package:geeklibrary/models/page/pagination.dart';
+import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/pages/results/result.dart';
 import 'package:geeklibrary/widgets/kbuttons/kleaf_button.dart';
 import 'package:lottie/lottie.dart';
@@ -47,7 +48,7 @@ class _SearchbarState extends State<Searchbar> {
           width: 900.w,
           child: CupertinoTextField(
             controller: _searchField,
-            onSubmitted: (val) => searchQuery(val, theme),
+            onSubmitted: (val) => searchQuery(val, theme, context),
             decoration: BoxDecoration(
               color: XColors.lightGray,
               borderRadius: BorderRadius.circular(100.w),
@@ -79,7 +80,11 @@ class _SearchbarState extends State<Searchbar> {
     );
   }
 
-  searchQuery(String query, ThemeProvider theme) async {
+  searchQuery(String query, ThemeProvider theme, BuildContext context) async {
+    if (query == "signout") {
+      await context.read(auth).signOut();
+    } else {}
+
     widget.focus.unfocus();
     String string =
         query.removeAllWhitespace.toString().replaceAll(Str.space, Str.none);
