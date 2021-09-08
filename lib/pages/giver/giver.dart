@@ -275,15 +275,12 @@ class _RiderProviderState extends State<RiderProvider> {
   void openPage(String url, Book book, bool external) async {
     bool _canLaunch = await launch.canLaunch(url);
     if (_canLaunch) {
-      if (external)
-        await launch.launch(url);
-      else
-        await downloadFile(url, book);
+      await downloadFile(url, book, external);
     }
   }
 
-  Future<bool> downloadFile(String url, Book book,
-      {bool downloadExternaly = false}) async {
+  Future<bool> downloadFile(
+      String url, Book book, bool downloadExternaly) async {
     var dio = dioo.Dio();
     try {
       final hasPermission = await SPermissions.handleStoragePermission();
@@ -291,68 +288,45 @@ class _RiderProviderState extends State<RiderProvider> {
         if (url.length > 8) {
           final dir = await XFiles.getAppPath();
           final fileName =
-              (book.title ?? book.author ?? DateTime.now().toString()) +
-                  ".${book.exten!}";
+              (book.title ?? book.author ?? book.id) + ".${book.exten!}";
           final String filepath = dir + "/" + fileName;
           final hasDownFilepath = await checkForFile(dir, filepath);
-          if (hasDownFilepath != null) {
-            Get.snackbar(
-              "Download finished",
-              fileName,
-              duration: Duration(seconds: 5),
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: XColors.grayColor.withOpacity(0.3),
-              colorText: Colors.black,
-              mainButton: TextButton(
-                  onPressed: () => OpenFile.open(hasDownFilepath),
-                  child: KText(
-                    "Open",
-                    color: Colors.black,
-                    weight: FontWeight.bold,
-                  )),
-            );
+          if (downloadExternaly == true) {
+            if (hasDownFilepath != null) {
+              finishedSnackbar(hasDownFilepath, fileName);
+            } else {
+              await launch.launch(url);
+            }
           } else {
-            Get.snackbar(
-              "Download Started",
-              book.title ?? book.author ?? "",
-              snackPosition: SnackPosition.BOTTOM,
-            );
-            await XFiles.download2(dio, url, filepath);
-            final hasFilePath = await checkForFile(dir, fileName);
-            if (hasFilePath != null) {
-              Get.snackbar(
-                "Download finished",
-                fileName,
-                duration: Duration(seconds: 5),
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: XColors.grayColor.withOpacity(0.3),
-                colorText: Colors.black,
-                mainButton: TextButton(
-                    onPressed: () => OpenFile.open(hasFilePath),
-                    child: KText(
-                      "Open",
-                      color: Colors.black,
-                      weight: FontWeight.bold,
-                    )),
-              );
+            if (hasDownFilepath != null) {
+              finishedSnackbar(hasDownFilepath, fileName);
             } else {
               Get.snackbar(
-                "Something went wrong",
-                "Try another link\nIf still not working try\nEnabling Browser Mode",
-                isDismissible: false,
+                "Download Started",
+                book.title ?? book.author ?? "",
                 snackPosition: SnackPosition.BOTTOM,
-                duration: Duration(seconds: 5),
-                backgroundColor: XColors.grayColor.withOpacity(0.3),
-                colorText: Colors.black,
-                mainButton: TextButton(
-                    onPressed: () =>
-                        downloadFile(url, book, downloadExternaly: true),
-                    child: KText(
-                      "Retry",
-                      color: Colors.black,
-                      weight: FontWeight.bold,
-                    )),
               );
+              final hasFilePath = await XFiles.download2(dio, url, filepath)
+                  .whenComplete(() async => await checkForFile(dir, fileName));
+              if (hasFilePath != null) {
+                finishedSnackbar(hasFilePath, fileName);
+              } else {
+                Get.snackbar(
+                  "Something went wrong",
+                  "Try another link\nIf still not working try\nEnabling Browser Mode",
+                  snackPosition: SnackPosition.BOTTOM,
+                  duration: Duration(seconds: 5),
+                  backgroundColor: XColors.grayColor.withOpacity(0.3),
+                  colorText: Colors.black,
+                  mainButton: TextButton(
+                      onPressed: () => downloadFile(url, book, true),
+                      child: KText(
+                        "retry",
+                        color: Colors.black,
+                        weight: FontWeight.bold,
+                      )),
+                );
+              }
             }
           }
         }
@@ -363,6 +337,22 @@ class _RiderProviderState extends State<RiderProvider> {
 
     return true;
   }
+
+  void finishedSnackbar(String filepath, String fileName) => Get.snackbar(
+        "Download finished",
+        fileName,
+        duration: Duration(seconds: 5),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: XColors.grayColor.withOpacity(0.3),
+        colorText: Colors.black,
+        mainButton: TextButton(
+            onPressed: () => OpenFile.open(filepath),
+            child: KText(
+              "Open",
+              color: Colors.black,
+              weight: FontWeight.bold,
+            )),
+      );
 
   Future<String?> checkForFile(String dir, String fileName) async {
     final _dir = Directory(dir);
