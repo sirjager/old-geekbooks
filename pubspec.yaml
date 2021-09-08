@@ -24,6 +24,7 @@ dependencies:
   firebase_auth: ^3.0.1
   firebase_core: ^1.4.0
   flash: ^2.0.1
+  flowder: ^0.2.0
   flutter:
     sdk: flutter
   flutter_downloader: ^1.7.0

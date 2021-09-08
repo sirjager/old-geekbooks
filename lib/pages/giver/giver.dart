@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flowder/flowder.dart';
 import 'package:geeklibrary/backend/calls/api_calls.dart';
 import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/core/services/permissions.dart';
@@ -235,17 +238,22 @@ class _RiderProviderState extends State<RiderProvider> {
           snackPosition: SnackPosition.BOTTOM,
         );
         final dir = await XFiles.getAppPath();
-        final fileName = (book.title ?? book.author ?? "Geeklibrary") +
-            "_${DateTime.now()}" +
-            ".${book.exten!}";
+        final fileName = (book.title ?? book.author) ??
+            DateTime.now().toString() + ".${book.exten!}";
         final String filepath = dir + "/" + fileName;
-        await FlutterDownloader.enqueue(
-          url: url,
-          savedDir: dir,
-          showNotification: true,
-          openFileFromNotification: true,
-          fileName: fileName,
+
+        final downloaderUtils = DownloaderUtils(
+          progressCallback: (current, total) {
+            final progress = (current / total) * 100;
+            (context.read(downloadProgressProvider)).update(progress);
+          },
+          file: File(filepath),
+          progress: ProgressImplementation(),
+          onDone: () => print('Download done'),
+          deleteOnCancel: true,
         );
+
+        await Flowder.download(url, downloaderUtils);
 
         Get.snackbar(
           "Download Finished",
@@ -268,18 +276,11 @@ class _RiderProviderState extends State<RiderProvider> {
 }
 
 class DownloadProgressProvider extends ChangeNotifier {
-  int _received = 0;
-  int _total = 0;
-  int get received => _received;
-  int get total => _total;
-  double _proggress = 0.0;
-  double get progress => _proggress;
+  double _progress = 0.0;
+  double get progress => _progress;
 
-  void update(int received, int total) {
-    _received = received;
-    _total = total;
-    _proggress = _received / _total;
-    print(_proggress);
+  void update(double current) {
+    _progress = current;
     notifyListeners();
   }
 }
