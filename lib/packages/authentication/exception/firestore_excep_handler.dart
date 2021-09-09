@@ -1,5 +1,4 @@
 import 'package:geeklibrary/backend/export/backend_export.dart';
-import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:get/get.dart';

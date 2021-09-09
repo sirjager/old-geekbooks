@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 
 class Authentication {

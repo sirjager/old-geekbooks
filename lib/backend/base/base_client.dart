@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:geeklibrary/backend/exception/exceptions.dart';
-import 'package:geeklibrary/core/log/log.dart';
 import 'package:http/http.dart' as http;
 
 class BaseClient {
