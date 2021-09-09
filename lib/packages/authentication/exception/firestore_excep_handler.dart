@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class FirestoreExceptionHandler {
   static void handleException(FirebaseException e) {
     __showDialog(title: e.code, msg: e.message.toString());
-    log.e(
+    print(
         "Plugin : ${e.plugin}\nCode : ${e.code}\nDescription : ${e.message.toString()}");
   }
 

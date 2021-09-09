@@ -24,7 +24,6 @@ class BaseClient {
 
   Future<dynamic> _processResponse(http.Response? response, url, msg) async {
     if (response == null) return;
-    _print(msg, url, response, response.statusCode);
     switch (response.statusCode) {
       case 200:
         //!=======> checking if same reqst exist or not
@@ -54,11 +53,5 @@ class BaseClient {
           response.request!.url.toString(),
         );
     }
-  }
-
-  void _print(msg, url, dynamic response, status) {
-    log.wtf(
-      "\n📡 INTERNET METHOD\n\n❇️ MESSAGE : $msg\n\n🔗 URL : $url\n\n✨ RESPONSE CODE: $status\n",
-    );
   }
 }

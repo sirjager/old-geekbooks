@@ -3,7 +3,6 @@ import 'package:geeklibrary/backend/calls/api_calls.dart';
 import 'package:geeklibrary/backend/dialog/dialog.dart';
 import 'package:geeklibrary/backend/export/backend_export.dart';
 import 'package:geeklibrary/constants/numers/nums.dart';
-import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/packages/authentication/export/export.dart';
 import 'package:geeklibrary/pages/results/result.dart';
@@ -151,7 +150,7 @@ class _SearchbarState extends State<Searchbar> {
                     return Center(child: Text("Some Error Occured"));
                   }
                 } else {
-                  log.e("\n\n Page Return Null \n\n");
+                  print("\n\n Page Return Null \n\n");
                   while (Get.isDialogOpen != null && Get.isDialogOpen!) {
                     Get.back();
                   }

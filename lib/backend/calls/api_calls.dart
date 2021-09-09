@@ -29,7 +29,7 @@ class ApiCalls with ErrorHandler {
     List<Book> _books = [];
     Sort? _sort;
     PageInfo? _pageInfo = PageInfo();
-    log.i("\Opening Hive\n");
+    print("\Opening Hive\n");
     final Box<EncBook> _encBooksBox = await HiveEncBooks.openBox("encbooks");
     final Box<EncPageSource> _encSauceBox = await HiveSauce.openBox("source");
 
@@ -37,9 +37,9 @@ class ApiCalls with ErrorHandler {
     final String _url = _makeURL(_valid, pageNo, col);
     final String _uniqueKey = _makeUniqueKey(_valid, col, pageNo);
 
-    log.e("\n\nUNIQUE KEY : $_uniqueKey \n\n");
+    print("\n\nUNIQUE KEY : $_uniqueKey \n\n");
 
-    log.wtf("\n\URL : $_url \n\n");
+    print("\n\URL : $_url \n\n");
 
     /* Checking if Same Request if saved in local database or not.
         If Request is Found in database -----> Source is returned from Database
@@ -106,14 +106,14 @@ class ApiCalls with ErrorHandler {
           sort: _sort,
           info: _pageInfo,
         );
-        log.i("\nClosing Hive\n");
+        print("\nClosing Hive\n");
         Hive.close();
         return _pagePack;
       } else {
         while (Get.isDialogOpen != null && Get.isDialogOpen!) {
           Get.back();
         }
-        log.i("\nClosing Hive\n");
+        print("\nClosing Hive\n");
         Hive.close();
         UiDialog.showDialog(
           title: "Search Complete",
@@ -124,7 +124,7 @@ class ApiCalls with ErrorHandler {
         return null;
       }
     } else {
-      log.i("\nClosing Hive\n");
+      print("\nClosing Hive\n");
       Hive.close();
       return null;
     }

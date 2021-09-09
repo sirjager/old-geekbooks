@@ -79,7 +79,7 @@ class XFiles {
   }
 
   static Future download2(Dio dio, String url, String savepath) async {
-    log.i("Save Path : $savepath");
+    print("Save Path : $savepath");
 
     try {
       var response = await dio.get(
