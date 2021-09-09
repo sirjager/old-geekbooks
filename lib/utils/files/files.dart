@@ -83,14 +83,14 @@ class XFiles {
         url,
         onReceiveProgress: (r, t) {},
         options: Options(
-            responseType: ResponseType.bytes,
-            followRedirects: false,
-            validateStatus: (status) {
-              if (status != null) return status < 500;
-              return false;
-            }),
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+          validateStatus: (status) {
+            if (status != null) return status < 500;
+            return false;
+          },
+        ),
       );
-      print(response.headers);
       File file = File(savePath);
       var raf = file.openSync(mode: FileMode.write);
       raf.writeFromSync(response.data);
