@@ -245,17 +245,20 @@ class _RiderProviderState extends State<RiderProvider> {
           .map((e) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 50.w),
                 child: KClickable(
-                  height: 200.w,
                   width: 350.w,
                   onPressed: () {
                     openPage(e.lenk, book, extenal);
                   },
-                  child: KText(
-                    e.title.toUpperCase(),
-                    googleFont: GoogleFonts.mavenPro(),
-                    weight: FontWeight.bold,
-                    size: 45.sp,
-                    color: isDarkMode ? XColors.darkColor1 : XColors.darkColor2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: KText(
+                      e.title.toUpperCase(),
+                      googleFont: GoogleFonts.mavenPro(),
+                      weight: FontWeight.bold,
+                      size: 35.sp,
+                      color:
+                          isDarkMode ? XColors.darkColor1 : XColors.darkColor2,
+                    ),
                   ),
                   topDeco: G.green2GradBannerDeco,
                   bottomDeco: BoxDecoration(
