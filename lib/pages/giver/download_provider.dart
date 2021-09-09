@@ -52,14 +52,6 @@ class FileDownloadProvider {
                   duration: Duration(seconds: 5),
                   backgroundColor: XColors.grayColor.withOpacity(0.3),
                   colorText: Colors.black,
-                  mainButton: TextButton(
-                    onPressed: () => null,
-                    child: KText(
-                      "retry",
-                      color: Colors.black,
-                      weight: FontWeight.bold,
-                    ),
-                  ),
                 );
               }
             }
