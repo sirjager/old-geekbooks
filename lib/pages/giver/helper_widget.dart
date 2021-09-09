@@ -28,9 +28,9 @@ class HelperWidget extends StatelessWidget {
               children: [
                 KText(
                   "Frequently Asked Questions",
-                  size: 75.sp,
                   color: XColors.grayColor,
                   weight: FontWeight.bold,
+                  size: 40.sp,
                   googleFont: GoogleFonts.mavenPro(),
                 ),
               ],
@@ -40,11 +40,13 @@ class HelperWidget extends StatelessWidget {
               "How many providers are there ?",
               color: Colors.red,
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             KText(
               "There are 4 different download providers.",
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             SizedBox(height: 40.h),
@@ -56,10 +58,11 @@ class HelperWidget extends StatelessWidget {
                       decoration: G.green2GradBannerDeco,
                       height: 100.w,
                       width: 200.w,
+                      padding: EdgeInsets.all(20.w),
                       alignment: Alignment.center,
                       child: KText(
                         e,
-                        size: 30.sp,
+                        size: 20.sp,
                         weight: FontWeight.bold,
                         color: isDarkMode
                             ? XColors.darkColor1
@@ -74,17 +77,20 @@ class HelperWidget extends StatelessWidget {
               "What should i do if link dosen't work ?",
               color: Colors.red,
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             KText(
               "If one dosen't work or show \"Something went wrong\",then try downloading with different download provider.",
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             SizedBox(height: 40.h),
             KText(
               "Some links are old and might not work or take more time",
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             SizedBox(height: 40.h),
@@ -92,12 +98,14 @@ class HelperWidget extends StatelessWidget {
               "What can i do if in-app downloading is not working ?",
               color: Colors.red,
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             KText(
               "If In-App Download is still not working then try switching to Browser Mode.",
               color: XColors.grayColor,
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             Row(
@@ -105,8 +113,8 @@ class HelperWidget extends StatelessWidget {
               children: [
                 KText(
                   "Enable Broweser Mode",
+                  size: 40.sp,
                   googleFont: GoogleFonts.mavenPro(),
-                  size: 55.sp,
                   weight: FontWeight.bold,
                   color: isDarkMode
                       ? XColors.darkGray.withOpacity(0.7)
@@ -128,6 +136,7 @@ class HelperWidget extends StatelessWidget {
               "BROWSER MODE will open same download link in your browser.",
               color: Colors.blueAccent,
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             SizedBox(height: 40.h),
@@ -135,6 +144,7 @@ class HelperWidget extends StatelessWidget {
               "After File is Downloaded You can directly open from Popup Snackbar",
               color: isDarkMode ? Colors.yellowAccent : Colors.indigo,
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
             SizedBox(height: 40.h),
@@ -142,6 +152,7 @@ class HelperWidget extends StatelessWidget {
               "Snackbar Will automatically close after 5 seconds",
               color: isDarkMode ? Colors.yellowAccent : Colors.indigo,
               weight: FontWeight.bold,
+              size: 40.sp,
               googleFont: GoogleFonts.mavenPro(),
             ),
           ],

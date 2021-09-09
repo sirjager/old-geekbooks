@@ -173,7 +173,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                     KText(
                                       "Download with browser ?",
                                       googleFont: GoogleFonts.mavenPro(),
-                                      size: 55.sp,
+                                      size: 50.sp,
                                       weight: FontWeight.bold,
                                       color: isDarkMode
                                           ? XColors.darkGray.withOpacity(0.7)

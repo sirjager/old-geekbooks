@@ -7,6 +7,7 @@ import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/utils/files/files.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:system_settings/system_settings.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 
 import 'download_result.dart';
@@ -15,14 +16,32 @@ class FileDownloadProvider {
   static Future<bool> downloadFile(
       String url, Book book, bool downloadWithBrowser) async {
     var dio = dioo.Dio();
+
     try {
       await SPermissions.handleStoragePermission();
-      var hasPermission = await Permission.storage.status;
-      if (hasPermission == PermissionStatus.granted) {
+      final _storagePermission = await Permission.storage.status;
+      final _externalPermission = await Permission.manageExternalStorage.status;
+      final hasPermission =
+          _storagePermission.isGranted && _externalPermission.isGranted;
+      if (hasPermission) {
         if (url.length > 8) {
           final appfolder = await XFiles.handleAppFolderDir();
-          final fileName =
-              (book.title ?? book.author ?? book.id) + ".${book.exten!}";
+          // final fileName =
+          //     (book.author ?? book.author ?? book.id) + ".${book.exten!}";
+          String _filename = "";
+          if (book.author != null) {
+            _filename = book.author! + " - ";
+          } else {}
+          if (book.title != null) {
+            _filename = _filename + book.title!;
+          } else {}
+          if (book.year != null) {
+            _filename = _filename + "(${book.year!})";
+          } else {}
+          if (book.edition != null) {
+            _filename = _filename + "\[${book.edition!}-EDITION\]";
+          } else {}
+          final fileName = _filename + "." + (book.exten ?? "");
           final String filepath = appfolder.path + "/" + fileName;
           final checkForFileBeforeStarting =
               await ___checkForFile(filepath, fileName, appfolder);
@@ -57,6 +76,24 @@ class FileDownloadProvider {
             }
           }
         }
+      } else {
+        Get.snackbar(
+          "NO STORAGE PERMISSION",
+          "Geeklibrary dosenot have storage permission\nOpen App Settings to give permission manually",
+          duration: Duration(seconds: 5),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent.withOpacity(0.3),
+          colorText: Colors.black,
+          mainButton: TextButton(
+            onPressed: SystemSettings.app,
+            child: KText(
+              "open settings",
+              size: 40.sp,
+              color: Colors.black,
+              weight: FontWeight.bold,
+            ),
+          ),
+        );
       }
     } catch (e) {
       print(e);

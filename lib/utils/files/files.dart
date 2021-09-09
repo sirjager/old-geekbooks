@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:path_provider/path_provider.dart';
 import 'const.dart';
 
@@ -77,7 +78,9 @@ class XFiles {
     return newPath + "/Android/data/$appid";
   }
 
-  static Future download2(Dio dio, String url, String savePath) async {
+  static Future download2(Dio dio, String url, String savepath) async {
+    log.i("Save Path : $savepath");
+
     try {
       var response = await dio.get(
         url,
@@ -91,7 +94,7 @@ class XFiles {
           },
         ),
       );
-      File file = File(savePath);
+      File file = File(savepath);
       var raf = file.openSync(mode: FileMode.write);
       raf.writeFromSync(response.data);
       await raf.close();
