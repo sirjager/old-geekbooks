@@ -346,8 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
       TextEditingController _pass) async {
     var sucess = await context.read(auth).signIn(
           _email.text,
-          // _pass.text,
-          "gimi#99",
+          _pass.text,
         );
     if (sucess) {
       _email.clear();

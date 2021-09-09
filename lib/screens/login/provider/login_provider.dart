@@ -1,7 +1,7 @@
 import 'package:geeklibrary/export/export.dart';
 
 class MALAProvider extends ChangeNotifier {
-  final TextEditingController _zale = TextEditingController(text: 'gimi@ha.ni');
+  final TextEditingController _zale = TextEditingController();
   TextEditingController get mala => _zale;
 
   void setMala(String mala) {
