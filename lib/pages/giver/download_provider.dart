@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info/device_info.dart';
 import 'package:dio/dio.dart' as dioo;
 import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/core/services/permissions.dart';
@@ -20,14 +21,17 @@ class FileDownloadProvider {
     try {
       await SPermissions.handleStoragePermission();
       final _storagePermission = await Permission.storage.status;
-      final _externalPermission = await Permission.manageExternalStorage.status;
-      final hasPermission =
-          _storagePermission.isGranted && _externalPermission.isGranted;
+      final _android = await DeviceInfoPlugin().androidInfo;
+      late final bool _externalPermission;
+      if (int.parse(_android.version.release) > 10) {
+        _externalPermission = await Permission.manageExternalStorage.isGranted;
+      } else {
+        _externalPermission = true;
+      }
+      final hasPermission = _storagePermission.isGranted && _externalPermission;
       if (hasPermission) {
         if (url.length > 8) {
           final appfolder = await XFiles.handleAppFolderDir();
-          // final fileName =
-          //     (book.author ?? book.author ?? book.id) + ".${book.exten!}";
           String _filename = "";
           if (book.author != null) {
             _filename = book.author! + " - ";
