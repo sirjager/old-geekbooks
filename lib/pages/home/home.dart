@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/global/screentitle/titlebar.dart';
-import 'package:geeklibrary/pages/home/components/lottie_provider.dart';
-import 'package:lottie/lottie.dart';
 
 class Homepage extends StatelessWidget {
   final FocusNode _node = FocusNode();

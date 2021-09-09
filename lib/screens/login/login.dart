@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_phoenix/generated/i18n.dart';
 import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/core/responsive/info/sizing_info.dart';
 import 'package:geeklibrary/export/export.dart';

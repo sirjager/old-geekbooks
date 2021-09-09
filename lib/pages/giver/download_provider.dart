@@ -1,19 +1,18 @@
 import 'dart:io';
 
-import 'package:firebase/firebase.dart';
-import 'package:geeklibrary/core/log/log.dart';
+import 'package:dio/dio.dart' as dioo;
+import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/core/services/permissions.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/utils/files/files.dart';
 import 'package:open_file/open_file.dart';
-import 'package:dio/dio.dart' as dioo;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 
 import 'download_result.dart';
 
 class FileDownloadProvider {
-  Future<bool> downloadFile(
+  static Future<bool> downloadFile(
       String url, Book book, bool downloadWithBrowser) async {
     var dio = dioo.Dio();
     try {
@@ -68,13 +67,13 @@ class FileDownloadProvider {
         }
       }
     } catch (e) {
-      log.e(e.toString());
+      Kui.toast(e.toString());
     }
 
     return true;
   }
 
-  Future<FileResult> ___checkForFile(
+  static Future<FileResult> ___checkForFile(
       String filepath, String filename, Directory appfolder) async {
     //! First Check Appfolder if file exists
     final fileExist = await File(filepath).exists();

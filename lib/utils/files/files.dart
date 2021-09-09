@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
-import 'package:geeklibrary/core/log/log.dart';
 import 'package:path_provider/path_provider.dart';
 import 'const.dart';
 
@@ -13,16 +12,6 @@ class XFiles {
   static Future<File> writeFile(File file, Uint8List bytes,
       {FileMode mode = FileMode.writeOnly}) async {
     return file.writeAsBytes(bytes, mode: mode);
-  }
-
-  static Future<List<Directory>> _getList(Directory _dir) async {
-    final List<FileSystemEntity> items =
-        await _dir.list(recursive: false).toList();
-    List<Directory> paths = [];
-    for (FileSystemEntity item in items) {
-      paths.add(Directory(item.path));
-    }
-    return paths;
   }
 
   static Future<Directory> _getSD() async {
@@ -87,9 +76,6 @@ class XFiles {
     }
     return newPath + "/Android/data/$appid";
   }
-
-  static Future<Directory> __createFolder(String path) async =>
-      await Directory(path).create(recursive: true);
 
   static Future download2(Dio dio, String url, String savePath) async {
     try {
