@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dioo;
@@ -7,6 +8,8 @@ import 'package:geeklibrary/core/log/log.dart';
 import 'package:geeklibrary/core/services/permissions.dart';
 import 'package:geeklibrary/export/export.dart';
 import 'package:geeklibrary/models/lenk/lenk.dart';
+import 'package:geeklibrary/pages/giver/download_result.dart';
+import 'package:geeklibrary/pages/giver/helper_widget.dart';
 import 'package:geeklibrary/pages/giver/provider.dart';
 import 'package:geeklibrary/pages/results/components/header.dart';
 import 'package:geeklibrary/pages/zoom/zoom.dart';
@@ -14,6 +17,8 @@ import 'package:geeklibrary/utils/files/files.dart';
 import 'package:open_file/open_file.dart';
 import 'package:geeklibrary/widgets/kImage/kimage.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:string_validator/string_validator.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 
 class RiderProvider extends StatefulWidget {
@@ -111,7 +116,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                   child: KText(
                                     book.title!,
                                     googleFont: GoogleFonts.mavenPro(),
-                                    size: 60.sp,
+                                    size: 50.sp,
                                     weight: FontWeight.w500,
                                     textAlign: TextAlign.center,
                                     color: isDarkMode
@@ -128,7 +133,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                       KText(
                                         'File Size : ',
                                         googleFont: GoogleFonts.mavenPro(),
-                                        size: 60.sp,
+                                        size: 50.sp,
                                         weight: FontWeight.w500,
                                         color: isDarkMode
                                             ? XColors.darkGray.withOpacity(0.7)
@@ -139,7 +144,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                         XMath.convertBytesToMB(book.fileSize) +
                                             ' MB',
                                         googleFont: GoogleFonts.mavenPro(),
-                                        size: 60.sp,
+                                        size: 50.sp,
                                         weight: FontWeight.w500,
                                         color: isDarkMode
                                             ? XColors.darkGray.withOpacity(0.7)
@@ -150,7 +155,7 @@ class _RiderProviderState extends State<RiderProvider> {
                                       KText(
                                         'Extension : ',
                                         googleFont: GoogleFonts.mavenPro(),
-                                        size: 60.sp,
+                                        size: 50.sp,
                                         weight: FontWeight.w500,
                                         color: isDarkMode
                                             ? XColors.darkGray.withOpacity(0.7)
@@ -191,8 +196,9 @@ class _RiderProviderState extends State<RiderProvider> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.bottomSheet(
-                                            helpWidget(isDarkMode, extenal));
+                                        Get.bottomSheet(HelperWidget(
+                                            isDarkMode: isDarkMode,
+                                            pro: extenal));
                                       },
                                       child: Icon(
                                         Ionicons.help_circle_outline,
@@ -272,67 +278,71 @@ class _RiderProviderState extends State<RiderProvider> {
     );
   }
 
-  void openPage(String url, Book book, bool external) async {
-    bool _canLaunch = await launch.canLaunch(url);
-    if (_canLaunch) {
-      await downloadFile(url, book, external);
-    }
+  void openPage(String url, Book book, bool downloadWithBrowser) async {
+    log.wtf(url);
+    bool isValidURL = isURL(url);
+    if (isValidURL) {
+      await downloadFile(url, book, downloadWithBrowser);
+    } else
+      Get.snackbar(
+        "Download link may be expired",
+        "Try different Provider. If still not working then Try after Enabling Browser Mode",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.4),
+      );
   }
 
   Future<bool> downloadFile(
-      String url, Book book, bool downloadExternaly) async {
+      String url, Book book, bool downloadWithBrowser) async {
     var dio = dioo.Dio();
     try {
-      final hasPermission = await SPermissions.handleStoragePermission();
-      if (hasPermission) {
+      log.e(url);
+      await SPermissions.handleStoragePermission();
+      var hasPermission = await Permission.storage.status;
+      if (hasPermission == PermissionStatus.granted) {
         if (url.length > 8) {
           final dir = await XFiles.getAppPath();
           final fileName =
               (book.title ?? book.author ?? book.id) + ".${book.exten!}";
           final String filepath = dir + "/" + fileName;
-          final filebeforeStart = await checkForFile(dir, fileName);
-          if (downloadExternaly == true) {
-            if (filebeforeStart != null) {
-              finishedSnackbar(filebeforeStart, fileName);
-            } else {
-              await launch.launch(url);
-              final afterExternalDownload = await checkForFile(dir, fileName);
-              if (afterExternalDownload != null) {
-                finishedSnackbar(afterExternalDownload, fileName);
-              }
-            }
-          } else {
-            if (filebeforeStart != null) {
-              finishedSnackbar(filebeforeStart, fileName);
-            } else {
-              Get.snackbar(
-                "Download Started",
-                book.title ?? book.author ?? "",
-                snackPosition: SnackPosition.BOTTOM,
-              );
-              await XFiles.download2(dio, url, filepath);
-              final hasFilePath = await checkForFile(dir, fileName);
-              if (hasFilePath != null) {
-                finishedSnackbar(hasFilePath, fileName);
-              } else {
-                Get.snackbar(
-                  "Something went wrong",
-                  "Try another link\nIf still not working try\nEnabling Browser Mode",
-                  snackPosition: SnackPosition.BOTTOM,
-                  duration: Duration(seconds: 5),
-                  backgroundColor: XColors.grayColor.withOpacity(0.3),
-                  colorText: Colors.black,
-                  mainButton: TextButton(
-                      onPressed: () => downloadFile(url, book, true),
-                      child: KText(
-                        "retry",
-                        color: Colors.black,
-                        weight: FontWeight.bold,
-                      )),
-                );
-              }
-            }
-          }
+          final checkForFileBeforeStarting = await checkForFile(dir, fileName);
+          // if (checkForFileBeforeStarting.isSucess) {
+          //   finishedSnackbar(checkForFileBeforeStarting.filePath!, fileName);
+          // } else {
+          //   if (downloadWithBrowser) {
+          //     await launch.launch(url);
+          //   } else {
+          //     Get.snackbar(
+          //       "Download Started",
+          //       book.title ?? book.author ?? book.id,
+          //       snackPosition: SnackPosition.BOTTOM,
+          //     );
+          //     await XFiles.download2(dio, url, filepath);
+
+          //     final checkForFileAfterStarting =
+          //         await checkForFile(dir, fileName);
+          //     if (checkForFileAfterStarting.isSucess) {
+          //       finishedSnackbar(checkForFileAfterStarting.filePath!, fileName);
+          //     } else {
+          //       Get.snackbar(
+          //         "Something went wrong",
+          //         "Try another link\nIf still not working try\nEnabling Browser Mode",
+          //         snackPosition: SnackPosition.BOTTOM,
+          //         duration: Duration(seconds: 5),
+          //         backgroundColor: XColors.grayColor.withOpacity(0.3),
+          //         colorText: Colors.black,
+          //         mainButton: TextButton(
+          //           onPressed: () => null,
+          //           child: KText(
+          //             "retry",
+          //             color: Colors.black,
+          //             weight: FontWeight.bold,
+          //           ),
+          //         ),
+          //       );
+          // }
+          // }
+          // }
         }
       }
     } catch (e) {
@@ -350,176 +360,55 @@ class _RiderProviderState extends State<RiderProvider> {
         backgroundColor: XColors.grayColor.withOpacity(0.3),
         colorText: Colors.black,
         mainButton: TextButton(
-            onPressed: () => OpenFile.open(filepath),
-            child: KText(
-              "Open",
-              color: Colors.black,
-              weight: FontWeight.bold,
-            )),
-      );
-
-  Future<String?> checkForFile(String dir, String fileName) async {
-    final _dir = Directory(dir);
-    final List<FileSystemEntity> items =
-        await _dir.list(recursive: false).toList();
-    String? exist;
-    for (FileSystemEntity item in items) {
-      final file = item.path.split("/").last;
-      if (file.contains(fileName)) {
-        exist = item.path;
-      } else {}
-    }
-    if (exist == null) {
-      final _downPath = await XFiles.getDownloadFolderPath();
-      final _downdir = Directory(_downPath);
-      final List<FileSystemEntity> downItems =
-          await _downdir.list(recursive: false).toList();
-      for (FileSystemEntity downitem in downItems) {
-        final downfile = downitem.path.split("/").last;
-        if (downfile.contains(fileName)) {
-          exist = downitem.path;
-        }
-      }
-    }
-    return exist;
-  }
-
-  Widget helpWidget(bool isDarkMode, DownloadExternallyProvider pro) =>
-      Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: isDarkMode ? XColors.darkColor : XColors.lightColor1,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 50.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  KText(
-                    "Frequently Asked Questions",
-                    size: 75.sp,
-                    color: XColors.grayColor,
-                    weight: FontWeight.bold,
-                    googleFont: GoogleFonts.mavenPro(),
-                  ),
-                ],
-              ),
-              SizedBox(height: 40.h),
-              KText(
-                "How many providers are there ?",
-                color: Colors.red,
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              KText(
-                "There are 4 different download providers.",
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              SizedBox(height: 40.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: providerList
-                    .map(
-                      (e) => Container(
-                        decoration: G.green2GradBannerDeco,
-                        height: 100.w,
-                        width: 200.w,
-                        alignment: Alignment.center,
-                        child: KText(
-                          e,
-                          size: 30.sp,
-                          weight: FontWeight.bold,
-                          color: isDarkMode
-                              ? XColors.darkColor1
-                              : XColors.lightColor1,
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-              SizedBox(height: 40.h),
-              KText(
-                "What should i do if link dosen't work ?",
-                color: Colors.red,
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              KText(
-                "If one dosen't work or show \"Something went wrong\",then try downloading with different download provider.",
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              SizedBox(height: 40.h),
-              KText(
-                "Some links are old and might not work or take more time",
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              SizedBox(height: 40.h),
-              KText(
-                "What can i do if in-app downloading is not working ?",
-                color: Colors.red,
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              KText(
-                "If In-App Download is still not working then try switching to Browser Mode.",
-                color: XColors.grayColor,
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  KText(
-                    "Enable Broweser Mode",
-                    googleFont: GoogleFonts.mavenPro(),
-                    size: 55.sp,
-                    weight: FontWeight.bold,
-                    color: isDarkMode
-                        ? XColors.darkGray.withOpacity(0.7)
-                        : XColors.darkColor1.withOpacity(0.7),
-                  ),
-                  CupertinoSwitch(
-                    value: pro.external,
-                    onChanged: (val) {
-                      pro.changeMode(val);
-                      while (Get.isBottomSheetOpen == true) {
-                        Get.back();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 40.h),
-              KText(
-                "BROWSER MODE will open same download link in your browser.",
-                color: Colors.blueAccent,
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              SizedBox(height: 40.h),
-              KText(
-                "After File is Downloaded You can directly open from Popup Snackbar",
-                color: isDarkMode ? Colors.yellowAccent : Colors.indigo,
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-              SizedBox(height: 40.h),
-              KText(
-                "Snackbar Will automatically close after 5 seconds",
-                color: isDarkMode ? Colors.yellowAccent : Colors.indigo,
-                weight: FontWeight.bold,
-                googleFont: GoogleFonts.mavenPro(),
-              ),
-            ],
+          onPressed: () => OpenFile.open(filepath),
+          child: KText(
+            "Open",
+            color: Colors.black,
+            weight: FontWeight.bold,
           ),
         ),
       );
 
-  List<String> providerList = ["GET", "CLOUDFLARE", "IPFS", "INFURA"];
+  Future<FileResult?> checkForFile(String dir, String fileName) async {
+    final _appFolder = await XFiles.handleAppFolderDir();
+    log.wtf(_appFolder.path);
+
+    //   final newDir = dir.replaceAll("GeekLibrary/", "");
+
+    //   final _dir = Directory(newDir);
+    //   final List<FileSystemEntity> items =
+    //       await _dir.list(recursive: false).toList();
+    //   String? filepath;
+    //   late String directory;
+    //   bool isSucess = false;
+    //   for (FileSystemEntity item in items) {
+    //     final file = item.path.split("/").last;
+    //     if (file.contains(fileName)) {
+    //       isSucess = true;
+    //       filepath = item.path;
+    //       directory = item.path.split("/").first;
+    //     } else {}
+    //   }
+    //   if (isSucess == false) {
+    //     //! Check file in download folder
+    //     final _downPath = await XFiles.getDownloadFolderPath();
+    //     final _downdir = Directory(_downPath);
+    //     final List<FileSystemEntity> downItems =
+    //         await _downdir.list(recursive: false).toList();
+    //     for (FileSystemEntity downitem in downItems) {
+    //       final downfile = downitem.path.split("/").last;
+    //       if (downfile.contains(fileName)) {
+    //         isSucess = true;
+    //         filepath = downitem.path;
+    //         directory = downitem.path.split("/").first;
+    //       }
+    //     }
+    //   }
+    //   return FileResult(
+    //     dirPath: directory,
+    //     filePath: filepath,
+    //     fileName: fileName,
+    //     isSucess: isSucess,
+    //   );
+  }
 }

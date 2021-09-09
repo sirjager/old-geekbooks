@@ -9,8 +9,6 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   adaptive_dialog: ^1.0.1
   cached_network_image: ^3.0.0
   cupertino_icons: ^1.0.3
@@ -21,11 +19,12 @@ dependencies:
   firebase_app_check: ^0.0.2+1
   firebase_auth: ^3.0.1
   firebase_core: ^1.4.0
+  flutter:
+    sdk: flutter
   flutter_local_notifications: ^8.1.1+2
   flutter_phoenix: ^1.0.0
   flutter_riverpod: ^0.14.0+3
   flutter_screenutil: ^5.0.0+2
-  flutter_secure_storage: ^4.2.0
   flutter_staggered_grid_view: ^0.4.0
   flutter_svg: ^0.22.0
   flutter_windowmanager: ^0.2.0
@@ -49,6 +48,7 @@ dependencies:
   readmore: ^2.1.0
   shimmer: ^2.0.0
   string_validator: ^0.3.0
+  system_settings: ^2.0.0
   translator: ^0.1.7
   typicons_flutter: ^0.5.0
   url_launcher: ^6.0.9

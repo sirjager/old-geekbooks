@@ -1,25 +1,20 @@
-import 'package:geeklibrary/core/dialog/dialogs.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:geeklibrary/export/export.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:system_settings/system_settings.dart';
 
 class SPermissions {
   static Future<bool> handleStoragePermission() async {
     try {
       var status = await Permission.storage.status;
-      if (await Permission.storage.isRestricted) {
-        return __request().then((value) {
-          if (!value) Kui.toast("You need to give storage permission manually");
-          return value;
-        });
-      } else if (status.isDenied) {
-        return __request().then((value) {
-          if (!value) Kui.toast("You need to give storage permission manually");
-          return value;
-        });
-      } else if (status.isGranted) {
+      if (status != PermissionStatus.granted) {
+        final hasAccess = await __request();
+        if (!hasAccess)
+          showDialog(hasAccess);
+        else {}
+        return hasAccess;
+      } else
         return true;
-      } else {
-        return __request();
-      }
     } catch (e) {
       return false;
     }
@@ -27,4 +22,24 @@ class SPermissions {
 
   static Future<bool> __request() async =>
       await Permission.storage.request().isGranted;
+
+  static showDialog(bool hasAccess) {
+    Get.snackbar(
+      "NO STORAGE PERMISSION",
+      "Geeklibrary dosenot have storage permission\nOpen App Settings to give permission manually",
+      duration: Duration(seconds: 5),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.redAccent.withOpacity(0.3),
+      colorText: Colors.black,
+      mainButton: TextButton(
+        onPressed: SystemSettings.app,
+        child: KText(
+          "open settings",
+          size: 40.sp,
+          color: Colors.black,
+          weight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
 }

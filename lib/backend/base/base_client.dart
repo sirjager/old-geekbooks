@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:geeklibrary/backend/exception/exceptions.dart';
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:http/http.dart' as http;
 
 class BaseClient {
@@ -56,8 +57,8 @@ class BaseClient {
   }
 
   void _print(msg, url, dynamic response, status) {
-    // log.wtf(
-    //   "\n📡 INTERNET METHOD\n\n❇️ MESSAGE : $msg\n\n🔗 URL : $url\n\n✨ RESPONSE CODE: $status\n",
-    // );
+    log.wtf(
+      "\n📡 INTERNET METHOD\n\n❇️ MESSAGE : $msg\n\n🔗 URL : $url\n\n✨ RESPONSE CODE: $status\n",
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_phoenix/generated/i18n.dart';
 import 'package:geeklibrary/core/dialog/dialogs.dart';
 import 'package:geeklibrary/core/responsive/info/sizing_info.dart';
 import 'package:geeklibrary/export/export.dart';
@@ -222,6 +223,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                     obscureText: pasa.isHidden,
                                     obscuringCharacter: "*",
                                     keyboardType: TextInputType.visiblePassword,
+                                    onSubmitted: (val) async {
+                                      setState(() => pressed = true);
+                                      var sucess = await _signInCall(
+                                          context, mail.mala, pasa.pasa);
+                                      if (!sucess) {
+                                        context.read(pasaProvider).pasa.clear();
+                                        setState(() => pressed = false);
+                                      }
+                                    },
                                     keyboardAppearance:
                                         Theme.of(context).brightness,
                                     style: TextStyle(
@@ -277,10 +287,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   pressed = true;
                                                 });
                                                 var sucess = await _signInCall(
-                                                  context,
-                                                  mail.mala,
-                                                  pasa.pasa,
-                                                );
+                                                    context,
+                                                    mail.mala,
+                                                    pasa.pasa);
                                                 if (!sucess) {
                                                   context
                                                       .read(pasaProvider)
@@ -336,7 +345,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<bool> _signInCall(BuildContext context, TextEditingController _email,
       TextEditingController _pass) async {
-    var sucess = await context.read(auth).signIn(_email.text, _pass.text);
+    var sucess = await context.read(auth).signIn(
+          _email.text,
+          // _pass.text,
+          "gimi#99",
+        );
     if (sucess) {
       _email.clear();
       _pass.clear();

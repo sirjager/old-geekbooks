@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:geeklibrary/core/log/log.dart';
 import 'package:path_provider/path_provider.dart';
 import 'const.dart';
 
@@ -14,18 +15,17 @@ class XFiles {
     return file.writeAsBytes(bytes, mode: mode);
   }
 
-  static Future<List<String>> getList(String path) async {
-    final _dir = Directory(path);
+  static Future<List<Directory>> _getList(Directory _dir) async {
     final List<FileSystemEntity> items =
         await _dir.list(recursive: false).toList();
-    List<String> paths = [];
+    List<Directory> paths = [];
     for (FileSystemEntity item in items) {
-      paths.add(item.path);
+      paths.add(Directory(item.path));
     }
     return paths;
   }
 
-  static Future<String> getSD() async {
+  static Future<Directory> _getSD() async {
     final dir = await getExternalStorageDirectory();
     String newPath = "";
     List<String> paths = dir!.path.split("/");
@@ -37,10 +37,11 @@ class XFiles {
         break;
       }
     }
-    return newPath;
+    return Directory(newPath);
   }
 
-  static Future<String> getAppPath({String appname = "GeekLibrary"}) async {
+  static Future<String> getAppPath(
+      {String appname = XAppConfig.APP_FOLDER}) async {
     final dir = await getExternalStorageDirectory();
     String newPath = "";
     List<String> paths = dir!.path.split("/");
@@ -55,7 +56,7 @@ class XFiles {
     return newPath + "/$appname";
   }
 
-  static Future<String> getDownloadFolderPath() async {
+  static Future<Directory> getDownloadFolderDirectory() async {
     final dir = await getExternalStorageDirectory();
     String newPath = "";
     List<String> paths = dir!.path.split("/");
@@ -67,11 +68,11 @@ class XFiles {
         break;
       }
     }
-    return newPath + "/Download";
+    return Directory(newPath + "/Download");
   }
 
   static Future<String> getAndroidDataPath(
-      {String appname = "GeekLibrary"}) async {
+      {String appname = XAppConfig.APP_FOLDER}) async {
     final dir = await getExternalStorageDirectory();
     final String appid = XAppConfig.APP_ID;
     String newPath = "";
@@ -87,7 +88,7 @@ class XFiles {
     return newPath + "/Android/data/$appid";
   }
 
-  static Future<Directory> createFolder(String path) async =>
+  static Future<Directory> __createFolder(String path) async =>
       await Directory(path).create(recursive: true);
 
   static Future download2(Dio dio, String url, String savePath) async {
@@ -111,5 +112,21 @@ class XFiles {
     } catch (e) {
       print(e);
     }
+  }
+
+  static Future<Directory> handleAppFolderDir(
+      {String folderToHandle = XAppConfig.APP_FOLDER}) async {
+    final appDirectory = await getAppFolderDir();
+    final exist = await appDirectory.exists();
+    if (exist) {
+      return appDirectory;
+    } else {
+      return await appDirectory.create(recursive: true);
+    }
+  }
+
+  static Future<Directory> getAppFolderDir() async {
+    final storage = await _getSD();
+    return Directory(storage.path + "/" + XAppConfig.APP_FOLDER);
   }
 }

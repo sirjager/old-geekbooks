@@ -28,10 +28,20 @@ class _BookViewState extends State<BookView> {
       body: !delayed
           ? Center(
               child: Lottie.asset(MyAssets.books, height: 400.w, onLoaded: (_) {
-                Future.delayed(Duration(seconds: 2)).then((value) {
-                  setState(() {
-                    delayed = true;
-                  });
+                Future.delayed(Duration(seconds: 2)).then((value) async {
+                  bool ismount = false;
+                  if (mounted) {
+                    ismount = true;
+                    setState(() => delayed = true);
+                  } else {
+                    while (ismount == false) {
+                      await Future.delayed(Duration(milliseconds: 100));
+                      if (mounted) {
+                        ismount = true;
+                        setState(() => delayed = true);
+                      }
+                    }
+                  }
                 });
               }),
             )

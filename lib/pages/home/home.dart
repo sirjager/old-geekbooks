@@ -19,29 +19,29 @@ class Homepage extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 20.h),
           child: Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 100.h),
-                child: Consumer(
-                  builder: (context, watch, child) {
-                    var lot = watch(KLottieProvider.lottieProvider);
-                    return GestureDetector(
-                      onTap: () async => lot.play(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            child: Lottie.asset(
-                              MyAssets.girlFlower,
-                              repeat: lot.animate,
-                              height: 500.w,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.only(top: 100.h),
+              //   child: Consumer(
+              //     builder: (context, watch, child) {
+              //       var lot = watch(KLottieProvider.lottieProvider);
+              //       return GestureDetector(
+              //         onTap: () async => lot.play(),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.end,
+              //           children: [
+              //             Container(
+              //               child: Lottie.asset(
+              //                 MyAssets.girlFlower,
+              //                 repeat: lot.animate,
+              //                 height: 500.w,
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
               Column(
                 children: [
                   ScreenTopbar(),
