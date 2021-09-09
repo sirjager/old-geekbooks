@@ -20,8 +20,12 @@ class SPermissions {
     }
   }
 
-  static Future<bool> __request() async =>
-      await Permission.storage.request().isGranted;
+  static Future<bool> __request() async {
+    final storage = await Permission.storage.request().isGranted;
+    final externalStorage =
+        await Permission.manageExternalStorage.request().isGranted;
+    return storage && externalStorage;
+  }
 
   static showDialog(bool hasAccess) {
     Get.snackbar(

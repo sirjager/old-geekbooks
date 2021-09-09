@@ -67,6 +67,7 @@ class FileDownloadProvider {
         }
       }
     } catch (e) {
+      print(e);
       Kui.toast(e.toString());
     }
 
