@@ -1,4 +1,5 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_windowmanager/flutter_windowmanager.dart';
@@ -23,6 +24,8 @@ Future<void> main() async {
   Hive.registerAdapter(EncBookAdapter());
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: "admin@gl.com", password: "3398051811");
   runApp(ProviderScope(child: MyApp()));
 }
 

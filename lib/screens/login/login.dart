@@ -18,13 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool pressed = false;
 
   @override
-  void initState() {
-    super.initState();
-    FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: "admin@gl.com", password: "3398051811");
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, info) {
