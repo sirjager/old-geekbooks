@@ -18,6 +18,13 @@ class _LoginScreenState extends State<LoginScreen> {
   bool pressed = false;
 
   @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: "admin@gl.com", password: "3398051811");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, info) {
@@ -344,10 +351,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<bool> _signInCall(BuildContext context, TextEditingController _email,
       TextEditingController _pass) async {
-    var sucess = await context.read(auth).signIn(
-          _email.text,
-          _pass.text,
-        );
+    var sucess = await context.read(auth).signIn(_email.text, _pass.text);
     if (sucess) {
       _email.clear();
       _pass.clear();

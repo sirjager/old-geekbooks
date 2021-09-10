@@ -18,43 +18,41 @@ class FileDownloadProvider {
       String url, Book book, bool downloadWithBrowser) async {
     var dio = dioo.Dio();
     try {
-      if (downloadWithBrowser) {
-        await launch.launch(url);
+      await SPermissions.handleStoragePermission();
+      final _storagePermission = await Permission.storage.status;
+      final _android = await DeviceInfoPlugin().androidInfo;
+      late final bool _externalPermission;
+      if (int.parse(_android.version.release) > 10) {
+        _externalPermission = await Permission.manageExternalStorage.isGranted;
       } else {
-        await SPermissions.handleStoragePermission();
-        final _storagePermission = await Permission.storage.status;
-        final _android = await DeviceInfoPlugin().androidInfo;
-        late final bool _externalPermission;
-        if (int.parse(_android.version.release) > 10) {
-          _externalPermission =
-              await Permission.manageExternalStorage.isGranted;
-        } else {
-          _externalPermission = true;
-        }
-        final hasPermission =
-            _storagePermission.isGranted && _externalPermission;
-        if (hasPermission) {
-          if (url.length > 8) {
-            final appfolder = await XFiles.handleAppFolderDir();
-            String _filename = "";
-            if (book.author != null) {
-              _filename = book.author! + " - ";
-            } else {}
-            if (book.title != null) {
-              _filename = _filename + book.title!;
-            } else {}
-            if (book.year != null) {
-              _filename = _filename + "(${book.year!})";
-            } else {}
-            if (book.edition != null) {
-              _filename = _filename + "\[${book.edition!}-EDITION\]";
-            } else {}
-            final fileName = _filename + "." + (book.exten ?? "");
-            final String filepath = appfolder.path + "/" + fileName;
-            final checkForFileBeforeStarting =
-                await ___checkForFile(filepath, fileName, appfolder);
-            if (checkForFileBeforeStarting.isSucess) {
-              __finishedSnackbar(filepath, fileName);
+        _externalPermission = true;
+      }
+      final hasPermission = _storagePermission.isGranted && _externalPermission;
+      if (hasPermission) {
+        if (url.length > 8) {
+          final appfolder = await XFiles.handleAppFolderDir();
+          String _filename = "";
+          if (book.author != null) {
+            _filename = book.author! + " - ";
+          } else {}
+          if (book.title != null) {
+            _filename = _filename + book.title!;
+          } else {}
+          if (book.year != null) {
+            _filename = _filename + "(${book.year!})";
+          } else {}
+          if (book.edition != null) {
+            _filename = _filename + "\[${book.edition!}-EDITION\]";
+          } else {}
+          final fileName = _filename + "." + (book.exten ?? "");
+          final String filepath = appfolder.path + "/" + fileName;
+          final checkForFileBeforeStarting =
+              await ___checkForFile(filepath, fileName, appfolder);
+          if (checkForFileBeforeStarting.isSucess) {
+            __finishedSnackbar(filepath, fileName);
+          } else {
+            if (downloadWithBrowser) {
+              await launch.launch(url);
             } else {
               Get.snackbar(
                 "Download Started",
@@ -80,25 +78,25 @@ class FileDownloadProvider {
               }
             }
           }
-        } else {
-          Get.snackbar(
-            "NO STORAGE PERMISSION",
-            "Geeklibrary dosenot have storage permission\nOpen App Settings to give permission manually",
-            duration: Duration(seconds: 5),
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.redAccent.withOpacity(0.3),
-            colorText: Colors.black,
-            mainButton: TextButton(
-              onPressed: SystemSettings.app,
-              child: KText(
-                "open settings",
-                size: 40.sp,
-                color: Colors.black,
-                weight: FontWeight.bold,
-              ),
-            ),
-          );
         }
+      } else {
+        Get.snackbar(
+          "NO STORAGE PERMISSION",
+          "Geeklibrary dosenot have storage permission\nOpen App Settings to give permission manually",
+          duration: Duration(seconds: 5),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent.withOpacity(0.3),
+          colorText: Colors.black,
+          mainButton: TextButton(
+            onPressed: SystemSettings.app,
+            child: KText(
+              "open settings",
+              size: 40.sp,
+              color: Colors.black,
+              weight: FontWeight.bold,
+            ),
+          ),
+        );
       }
     } catch (e) {
       print(e);
