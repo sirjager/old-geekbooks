@@ -20,4 +20,4 @@ samples, guidance on mobile development, and a full API reference.
 
 note: this video was not taken for the demo purpose, just for showing someone. But this is only video i have.
 
-![Watch the video](Geekbooks-demo.mp4)
+<video width="1080" height="1090" controls> <source src="Geekbooks-demo.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
